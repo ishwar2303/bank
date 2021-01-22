@@ -11,7 +11,7 @@
         }
     }
     else{
-        $_SESSION['error_msg'] = 'LogIn to view that resource';
+        $_SESSION['error_msg'] = 'Sign In to view that resource';
         header('Location: login.php');
         exit;
     }
@@ -149,136 +149,181 @@
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Bank</title>
-    <link rel="stylesheet" type="text/css" href="pretty-forms-assets/css/form.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-     <div class="wrapper">
-        <div class="form-container">
-                <h5 class="form-header">
-                    <label>Add Bank</label>
-                </h5>
-                <?php 
-                    if(isset($_SESSION['success_msg'])){
-                        ?>
-                        <div class="success">
-                            <i class="fa fa-check"></i>
-                            <span>
-                                <?php echo $_SESSION['success_msg']; ?>
-                            </span>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <?php require 'includes/dashboard-header.php'; ?>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <?php require 'includes/side-navigation.php'; ?>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add Bank</h4>
+                      <?php 
+                          if(isset($_SESSION['success_msg'])){
+                              ?>
+                              <div class="success-msg">
+                                  <i class="fa fa-check"></i>
+                                  <span>
+                                      <?php echo $_SESSION['success_msg']; ?>
+                                  </span>
+                              </div>
+                              <?php
+                              unset($_SESSION['success_msg']);
+                          }
+                      ?>
+                      <?php 
+                          if(isset($_SESSION['error_msg'])){
+                              ?>
+                              <div class="error-msg">
+                                  <i class="fa fa-close"></i>
+                                  <span>
+                                      <?php echo $_SESSION['error_msg']; ?>
+                                  </span>
+                              </div>
+                              <?php
+                              unset($_SESSION['error_msg']);
+                          }
+                      ?>
+                    <p class="card-description"> Bank Details </p>
+                    <form class="forms-sample" method="POST">
+                      <div class="form-group">
+                        <label for="exampleInputName1">Bank Name</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend ">
+                            <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-university"></i></span>
+                          </div>
+                          <input type="text" class="form-control form-input" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name">
                         </div>
-                        <?php
-                        unset($_SESSION['success_msg']);
-                    }
-                ?>
-                <?php 
-                    if(isset($_SESSION['error_msg'])){
-                        ?>
-                        <div class="error">
-                            <i class="fa fa-close"></i>
-                            <span>
-                                <?php echo $_SESSION['error_msg']; ?>
-                            </span>
+                        <div class="form-input-response">
+                            <?php echo $bank_name_error; ?>
                         </div>
-                        <?php
-                        unset($_SESSION['error_msg']);
-                    }
-                ?>
-                <form action="" method="POST" id="validate-form" class="form-layout" novalidate="">
-                    <div class="set-row">
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">Bank Name</label>
-                                <div class="input-wrap-for-icon">
-                                    <span>
-                                        <i class="fa fa-bank"></i>
-                                    </span>
-                                    <input class="form-input" type="text" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name" required="">
-                                </div>
-                            </div>
-                            <div class="form-input-response">
-                                <?php echo $bank_name_error; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="set-row">
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">Bank Branch</label>
-                                <input  class="form-input"  name="bankBranch" value="<?php echo $bank_branch; ?>" placeholder="Bank Branch" required="">
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="exampleInputCity1">Bank Branch</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fa fa-code-branch"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" name="bankBranch" value="<?php echo $bank_branch; ?>" placeholder="Branch Name">
                             </div>
                             <div  class="form-input-response">
                                 <?php echo $bank_branch_error; ?>
                             </div>
-                        </div>
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">Bank City</label>
-                                <input class="form-input"  name="bankCity" value="<?php echo $bank_city; ?>" placeholder="Bank City" required="">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="exampleInputCity1">Bank City</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fa fa-map-marker-alt"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" name="bankCity" value="<?php echo $bank_city; ?>" placeholder="Bank Name">
                             </div>
                             <div class="form-input-response">
                                 <?php echo $bank_city_error; ?>
                             </div>
+                          </div>
                         </div>
-                    </div>
-                    
-                    
-                    
-                    <div class="set-row">
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">Address</label>
-                                <textarea class="form-input" rows="6" name="bankAddress"><?php echo $bank_address; ?></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Address</label>
+                        <textarea class="form-control form-input" name="bankAddress" id="exampleTextarea1" rows="6"><?php echo $bank_address; ?></textarea>
+                        <div class="form-input-response">
+                            <?php echo $bank_address_error; ?>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="exampleInputCity1">Contact Person Name</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fa fa-user"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" name="bankContactPersonName" value="<?php echo $bank_contact_person_name; ?>" placeholder="Bank Name">
                             </div>
                             <div class="form-input-response">
-                                <?php echo $bank_address_error; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="set-row">
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">Contact Person Name</label>
-                                <div class="input-wrap-for-icon">
-                                    <span>
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input  class="form-input"  name="bankContactPersonName" value="<?php echo $bank_contact_person_name; ?>">
-                                </div>
-                            </div>
-                            <div id="password-validate-response" class="form-input-response">
                                 <?php echo $bank_contact_person_name_error; ?>
                             </div>
-                        </div>
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">Contact Person Number</label>
-                                <div class="input-wrap-for-icon">
-                                    <span>
-                                        <i class="fa fa-phone"></i>
-                                    </span>
-                                    <input type="number" class="form-input" name="bankContactPersonNumber" value="<?php echo $bank_contact_person_number; ?>">
-                                </div>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="exampleInputCity1">Contact Person Number</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-phone-alt"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" name="bankContactPersonNumber" value="<?php echo $bank_contact_person_number; ?>" placeholder="Bank Name">
                             </div>
                             <div class="form-input-response">
                                 <?php echo $bank_contact_person_number_error; ?>
                             </div>
+                          </div>
                         </div>
-                    </div>
-            
-                    
-                    <div class="submit-btn-wrapper">
-                        <button id="submit-btn">Add</button>
-                    </div>
-                </form>
-                <div class="form-footer"></div>
+                      </div>              
+                      <button type="submit" class="btn btn-gradient-primary mr-2">Add</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
             </div>
-     </div>
-</body>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/file-upload.js"></script>
+    <!-- End custom js for this page -->
+  </body>
 </html>

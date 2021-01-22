@@ -80,49 +80,54 @@
     }
 ?>
 
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LogIn</title>
-        <link rel="stylesheet" type="text/css" href="pretty-forms-assets/css/form.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <div class="wrapper">
-            
-            <div class="form-container login-form">
-                <h5 class="form-header">
-                    <label>User Login</label>
-                </h5>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+          <div class="row flex-grow">
+            <div class="col-lg-4 mx-auto">
+              <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+                  <img src="assets/images/logo.svg">
+                </div>
+                <h4>Hello! let's get started</h4>
+                <h6 class="font-weight-light">Sign in to continue.</h6>
+
                 <?php if($login_error != ''){ ?>
-                    <div class="error">
-                        <i class="fa fa-close"></i>
+                    <div class="error-msg">
+                        <i class="fas fa-times"></i>
                         <span>
                             <?php echo $login_error; ?>
                         </span>
                     </div>
                 <?php } ?>
-
-                <?php 
-                    if(isset($_SESSION['register_success'])){
-                        ?>
-                        <div class="success">
-                            <i class="fa fa-check"></i>
-                            <span>
-                                <?php echo $_SESSION['register_success']; ?>
-                            </span>
-                        </div>
-                        <?php
-                        unset($_SESSION['register_success']);
-                    }
-                ?>
-
+              
                 <?php 
                     if(isset($_SESSION['error_msg'])){
                         ?>
-                        <div class="error">
-                            <i class="fa fa-close"></i>
+                        <div class="error-msg">
+                          <i class="fas fa-times"></i>
                             <span>
                                 <?php echo $_SESSION['error_msg']; ?>
                             </span>
@@ -132,52 +137,76 @@
                     }
                 ?>
                 
-                <form action="" method="POST" id="validate-form" class="form-layout" novalidate>
-                    <div class="set-row">
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">E-mail</label>
-                                <div class="input-wrap-for-icon">
-                                    <span>
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input id="email-validate" class="form-input" type="email" name="userEmail" value="<?php echo $user_email; ?>" placeholder="E-mail" required="">
-                                </div>
-                            </div>
-                            <div id="email-validate-response" class="form-input-response">
-                                <?php echo $user_email_error; ?>
-                            </div>
+                <?php 
+                    if(isset($_SESSION['success_msg'])){
+                        ?>
+                        <div class="success-msg">
+                            <i class="fa fa-check"></i>
+                            <span>
+                                <?php echo $_SESSION['success_msg']; ?>
+                            </span>
                         </div>
+                        <?php
+                        unset($_SESSION['success_msg']);
+                    }
+                ?>
+
+                <form class="pt-3" method="POST">
+                  <div class="form-group">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-envelope"></i></span>
+                      </div>
+                      <input type="email" class="form-control form-input" id="exampleInputPassword1" name="userEmail" placeholder="User Email" value="<?php echo $user_email; ?>">
                     </div>
-                    <div class="set-row">
-                        <div class="set-col">
-                            <div class="input-container">
-                                <label class="input-label">Password</label>
-                                <div class="input-wrap-for-icon">
-                                    <span>
-                                        <i class="fa fa-key"></i>
-                                    </span>
-                                    <input id="password" class="form-input" type="password" name="userPassword" value="<?php echo $user_password ?>" placeholder="Password" required="">
-                                    <i id="password-show-eye-icon" class="fa fa-eye"></i>
-                                    <i id="password-hide-eye-icon" class="fa fa-eye-slash"></i>
-                                </div>
-                            </div>
-                            <div id="password-validate-response" class="form-input-response">
-                                <?php echo $user_password_error; ?>
-                            </div>
-                        </div>
+                    <div id="email-validate-response" class="form-input-response">
+                        <?php echo $user_email_error; ?>
                     </div>
-            
-                    <div class="submit-btn-wrapper">
-                        <button id="submit-btn">Login</button>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-key"></i></span>
+                      </div>
+                      <input type="password" class="form-control form-input" id="exampleInputPassword1" name="userPassword" placeholder="Password" value="<?php echo $user_password; ?>">
                     </div>
+                    <div id="password-validate-response" class="form-input-response">
+                        <?php echo $user_password_error; ?>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                  </div>
+                  <!--
+                  <div class="my-2 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                      <label class="form-check-label text-muted">
+                        <input type="checkbox" class="form-check-input"> Keep me signed in </label>
+                    </div>
+                    <a href="#" class="auth-link text-black">Forgot password?</a>
+                  </div>
+                  -->
+                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.php" class="text-primary">Create</a>
+                  </div>
                 </form>
-                <div class="form-footer"></div>
+              </div>
             </div>
-    
+          </div>
         </div>
-
-        <script type="text/javascript" src="pretty-forms-assets/js/form.js"></script>
-
-    </body>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+  </body>
 </html>
