@@ -1,6 +1,11 @@
 <?php 
     session_start();
     require_once('connection.php');
+
+    date_default_timezone_set("Asia/Kolkata");
+    $epoch_time = time();
+    $timestamp = date("y-m-d h:i:sa", $epoch_time);
+
     $user_full_name = '';
     $user_email = '';
     $user_contact = '';
@@ -137,7 +142,7 @@
         }
         
         if($control){ // Insert data into database control = 1
-            $sql = "INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES (NULL, '$user_full_name', '$encoded_user_email', '$encoded_user_contact', '$encoded_user_password', '$user_role', current_timestamp())";
+            $sql = "INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES (NULL, '$user_full_name', '$encoded_user_email', '$encoded_user_contact', '$encoded_user_password', '$user_role', '$timestamp')";
             $conn->query($sql); 
             
             if($conn->error == ''){    

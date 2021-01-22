@@ -1,6 +1,8 @@
 <?php 
     session_start();
     require_once('connection.php');
+    
+
     if(isset($_SESSION['user_role'])){
         if($_SESSION['user_role'] != '2'){
             $_SESSION['error_msg'] = 'Only Admin can access that resource';
@@ -40,6 +42,11 @@
         return preg_match($reg_exp, $name_to_validate);
     }
     
+    function addressValidation($address_to_validate){
+        $reg_exp = "/^[a-zA-Z0-9\/\-\,\#\.\_\s]+$/";
+        return preg_match($reg_exp, $address_to_validate);
+    }
+
     function contactValidation($contact_to_validate){
         $reg_exp = "/^[6789][0-9]{9}$/";
         return preg_match($reg_exp, $contact_to_validate);
@@ -89,7 +96,7 @@
         }
 
         if(!empty($bank_address)){
-            if(!nameValidation($bank_address)){
+            if(!addressValidation($bank_address)){
                 $bank_address_error = 'Invalid address';
                 $control = 0;
             }

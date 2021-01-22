@@ -11,7 +11,9 @@
 </head>
 <body>
         <?php print_r($_SESSION); ?>
-
+        <br/><br/>
         <a href="logout.php">Logout</a>
+        <br/><br/>
+        <a href="add-bank.php">Add Bank</a>
 </body>
 </html>
