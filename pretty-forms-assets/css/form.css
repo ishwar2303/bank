@@ -1,0 +1,435 @@
+/* set default margin and padding of all elements to 0 */
+*{
+    margin: 0;
+    padding: 0;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+    align-items: center;
+    padding: 0px 10px;
+    max-width: 100%;
+    margin-top: 100px;
+}
+
+.form-container{
+    border : 0.5px solid #bdc3c7;
+    border-radius: 10px;
+    width: 800px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding-top: 0;
+    font-weight: 600;
+    background: white;
+}
+form{
+    padding: 0px 20px;
+    background: white;
+}
+
+/* form-header */
+.form-header{
+    font-size: 20px;
+    background : #60a3bc;
+    margin: 0;
+    color: white;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    font-weight: 400;
+}
+.form-header > label{
+    padding: 7px 0px;
+}
+
+/* form footer */
+.form-footer{
+    padding: 5px 0px;
+    background : #60a3bc;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* give this class to a parent to make childs set in row */
+.set-row{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.set-row > div{
+    margin-right:10px;
+}
+.set-row > div:last-child{
+    margin-right: 0;
+}
+
+/* give this class to parent to make childs set in column */
+.set-col{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+/* start custom normal input */ 
+.input-container{
+    display: flex;
+    flex-direction: column;
+}
+.input-label{
+    margin-bottom: 5px;
+    color: #34495e;
+}
+.form-input, .form-input-optional{
+    border : 0.5px solid #3498db;
+    padding: 10px 5px;
+    border-radius: 5px;
+    display: flex;
+    flex: 1;
+
+}
+.form-input:focus, .form-input-optional:focus{
+    outline: none;
+    box-shadow: 0px 0px 0px 3px rgb(52, 152, 219,0.3);
+}
+.input-wrap-for-icon{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.input-wrap-for-icon > span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    background: #ecf0f1;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: rgba(0,0,255,0.6);
+    font-size: 20px;
+    border-left: 0.5px solid #bdc3c7;
+    border-top: 0.5px solid #bdc3c7;
+    border-bottom: 0.5px solid #bdc3c7;
+}
+.input-wrap-for-icon > input{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.input-wrap-for-icon > select{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.input-wrap-for-icon > select:focus{
+    outline: none;
+}
+/* end custom normal input */
+/* textarea has same layout without icon */
+form select{
+    border : 0.5px solid #bdc3c7;
+}
+.input-container > select{
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+.input-container > select:focus{
+    outline: none;
+}
+/* start custom radio-input */
+.radio-inputs{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -5px;
+}
+.radio-inputs > label{
+    margin-bottom: 10px;
+    margin-right: 10px;
+    height: 35px;
+}
+.radio-inputs > label > input{
+    display: none;
+    width: 0;  
+    height: 0;
+    opacity: 0;
+}
+.radio-inputs > label > span{
+    border: 0.5px solid #bdc3c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0px 10px;
+    border-radius: 5px;
+    font-weight: 400;
+}
+.radio-inputs > label > span > i{
+    margin-right: 7px;
+    color: #7f8c8d;
+}
+.radio-inputs > label > span:hover{
+    background: #d5e9f6;
+}
+.radio-inputs > label > input:checked ~ span{
+    box-shadow: 0px 0px 0px 3px rgb(46, 204, 113, 0.4);
+    border : 0.5px solid rgb(46, 204, 113);
+}
+/* end custom radio-input */
+/* start custom checkbox */
+.checkbox-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -5px;
+}
+.checkbox-container > label{
+    border-radius: 5px;
+    display: flex;
+    height: 35px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+.checkbox-container > label:hover{
+    
+    background: #d5e9f6;
+}
+.checkbox-icon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    background: #ecf0f1;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: #7f8c8d;
+    font-size: 20px;
+    border-left: 0.5px solid #bdc3c7;
+    border-top: 0.5px solid #bdc3c7;
+    border-bottom: 0.5px solid #bdc3c7;
+}
+.checkbox-label{
+    border-top : 0.5px solid #bdc3c7;
+    border-bottom:  0.5px solid #bdc3c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 5px;
+    font-weight: 400;
+}
+.checkbox-input-container{
+    display: flex;
+    align-items: flex-end;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    border-top : 0.5px solid #bdc3c7;
+    border-bottom:  0.5px solid #bdc3c7;
+    border-right: 0.5px solid #bdc3c7;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.no-icon-attached > .checkbox-label{
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-left: 0.5px solid #bdc3c7;
+}
+/* end custom checkbox */
+
+/* start simple checkbox */
+.simple-checkbox-container{
+    display: flex;
+    align-items: center;
+}
+.simple-checkbox-container > label{
+    margin-left: 10px;
+    color: #34495e;
+    font-size: 15px;
+}
+/* end simple checkbox */
+
+/* form submit button */
+.submit-btn-wrapper{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.submit-btn-wrapper > button, .submit-btn-wrapper > input{
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.6);
+    border: 2px solid #3c6382;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 16px;
+    height: 35px;
+    background: #3c6382;
+    color: white;
+    width: 150px;
+}
+
+.submit-btn-wrapper > button:focus, .submit-btn-wrapper > input:focus{
+    outline: none;
+}
+
+.submit-btn-wrapper > button:hover, .submit-btn-wrapper > input:hover{
+    transition: 600ms;
+    color: white;
+    border : 2px solid white;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.6);
+}
+/* */
+
+/* form validation response */
+.form-input-response, .form-radio-and-checkbox-input-response, .form-select-input-response{
+    font-size: 12px;
+    margin-top: 3px;
+    color: red;
+}
+#agree-response{
+    font-size: 12px;
+    margin-top: 3px;
+    display: none;
+}
+.input-valid-error{
+    border :0.5px solid rgb(255, 0, 0);
+}
+.input-valid-error:focus{
+    box-shadow: 0px 0px 0px 3px rgba(255, 0, 0, 0.3);
+}
+.input-valid-success{
+    border :0.5px solid rgb(46, 204, 113);
+}
+.input-valid-success:focus{
+    box-shadow: 0px 0px 0px 3px rgb(46, 204, 113, 0.4);
+}
+.valid-error{
+    color : red;
+}
+.valid-success{
+    color : green;
+}
+.backend-validate-response{
+    font-size: 12px;
+    margin-top: 3px;
+    color : red;
+}
+/* */
+
+/* eye and eye-slash icon (make password visible)*/
+#password-show-eye-icon{
+    cursor: pointer;
+    color:#636e72;
+    font-size: 25px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+#password-hide-eye-icon{
+    cursor: pointer;
+    color: #e74c3c;
+    font-size: 25px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: none;
+}
+#password-match-icon{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color:  rgb(46, 204, 113);
+    display: none;
+    font-size: 25px;
+}
+#password-not-match-icon{
+    color: #e74c3c;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: none;
+    font-size: 25px;
+}
+/* */
+
+/* responsive layout for devices having maximum width 800px */
+@media screen and (max-width : 800px){
+    .form-container{
+        width: 100%;
+    }
+    .set-row{
+        display: flex;
+        flex-direction: column;
+    }
+    .set-row > div{
+        margin-right: 0;
+        margin-top: 10px;
+    }
+    .set-row > div:first-child{
+        margin-top: 0;
+    }
+}
+.registration-success-msg{
+    background : rgb(1, 175, 1);
+    padding: 7px 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 800px;
+    display: flex;
+    color: white;
+}
+
+.registration-success-msg > span{
+    padding: 5px;
+}
+.registration-success-msg > label{
+    padding: 5px;
+}
+.registration-error-msg{
+    background: rgba(255, 0, 0,0.8);
+    color: white;
+    padding: 7px 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 800px;
+    display: flex;
+}
+
+.registration-error-msg > span{
+    padding: 5px;
+}
+.registration-error-msg > label{
+    padding: 5px;
+}
+
+.error{
+    color : red;
+    background: rgba(255,0,0,0.2);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0px 20px;
+    font-weight: 100;
+}
+.error > i{
+    margin-right: 5px;
+}
+.success{
+    color : green;
+    background: rgba(0,255,0,0.3);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0px 20px;
+    font-weight: 100;
+}
+.success > i{
+    margin-right: 5px;
+}

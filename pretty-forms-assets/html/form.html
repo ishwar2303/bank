@@ -1,0 +1,248 @@
+<html>
+    <head>
+        <title>Pretty Form</title>
+        <!-- form css -->
+        <link rel="stylesheet" type="text/css" href="../css/form.css">
+        <!-- icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="wrapper">
+
+            <!-- form start -->
+            <div class="form-container">
+                <h5 class="form-header">
+                    <label>Form Heading</label>
+                </h5>
+                <form action="" method="POST" id="validate-form" class="form-layout" novalidate="">
+                    <div class="set-row">
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">First Name</label>
+                                <div class="input-wrap-for-icon">
+                                    <span>
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input class="form-input" type="text" name="firstName" placeholder="First Name" required="">
+                                </div>
+                            </div>
+                            <div class="form-input-response">
+                            </div>
+                        </div>
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">Last Name</label>
+                                <input class="form-input-optional" type="text" name="lastName" placeholder="Last Name" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-row">
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">E-mail</label>
+                                <div class="input-wrap-for-icon">
+                                    <span>
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input id="email-validate" class="form-input" type="email" name="email" placeholder="E-mail" required="">
+                                </div>
+                            </div>
+                            <div id="email-validate-response" class="form-input-response">
+                            </div>
+                        </div>
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">Contact</label>
+                                <div class="input-wrap-for-icon">
+                                    <span>
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                    <input class="form-input" type="number" name="contact" placeholder="Contact" required="">
+                                </div>
+                            </div>
+                            <div class="form-input-response">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-row">
+                        <div class="custom-radio-input-container set-col">
+                            <label class="input-label">Gender</label>
+                            <div class="radio-inputs">
+                                <label>
+                                    <input type="radio" name="gender" value="male" required="">
+                                    <span>
+                                        <i class="fa fa-male"></i>
+                                        Male
+                                    </span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="gender" value="female" required="">
+                                    <span>
+                                        <i class="fa fa-female"></i>
+                                        Female
+                                    </span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="gender" value="others" required="">
+                                    <span>Others</span>
+                                </label>
+                            </div>   
+                            <div class="form-radio-and-checkbox-input-response">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-row">
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">Programming Language</label>
+                                <div class="input-wrap-for-icon">
+                                    <span>
+                                        <i class="fa fa-laptop"></i>
+                                    </span>
+                                    <select class="select-input" name="language">
+                                        <option value="0" selected="">Choose</option>
+                                        <option value="c++">C++</option>
+                                        <option value="java">JAVA </option>
+                                        <option value="node JS">node JS </option>
+                                        <option value="python">Python</option>
+                                        <option value="php">PHP</option>
+                                    </select>
+                                </div>
+                            </div>    
+                            <div class="form-select-input-response">
+                            </div>
+                        </div>
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">Database</label>
+                                <select class="select-input" name="database">
+                                    <option value="0" selected="">Choose</option>
+                                    <option value="MongoDB">MongoDB</option>
+                                    <option value="MySQL">MySQL</option>
+                                    <option value="MariaDB">MariaDB</option>
+                                    <option value="Amazon Aurora">Amazon Aurora</option>
+                                    <option value="Amazon DynamoDB">Amazon DynamoDB</option>
+                                </select>
+                            </div>    
+                            <div class="form-select-input-response">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-row">
+                        <div class="set-col">
+                            <label class="input-label">Internship</label>
+                            <div class="checkbox-container">
+                                <label>
+                                    <span class="checkbox-icon-container">
+                                        <i class="fa fa-google"></i>
+                                    </span>
+                                    <span class="checkbox-label">
+                                        Google
+                                    </span>
+                                    <span class="checkbox-input-container">
+                                        <input type="checkbox" name="company[]" value="google">
+                                    </span>
+                                </label>
+                                <label>
+                                    <span class="checkbox-icon-container">
+                                        <i class="fa fa-facebook"></i>
+                                    </span>
+                                    <span class="checkbox-label">
+                                        Facebook
+                                    </span>
+                                    <span class="checkbox-input-container">
+                                        <input type="checkbox" name="company[]" value="facebook">
+                                    </span>
+                                </label>
+                                <label>
+                                    <span class="checkbox-icon-container">
+                                        <i class="fa fa-twitter"></i>
+                                    </span>
+                                    <span class="checkbox-label">
+                                        Twitter
+                                    </span>
+                                    <span class="checkbox-input-container">
+                                        <input type="checkbox" name="company[]" value="twitter">
+                                    </span>
+                                </label>
+                                <label class="no-icon-attached">
+                                    <span class="checkbox-label">
+                                        Others
+                                    </span>
+                                    <span class="checkbox-input-container">
+                                        <input type="checkbox" name="company[]" value="others">
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-radio-and-checkbox-input-response">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-row">
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">Address</label>
+                                <textarea class="form-input" rows="6" name="address"></textarea>
+                            </div>
+                            <div class="form-input-response">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-row">
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">Password</label>
+                                <div class="input-wrap-for-icon">
+                                    <span>
+                                        <i class="fa fa-key"></i>
+                                    </span>
+                                    <input id="password" class="form-input" type="password" name="password" placeholder="Password" required="">
+                                    <i id="password-show-eye-icon" class="fa fa-eye"></i>
+                                    <i id="password-hide-eye-icon" class="fa fa-eye-slash"></i>
+                                </div>
+                            </div>
+                            <div id="password-validate-response" class="form-input-response">
+                            </div>
+                        </div>
+                        <div class="set-col">
+                            <div class="input-container">
+                                <label class="input-label">Confirm Password</label>
+                                <div class="input-wrap-for-icon">
+                                    <span>
+                                        <i class="fa fa-key"></i>
+                                    </span>
+                                    <input id="conf-password" class="form-input" type="password" name="confPassword" placeholder="Confirm Password" required="">
+                                    <i id="password-match-icon" class="fa fa-check"></i> <!-- Password match -->
+                                    <i id="password-not-match-icon" class="fa fa-close"></i> <!-- Password not match -->
+                                </div>
+                            </div>
+                            <div class="form-input-response">
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="set-row">
+                        <div class="set-col">
+                            <div class="simple-checkbox-container">
+                                <input id="agree-checkbox" type="checkbox" name="agree" required="">
+                                <label>Agree to terms and conditions</label>
+                            </div>
+                            <div id="agree-response">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-btn-wrapper">
+                        <button id="submit-btn">Submit</button>
+                    </div>
+                </form>
+                <div class="form-footer"></div>
+            </div>    
+            
+            <!-- form end -->
+            
+        </div>
+        <!-- form validation script -->
+        <script type="text/javascript" src="../js/form.js"></script>
+    </body>
+</html>
