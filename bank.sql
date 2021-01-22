@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2021 at 03:30 PM
+-- Generation Time: Jan 22, 2021 at 05:54 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -32,6 +32,7 @@ CREATE TABLE `bank` (
   `bank_name` varchar(200) NOT NULL,
   `bank_branch` varchar(200) NOT NULL,
   `bank_city` varchar(200) NOT NULL,
+  `bank_address` varchar(200) NOT NULL,
   `bank_contact_person_name` varchar(200) NOT NULL,
   `bank_contact_person_number` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -51,6 +52,13 @@ CREATE TABLE `user_registration` (
   `user_role` tinyint(4) NOT NULL,
   `user_updated_timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_registration`
+--
+
+INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES
+(1, 'Admin', 'YWRtaW5AZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'QWRtaW5AMjMwMw==', 2, '2021-01-22 16:38:55');
 
 --
 -- Indexes for dumped tables
@@ -82,7 +90,7 @@ ALTER TABLE `bank`
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

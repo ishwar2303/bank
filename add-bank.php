@@ -90,12 +90,12 @@
 
         if(!empty($bank_address)){
             if(!nameValidation($bank_address)){
-                $bank_name_error = 'Invalid name';
+                $bank_address_error = 'Invalid address';
                 $control = 0;
             }
         }
         else{
-            $bank_name_error = 'Bank name required';
+            $bank_address_error = 'Address required';
             $conrol = 0;
         }
 
@@ -122,7 +122,7 @@
         }
 
         if($control){
-            $sql = "INSERT INTO `bank` (`bank_id`, `bank_name`, `bank_branch`, `bank_city`, `bank_contact_person_name`, `bank_contact_person_number`) VALUES (NULL, '$bank_name', '$bank_branch', '$bank_city', '$bank_contact_person_name', '$bank_contact_person_number')";
+            $sql = "INSERT INTO `bank` (`bank_id`, `bank_name`, `bank_branch`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`) VALUES (NULL, '$bank_name', '$bank_branch', '$bank_city', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number')";
             $conn->query($sql);
 
             if($conn->error == ''){
