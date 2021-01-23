@@ -16,12 +16,41 @@
         exit;
     }
 
-    $bank_name = '';
-    $bank_branch = '';
-    $bank_city = '';
-    $bank_address = '';
-    $bank_contact_person_name = '';
-    $bank_contact_person_number = '';
+    $db_error = '';
+    if(isset($_GET['bankId'])){
+        $bank_id = base64_decode($_GET['bankId']);
+
+        $sql = "SELECT * FROM bank WHERE bank_id = '$bank_id'";
+        $result = $conn->query($sql);
+
+        if($conn->error == ''){
+            if($result->num_rows == 1){
+                $bank_details = $result->fetch_assoc();
+                $bank_name = $bank_details['bank_name'];
+                $bank_branch = $bank_details['bank_branch'];
+                $bank_city = $bank_details['bank_city'];
+                $bank_address = $bank_details['bank_address'];
+                $bank_contact_person_name = $bank_details['bank_contact_person_name'];
+                $bank_contact_person_number = $bank_details['bank_contact_person_number'];
+            }
+            else{
+                $_SESSION['error_msg'] = 'No bank exist with the given ID';
+                $db_error = 'No bank exist with the given ID';
+                header('Location: view-banks.php');
+                exit;
+            }
+        }
+        else{
+            $_SESSION['error_msg'] = 'Something went wrong';
+            $db_error = $conn->error;
+        }
+
+    }
+    else{
+        header('Location: view-banks.php');
+        exit;
+    }
+
     $bank_name_error = '';
     $bank_branch_error = '';
     $bank_city_error = '';
@@ -128,21 +157,8 @@
             $control = 0;
         }
 
-        $sql = "SELECT bank_id FROM bank WHERE bank_name = '$bank_name' AND bank_branch = '$bank_branch'";
-        $result = $conn->query($sql);
-
-        if($conn->error == ''){
-          if($result->num_rows > 0){
-            $_SESSION['error_msg'] = 'Bank with this name and branch already exist';
-            $control = 0;
-          }
-        }
-        else{
-          $_SESSION['error_msg'] = 'Something went wrong!';
-        }
-
         if($control){
-            $sql = "INSERT INTO `bank` (`bank_id`, `bank_name`, `bank_branch`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`) VALUES (NULL, '$bank_name', '$bank_branch', '$bank_city', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number')";
+            $sql = "UPDATE bank SET bank_name = '$bank_name', bank_branch = '$bank_branch', bank_city = '$bank_city', bank_address =' $bank_address', bank_contact_person_name = '$bank_contact_person_name', bank_contact_person_number = '$bank_contact_person_number' WHERE bank_id = '$bank_id'";
             $conn->query($sql);
 
             if($conn->error == ''){
@@ -152,7 +168,9 @@
                 $bank_address = '';
                 $bank_contact_person_name = '';
                 $bank_contact_person_number = '';
-                $_SESSION['success_msg'] = 'Bank added successfully';
+                $_SESSION['success_msg'] = 'Bank details updated successfully';
+                header('Location: view-banks.php');
+                exit;
             }
             else{
                 $_SESSION['error_msg'] = 'Something went wrong!';
@@ -169,7 +187,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Add Bank</title>
+    <title>Purple Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -199,7 +217,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Bank</h4>
+                    <h4 class="card-title">Edit Bank</h4>
                       <?php 
                           if(isset($_SESSION['success_msg'])){
                               ?>
@@ -226,7 +244,8 @@
                               unset($_SESSION['error_msg']);
                           }
                       ?>
-                    <p class="card-description"> Bank Details </p>
+                    <p class="card-description"> Edit Bank Details </p>
+                    <?php if($db_error == ''){ ?>
                     <form class="forms-sample" method="POST">
                       <div class="form-group">
                         <label for="exampleInputName1">Bank Name</label>
@@ -303,9 +322,10 @@
                           </div>
                         </div>
                       </div>              
-                      <button type="submit" class="btn btn-gradient-primary mr-2">Add</button>
-                      <button class="btn btn-light" type="reset" >Reset</button>
+                      <button type="submit" class="btn btn-gradient-primary mr-2">Update</button>
+                      <button class="btn btn-light" type="reset">Reset</button>
                     </form>
+                    <?php } ?>
                   </div>
                 </div>
               </div>

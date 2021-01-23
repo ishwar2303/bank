@@ -61,7 +61,7 @@
 
         if($control){ 
 
-            $sql = "SELECT user_id, user_role FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password'";
+            $sql = "SELECT user_id, user_role, user_full_name FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password'";
             $result = $conn->query($sql);
 
             if($result->num_rows == 1){ // authenticated
@@ -69,6 +69,7 @@
                 $_SESSION['login_time'] = time();
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['user_role'] = $row['user_role'];
+                $_SESSION['user_full_name'] = $row['user_full_name'];
                 header('Location: index.php');
                 exit;
             }
@@ -86,7 +87,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
+    <title>Sign In</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -109,9 +110,12 @@
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left p-5">
                 <div class="brand-logo">
-                  <img src="assets/images/logo.svg">
+                <h3 class="logo-container">
+                  <i class="fas fa-university"></i>
+                  <span>BANK</span>
+                </h3>
                 </div>
-                <h4>Hello! let's get started</h4>
+                <h4>Hello!</h4>
                 <h6 class="font-weight-light">Sign in to continue.</h6>
 
                 <?php if($login_error != ''){ ?>
@@ -210,3 +214,6 @@
     <!-- endinject -->
   </body>
 </html>
+<?php 
+    $conn->close();
+?>

@@ -163,7 +163,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
+    <title>Create User</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -188,8 +188,8 @@
                 <div class="brand-logo">
                   <img src="assets/images/logo.svg">
                 </div>
-                <h4>New here?</h4>
-                <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+                <h4>Create User</h4>
+                <h6 class="font-weight-light">It only takes a few steps</h6>
                 <form class="pt-3" method="POST">
                   <div class="form-group">
                     <div class="row">
@@ -307,3 +307,6 @@
     <!-- endinject -->
   </body>
 </html>
+<?php 
+    $conn->close();
+?>

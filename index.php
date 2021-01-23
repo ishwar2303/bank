@@ -1,3 +1,14 @@
+<?php
+  session_start();
+  require_once('connection.php');
+
+  if(!isset($_SESSION['login_time'])){
+    header('Location: logout.php');
+    exit;
+  }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
