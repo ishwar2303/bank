@@ -63,6 +63,13 @@
         <i class="mdi mdi-home menu-icon"></i>
       </a>
     </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="view-home-loans.php  ">
+        <span class="menu-title">View Home Loans</span>
+        <i class="fas fa-eye menu-icon"></i>
+      </a>
+    </li>
     
     <li class="nav-item">
       <a class="nav-link" href="car-loan.php  ">
@@ -80,3 +87,70 @@
 
   </ul>
 </nav>
+
+
+
+
+
+<!-- custom user confirmation -->
+
+<div class="black-cover-resource-delete"></div>
+<div id="confirm-resource-delete-popup">
+  <div id="confirm-resource-delete-popup-content-container">
+    <i class="fas fa-trash-alt resource-delete-icon-on-popup"></i>
+    <div style="display: flex; flex-direction: column; padding: 0px 15px;">
+    <h5>To confirm deletion</h5>
+    <label class="deleteme-label-in-popup">
+    Write '<span style="color :#9a55ff; font-weight: 400;">DELETE ME</span>' in  input box
+    </label>
+    </div>
+    <input oninput="checkUserConfirmation()" id="delete-me" type="text" name="checkDeleteConfirmation" required>
+    <div class="delete-yes-no-btn-container">
+      <button onclick="hideConfirmationPOPUP()" id="delete-no">Cancel</button>
+      <button onclick="deleteThisResource()" id="delete-yes">Delete</button>
+  </div>
+  </div>
+</div>
+
+<!-- custom user confirmation script -->
+
+<script type="text/javascript">
+    var DeleteRESOURCEID;
+    var ResourceTypeID;
+    function checkUserConfirmation(){
+      var x = document.getElementById('delete-me').value;
+      if(x == 'DELETE ME'){
+        document.getElementById('delete-yes').style.display = 'block';
+      }
+      else{
+        document.getElementById('delete-yes').style.display = 'none';
+      }
+  
+    }
+    function deleteThisResource(){
+      let URL
+      if(ResourceTypeID == 'bank')
+        URL = 'view-banks.php?bankId=' + DeleteRESOURCEID;
+      if(ResourceTypeID == 'home-loan')
+        URL = 'view-home-loans.php?cid=' + DeleteRESOURCEID;
+      if(ResourceTypeID == 'car-loan')
+        URL = 'view-car-loans.php?cid=' + DeleteRESOURCEID;
+      location.href= URL;
+    }
+    function confirmResourceDeletion(RID, TID){
+      DeleteRESOURCEID = RID;
+      ResourceTypeID = TID;
+      document.getElementById('delete-yes').style.display = 'none';
+      var x = document.getElementById('delete-me');
+      x.value = '';
+      document.getElementById('confirm-resource-delete-popup').style.display='block';
+      document.getElementsByClassName('black-cover-resource-delete')[0].style.display = 'block';
+    }
+    function hideConfirmationPOPUP(){
+      document.getElementById('confirm-resource-delete-popup').style.display='none';
+      document.getElementsByClassName('black-cover-resource-delete')[0].style.display = 'none';
+    }
+  </script>
+
+
+

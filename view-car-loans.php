@@ -27,6 +27,8 @@
 
       if($conn->error == ''){
         $_SESSION['success_msg'] = 'Deleted Successfully';
+        header('Location: view-car-loans.php');
+        exit;
       }
       else{
         $_SESSION['error_msg'] = 'Something went wrong!';
@@ -208,10 +210,10 @@
                                           </a>
                                       </td>
                                       <td>
-                                          <a class="table-delete-op" href="view-car-loans.php?cid=<?php echo $encoded_cid; ?>">
+                                          <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','car-loan')" class="table-delete-op mb-0" href="view-car-loans.php?cid=<?php echo $encoded_cid; ?>">
                                               <span>Delete</span>
                                               <i class="fas fa-trash-alt"></i>
-                                          </a>
+                                          </label>
                                       </td>
                                     </tr>
                                     <?php

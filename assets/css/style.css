@@ -13647,16 +13647,17 @@ dl {
 .bank-operation > a:hover{
   text-decoration: none;
 }
-.bank-operation > a:nth-child(1){
+.bank-operation > a:nth-child(1), .bank-operation > label:nth-child(1){
   
   background: #4a69bd;
   color : white;
   padding: 5px 10px;
   border-radius: 5px;
 }
-.bank-operation > a:nth-child(2){
+.bank-operation > a:nth-child(2), .bank-operation > label:nth-child(2){
   background: #eb2f06;
   color : white;
+  margin-bottom: 0px;
   padding: 5px 10px;
   border-radius: 5px;
 }
@@ -13714,6 +13715,13 @@ dl {
   }
   .card .card-body{
     padding: 1rem;
+  }
+  .bank-card-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .bank-card-container > div{
+    max-width: 100%;
   }
 }
 
@@ -13797,3 +13805,108 @@ html {
   height: 0;
   opacity: 1;
 } */ 
+
+
+/* resource delete */
+
+#confirm-resource-delete-popup{
+  height: 300px;
+  width: 280px;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  left: 50%;
+  top : 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  z-index: 10;
+  border : 0.5px solid #95a5a6;
+  display: none;
+  position: fixed;
+}
+#confirm-resource-delete-popup-content-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+#delete-me{
+  margin-top: 20px;
+  margin-bottom: 15px;
+  height: 45px;
+  width: 225px;
+  border-radius: 3px;
+  border : 0.5px solid #95a5a6;
+  padding: 0px 5px;
+  color: #9a55ff;
+  font-weight: 400;
+}
+.deleteme-label-in-popup{
+    font-weight: 1;
+}
+#delete-me:focus{
+  outline:  none;
+  box-shadow: 0px 0px 0px 4px rgb(154, 85, 255, 0.6);
+  transition: 600ms;
+  border: 0.5px solid #9a55ff;
+}
+.delete-yes-no-btn-container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 15px;
+}
+#delete-no{
+
+  border-radius: 3px;
+  border : none;
+  padding: 10px 15px;
+  font-weight: 350;
+  border : 0.5px solid #bdc3c7;
+}
+#delete-yes{
+  border-radius: 5px;
+  border: none;
+  padding: 10px 15px;
+  display: none;
+  font-weight: 350;
+  border : 0.5px solid #bdc3c7;
+  color : white;
+  background : linear-gradient(-180deg,#eb1d1d 0,rgb(196, 17, 17,0.8) 100%);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+}
+#delete-yes:focus{
+  outline: none;
+  color : white;
+
+}
+#delete-no:focus{
+  outline: none;
+
+}
+#delete-no:hover{
+  background: #ecf0f1;
+}
+
+.black-cover-resource-delete{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left : 0;
+  top : 0;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: rgba(75, 75, 75,0.5);
+  z-index: 3;
+  display: none;
+}
+.resource-delete-icon-on-popup{
+  color : rgb(154, 85, 255, 0.6);
+  font-size: 50px;
+  margin-bottom: 25px;
+  width: 50px;
+}

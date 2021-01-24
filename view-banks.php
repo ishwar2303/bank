@@ -118,7 +118,7 @@
                             ?>
                             <p class="card-description"> Bank Details </p>
                                   
-                            <div class="row">
+                            <div class="row bank-card-container">
                             <?php
                             while($row = $result->fetch_assoc()){
                                 $encoded_bank_id = base64_encode($row['bank_id']);
@@ -150,9 +150,9 @@
                                         <a href="edit-bank.php?bankId=<?php echo $encoded_bank_id; ?>">Edit
                                           <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="view-banks.php?bankId=<?php echo $encoded_bank_id; ?>">Delete
+                                        <label onclick="confirmResourceDeletion('<?php echo $encoded_bank_id; ?>','bank')">Delete
                                           <i class="fas fa-trash-alt"></i>
-                                        </a>
+                                        </label>
                                       </div>
 
 

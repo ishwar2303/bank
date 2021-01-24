@@ -62,6 +62,17 @@
     $date_of_ots_accepted = '';
     $full_ots_paid_upto = '';
     $compromise_ots_failed = '';
+    $property_sold_on = '';
+    $property_sold_for = '';
+    $full_amount_of_compromise_received_on = '';
+    $full_amount_of_ots_received_on = '';
+    $date_of_ra_bill = '';
+    $amount_of_ra_bill = '';
+    $ra_bill_forward_to_bank_on = '';
+    $ra_bill_paid_on = '';
+    $ra_bill_paid_amount = '';
+    $total_amount_of_expenses_incurred = '';
+    $income_case_wise_profit_loss = '';
     //errors
     $npa_case_error = '';
     $bank_name_error = '';
@@ -94,8 +105,19 @@
     $date_of_ots_accepted_error = '';
     $full_ots_paid_upto_error = '';
     $compromise_ots_failed_error = '';
+    $property_sold_on_error = '';
+    $property_sold_for_error = '';
+    $full_amount_of_compromise_received_on_error = '';
+    $full_amount_of_ots_received_on_error = '';
+    $date_of_ra_bill_error = '';
+    $amount_of_ra_bill_error = '';
+    $ra_bill_forward_to_bank_on_error = '';
+    $ra_bill_paid_on_error = '';
+    $ra_bill_paid_amount_error = '';
+    $total_amount_of_expenses_incurred_error = '';
+    $income_case_wise_profit_loss_error = '';
 
-    if(isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstandingOn']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['fullOtsPaidUpto'])){
+    if(isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstandingOn']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['fullOtsPaidUpto']) && isset($_POST['propertySoldOn']) && isset($_POST['propertySoldFor']) && isset($_POST['fullAmountCompromiseReceivedOn']) && isset($_POST['fullAmountOtsReceivedOn']) && isset($_POST['dateOfRaBill']) && isset($_POST['amountOfRaBill']) && isset($_POST['raBillForwardToBankOn']) && isset($_POST['raBillPaidOn']) && isset($_POST['raBillPaidAmount']) && isset($_POST['totalAmountOfExpensesIncurred']) && isset($_POST['incomeCaseWiseProfitLoss'])){
         // initialize variables with loan data
         $control = 1;
 
@@ -137,6 +159,19 @@
         else{
             $compromise_ots_failed = '-1';
         }
+
+        $property_sold_on = cleanInput($_POST['propertySoldOn']);
+        $property_sold_for = cleanInput($_POST['propertySoldFor']);
+        $full_amount_of_compromise_received_on = cleanInput($_POST['fullAmountCompromiseReceivedOn']);
+        $full_amount_of_ots_received_on = cleanInput($_POST['fullAmountOtsReceivedOn']);
+        $date_of_ra_bill = cleanInput($_POST['dateOfRaBill']);
+        $amount_of_ra_bill = cleanInput($_POST['amountOfRaBill']);
+        $ra_bill_forward_to_bank_on = cleanInput($_POST['raBillForwardToBankOn']);
+        $ra_bill_paid_on = cleanInput($_POST['raBillPaidOn']);
+        $ra_bill_paid_amount = cleanInput($_POST['raBillPaidAmount']);
+        $total_amount_of_expenses_incurred = cleanInput($_POST['totalAmountOfExpensesIncurred']);
+        $income_case_wise_profit_loss = cleanInput($_POST['incomeCaseWiseProfitLoss']);
+
         if($npa_case != '1' && $npa_case != '2' && $npa_case != '3'){
             $npa_case_error = 'Required';
             $control = 0;
@@ -450,7 +485,7 @@
         }
 
         if($control){ // Insert data into database control = 1
-            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding_on`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`) VALUES (NULL, '$npa_case_value', '$bank_name', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding_on', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$full_ots_paid_upto', '$compromise_ots_failed')";
+            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding_on`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`) VALUES (NULL, '$npa_case_value', '$bank_name', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding_on', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$full_ots_paid_upto', '$compromise_ots_failed', '$property_sold_on', '$property_sold_for', '$full_amount_of_compromise_received_on', '$full_amount_of_ots_received_on', '$date_of_ra_bill', '$amount_of_ra_bill', '$ra_bill_forward_to_bank_on', '$ra_bill_paid_on', '$ra_bill_paid_amount', '$total_amount_of_expenses_incurred', '$income_case_wise_profit_loss')";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
@@ -548,7 +583,6 @@
                               unset($_SESSION['note_msg']);
                           }
                       ?>
-                    <?php print_r($_POST); ?>
                     <!-- Bank-list -->
                     <?php if($bank_list->num_rows > 0){ ?>
                     <div class="row">
@@ -1275,11 +1309,11 @@
                                     <input type="date" class="form-control form-input" id="full-amount-of-compromise-received-on" name="fullAmountCompromiseReceivedOn">
                                     </div>
                                     <div class="form-input-response">
-                                        <?php echo $full_amount_of_compromise_received_error; ?>
+                                        <?php echo $full_amount_of_compromise_received_on_error; ?>
                                     </div>
                                 </div>
                                 <script>
-                                    document.getElementById('full-amount-of-compromise-received-on').defaultValue = '<?php echo $full_amount_of_compromise_received; ?>'
+                                    document.getElementById('full-amount-of-compromise-received-on').defaultValue = '<?php echo $full_amount_of_compromise_received_on; ?>'
                                 </script>
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Full amount of ots received on</label>
@@ -1325,7 +1359,7 @@
                                     <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fas fa-clock"></i>
+                                            <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
                                     <input type="number" step=".01" class="form-control form-input" name="amountOfRaBill" placeholder="Amount" value="<?php echo $amount_of_ra_bill; ?>">
