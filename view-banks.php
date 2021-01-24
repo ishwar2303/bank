@@ -42,7 +42,7 @@
         $db_error = $conn->error;
     }
     else if($result->num_rows == 0){
-      $_SESSION['error_msg'] = 'No results';
+      $_SESSION['error_msg'] = 'No banks';
     }
 ?>
 
