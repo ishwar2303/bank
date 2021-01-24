@@ -134,10 +134,10 @@
                                   <th>ARR-CO ND</th>
                                   <th>Notice 13 Sent</th>
                                   <th>Principal Outstanding</th>
-                                  <th>Bounce Charges</th>
-                                  <th>Overdue Charges</th>
-                                  <th>Other Charges</th>
-                                  <th>Loan EMI Amount</th>
+                                  <th>Bounce Charges ₹</th>
+                                  <th>Overdue Charges ₹</th>
+                                  <th>Other Charges ₹</th>
+                                  <th>Loan EMI Amount ₹</th>
                                   <th>No Of EMI Outstanding</th>
                                   <th>Reg No</th>
                                   <th>Residence Address</th>
@@ -154,9 +154,9 @@
                                   <th>Employer Name</th>
                                   <th>Employer Contact</th>
                                   <th>Employer Address</th>
-                                  <th>Amount Recovered</th>
-                                  <th>Bill Raised</th>
-                                  <th>Payment Received</th>
+                                  <th>Amount Recovered ₹</th>
+                                  <th>Bill Raised ₹</th>
+                                  <th>Payment Received ₹</th>
                                   <th>Edit</th>
                                   <th>Delete</th>
                                 </tr>

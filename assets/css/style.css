@@ -12454,8 +12454,7 @@ code {
 
 select.form-control {
   padding: .4375rem .75rem;
-  border: 0;border : 0.5px solid #c299ff;
-  color: #c9c8c8; }
+  border: 0;border : 0.5px solid #c299ff; }
   select.form-control:focus {
     outline: 1px solid #ebedf2; }
   select.form-control.border-primary {
@@ -13627,6 +13626,15 @@ dl {
 .success-msg i{
   margin-right: 5px;
 }
+.note-msg{
+  display: flex;
+  padding: 10px 0px;
+  color: rgb(5, 83, 226);
+  align-items: center;
+}
+.note-msg i{
+  margin-right: 5px;
+}
 .form-input-response{
   margin-top: 5px;
   font-size: 14px;
@@ -13685,17 +13693,78 @@ dl {
   font-weight : 600;
 }
 
-@media screen and (max-width : 800px){
+.sidebar{
+  position: fixed;
+  overflow-y: auto;
+  height: 100vh;
+  padding-bottom: 50px;
+}
+.sidebar-space-cover{
+  width: 260px;
+}
+.compromise-part, .ots-part{
+  display: none;
+}
+@media screen and (max-width : 990px){
+  .sidebar-space-cover{
+    display: none;
+  }
   .content-wrapper{
     padding : 0.5rem;
   }
-  .card-body{
-    padding: 1rem 1rem;
+  .card .card-body{
+    padding: 1rem;
   }
 }
 
 
+/* start custom radio-input */
+.radio-inputs{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -5px;
+}
+.radio-inputs > label{
+  margin-bottom: 10px;
+  margin-right: 10px;
+  height: 35px;
+}
+.radio-inputs > label > input{
+  display: none;
+  width: 0;  
+  height: 0;
+  opacity: 0;
+}
+.radio-inputs > label > span{
+  border: 0.5px solid #bdc3c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0px 10px;
+  border-radius: 5px;
+  font-weight: 400;
+}
+.radio-inputs > label > span > i{
+  margin-right: 7px;
+  color: #7f8c8d;
+}
+.radio-inputs > label > span:hover{
+  background: rgb(154, 85, 255, 0.1);
+}
+.radio-inputs > label > input:checked ~ span{
+  box-shadow: 0px 0px 0px 3px rgb(154, 85, 255, 0.4);
+  border : 0.5px solid rgb(154, 85, 255);
+  background: rgb(154, 85, 255, 0.1);
+}
+/* end custom radio-input */
 
+.radio-inputs > label > span > .radio-check-icon{
+  color: rgb(29, 165, 29);
+}
+.radio-inputs > label > span > .radio-cross-icon{
+  color : rgba(255,0,0,0.8);
+}
 /* custom scroll css*/
 /* 
 html {
@@ -13727,4 +13796,4 @@ html {
   background: linear-gradient(to top, violet, red);
   height: 0;
   opacity: 1;
-} */ */
+} */ 

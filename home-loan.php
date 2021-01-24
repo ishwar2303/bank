@@ -29,7 +29,7 @@
     }
 
     require_once('middleware.php');
-
+    $npa_case = '';
     $bank_name = '';
     $bank_contact_person_name = '';
     $bank_contact_person_number = '';
@@ -53,7 +53,17 @@
     $documents_received_on = '';
     $documents_given_to_advocate_on = '';
     $application_file_dm_cmm_advocate_on = '';
+    $date_of_hearing = '';
+    $compromise = '0';
+    $date_of_compromise = '';
+    $amount_of_compromise = '';
+    $full_compromise_paid_upto = '';
+    $ots = '0';
+    $date_of_ots_accepted = '';
+    $full_ots_paid_upto = '';
+    $compromise_ots_failed = '';
     //errors
+    $npa_case_error = '';
     $bank_name_error = '';
     $bank_contact_person_name_error = '';
     $bank_contact_person_number_error = '';
@@ -77,11 +87,19 @@
     $documents_received_on_error = '';
     $documents_given_to_advocate_on_error = '';
     $application_file_dm_cmm_advocate_on_error = '';
+    $date_of_hearing_error = '';
+    $date_of_compromise_error = '';
+    $amount_of_compromise_error = '';
+    $full_compromise_paid_upto_error = '';
+    $date_of_ots_accepted_error = '';
+    $full_ots_paid_upto_error = '';
+    $compromise_ots_failed_error = '';
 
-    if(isset($_POST['bankName']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstandingOn']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn'])){
+    if(isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstandingOn']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['fullOtsPaidUpto'])){
         // initialize variables with loan data
         $control = 1;
 
+        $npa_case = cleanInput($_POST['npaCase']);
         $bank_name = cleanInput($_POST['bankName']);
         $bank_contact_person_name = cleanInput($_POST['bankContactPersonName']);
         $bank_contact_person_number = cleanInput($_POST['bankContactPersonNumber']);
@@ -105,6 +123,35 @@
         $documents_received_on = cleanInput($_POST['documentsReceivedOn']);
         $documents_given_to_advocate_on = cleanInput($_POST['documentsGivenToAdvocate']);
         $application_file_dm_cmm_advocate_on = cleanInput($_POST['applicationFileDmCmmByAdvocateOn']);
+        $date_of_hearing = cleanInput($_POST['dateOfHearing']);
+        $compromise = cleanInput($_POST['compromise']);
+        $date_of_compromise = cleanInput($_POST['dateOfCompromise']);
+        $amount_of_compromise = cleanInput($_POST['amountOfCompromise']);
+        $full_compromise_paid_upto = cleanInput($_POST['fullCompromisePaidUpto']);
+        $ots = cleanInput($_POST['ots']);
+        $date_of_ots_accepted = cleanInput($_POST['dateOfOtsAccepted']);
+        $full_ots_paid_upto = cleanInput($_POST['fullOtsPaidUpto']);
+        if(isset($_POST['compromiseOtsFailed'])){
+            $compromise_ots_failed = cleanInput($_POST['compromiseOtsFailed']);
+        }
+        else{
+            $compromise_ots_failed = '-1';
+        }
+        if($npa_case != '1' && $npa_case != '2' && $npa_case != '3'){
+            $npa_case_error = 'Required';
+            $control = 0;
+        }
+        else{
+            if($npa_case == '1'){
+                $npa_case_value = 'New NPA Cases upto Rs 20 Lac';
+            }
+            
+            if($npa_case == '2')
+                $npa_case_value = 'New NPA Cases From Rs. 20 Lac + to Rs. 10 Crore';
+
+            if($npa_case == '3')
+                $npa_case_value = 'New NPA Cases Over 10 Crore';
+        }
 
         if(!empty($bank_name)){
             if(!alphaSpaceValidation($bank_name)){
@@ -319,9 +366,91 @@
             $control = 0;
         }
 
+        if(!empty($date_of_hearing)){
+            if(!dateValidation($date_of_hearing)){
+                $date_of_hearing_error = 'Invalid Date';
+                $control = 0;
+            }
+        }
+        else{
+            $date_of_hearing_error = 'Required';
+            $control = 0;
+        }
+
+        // compromise
+        if($compromise == '1'){
+            if(!empty($date_of_compromise)){
+                if(!dateValidation($date_of_compromise)){
+                    $date_of_compromise_error = 'Invalid Date';
+                    $control = 0;
+                }
+            }
+            else{
+                $date_of_compromise_error = 'Required';
+                $control = 0;
+            }
+
+            if(!empty($amount_of_compromise)){
+                if(!amountValidation($amount_of_compromise)){
+                    $amount_of_compromise_error = 'Invalid Amount';
+                    $control = 0;
+                }
+            }
+            else{
+                $amount_of_compromise_error = 'Required';
+                $control = 0;
+            }
+
+            if(!empty($full_compromise_paid_upto)){
+                if(!dateValidation($full_compromise_paid_upto)){
+                    $full_compromise_paid_upto_error = 'Invalid Amount';
+                    $control = 0;
+                }
+            }
+            else{
+                $full_compromise_paid_upto_error = 'Required';
+                $control = 0;
+            }
+        }
+
+        //ots
+        if($ots == '1'){
+            if(!empty($date_of_ots_accepted)){
+                if(!dateValidation($date_of_ots_accepted)){
+                    $date_of_ots_accepted_error = 'Invalid Date';
+                    $control = 0;
+                }
+            }
+            else{
+                $date_of_ots_accepted_error = 'Required';
+                $control = 0;
+            }
+
+            if(!empty($full_ots_paid_upto)){
+                if(!amountValidation($full_ots_paid_upto)){
+                    $full_ots_paid_upto_error = 'Invalid Amount';
+                    $control = 0;
+                }
+            }
+            else{
+                $full_ots_paid_upto_error = 'Required';
+                $control = 0;
+            }
+
+            if($compromise_ots_failed != ''){
+                if($compromise_ots_failed != '1' && $compromise_ots_failed != '0' && $compromise_ots_failed != '-1'){
+                    $compromise_ots_failed_error = 'Invalid';
+                    $control = 0;
+                }
+            }
+            else{
+                $compromise_ots_failed_error = 'Required';
+                $control = 0;
+            }
+        }
 
         if($control){ // Insert data into database control = 1
-            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding_on`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`) VALUES (NULL, '$bank_name', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding_on', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on')";
+            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding_on`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`) VALUES (NULL, '$npa_case_value', '$bank_name', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding_on', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$full_ots_paid_upto', '$compromise_ots_failed')";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
@@ -333,6 +462,9 @@
                 $_SESSION['error_msg'] = 'Something went wrong!';
             }
             
+        }
+        else{
+            $_SESSION['note_msg'] = 'Fill required fields and make sure they are valid';
         }
     }
 ?>
@@ -350,6 +482,7 @@
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
     <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="assets/js/home-loan.js"></script>
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -402,11 +535,25 @@
                               unset($_SESSION['error_msg']);
                           }
                       ?>
+                      <?php 
+                          if(isset($_SESSION['note_msg'])){
+                              ?>
+                              <div class="note-msg">
+                                  <i class="far fa-comment-dots"></i>
+                                  <span>
+                                      <?php echo $_SESSION['note_msg']; ?>
+                                  </span>
+                              </div>
+                              <?php
+                              unset($_SESSION['note_msg']);
+                          }
+                      ?>
+                    <?php print_r($_POST); ?>
                     <!-- Bank-list -->
                     <?php if($bank_list->num_rows > 0){ ?>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="exampleInputCity1">Select Bank</label>
+                            <label for="exampleInputCity1">Select from listed Banks</label>
                             <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-gradient-primary text-white br">
@@ -414,7 +561,7 @@
                                 </span>
                             </div>
                             <select id="bank-list" class="form-control form-input">
-                                <option selected>Choose</option>
+                                <option value="-1" selected>Choose</option>
                                 <?php 
                                     while($bank = $bank_list->fetch_assoc()){
                                         ?>
@@ -431,21 +578,23 @@
                         $(document).ready(() => {
                             $('#bank-list').on('change', () => {
                                 bank_id = $('#bank-list').val()
-                                let url = 'retrieve-bank-information.php'
-                                let reqData = {
-                                    bank_id
+                                if(bank_id != '-1'){
+                                    let url = 'retrieve-bank-information.php'
+                                    let reqData = {
+                                        bank_id
+                                    }
+                                    $.ajax({
+                                        url,
+                                        type : 'POST',
+                                        dataType : 'html',
+                                        success : (msg) => {
+                                        },
+                                        complete : (res) => {
+                                            setDetailsInHomeLoanForm(res.responseText)
+                                        },
+                                        data : reqData
+                                    })
                                 }
-                                $.ajax({
-                                    url,
-                                    type : 'POST',
-                                    dataType : 'html',
-                                    success : (msg) => {
-                                    },
-                                    complete : (res) => {
-                                        setDetailsInHomeLoanForm(res.responseText)
-                                    },
-                                    data : reqData
-                                })
                             })
 
                             function setDetailsInHomeLoanForm(resData){
@@ -461,7 +610,6 @@
                                     document.getElementById('bank-address').value = bankAddress.replace(/<br\/>/g, "\n").trim()
                                     document.getElementById('bank-person-name').value = personName
                                     document.getElementById('bank-person-number').value = personNumber
-                                    console.log(resData)
                                 }
                                 if(resData.error){
                                     alert(`Error : ${resData.error}`)
@@ -487,6 +635,25 @@
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $bank_name_error; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">NPA Cases</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-university"></i>
+                                        </span>
+                                    </div>
+                                    <select class="form-control form-input" name="npaCase" >
+                                        <option selectecd>Choose</option>
+                                        <option value="1" <?php if($npa_case == '1') echo 'Selected'; ?>>New NPA Cases upto Rs 20 Lac</option>
+                                        <option value="2" <?php if($npa_case == '2') echo 'Selected'; ?>>New NPA Cases From Rs. 20 Lac + to Rs. 10 Crore</option>
+                                        <option value="3" <?php if($npa_case == '3') echo 'Selected'; ?>>New NPA Cases Over 10 Crore</option>
+                                    </select>
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $npa_case_error; ?>
                                     </div>
                                 </div>
                             </div>
@@ -873,6 +1040,393 @@
                                 </script>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date Of hearing</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="date-of-hearing" name="dateOfHearing">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $date_of_hearing_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('date-of-hearing').defaultValue = '<?php echo $date_of_hearing; ?>'
+                                </script>
+                            </div>
+                        </div>
+                        <!-- if compromise -->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="exampleInputCity1">Compromise</label>
+                                    <div class="radio-inputs">
+                                        <label>
+                                            <input type="radio" name="compromise" value="1" <?php if($compromise == '1') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-check radio-check-icon"></i>
+                                                Yes
+                                            </span>
+                                        </label>
+                                        <label>
+                                        <input type="radio" name="compromise" value="0" <?php if($compromise == '0') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-close radio-cross-icon"></i>
+                                                No
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group compromise-part">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date of Compromise</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="date-of-compromise" name="dateOfCompromise">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $date_of_compromise_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('date-of-compromise').defaultValue = '<?php echo $date_of_compromise; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Amount of compromise</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step=".01" class="form-control form-input" name="amountOfCompromise" placeholder="Amount" value="<?php echo $amount_of_compromise; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $amount_of_compromise_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group compromise-part">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Full Compromise paid upto</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step=".01" class="form-control form-input" name="fullCompromisePaidUpto" placeholder="Amount" value="<?php echo $full_compromise_paid_upto; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $full_compromise_paid_upto_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- if OTS -->
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="exampleInputCity1">OTS</label>
+                                    <div class="radio-inputs">
+                                        <label>
+                                            <input type="radio" name="ots" value="1" <?php if($ots == '1') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-check radio-check-icon"></i>
+                                                Yes
+                                            </span>
+                                        </label>
+                                        <label>
+                                        <input type="radio" name="ots" value="0" <?php if($ots == '0') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-close radio-cross-icon"></i>
+                                                No
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ots-part">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date of OTS accepted</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="date-of-ots-accepted" name="dateOfOtsAccepted">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $date_of_ots_accepted_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('date-of-ots-accepted').defaultValue = '<?php echo $date_of_ots_accepted; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Full amount of OTS paid upto</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step=".01" class="form-control form-input" name="fullOtsPaidUpto" placeholder="Amount" value="<?php echo $full_ots_paid_upto; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $full_ots_paid_upto_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ots-part">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Compromise OTS Failed</label>
+                                    <div class="radio-inputs">
+                                        <label>
+                                            <input type="radio" name="compromiseOtsFailed" value="1" <?php if($compromise_ots_failed == '1') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-check radio-check-icon"></i>
+                                                Yes
+                                            </span>
+                                        </label>
+                                        <label>
+                                        <input type="radio" name="compromiseOtsFailed" value="0" <?php if($compromise_ots_failed == '0') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-close radio-cross-icon"></i>
+                                                No
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $compromise_ots_failed_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Property Sold On</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="property-sold-on" name="propertySoldOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $property_sold_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('property-sold-on').defaultValue = '<?php echo $property_sold_on; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Property Sold for</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step=".01" class="form-control form-input" name="propertySoldFor" placeholder="Amount" value="<?php echo $property_sold_for; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $property_sold_for_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Full amount of compromise received on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="full-amount-of-compromise-received-on" name="fullAmountCompromiseReceivedOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $full_amount_of_compromise_received_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('full-amount-of-compromise-received-on').defaultValue = '<?php echo $full_amount_of_compromise_received; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Full amount of ots received on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="full-amount-of-ots-received-on" name="fullAmountOtsReceivedOn" >
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $full_amount_of_ots_received_on_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.getElementById('full-amount-of-ots-received-on').defaultValue = '<?php echo $full_amount_of_ots_received_on; ?>'
+                            </script>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date Of RA Bill</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="date-of-ra-bill" name="dateOfRaBill">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $date_of_ra_bill_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('date-of-ra-bill').defaultValue = '<?php echo $date_of_ra_bill; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Amount of RA Bill</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step=".01" class="form-control form-input" name="amountOfRaBill" placeholder="Amount" value="<?php echo $amount_of_ra_bill; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $amount_of_ra_bill_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">RA Bill forward to Bank on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="ra-bill-forward-to-bank-on" name="raBillForwardToBankOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $ra_bill_forward_to_bank_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('ra-bill-forward-to-bank-on').defaultValue = '<?php echo $ra_bill_forward_to_bank_on; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">RA Bill paid on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="ra-bill-paid-on" name="raBillPaidOn" >
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $ra_bill_paid_on_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.getElementById('ra-bill-paid-on').defaultValue = '<?php echo $ra_bill_paid_on; ?>'
+                            </script>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">RA Bill paid amount</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step="0.01" class="form-control form-input" name="raBillPaidAmount" value="<?php echo $ra_bill_paid_amount; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $ra_bill_paid_amount_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Total amount of expenses incurred</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step="0.01" class="form-control form-input" name="totalAmountOfExpensesIncurred" value="<?php echo $total_amount_of_expenses_incurred; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $total_amount_of_expenses_incurred_error; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Income case wise profit/loss</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step="0.01" class="form-control form-input" name="incomeCaseWiseProfitLoss" value="<?php echo $income_case_wise_profit_loss; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $income_case_wise_profit_loss_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="mt-3 form-inline justify-content-end">
                             <button class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Create</button>
@@ -915,3 +1469,24 @@
 <?php 
     $conn->close();
 ?>
+
+<script>
+    compromise = document.getElementsByName('compromise')
+    for(i = 0; i<compromise.length; i++){
+        compromise[i].addEventListener('click', compromiseFields)
+    }
+</script>
+<?php if($compromise != ''){?>
+    <script>compromiseFields()</script>
+<?php } ?>
+
+
+<script>
+    ots = document.getElementsByName('ots')
+    for(i = 0; i<ots.length; i++){
+        ots[i].addEventListener('click', otsFields)
+    }
+</script>
+<?php if($ots != ''){?>
+    <script>otsFields()</script>
+<?php } ?>

@@ -15,12 +15,12 @@
             print_r($json_format_data);
         }
     }
+    $bank_response = new response();
     if(isset($_POST['bank_id'])){
         $bank_id = base64_decode($_POST['bank_id']);
         $sql = "SELECT * FROM bank WHERE bank_id = '$bank_id'";
         $result = $conn->query($sql);
 
-        $bank_response = new response();
         if($conn->error == ''){
             if($result->num_rows == 1){
                 $row = $result->fetch_assoc();

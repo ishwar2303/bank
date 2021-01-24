@@ -1,3 +1,4 @@
+<div class="sidebar-space-cover"></div>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
   <li class="nav-item nav-profile">
