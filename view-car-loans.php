@@ -20,6 +20,20 @@
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
 
     $db_error = '';
+    if(isset($_GET['cid'])){
+      $car_loan_cid = base64_decode($_GET['cid']);
+      $sql = "DELETE FROM car_loan WHERE car_loan_cid = '$car_loan_cid'";
+      $conn->query($sql);
+
+      if($conn->error == ''){
+        $_SESSION['success_msg'] = 'Deleted Successfully';
+      }
+      else{
+        $_SESSION['error_msg'] = 'Something went wrong!';
+        $db_error = $conn->error;
+      }
+    }
+
     $sql = "SELECT * FROM car_loan";
     $result = $conn->query($sql);
 
@@ -109,95 +123,99 @@
                     <?php if($db_error == ''){ ?>
                         <?php if($result->num_rows > 0){ ?>
                             <table class="table table-hover">
-                            <thead>
+                              <thead>
                                 <tr>
-                                    <th>Home Branch</th>
-                                    <th>Account Number</th>
-                                    <th>Customer Name</th>
-                                    <th>NPA Date</th>
-                                    <th>Outstanding</th>
-                                    <th>ARR-CO ND</th>
-                                    <th>Notice 13 Sent</th>
-                                    <th>Principal Outstanding</th>
-                                    <th>Bounce Charges</th>
-                                    <th>Overdue Charges</th>
-                                    <th>Other Charges</th>
-                                    <th>Loan EMI Amount</th>
-                                    <th>No Of EMI Outstanding</th>
-                                    <th>Reg No</th>
-                                    <th>Residence Address</th>
-                                    <th>Residence Contact</th>
-                                    <th>Office Address</th>
-                                    <th>Office Contact</th>
-                                    <th>Make</th>
-                                    <th>Engine No</th>
-                                    <th>Chassis No</th>
-                                    <th>Tenure</th>
-                                    <th>Co Applicant Name</th>
-                                    <th>Co Applicant Contact</th>
-                                    <th>Co Applicant Address</th>
-                                    <th>Employer Name</th>
-                                    <th>Employer Contact</th>
-                                    <th>Employer Address</th>
-                                    <th>Amount Recovered</th>
-                                    <th>Bill Raised</th>
-                                    <th>Payment Received</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                  <th>S No</th>
+                                  <th>Home Branch</th>
+                                  <th>Account Number</th>
+                                  <th>Customer Name</th>
+                                  <th>NPA Date</th>
+                                  <th>Outstanding</th>
+                                  <th>ARR-CO ND</th>
+                                  <th>Notice 13 Sent</th>
+                                  <th>Principal Outstanding</th>
+                                  <th>Bounce Charges</th>
+                                  <th>Overdue Charges</th>
+                                  <th>Other Charges</th>
+                                  <th>Loan EMI Amount</th>
+                                  <th>No Of EMI Outstanding</th>
+                                  <th>Reg No</th>
+                                  <th>Residence Address</th>
+                                  <th>Residence Contact</th>
+                                  <th>Office Address</th>
+                                  <th>Office Contact</th>
+                                  <th>Make</th>
+                                  <th>Engine No</th>
+                                  <th>Chassis No</th>
+                                  <th>Tenure</th>
+                                  <th>Co Applicant Name</th>
+                                  <th>Co Applicant Contact</th>
+                                  <th>Co Applicant Address</th>
+                                  <th>Employer Name</th>
+                                  <th>Employer Contact</th>
+                                  <th>Employer Address</th>
+                                  <th>Amount Recovered</th>
+                                  <th>Bill Raised</th>
+                                  <th>Payment Received</th>
+                                  <th>Edit</th>
+                                  <th>Delete</th>
                                 </tr>
-                            </thead>
+                              </thead>
 
                             <tbody>
                             <?php 
+                                $serial_no = 1;
                                 while($car_loan = $result->fetch_assoc()){
                                     $encoded_cid = base64_encode($car_loan['car_loan_cid']);
                                     ?>
                                     <tr>
-                                        <td><?php echo $car_loan['home_branch']; ?></td>
-                                        <td><?php echo $car_loan['account_number']; ?></td>
-                                        <td><?php echo $car_loan['customer_name']; ?></td>
-                                        <td><?php echo $car_loan['npa_date']; ?></td>
-                                        <td><?php echo $car_loan['outstanding']; ?></td>
-                                        <td><?php echo $car_loan['arr_co_nd']; ?></td>
-                                        <td><?php echo $car_loan['notice13_sent_on']; ?></td>
-                                        <td><?php echo $car_loan['principal_outstanding']; ?></td>
-                                        <td><?php echo $car_loan['bounce_charges']; ?></td>
-                                        <td><?php echo $car_loan['overdue_charges']; ?></td>
-                                        <td><?php echo $car_loan['other_charges']; ?></td>
-                                        <td><?php echo $car_loan['loan_emi_amount']; ?></td>
-                                        <td><?php echo $car_loan['no_of_emi_outstanding']; ?></td>
-                                        <td><?php echo $car_loan['reg_no']; ?></td>
-                                        <td><?php echo $car_loan['residence_address']; ?></td>
-                                        <td><?php echo $car_loan['residence_contact_no']; ?></td>
-                                        <td><?php echo $car_loan['office_address']; ?></td>
-                                        <td><?php echo $car_loan['office_contact_no']; ?></td>
-                                        <td><?php echo $car_loan['make']; ?></td>
-                                        <td><?php echo $car_loan['engine_no']; ?></td>
-                                        <td><?php echo $car_loan['chassis_no']; ?></td>
-                                        <td><?php echo $car_loan['tenure']; ?></td>
-                                        <td><?php echo $car_loan['co_applicant_name']; ?></td>
-                                        <td><?php echo $car_loan['co_applicant_mobile']; ?></td>
-                                        <td><?php echo $car_loan['co_applicant_address']; ?></td>
-                                        <td><?php echo $car_loan['employer_name']; ?></td>
-                                        <td><?php echo $car_loan['employer_mobile']; ?></td>
-                                        <td><?php echo $car_loan['employer_address']; ?></td>
-                                        <td><?php echo $car_loan['amount_recovered']; ?></td>
-                                        <td><?php echo $car_loan['bill_raised']; ?></td>
-                                        <td><?php echo $car_loan['payment_received']; ?></td>
-                                        <td>
-                                            <a class="table-edit-op" href="edit-car-loan.php?cid=<?php echo $encoded_cid; ?>">
-                                                <span>Edit</span>
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="table-delete-op" href="view-car-loans.php?cid=<?php echo $encoded_cid; ?>">
-                                                <span>Delete</span>
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </td>
+                                      <td><?php echo $serial_no; ?></td>
+                                      <td><?php echo $car_loan['home_branch']; ?></td>
+                                      <td><?php echo $car_loan['account_number']; ?></td>
+                                      <td><?php echo $car_loan['customer_name']; ?></td>
+                                      <td><?php echo $car_loan['npa_date']; ?></td>
+                                      <td><?php echo $car_loan['outstanding']; ?></td>
+                                      <td><?php echo $car_loan['arr_co_nd']; ?></td>
+                                      <td><?php echo $car_loan['notice13_sent_on']; ?></td>
+                                      <td><?php echo $car_loan['principal_outstanding']; ?></td>
+                                      <td><?php echo $car_loan['bounce_charges']; ?></td>
+                                      <td><?php echo $car_loan['overdue_charges']; ?></td>
+                                      <td><?php echo $car_loan['other_charges']; ?></td>
+                                      <td><?php echo $car_loan['loan_emi_amount']; ?></td>
+                                      <td><?php echo $car_loan['no_of_emi_outstanding']; ?></td>
+                                      <td><?php echo $car_loan['reg_no']; ?></td>
+                                      <td><?php echo $car_loan['residence_address']; ?></td>
+                                      <td><?php echo $car_loan['residence_contact_no']; ?></td>
+                                      <td><?php echo $car_loan['office_address']; ?></td>
+                                      <td><?php echo $car_loan['office_contact_no']; ?></td>
+                                      <td><?php echo $car_loan['make']; ?></td>
+                                      <td><?php echo $car_loan['engine_no']; ?></td>
+                                      <td><?php echo $car_loan['chassis_no']; ?></td>
+                                      <td><?php echo $car_loan['tenure']; ?></td>
+                                      <td><?php echo $car_loan['co_applicant_name']; ?></td>
+                                      <td><?php echo $car_loan['co_applicant_mobile']; ?></td>
+                                      <td><?php echo $car_loan['co_applicant_address']; ?></td>
+                                      <td><?php echo $car_loan['employer_name']; ?></td>
+                                      <td><?php echo $car_loan['employer_mobile']; ?></td>
+                                      <td><?php echo $car_loan['employer_address']; ?></td>
+                                      <td><?php echo $car_loan['amount_recovered']; ?></td>
+                                      <td><?php echo $car_loan['bill_raised']; ?></td>
+                                      <td><?php echo $car_loan['payment_received']; ?></td>
+                                      <td>
+                                          <a class="table-edit-op" href="edit-car-loan.php?cid=<?php echo $encoded_cid; ?>">
+                                              <span>Edit</span>
+                                              <i class="fas fa-edit"></i>
+                                          </a>
+                                      </td>
+                                      <td>
+                                          <a class="table-delete-op" href="view-car-loans.php?cid=<?php echo $encoded_cid; ?>">
+                                              <span>Delete</span>
+                                              <i class="fas fa-trash-alt"></i>
+                                          </a>
+                                      </td>
                                     </tr>
                                     <?php
+                                    $serial_no += 1;
                                 }
                             ?>
                             </tbody>

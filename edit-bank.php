@@ -32,6 +32,10 @@
                 $bank_address = $bank_details['bank_address'];
                 $bank_contact_person_name = $bank_details['bank_contact_person_name'];
                 $bank_contact_person_number = $bank_details['bank_contact_person_number'];
+                
+                //address
+                $bank_address = trim(str_replace("<br/>", "\n", $bank_address));
+                
             }
             else{
                 $_SESSION['error_msg'] = 'No bank exist with the given ID';
@@ -58,28 +62,7 @@
     $bank_contact_person_name_error = '';
     $bank_contact_person_number_error = '';
     
-
-    function cleanInput($str){
-        $str = trim($str); 
-        $str = strip_tags($str); 
-        $str = addslashes($str);
-        return $str;
-    }
-
-    function nameValidation($name_to_validate){
-        $reg_exp = "/^[a-zA-Z\s]+$/";
-        return preg_match($reg_exp, $name_to_validate);
-    }
-    
-    function addressValidation($address_to_validate){
-        $reg_exp = "/^[a-zA-Z0-9\/\-\,\#\.\_\s]+$/";
-        return preg_match($reg_exp, $address_to_validate);
-    }
-
-    function contactValidation($contact_to_validate){
-        $reg_exp = "/^[6789][0-9]{9}$/";
-        return preg_match($reg_exp, $contact_to_validate);
-    }
+    require_once('middleware.php');
 
     if(isset($_POST['bankName']) && isset($_POST['bankBranch']) && isset($_POST['bankCity']) && isset($_POST['bankAddress']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonNumber'])){
 
@@ -92,7 +75,7 @@
         $control = 1;
 
         if(!empty($bank_name)){
-            if(!nameValidation($bank_name)){
+            if(!alphaSpaceValidation($bank_name)){
                 $bank_name_error = 'Invalid name';
                 $control = 0;
             }
@@ -103,7 +86,7 @@
         }
 
         if(!empty($bank_branch)){
-            if(!nameValidation($bank_branch)){
+            if(!alphaSpaceValidation($bank_branch)){
                 $bank_branch_error = 'Invalid name';
                 $control = 0;
             }
@@ -114,7 +97,7 @@
         }
         
         if(!empty($bank_city)){
-            if(!nameValidation($bank_city)){
+            if(!alphaSpaceValidation($bank_city)){
                 $bank_city_error = 'Invalid name';
                 $control = 0;
             }
@@ -136,7 +119,7 @@
         }
 
         if(!empty($bank_contact_person_name)){
-            if(!nameValidation($bank_contact_person_name)){
+            if(!alphaSpaceValidation($bank_contact_person_name)){
                 $bank_contact_person_name_error = 'Invalid name';
                 $control = 0;
             }
@@ -158,6 +141,7 @@
         }
 
         if($control){
+            $bank_address = str_replace("\n", "<br/>", $bank_address);
             $sql = "UPDATE bank SET bank_name = '$bank_name', bank_branch = '$bank_branch', bank_city = '$bank_city', bank_address =' $bank_address', bank_contact_person_name = '$bank_contact_person_name', bank_contact_person_number = '$bank_contact_person_number' WHERE bank_id = '$bank_id'";
             $conn->query($sql);
 
@@ -322,8 +306,10 @@
                           </div>
                         </div>
                       </div>              
-                      <button type="submit" class="btn btn-gradient-primary mr-2">Update</button>
-                      <button class="btn btn-light" type="reset">Reset</button>
+                      <div class="form-inline justify-content-between">
+                        <button class="btn btn-light" type="reset">Reset</button>
+                        <button type="submit" class="btn btn-gradient-primary mr-2">Update</button>
+                      </div>
                     </form>
                     <?php } ?>
                   </div>

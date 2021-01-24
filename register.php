@@ -19,32 +19,8 @@
     $user_role_error = '';
     $user_confirm_password_error = '';
     $db_error = '';
-    function cleanInput($str){
-        $str = trim($str); 
-        $str = strip_tags($str); 
-        $str = addslashes($str); 
-        return $str;
-    }
 
-    function emailValidation($email_to_validate){
-        $reg_exp = "/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/"; // regular expression for email
-        return preg_match($reg_exp, $email_to_validate);
-    }
-    
-    function passwordValidation($password_to_validate){
-        $reg_exp = "/^(?=.*[0-9])"."(?=.*[a-z])(?=.*[A-Z])"."(?=.*[@#$%^&+=])"."(?=\\S+$).{8,20}$/"; // regular expression for password
-        return preg_match($reg_exp, $password_to_validate);
-    }
-    
-    function fullnameValidation($name_to_validate){
-        $reg_exp = "/^[a-zA-Z\s]+$/";
-        return preg_match($reg_exp, $name_to_validate);
-    }
-
-    function contactValidation($contact_to_validate){
-        $reg_exp = "/^[6789][0-9]{9}$/";
-        return preg_match($reg_exp, $contact_to_validate);
-    }
+    require_once('middleware.php');
 
     if(isset($_POST['fullName']) && isset($_POST['userEmail']) && isset($_POST['userContact']) && isset($_POST['userRole']) && isset($_POST['userPassword']) && isset($_POST['userConfirmPassword'])){
         // initialize variables with user data
@@ -62,7 +38,7 @@
                 $user_full_name_error = 'Invalid name';
                 $control = 0;
             }
-            if(!fullnameValidation($user_full_name)){
+            if(!alphaSpaceValidation($user_full_name)){
                 $user_full_name_error = 'Special charcters not allowed!';
                 $control = 0;
             }

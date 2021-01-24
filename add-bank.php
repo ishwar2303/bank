@@ -29,28 +29,7 @@
     $bank_contact_person_name_error = '';
     $bank_contact_person_number_error = '';
     
-
-    function cleanInput($str){
-        $str = trim($str); 
-        $str = strip_tags($str); 
-        $str = addslashes($str);
-        return $str;
-    }
-
-    function nameValidation($name_to_validate){
-        $reg_exp = "/^[a-zA-Z\s]+$/";
-        return preg_match($reg_exp, $name_to_validate);
-    }
-    
-    function addressValidation($address_to_validate){
-        $reg_exp = "/^[a-zA-Z0-9\/\-\,\#\.\_\s]+$/";
-        return preg_match($reg_exp, $address_to_validate);
-    }
-
-    function contactValidation($contact_to_validate){
-        $reg_exp = "/^[6789][0-9]{9}$/";
-        return preg_match($reg_exp, $contact_to_validate);
-    }
+    require_once('middleware.php');
 
     if(isset($_POST['bankName']) && isset($_POST['bankBranch']) && isset($_POST['bankCity']) && isset($_POST['bankAddress']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonNumber'])){
 
@@ -63,7 +42,7 @@
         $control = 1;
 
         if(!empty($bank_name)){
-            if(!nameValidation($bank_name)){
+            if(!alphaSpaceValidation($bank_name)){
                 $bank_name_error = 'Invalid name';
                 $control = 0;
             }
@@ -74,7 +53,7 @@
         }
 
         if(!empty($bank_branch)){
-            if(!nameValidation($bank_branch)){
+            if(!alphaSpaceValidation($bank_branch)){
                 $bank_branch_error = 'Invalid name';
                 $control = 0;
             }
@@ -85,7 +64,7 @@
         }
         
         if(!empty($bank_city)){
-            if(!nameValidation($bank_city)){
+            if(!alphaSpaceValidation($bank_city)){
                 $bank_city_error = 'Invalid name';
                 $control = 0;
             }
@@ -107,7 +86,7 @@
         }
 
         if(!empty($bank_contact_person_name)){
-            if(!nameValidation($bank_contact_person_name)){
+            if(!alphaSpaceValidation($bank_contact_person_name)){
                 $bank_contact_person_name_error = 'Invalid name';
                 $control = 0;
             }
@@ -127,19 +106,19 @@
             $bank_contact_person_number_error = 'Contact required';
             $control = 0;
         }
+        
+        // $sql = "SELECT bank_id FROM bank WHERE bank_name = '$bank_name' AND bank_branch = '$bank_branch' AND bank_contact_person_name = '$bank_contact_person_name'";
+        // $result = $conn->query($sql);
 
-        $sql = "SELECT bank_id FROM bank WHERE bank_name = '$bank_name' AND bank_branch = '$bank_branch'";
-        $result = $conn->query($sql);
-
-        if($conn->error == ''){
-          if($result->num_rows > 0){
-            $_SESSION['error_msg'] = 'Bank with this name and branch already exist';
-            $control = 0;
-          }
-        }
-        else{
-          $_SESSION['error_msg'] = 'Something went wrong!';
-        }
+        // if($conn->error == ''){
+        //   if($result->num_rows > 0){
+        //     $_SESSION['error_msg'] = 'Similar bank details exist';
+        //     $control = 0;
+        //   }
+        // }
+        // else{
+        //   $_SESSION['error_msg'] = 'Something went wrong!';
+        // }
 
         if($control){
             $sql = "INSERT INTO `bank` (`bank_id`, `bank_name`, `bank_branch`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`) VALUES (NULL, '$bank_name', '$bank_branch', '$bank_city', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number')";
@@ -226,7 +205,6 @@
                               unset($_SESSION['error_msg']);
                           }
                       ?>
-                    <p class="card-description"> Bank Details </p>
                     <form class="forms-sample" method="POST">
                       <div class="form-group">
                         <label for="exampleInputName1">Bank Name</label>
@@ -303,8 +281,10 @@
                           </div>
                         </div>
                       </div>              
-                      <button type="submit" class="btn btn-gradient-primary mr-2">Add</button>
-                      <button class="btn btn-light" type="reset" >Reset</button>
+                      <div class="form-inline justify-content-between"> 
+                        <button class="btn btn-light" type="reset" >Reset</button>
+                        <button type="submit" class="btn btn-gradient-primary mr-2">Add</button>
+                      </div>
                     </form>
                   </div>
                 </div>

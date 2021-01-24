@@ -32,32 +32,8 @@
     $user_role_error = '';
     $user_confirm_password_error = '';
     $db_error = '';
-    function cleanInput($str){
-        $str = trim($str); 
-        $str = strip_tags($str); 
-        $str = addslashes($str); 
-        return $str;
-    }
 
-    function emailValidation($email_to_validate){
-        $reg_exp = "/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/"; // regular expression for email
-        return preg_match($reg_exp, $email_to_validate);
-    }
-    
-    function passwordValidation($password_to_validate){
-        $reg_exp = "/^(?=.*[0-9])"."(?=.*[a-z])(?=.*[A-Z])"."(?=.*[@#$%^&+=])"."(?=\\S+$).{8,20}$/"; // regular expression for password
-        return preg_match($reg_exp, $password_to_validate);
-    }
-    
-    function fullnameValidation($name_to_validate){
-        $reg_exp = "/^[a-zA-Z\s]+$/";
-        return preg_match($reg_exp, $name_to_validate);
-    }
-
-    function contactValidation($contact_to_validate){
-        $reg_exp = "/^[6789][0-9]{9}$/";
-        return preg_match($reg_exp, $contact_to_validate);
-    }
+    require_once('middleware.php');
 
     if(isset($_POST['fullName']) && isset($_POST['userEmail']) && isset($_POST['userContact']) && isset($_POST['userRole']) && isset($_POST['userPassword']) && isset($_POST['userConfirmPassword'])){
         // initialize variables with user data
@@ -75,7 +51,7 @@
                 $user_full_name_error = 'Invalid name';
                 $control = 0;
             }
-            if(!fullnameValidation($user_full_name)){
+            if(!alphaSpaceValidation($user_full_name)){
                 $user_full_name_error = 'Special charcters not allowed!';
                 $control = 0;
             }
@@ -236,98 +212,98 @@
                       ?>
                     <p class="card-description">It only takes a few steps</p>
                     <form class="pt-3" method="POST">
-                    <div class="form-group">
-                        <div class="row">
-                        <div class="col-md-6">
-                            <label for="exampleInputCity1">Full Name</label>
-                            <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-user"></i></span>
+                        <div class="form-group">
+                            <div class="row">
+                            <div class="col-md-6">
+                                <label for="exampleInputCity1">Full Name</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control form-input" id="" name="fullName" placeholder="Full Name" value="<?php echo $user_full_name; ?>">
+                                </div>
+                                <div class="form-input-response">
+                                    <?php echo $user_full_name_error; ?>
+                                </div>
                             </div>
-                            <input type="text" class="form-control form-input" id="" name="fullName" placeholder="Full Name" value="<?php echo $user_full_name; ?>">
+                            <div class="col-md-6">
+                                <label for="exampleInputCity1">E-mail</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-envelope"></i></span>
+                                </div>
+                                <input type="email" class="form-control form-input" id="" name="userEmail" placeholder="E-mail" value="<?php echo $user_email; ?>">
+                                </div>
+                                <div id="email-validate-response" class="form-input-response">
+                                    <?php echo $user_email_error; ?>
+                                </div>
                             </div>
-                            <div class="form-input-response">
-                                <?php echo $user_full_name_error; ?>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="exampleInputCity1">E-mail</label>
-                            <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-envelope"></i></span>
-                            </div>
-                            <input type="email" class="form-control form-input" id="" name="userEmail" placeholder="E-mail" value="<?php echo $user_email; ?>">
-                            </div>
-                            <div id="email-validate-response" class="form-input-response">
-                                <?php echo $user_email_error; ?>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                        <div class="col-md-6">
-                            <label for="exampleInputCity1">Contact</label>
-                            <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-phone-alt"></i></span>
-                            </div>
-                            <input type="number" class="form-control form-input" id="" name="userContact" placeholder="Contact" value="<?php echo $user_contact; ?>">
-                            </div>
-                            <div class="form-input-response">
-                                <?php echo $user_contact_error; ?>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="exampleInputCity1">User Role</label>
-                            <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-users"></i></span>
+                        <div class="form-group">
+                            <div class="row">
+                            <div class="col-md-6">
+                                <label for="exampleInputCity1">Contact</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-phone-alt"></i></span>
+                                </div>
+                                <input type="number" class="form-control form-input" id="" name="userContact" placeholder="Contact" value="<?php echo $user_contact; ?>">
+                                </div>
+                                <div class="form-input-response">
+                                    <?php echo $user_contact_error; ?>
+                                </div>
                             </div>
-                            <select class="form-control form-control-lg" id="exampleFormControlSelect2" name="userRole">
-                                <option value="">Choose</option>
-                                <option value="2" <?php if($user_role == '2') echo 'selected'; ?> >Admin</option>
-                                <option value="1" <?php if($user_role == '1') echo 'selected'; ?>>Privileged User</option>
-                                <option value="0" <?php if($user_role == '0') echo 'selected'; ?>>Data Operator</option>
-                            </select>
-                            </div>   
-                            <div class="form-input-response">
-                                <?php echo $user_role_error; ?>
+                            <div class="col-md-6">
+                                <label for="exampleInputCity1">User Role</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-users"></i></span>
+                                </div>
+                                <select class="form-control form-input" id="exampleFormControlSelect2" name="userRole">
+                                    <option value="">Choose</option>
+                                    <option value="2" <?php if($user_role == '2') echo 'selected'; ?> >Admin</option>
+                                    <option value="1" <?php if($user_role == '1') echo 'selected'; ?>>Privileged User</option>
+                                    <option value="0" <?php if($user_role == '0') echo 'selected'; ?>>Data Operator</option>
+                                </select>
+                                </div>   
+                                <div class="form-input-response">
+                                    <?php echo $user_role_error; ?>
+                                </div>
                             </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                        <div class="col-md-6">
-                            <label for="exampleInputCity1">Password</label>
-                            <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" class="form-control form-input" id="" name="userPassword" placeholder="Password" value="<?php echo $user_password; ?>">
-                            </div>
-                            <div id="password-validate-response" class="form-input-response">
-                                <?php echo $user_password_error; ?>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="exampleInputCity1">Confirm Password</label>
-                            <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-check-double"></i></span>
-                            </div>
-                            <input type="password" class="form-control form-input" id="" name="userConfirmPassword" placeholder="Confirm Password" value="<?php echo $user_confirm_password; ?>">
-                            </div>
-                            <div class="form-input-response">
-                                <?php echo $user_confirm_password_error; ?>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="row">
+                            <div class="col-md-6">
+                                <label for="exampleInputCity1">Password</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" class="form-control form-input" id="" name="userPassword" placeholder="Password" value="<?php echo $user_password; ?>">
+                                </div>
+                                <div id="password-validate-response" class="form-input-response">
+                                    <?php echo $user_password_error; ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="exampleInputCity1">Confirm Password</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-check-double"></i></span>
+                                </div>
+                                <input type="password" class="form-control form-input" id="" name="userConfirmPassword" placeholder="Confirm Password" value="<?php echo $user_confirm_password; ?>">
+                                </div>
+                                <div class="form-input-response">
+                                    <?php echo $user_confirm_password_error; ?>
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-3">
-                        <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Create</button>
-                    </div>
+                        <div class="mt-3 form-inline justify-content-end">
+                            <button class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Create</button>
+                        </div>
                     </form>
                   </div>
                 </div>
