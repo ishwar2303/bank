@@ -2,14 +2,7 @@
     session_start();
     require_once('connection.php');
 
-    if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] != '2'){
-            $_SESSION['error_msg'] = 'Only Admin can access that resource';
-            header('Location: login.php');
-            exit;
-        }
-    }
-    else{
+    if(!isset($_SESSION['user_role'])){ // all access
         $_SESSION['error_msg'] = 'Sign In to view that resource';
         header('Location: login.php');
         exit;
@@ -1284,7 +1277,7 @@
                                     <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fas fa-clock"></i>
+                                            <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
                                     <input type="number" step=".01" class="form-control form-input" name="propertySoldFor" placeholder="Amount" value="<?php echo $property_sold_for; ?>">
@@ -1420,7 +1413,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" name="raBillPaidAmount" value="<?php echo $ra_bill_paid_amount; ?>">
+                                    <input type="number" step="0.01" class="form-control form-input" name="raBillPaidAmount" placeholder="Amount" value="<?php echo $ra_bill_paid_amount; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $ra_bill_paid_amount_error; ?>
@@ -1439,7 +1432,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" name="totalAmountOfExpensesIncurred" value="<?php echo $total_amount_of_expenses_incurred; ?>">
+                                    <input type="number" step="0.01" class="form-control form-input" name="totalAmountOfExpensesIncurred" placeholder="Amount" value="<?php echo $total_amount_of_expenses_incurred; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $total_amount_of_expenses_incurred_error; ?>

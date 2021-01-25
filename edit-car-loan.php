@@ -2,14 +2,7 @@
     session_start();
     require_once('connection.php');
 
-    if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] != '2'){
-            $_SESSION['error_msg'] = 'Only Admin can access that resource';
-            header('Location: login.php');
-            exit;
-        }
-    }
-    else{
+    if(!isset($_SESSION['user_role'])){ // all access
         $_SESSION['error_msg'] = 'Sign In to view that resource';
         header('Location: login.php');
         exit;
@@ -505,6 +498,9 @@
                 $_SESSION['error_msg'] = 'Something went wrong!';
             }
         }
+        else{
+            $_SESSION['note_msg'] = 'Fill required fields and make sure they are valid';
+        }
         
     }
 ?>
@@ -571,6 +567,19 @@
                               </div>
                               <?php
                               unset($_SESSION['error_msg']);
+                          }
+                      ?>
+                      <?php 
+                          if(isset($_SESSION['note_msg'])){
+                              ?>
+                              <div class="note-msg">
+                                  <i class="far fa-comment-dots"></i>
+                                  <span>
+                                      <?php echo $_SESSION['note_msg']; ?>
+                                  </span>
+                              </div>
+                              <?php
+                              unset($_SESSION['note_msg']);
                           }
                       ?>
                     <?php if($db_error == ''){ ?>

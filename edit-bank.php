@@ -1,14 +1,14 @@
 <?php 
     session_start();
     require_once('connection.php');
-    
+  
 
     if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] != '2'){
-            $_SESSION['error_msg'] = 'Only Admin can access that resource';
-            header('Location: login.php');
-            exit;
-        }
+      if($_SESSION['user_role'] == '0'){// Data operator not allowed
+          $_SESSION['error_msg'] = 'Only Admin and Privileged user can access that resource';
+          header('Location: login.php');
+          exit;
+      }
     }
     else{
         $_SESSION['error_msg'] = 'Sign In to view that resource';
@@ -82,7 +82,7 @@
         }
         else{
             $bank_name_error = 'Bank name required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_branch)){
@@ -93,7 +93,7 @@
         }
         else{
             $bank_branch_error = 'Branch name required';
-            $conrol = 0;
+            $control = 0;
         }
         
         if(!empty($bank_city)){
@@ -104,7 +104,7 @@
         }
         else{
             $bank_city_error = 'City required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_address)){
@@ -115,7 +115,7 @@
         }
         else{
             $bank_address_error = 'Address required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_contact_person_name)){
@@ -126,7 +126,7 @@
         }
         else{
             $bank_contact_person_name_error = 'Name required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_contact_person_number)){
@@ -232,15 +232,19 @@
                     <?php if($db_error == ''){ ?>
                     <form class="forms-sample" method="POST">
                       <div class="form-group">
-                        <label for="exampleInputName1">Bank Name</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend ">
-                            <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-university"></i></span>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="exampleInputName1">Bank Name</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend ">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-university"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name">
+                            </div>
+                            <div class="form-input-response">
+                                <?php echo $bank_name_error; ?>
+                            </div>
                           </div>
-                          <input type="text" class="form-control form-input" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name">
-                        </div>
-                        <div class="form-input-response">
-                            <?php echo $bank_name_error; ?>
                         </div>
                       </div>
                       <div class="form-group">
@@ -272,10 +276,14 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="exampleTextarea1">Address</label>
-                        <textarea class="form-control form-input" name="bankAddress" id="exampleTextarea1" rows="6"><?php echo $bank_address; ?></textarea>
-                        <div class="form-input-response">
-                            <?php echo $bank_address_error; ?>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="exampleTextarea1">Address</label>
+                            <textarea class="form-control form-input" name="bankAddress" id="exampleTextarea1" rows="6"><?php echo $bank_address; ?></textarea>
+                            <div class="form-input-response">
+                                <?php echo $bank_address_error; ?>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="form-group">
@@ -298,7 +306,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-phone-alt"></i></span>
                               </div>
-                              <input type="text" class="form-control form-input" name="bankContactPersonNumber" value="<?php echo $bank_contact_person_number; ?>" placeholder="Number">
+                              <input type="number" class="form-control form-input" name="bankContactPersonNumber" value="<?php echo $bank_contact_person_number; ?>" placeholder="Number">
                             </div>
                             <div class="form-input-response">
                                 <?php echo $bank_contact_person_number_error; ?>

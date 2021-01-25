@@ -2,8 +2,9 @@
   session_start();
   require_once('connection.php');
 
-  if(!isset($_SESSION['login_time'])){
-    header('Location: logout.php');
+  if(!isset($_SESSION['user_role'])){ // all access
+    $_SESSION['error_msg'] = 'Sign In to view that resource';
+    header('Location: login.php');
     exit;
   }
 ?>

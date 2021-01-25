@@ -2,18 +2,11 @@
     session_start();
     require_once('connection.php');
 
-    if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] != '2'){
-            $_SESSION['error_msg'] = 'Only Admin can access that resource';
-            header('Location: login.php');
-            exit;
-        }
-    }
-    else{
-        $_SESSION['error_msg'] = 'Sign In to view that resource';
-        header('Location: login.php');
-        exit;
-    }
+    if(!isset($_SESSION['user_role'])){ // all access
+      $_SESSION['error_msg'] = 'Sign In to view that resource';
+      header('Location: login.php');
+      exit;
+  }
 
     date_default_timezone_set("Asia/Kolkata");
     $epoch_time = time();

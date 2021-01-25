@@ -3,7 +3,7 @@
     require_once('connection.php');
 
     if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] != '2'){
+        if($_SESSION['user_role'] != '2'){ // only admin
             $_SESSION['error_msg'] = 'Only Admin can access that resource';
             header('Location: login.php');
             exit;

@@ -13615,7 +13615,9 @@ dl {
   align-items: center;
 }
 .error-msg i{
+  padding-top: 3px;
   margin-right: 5px;
+  align-self: flex-start;
 }
 .success-msg{
   display: flex;
@@ -13624,6 +13626,7 @@ dl {
   align-items: center;
 }
 .success-msg i{
+  padding-top: 3px;
   margin-right: 5px;
 }
 .note-msg{
@@ -13634,6 +13637,8 @@ dl {
 }
 .note-msg i{
   margin-right: 5px;
+  padding-top: 3px;
+  align-self: flex-start;
 }
 .form-input-response{
   margin-top: 5px;
@@ -13647,19 +13652,25 @@ dl {
 .bank-operation > a:hover{
   text-decoration: none;
 }
-.bank-operation > a:nth-child(1), .bank-operation > label:nth-child(1){
+.bank-operation  .edit-btn{
   
-  background: #4a69bd;
+  background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
   color : white;
   padding: 5px 10px;
   border-radius: 5px;
 }
-.bank-operation > a:nth-child(2), .bank-operation > label:nth-child(2){
-  background: #eb2f06;
+.edit-btn > i{
+  margin-left: 5px;
+}
+.bank-operation  .delete-btn{
+  background: linear-gradient(45deg, rgba(255,0,0,0.9), rgba(255,0,0,0.5));
   color : white;
   margin-bottom: 0px;
   padding: 5px 10px;
   border-radius: 5px;
+}
+.delete-btn > i{
+  margin-left: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */
@@ -13668,26 +13679,51 @@ dl {
   padding-bottom: 25px;
 }
 .table-edit-op{
-  background: rgb(74, 105, 189,0.8);
+  background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
   color : white;
   padding: 5px 10px;
   border-radius: 3px;
+  display: flex;
+  align-items: center;
 
 }
 .table-edit-op:hover{
   text-decoration: none;
   color: white;
 }
+.table-edit-op i{
+  margin-left: 5px;
+}
 .table-delete-op{
-  background: rgba(255,0,0,0.8);
+  background: linear-gradient(45deg, rgba(255,0,0,0.9), rgba(255,0,0,0.5));
   color : white;
   padding: 5px 10px;
   border-radius: 3px;
+  display: flex;
+  align-items: center;
 
 }
 .table-delete-op:hover{
   text-decoration: none;
   color: white;
+}
+.table-delete-op i{
+  margin-left: 5px;
+}
+.table-add-op{
+  background: linear-gradient(45deg, rgb(51, 204, 51), rgba(0,255,0,0.5));
+  color : white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+}
+.table-add-op:hover{
+  text-decoration: none;
+  color: white;
+}
+.table-add-op i{
+  margin-left: 5px;
 }
 .logo-container{
   color : #9a55ff;
@@ -13731,7 +13767,7 @@ dl {
     width: 100%;
     height: 100vh;
     background: rgba(75, 75, 75,0.5);
-    z-index: 3;
+    z-index: 10;
     display: none;
   }
   #toggler-btn-for-side-navigation-for-phone{
@@ -13866,7 +13902,7 @@ html {
   top : 50%;
   transform: translate(-50%, -50%);
   background: white;
-  z-index: 10;
+  z-index: 5;
   border : 0.5px solid #95a5a6;
   display: none;
   position: fixed;
@@ -13956,4 +13992,15 @@ html {
   font-size: 50px;
   margin-bottom: 25px;
   width: 50px;
+}
+
+.admin{
+  color : #353b48;
+
+}
+.privileged-user{
+  color : #273c75;
+}
+.data-operator{
+  color : #e84118;
 }

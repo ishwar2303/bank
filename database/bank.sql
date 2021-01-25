@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2021 at 04:51 PM
+-- Generation Time: Jan 25, 2021 at 03:17 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -160,6 +160,36 @@ INSERT INTO `home_loan` (`home_loan_cid`, `npa_case`, `bank_name`, `bank_address
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `home_loan_comments`
+--
+
+CREATE TABLE `home_loan_comments` (
+  `comment_id` int(11) NOT NULL,
+  `case_id` int(11) NOT NULL,
+  `date_of_next_hearing` date NOT NULL,
+  `order_received_on` date NOT NULL,
+  `order_forwarded_to_bank_on` date NOT NULL,
+  `lease_on` date NOT NULL,
+  `physical_possession_on` date NOT NULL,
+  `notice_of_physical_possession` date NOT NULL,
+  `possession_taken_on` date NOT NULL,
+  `possession_postpone` tinyint(4) NOT NULL,
+  `possession_postpone_on` date NOT NULL,
+  `possession_postpone_reason` varchar(200) NOT NULL,
+  `property_on_auction` date NOT NULL,
+  `reserve_price` varchar(200) NOT NULL,
+  `emd_amount` varchar(200) NOT NULL,
+  `property_visit_by_prospective_buyers_on` date NOT NULL,
+  `auction_date` varchar(200) NOT NULL,
+  `auction_status` tinyint(4) NOT NULL,
+  `doc_for_redirection_of_order_given_to_advocate_on` date NOT NULL,
+  `redirection_order_filled_with_dm_cmm_on` date NOT NULL,
+  `redirection_order_received_on` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_registration`
 --
 
@@ -180,8 +210,7 @@ CREATE TABLE `user_registration` (
 INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES
 (4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-23 01:56:56pm'),
 (8, 'Ishwar Baisla', 'aXNod2FyMjMwMzVAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-23 03:02:31pm'),
-(10, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'VGFwYXNAMjMwMw==', 1, '21-01-24 01:27:02pm'),
-(11, 'Pankaj Gautam', 'cGFua2FqQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-24 09:04:46pm');
+(12, 'Samarth Tandon', 'c2FtYXJ0aEBnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'U2FtYXJ0aEAyMzAz', 0, '21-01-25 04:37:31pm');
 
 --
 -- Indexes for dumped tables
@@ -204,6 +233,12 @@ ALTER TABLE `car_loan`
 --
 ALTER TABLE `home_loan`
   ADD PRIMARY KEY (`home_loan_cid`);
+
+--
+-- Indexes for table `home_loan_comments`
+--
+ALTER TABLE `home_loan_comments`
+  ADD PRIMARY KEY (`comment_id`);
 
 --
 -- Indexes for table `user_registration`
@@ -234,10 +269,16 @@ ALTER TABLE `home_loan`
   MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `home_loan_comments`
+--
+ALTER TABLE `home_loan_comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

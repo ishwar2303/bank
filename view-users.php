@@ -5,13 +5,12 @@
     require_once('connection.php');
     
 
-
     if(isset($_SESSION['user_role'])){
-      if($_SESSION['user_role'] == '0'){// Data operator not allowed
-          $_SESSION['error_msg'] = 'Only Admin and Privileged user can access that resource';
-          header('Location: login.php');
-          exit;
-      }
+        if($_SESSION['user_role'] != '2'){ // only admin
+            $_SESSION['error_msg'] = 'Only Admin can access that resource';
+            header('Location: login.php');
+            exit;
+        }
     }
     else{
         $_SESSION['error_msg'] = 'Sign In to view that resource';
@@ -19,14 +18,14 @@
         exit;
     }
 
-    if(isset($_GET['bankId'])){
-      $bank_id = base64_decode($_GET['bankId']);
+    if(isset($_GET['user_id'])){
+      $user_id = base64_decode($_GET['user_id']);
 
-      $sql = "DELETE FROM bank WHERE bank_id = '$bank_id'";
+      $sql = "DELETE FROM user_registration WHERE user_id = '$user_id'";
       $conn->query($sql);
       if($conn->error == ''){
-        $_SESSION['success_msg'] = 'Bank deleted successfully';
-        header('Location: view-banks.php');
+        $_SESSION['success_msg'] = 'User deleted successfully';
+        header('Location: view-users.php');
         exit;
       }
       else{
@@ -35,7 +34,7 @@
     }
 
     $db_error = '';
-    $sql = "SELECT * FROM bank";
+    $sql = "SELECT * FROM user_registration";
     $result = $conn->query($sql);
 
     if($conn->error != ''){
@@ -43,7 +42,7 @@
         $db_error = $conn->error;
     }
     else if($result->num_rows == 0){
-      $_SESSION['error_msg'] = 'No banks';
+      $_SESSION['error_msg'] = 'No user';
     }
 ?>
 
@@ -54,7 +53,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>View Banks</title>
+    <title>Users</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -84,7 +83,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Banks</h4>
+                    <h4 class="card-title">Users <?php print_r($_SESSION); ?></h4>
             
                       <?php 
                           if(isset($_SESSION['success_msg'])){
@@ -117,43 +116,63 @@
                         if($db_error == ''){
                           if($result->num_rows > 0){
                             ?>
-                            <p class="card-description"> Bank Details </p>
+                            <p class="card-description"> User Details </p>
                                   
                             <div class="row bank-card-container">
                             <?php
                             while($row = $result->fetch_assoc()){
-                                $encoded_bank_id = base64_encode($row['bank_id']);
+                                $encoded_user_id = base64_encode($row['user_id']);
+                                
+                                $full_name = $row['user_full_name'];
+                                $role = $row['user_role'];
+                                if($role == '2'){
+                                  $role_value = 'Admin';
+                                  $css_class = 'admin';
+                                  $css_card = 'card bg-gradient-danger card-img-holder text-white';
+                                }
+                                if($role == '1'){
+                                  $role_value = 'Privileged User';
+                                  $css_class = 'privileged-user';
+                                  $css_card = 'card bg-gradient-info card-img-holder text-white';
+                                }
+                                if($role == '0'){
+                                  $role_value = 'Data operator';
+                                  $css_class = 'data-operator';
+                                  $css_card = 'card bg-gradient-success card-img-holder text-white';
+                                }
+                                $email = base64_decode($row['user_email']);
+                                $contact = base64_decode($row['user_mobile']);
+                                $password = base64_decode($row['user_password'])
                                 ?>
                                 <div class="col-md-4 stretch-card grid-margin">
-                                  <div class="card bg-gradient-info card-img-holder text-white">
+                                  <div class="<?php echo $css_card; ?>">
                                     <div class="card-body">
                                       <h4 class="font-weight-normal mb-3">
-                                        <?php echo $row['bank_name']; ?>
-                                        <i class="mdi mdi-bank mdi-24px float-right"></i>
+                                        <?php echo $full_name; ?>
+                                        <i class="fas fa-user mdi-24px float-right"></i>
                                       </h4>
-                                      <h5 class="mb-2">
-                                        <?php echo $row['bank_branch']; ?>
+                                      <h5 class="mb-2 <?php echo $css_class; ?>">
+                                        <?php echo $role_value; ?>
                                       </h5>
                                       <h5 class="mb-2">
-                                        <?php echo $row['bank_city']; ?>
+                                        <?php echo $email; ?>
                                       </h5>
                                       <h6 class="mb-5">
-                                        <?php echo $row['bank_address']; ?>
+                                        <?php echo $contact; ?>
                                       </h6>
                                       <h6 class="mb-2">
-                                        <?php echo $row['bank_contact_person_name']; ?>
-                                      </h6>
-                                      <h6 class="mb-2">
-                                        <?php echo $row['bank_contact_person_number']; ?>
+                                        <?php echo 'Password : '.$password; ?>
                                       </h6>
 
-                                      <div class="bank-operation">
-                                        <a class="edit-btn" href="edit-bank.php?bankId=<?php echo $encoded_bank_id; ?>">Edit
+                                      <div class="bank-operation form-inline justify-content-end">
+                                        <!-- <a href="edit-user.php?bankId=<?php echo $encoded_user_id; ?>">Edit
                                           <i class="fas fa-edit"></i>
-                                        </a>
-                                        <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_bank_id; ?>','bank')">Delete
+                                        </a> -->
+                                        <?php if($role != '2'){ ?>
+                                        <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_user_id; ?>','user')">Delete
                                           <i class="fas fa-trash-alt"></i>
                                         </label>
+                                        <?php } ?>
                                       </div>
 
 

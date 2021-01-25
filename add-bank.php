@@ -4,8 +4,8 @@
     
 
     if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] != '2'){
-            $_SESSION['error_msg'] = 'Only Admin can access that resource';
+        if($_SESSION['user_role'] == '0'){// Data operator not allowed
+            $_SESSION['error_msg'] = 'Only Admin and Privileged user can access that resource';
             header('Location: login.php');
             exit;
         }
@@ -49,7 +49,7 @@
         }
         else{
             $bank_name_error = 'Bank name required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_branch)){
@@ -60,7 +60,7 @@
         }
         else{
             $bank_branch_error = 'Branch name required';
-            $conrol = 0;
+            $control = 0;
         }
         
         if(!empty($bank_city)){
@@ -71,7 +71,7 @@
         }
         else{
             $bank_city_error = 'City required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_address)){
@@ -82,7 +82,7 @@
         }
         else{
             $bank_address_error = 'Address required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_contact_person_name)){
@@ -93,7 +93,7 @@
         }
         else{
             $bank_contact_person_name_error = 'Name required';
-            $conrol = 0;
+            $control = 0;
         }
 
         if(!empty($bank_contact_person_number)){
@@ -281,7 +281,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-phone-alt"></i></span>
                               </div>
-                              <input type="text" class="form-control form-input" name="bankContactPersonNumber" value="<?php echo $bank_contact_person_number; ?>" placeholder="Number">
+                              <input type="number" class="form-control form-input" name="bankContactPersonNumber" value="<?php echo $bank_contact_person_number; ?>" placeholder="Number">
                             </div>
                             <div class="form-input-response">
                                 <?php echo $bank_contact_person_number_error; ?>

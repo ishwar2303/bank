@@ -7,7 +7,6 @@
         <div class="nav-profile-image">
           <img src="assets/images/faces/face1.jpg" alt="profile">
           <span class="login-status online"></span>
-          <!--change to offline or busy as needed-->
         </div>
         <div class="nav-profile-text d-flex flex-column">
           <span class="font-weight-bold mb-2"><?php echo $_SESSION['user_full_name']; ?></span>
@@ -45,18 +44,32 @@
     </li>
     <?php } ?>
 
+    <?php if($logged_in_user_role == '2'){ ?>
+    <li class="nav-item">
+      <a class="nav-link" href="view-users.php  ">
+        <span class="menu-title">View User</span>
+        <i class="fas fa-users menu-icon"></i>
+      </a>
+    </li>
+    <?php } ?>
+    
+    <?php if($logged_in_user_role != '0'){ ?>
     <li class="nav-item">
       <a class="nav-link" href="add-bank.php  ">
         <span class="menu-title">Add Bank</span>
         <i class="mdi mdi-message-plus menu-icon"></i>
       </a>
     </li>
+    <?php } ?>
+    
+    <?php if($logged_in_user_role != '0'){ ?>
     <li class="nav-item">
       <a class="nav-link" href="view-banks.php  ">
         <span class="menu-title">View Banks</span>
-        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        <i class="fas fa-eye menu-icon"></i>
       </a>
     </li>
+    <?php } ?>
     
     <li class="nav-item">
       <a class="nav-link" href="home-loan.php  ">
@@ -136,6 +149,8 @@
         URL = 'view-home-loans.php?cid=' + DeleteRESOURCEID;
       if(ResourceTypeID == 'car-loan')
         URL = 'view-car-loans.php?cid=' + DeleteRESOURCEID;
+      if(ResourceTypeID == 'user')
+        URL = 'view-users.php?user_id=' + DeleteRESOURCEID;
       location.href= URL;
     }
     function confirmResourceDeletion(RID, TID){
