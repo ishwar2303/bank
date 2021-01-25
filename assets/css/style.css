@@ -8662,7 +8662,7 @@ button.bg-dark:focus {
   padding-left: 1.5rem !important; }
 
 .p-5 {
-  padding: 3rem !important; }
+  padding: 3rem 3rem; }
 
 .pt-5,
 .py-5 {
@@ -13706,7 +13706,48 @@ dl {
 .compromise-part, .ots-part{
   display: none;
 }
+
+#toggler-btn-for-side-navigation-for-phone{
+  display: none;
+}
+#black-cover-side-naviagtion{
+  display: none;
+}
 @media screen and (max-width : 990px){
+  .sidebar-offcanvas{
+    left : 0;
+  }
+  .sidebar{
+    display: none;
+  }
+  #black-cover-side-navigation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left : 0;
+    top : 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(75, 75, 75,0.5);
+    z-index: 3;
+    display: none;
+  }
+  #toggler-btn-for-side-navigation-for-phone{
+    position: absolute;
+    font-size: 26px;
+    left: 15px;
+    background: white;
+    padding: 0px 15px;
+    display: block;
+    color: #9a55ff;
+  }
+  .p-5{
+    padding: 3rem 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   .sidebar-space-cover{
     display: none;
   }
@@ -13722,6 +13763,12 @@ dl {
   }
   .bank-card-container > div{
     max-width: 100%;
+  }
+  .col-md-6{
+    margin-bottom: 15px;
+  }
+  .form-group{
+    margin-bottom: 0px;
   }
 }
 

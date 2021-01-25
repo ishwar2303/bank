@@ -1,5 +1,6 @@
 
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+  <i onclick="toggleSideNavigation()" id="toggler-btn-for-side-navigation-for-phone" class="fas fa-bars"></i>
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
     <a class="navbar-brand brand-logo" href="index.php">
       <h3 class="logo-container">
@@ -7,7 +8,6 @@
         <span>BANK</span>
       </h3>
     </a>
-    <a class="navbar-brand brand-logo-mini" href="index.php"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-stretch">
     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">

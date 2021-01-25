@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2021 at 04:58 PM
+-- Generation Time: Jan 24, 2021 at 04:51 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -36,6 +36,16 @@ CREATE TABLE `bank` (
   `bank_contact_person_name` varchar(200) NOT NULL,
   `bank_contact_person_number` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bank`
+--
+
+INSERT INTO `bank` (`bank_id`, `bank_name`, `bank_branch`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`) VALUES
+(9, 'State Bank of India', 'Vijay Nagar', 'Delhi', ' H-7 Vijay Nagar, Distt. \r<br/>Delhi, Delhi 110 009', 'Ishwar Baisla', 9821671707),
+(10, 'IDBI', 'Mukherjee Nagar', 'Delhi', ' 1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', 8447811595),
+(11, 'HDFC', 'Mukherjee Nagar', 'Delhi', ' No 1054 A\r\nMukherjee Nagar\r\nNew Delhi-110009', 'Ishwar Baisla', 7573919585),
+(12, 'PNB', 'Mukherjee Nagar', 'Delhi', ' Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', 9821671707);
 
 -- --------------------------------------------------------
 
@@ -77,6 +87,14 @@ CREATE TABLE `car_loan` (
   `bill_raised` varchar(200) NOT NULL,
   `payment_received` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `car_loan`
+--
+
+INSERT INTO `car_loan` (`car_loan_cid`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`) VALUES
+(8, 'Vijay Nagar', '12345678958', 'Ishwar Baisla', '2021-01-30', '200000', '7.5', '2020-01-30', '4000', '200', '500', '150', '14000', 20, '1811003030231', 'wazirabad village gali no-6\r<br/>Home F/434 Delhi - 110084', '9868949632', 'Vijay Nagar Delhi\r<br/>H-7 Vijay Nagar, Distt. Delhi, \r<br/>Delhi 110 009', '9868949632', 'Something', 'FAFA1421452', 'DL SP 4907', '25', 'Ishwar Baisla', '9015523501', 'Mukherjee Nagar\r<br/>Delhi\r<br/>Shop No G1, G2, G3, G4\r<br/> Manushri Ansal Building', 'Ishwar Baisla', '9650253586', '855, Ground Floor, Banda Bahadur Marg,\r<br/>Mukherjee Nagar, Delhi, 110009', '3000', '3001', '1580005'),
+(16, 'Ishwar Baisla', '98216566563', 'Ishwar Baisla', '2021-01-20', '100000', '10', '2021-01-30', '50000', '1000', '25000', '25600', '46666', 10, '142662266', 'Wazirabad Village', '9821671707', 'Wazirabad Village', '9821671707', 'maker', 'FAFA1421452', 'DL SP 4907', '15', 'Ishwar Baisla', '9821671707', 'Wazirabad Village', 'Ishwar Baisla', '9821671707', 'Wazirabad Village', '26566', '568965', '6969');
 
 -- --------------------------------------------------------
 
@@ -132,6 +150,13 @@ CREATE TABLE `home_loan` (
   `income_case_wise_profit_loss` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `home_loan`
+--
+
+INSERT INTO `home_loan` (`home_loan_cid`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding_on`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`) VALUES
+(10, 'New NPA Cases upto Rs 20 Lac', 'PNB', 'Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', '9821671707', 'Manager', 'ishwar047@gmail.com', 'Ishwar Baisla', '50000', '2021-01-15', '2021-01-20', '2021-01-14', '2021-01-29', '2021-01-27', 'kjkljkjkl', 'lkygygjg', 'hukhkj', '2021-01-22', '2021-01-22', '2021-01-27', '2021-01-29', '2021-01-28', '2021-01-16', '2021-01-13', '2021-01-15', 1, '2021-01-22', '10000', '4585', 1, '2021-01-30', '4552', 1, '2021-02-04', '', '2021-01-16', '2021-01-08', '2021-01-08', '255', '2021-01-03', '2021-01-15', '10000', '4586', '5633');
+
 -- --------------------------------------------------------
 
 --
@@ -153,7 +178,10 @@ CREATE TABLE `user_registration` (
 --
 
 INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES
-(4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-23 01:56:56pm');
+(4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-23 01:56:56pm'),
+(8, 'Ishwar Baisla', 'aXNod2FyMjMwMzVAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-23 03:02:31pm'),
+(10, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'VGFwYXNAMjMwMw==', 1, '21-01-24 01:27:02pm'),
+(11, 'Pankaj Gautam', 'cGFua2FqQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-24 09:04:46pm');
 
 --
 -- Indexes for dumped tables

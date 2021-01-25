@@ -207,15 +207,19 @@
                       ?>
                     <form class="forms-sample" method="POST">
                       <div class="form-group">
-                        <label for="exampleInputName1">Bank Name</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend ">
-                            <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-university"></i></span>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="exampleInputName1">Bank Name</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend ">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-university"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name">
+                            </div>
+                            <div class="form-input-response">
+                                <?php echo $bank_name_error; ?>
+                            </div>
                           </div>
-                          <input type="text" class="form-control form-input" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name">
-                        </div>
-                        <div class="form-input-response">
-                            <?php echo $bank_name_error; ?>
                         </div>
                       </div>
                       <div class="form-group">
@@ -247,10 +251,14 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="exampleTextarea1">Address</label>
-                        <textarea class="form-control form-input" name="bankAddress" id="exampleTextarea1" rows="6"><?php echo $bank_address; ?></textarea>
-                        <div class="form-input-response">
-                            <?php echo $bank_address_error; ?>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="exampleTextarea1">Address</label>
+                            <textarea class="form-control form-input" name="bankAddress" id="exampleTextarea1" rows="6"><?php echo $bank_address; ?></textarea>
+                            <div class="form-input-response">
+                                <?php echo $bank_address_error; ?>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="form-group">
