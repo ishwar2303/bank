@@ -26,8 +26,9 @@
     <ul class="navbar-nav navbar-nav-right">
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-          <!-- <div class="nav-profile-img">
-          </div> -->
+          <div class="nav-profile-img">
+            <img src="assets/images/faces-clipart/pic-1.png" alt="">
+          </div>
           <div class="nav-profile-text">
             <p class="mb-1 text-black"><?php echo $_SESSION['user_full_name']; ?></p>
           </div>
@@ -45,23 +46,3 @@
 
 
 
-
-
-
-
-
-<!-- cusotm scroll -->
-<!-- 
-<div id="progressBar"></div>
-<div id="progressBarContainer"></div>
-
-<script>
-  const progressBar = document.getElementById("progressBar");
-  let totalPageHeight = document.body.scrollHeight - window.innerHeight;
-  window.onscroll = () => {
-    let newProgressHeight = -(window.pageYOffset / totalPageHeight) * 100;
-    
-    progressBar.style.height = `${newProgressHeight}%`;
-    //progressBar.style.opacity = `${newProgressHeight}%`;
-  };
-</script> -->

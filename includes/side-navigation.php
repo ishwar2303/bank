@@ -5,7 +5,7 @@
   <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
-          <img src="assets/images/faces/face1.jpg" alt="profile">
+            <img src="assets/images/faces-clipart/pic-1.png" alt="">
           <span class="login-status online"></span>
         </div>
         <div class="nav-profile-text d-flex flex-column">
@@ -151,6 +151,8 @@
         URL = 'view-car-loans.php?cid=' + DeleteRESOURCEID;
       if(ResourceTypeID == 'user')
         URL = 'view-users.php?user_id=' + DeleteRESOURCEID;
+      if(ResourceTypeID == 'home-loan-comment')
+        URL = 'view-home-loans.php?comment_id=' + DeleteRESOURCEID;
       location.href= URL;
     }
     function confirmResourceDeletion(RID, TID){

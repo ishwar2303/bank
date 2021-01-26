@@ -16,6 +16,48 @@
     require_once('middleware.php');
 
     $db_error = '';
+    if(isset($_GET['comment_id'])){
+        $comment_id = base64_decode($_GET['comment_id']);
+        $sql = "SELECT * FROM home_loan_comments WHERE comment_id = '$comment_id'";
+        $result = $conn->query($sql);
+        if($conn->error == ''){
+            if($result->num_rows == 1){ 
+                $comment = $result->fetch_assoc();
+                $date_of_next_hearing = $comment['date_of_next_hearing'];
+                $order_received_on = $comment['order_received_on'];
+                $order_forwarded_to_bank_on = $comment['order_forwarded_to_bank_on'];
+                $lease_on = $comment['lease_on'];
+                $physical_possession_on = $comment['physical_possession_on'];
+                $notice_of_physical_possession_on = $comment['notice_of_physical_possession'];
+                $possession_taken_on = $comment['possession_taken_on'];
+                $possession_postpone_on = $comment['possession_postpone_on'];
+                $postpone_reason = $comment['possession_postpone_reason'];
+                $property_on_auction = $comment['property_on_auction'];
+                $reserve_price = $comment['reserve_price'];
+                $emd_amount = $comment['emd_amount'];
+                $property_visit_by_prospective_buyers_on = $comment['property_visit_by_prospective_buyers_on'];
+                $auction_date = $comment['auction_date'];
+                $auction_status = $comment['auction_status'];
+                $doc_for_redirection_of_order_given_to_advocate_on = $comment['doc_for_redirection_of_order_given_to_advocate_on'];
+                $redirection_order_filled_with_dm_cmm_on = $comment['redirection_order_filled_with_dm_cmm_on'];
+                $redirection_order_received_on = $comment['redirection_order_received_on'];
+
+                $postpone_reason = str_replace("<br/>", "\n", $postpone_reason);
+            }
+            else{
+                $_SESSION['error_msg'] = 'No status exist with the give comment ID';
+                $db_error = 'No status exist with the give comment ID';
+                header('Location: view-home-loans.php');
+                exit;
+            }
+        }
+        else{
+            $_SESSION['error_msg'] = 'Something went wrong!';
+            $db_error = $conn->error;
+        }
+    }
+
+
     if(isset($_GET['cid'])){
         $case_id = base64_decode($_GET['cid']);
         $sql = "SELECT home_loan_cid FROM home_loan WHERE home_loan_cid = '$case_id'";
@@ -38,24 +80,6 @@
         }
     }
 
-    $date_of_next_hearing = '';
-    $order_received_on = '';
-    $order_forwarded_to_bank_on = '';
-    $lease_on = '';
-    $physical_possession_on = '';
-    $notice_of_physical_possession_on = '';
-    $possession_taken_on = '';
-    $possession_postpone_on = '';
-    $postpone_reason = '';
-    $property_on_auction = '';
-    $reserve_price = '';
-    $emd_amount = '';
-    $property_visit_by_prospective_buyers_on = '';
-    $auction_date = '';
-    $auction_status = '';
-    $doc_for_redirection_of_order_given_to_advocate_on = '';
-    $redirection_order_filled_with_dm_cmm_on = '';
-    $redirection_order_received_on = '';
     //errors
 
     $date_of_next_hearing_error = '';
@@ -119,11 +143,11 @@
 
         if($control){ // Insert data into database control = 1
             $postpone_reason = str_replace("\n", "<br/>", $postpone_reason);
-            $sql = "INSERT INTO `home_loan_comments` (`comment_id`, `case_id`, `date_of_next_hearing`, `order_received_on`, `order_forwarded_to_bank_on`, `lease_on`, `physical_possession_on`, `notice_of_physical_possession`, `possession_taken_on`, `possession_postpone_on`, `possession_postpone_reason`, `property_on_auction`, `reserve_price`, `emd_amount`, `property_visit_by_prospective_buyers_on`, `auction_date`, `auction_status`, `doc_for_redirection_of_order_given_to_advocate_on`, `redirection_order_filled_with_dm_cmm_on`, `redirection_order_received_on`) VALUES (NULL, '$case_id', '$date_of_next_hearing', '$order_received_on', '$order_forwarded_to_bank_on', '$lease_on', '$physical_possession_on', '$notice_of_physical_possession_on', '$possession_taken_on', '$possession_postpone_on', '$postpone_reason', '$property_on_auction', '$reserve_price', '$emd_amount', '$property_visit_by_prospective_buyers_on', '$auction_date', '$auction_status', '$doc_for_redirection_of_order_given_to_advocate_on', '$redirection_order_filled_with_dm_cmm_on', '$redirection_order_received_on')";
+            $sql = "UPDATE home_loan_comments SET date_of_next_hearing = '$date_of_next_hearing', order_received_on = '$order_received_on', order_forwarded_to_bank_on = '$order_forwarded_to_bank_on', lease_on = '$lease_on', physical_possession_on = '$physical_possession_on', notice_of_physical_possession = '$notice_of_physical_possession_on', possession_taken_on = '$possession_postpone_on', possession_postpone_on = '$possession_postpone_on', possession_postpone_reason = '$postpone_reason', property_on_auction = '$property_on_auction', reserve_price = '$reserve_price', emd_amount = '$emd_amount', property_visit_by_prospective_buyers_on = '$property_visit_by_prospective_buyers_on', auction_date = '$auction_date', auction_status = '$auction_status', doc_for_redirection_of_order_given_to_advocate_on = '$doc_for_redirection_of_order_given_to_advocate_on', redirection_order_filled_with_dm_cmm_on = '$redirection_order_filled_with_dm_cmm_on', redirection_order_received_on = '$redirection_order_received_on' WHERE comment_id = '$comment_id'";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
-                $_SESSION['success_msg'] = 'Added successfully';
+                $_SESSION['success_msg'] = 'Updated successfully';
                 header('Location: view-home-loans.php');
                 exit;   
             }   
@@ -564,7 +588,7 @@
                         </div>
 
                         <div class="mt-3 form-inline justify-content-end">
-                            <button class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Add</button>
+                            <button class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Update</button>
                         </div>
                     </form>
                   </div>

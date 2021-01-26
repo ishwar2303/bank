@@ -4440,7 +4440,7 @@ input[type="button"].btn-block {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: -21px;
   z-index: 1000;
   display: none;
   float: left;
@@ -8348,7 +8348,7 @@ button.bg-dark:focus {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 1030; }
+  z-index: 16; }
 
 .fixed-bottom {
   position: fixed;
@@ -13652,22 +13652,30 @@ dl {
 .bank-operation > a:hover{
   text-decoration: none;
 }
-.bank-operation  .edit-btn{
+.edit-btn{
   
   background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
   color : white;
   padding: 5px 10px;
   border-radius: 5px;
 }
+.edit-btn:hover{
+  text-decoration: none;
+  color: white;
+}
 .edit-btn > i{
   margin-left: 5px;
 }
-.bank-operation  .delete-btn{
+.delete-btn{
   background: linear-gradient(45deg, rgba(255,0,0,0.9), rgba(255,0,0,0.5));
   color : white;
   margin-bottom: 0px;
   padding: 5px 10px;
   border-radius: 5px;
+}
+.delete-btn:hover{
+  text-decoration: none;
+  color: white;
 }
 .delete-btn > i{
   margin-left: 5px;
@@ -13685,6 +13693,7 @@ dl {
   border-radius: 3px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
 }
 .table-edit-op:hover{
@@ -13701,6 +13710,7 @@ dl {
   border-radius: 3px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
 }
 .table-delete-op:hover{
@@ -13717,12 +13727,27 @@ dl {
   border-radius: 3px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .table-add-op:hover{
   text-decoration: none;
   color: white;
 }
 .table-add-op i{
+  margin-left: 5px;
+}
+.table-view-op{
+  background: linear-gradient(45deg, rgb(155, 89, 182,0.8), rgb(155, 89, 182,0.6));
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-top: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.table-view-op > i{
   margin-left: 5px;
 }
 .logo-container{
@@ -13749,65 +13774,6 @@ dl {
 #black-cover-side-naviagtion{
   display: none;
 }
-@media screen and (max-width : 990px){
-  .sidebar-offcanvas{
-    left : 0;
-  }
-  .sidebar{
-    display: none;
-  }
-  #black-cover-side-navigation{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left : 0;
-    top : 0;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: rgba(75, 75, 75,0.5);
-    z-index: 10;
-    display: none;
-  }
-  #toggler-btn-for-side-navigation-for-phone{
-    position: absolute;
-    font-size: 26px;
-    left: 15px;
-    background: white;
-    padding: 0px 15px;
-    display: block;
-    color: #9a55ff;
-  }
-  .p-5{
-    padding: 3rem 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .sidebar-space-cover{
-    display: none;
-  }
-  .content-wrapper{
-    padding : 0.5rem;
-  }
-  .card .card-body{
-    padding: 1rem;
-  }
-  .bank-card-container{
-    display: flex;
-    flex-direction: column;
-  }
-  .bank-card-container > div{
-    max-width: 100%;
-  }
-  .col-md-6{
-    margin-bottom: 15px;
-  }
-  .form-group{
-    margin-bottom: 0px;
-  }
-}
-
 
 /* start custom radio-input */
 .radio-inputs{
@@ -13856,39 +13822,6 @@ dl {
 .radio-inputs > label > span > .radio-cross-icon{
   color : rgba(255,0,0,0.8);
 }
-/* custom scroll css*/
-/* 
-html {
-  overflow: -moz-scrollbars-none;
-  scrollbar-width: none;
-}
-
-/* 
-::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-}
-
-#progressBarContainer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-
-#progressBar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 10px;
-  background: linear-gradient(to top, violet, red);
-  height: 0;
-  opacity: 1;
-} */ 
-
 
 /* resource delete */
 
@@ -13902,7 +13835,7 @@ html {
   top : 50%;
   transform: translate(-50%, -50%);
   background: white;
-  z-index: 5;
+  z-index: 25;
   border : 0.5px solid #95a5a6;
   display: none;
   position: fixed;
@@ -13984,7 +13917,7 @@ html {
   width: 100%;
   height: 100vh;
   background: rgba(75, 75, 75,0.5);
-  z-index: 3;
+  z-index: 24;
   display: none;
 }
 .resource-delete-icon-on-popup{
@@ -14003,4 +13936,138 @@ html {
 }
 .data-operator{
   color : #e84118;
+}
+.show-case-status{
+  width: 90%;
+  height: 92vh;
+  position: relative;
+  position: absolute;
+  left: 50%;
+  top : 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  z-index: 20;
+  display: none;
+  border-radius: 5px;
+  position: fixed;
+}
+.show-case-content{
+  overflow-y: auto;
+}
+.case-status-heading{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  top : 0px;
+  position: fixed;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
+}
+.case-status-heading > i{
+  font-size: 28px;
+  color : rgba(255,0,0,0.8);
+  position: absolute;
+  right: 10px;
+  position: fixed;
+}
+.success-status{
+  display: flex;
+  align-items: center;
+  color : rgb(32, 160, 32);
+}
+.success-status > i{
+  margin-right: 5px;
+}
+.failed-status{
+  display: flex;
+  align-items: center;
+  color : rgb(255, 22, 22);
+}
+.failed-status > i{
+  margin-right: 5px;
+}
+@media screen and (max-width : 990px){
+  .show-case-status{
+    width: 99%;
+    height: 100vh;
+  }
+  .sidebar-offcanvas{
+    left : 0;
+  }
+  .sidebar{
+    display: none;
+  }
+  #black-cover-side-navigation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left : 0;
+    top : 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(75, 75, 75,0.5);
+    z-index: 10;
+    display: none;
+  }
+  #toggler-btn-for-side-navigation-for-phone{
+    position: absolute;
+    font-size: 26px;
+    left: 15px;
+    background: white;
+    padding: 0px 15px;
+    display: block;
+    color: #9a55ff;
+  }
+  .p-5{
+    padding: 3rem 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .sidebar-space-cover{
+    display: none;
+  }
+  .content-wrapper{
+    padding : 0.5rem;
+  }
+  .card .card-body{
+    padding: 1rem;
+  }
+  .bank-card-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .bank-card-container > div{
+    max-width: 100%;
+  }
+  .col-md-6{
+    margin-bottom: 15px;
+  }
+  .form-group{
+    margin-bottom: 0px;
+  }
+}
+
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }

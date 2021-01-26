@@ -121,6 +121,7 @@
                               <thead>
                                 <tr>
                                   <th>S No</th>
+                                  <th>Case Date</th>
                                   <th>Home Branch</th>
                                   <th>Account Number</th>
                                   <th>Customer Name</th>
@@ -162,16 +163,23 @@
                                 $serial_no = 1;
                                 while($car_loan = $result->fetch_assoc()){
                                     $encoded_cid = base64_encode($car_loan['car_loan_cid']);
+                                    $date = $car_loan['case_date'];
+                                    $case_date = new DateTime($date);
+                                    $date = $car_loan['npa_date'];
+                                    $npa_date = new DateTime($date);
+                                    $date = $car_loan['notice13_sent_on'];
+                                    $notice13_sent_on = new DateTime($date);
                                     ?>
                                     <tr>
                                       <td><?php echo $serial_no; ?></td>
+                                      <td><?php echo $car_loan['case_date']!= '0000-00-00'? $case_date->format('d-m-Y') : '-'; ?></td>
                                       <td><?php echo $car_loan['home_branch']; ?></td>
                                       <td><?php echo $car_loan['account_number']; ?></td>
                                       <td><?php echo $car_loan['customer_name']; ?></td>
-                                      <td><?php echo $car_loan['npa_date']; ?></td>
+                                      <td><?php echo $car_loan['npa_date']!= '0000-00-00'? $npa_date->format('d-m-Y') : '-'; ?></td>
                                       <td><?php echo $car_loan['outstanding']; ?></td>
                                       <td><?php echo $car_loan['arr_co_nd']; ?></td>
-                                      <td><?php echo $car_loan['notice13_sent_on']; ?></td>
+                                      <td><?php echo $car_loan['notice13_sent_on']!= '0000-00-00'? $notice13_sent_on->format('d-m-Y') : '-'; ?></td>
                                       <td><?php echo $car_loan['principal_outstanding']; ?></td>
                                       <td><?php echo $car_loan['bounce_charges']; ?></td>
                                       <td><?php echo $car_loan['overdue_charges']; ?></td>

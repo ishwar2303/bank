@@ -83,7 +83,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Users <?php print_r($_SESSION); ?></h4>
+                    <h4 class="card-title">Users</h4>
             
                       <?php 
                           if(isset($_SESSION['success_msg'])){
@@ -122,7 +122,8 @@
                             <?php
                             while($row = $result->fetch_assoc()){
                                 $encoded_user_id = base64_encode($row['user_id']);
-                                
+                                $created_date = new DateTime($row['user_updated_timestamp']);
+
                                 $full_name = $row['user_full_name'];
                                 $role = $row['user_role'];
                                 if($role == '2'){
@@ -157,11 +158,14 @@
                                       <h5 class="mb-2">
                                         <?php echo $email; ?>
                                       </h5>
-                                      <h6 class="mb-5">
+                                      <h6 class="mb-2">
                                         <?php echo $contact; ?>
                                       </h6>
-                                      <h6 class="mb-2">
+                                      <h6 class="mb-5">
                                         <?php echo 'Password : '.$password; ?>
+                                      </h6>
+                                      <h6 class="mb-2">
+                                        <?php echo 'Created : '.$created_date->format('d-m-Y'); ?>
                                       </h6>
 
                                       <div class="bank-operation form-inline justify-content-end">

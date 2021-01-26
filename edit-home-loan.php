@@ -22,51 +22,79 @@
     }
 
     require_once('middleware.php');
-    $case_date = '';
-    $npa_case = '';
-    $bank_name = '';
-    $bank_contact_person_name = '';
-    $bank_contact_person_number = '';
-    $bank_contact_person_designation = '';
-    $bank_address = '';
-    $bank_contact_person_email = '';
-    $borrower_name = '';
-    $amount = '';
-    $outstanding_on = '';
-    $ra_agreement_signed_on = '';
-    $ra_agreement_expired_on = '';
-    $date_of_notice13_2 = '';
-    $date_of_notice13_3 = '';
-    $primary_security = '';
-    $collateral_security = '';
-    $total_security = '';
-    $date_of_symbolic_possession = '';
-    $publication_hindu_newspaper = '';
-    $publication_english_newspapaer = '';
-    $requested_bank_for_documentation_on = '';
-    $documents_received_on = '';
-    $documents_given_to_advocate_on = '';
-    $application_file_dm_cmm_advocate_on = '';
-    $date_of_hearing = '';
-    $compromise = '0';
-    $date_of_compromise = '';
-    $amount_of_compromise = '';
-    $full_compromise_paid_upto = '';
-    $ots = '0';
-    $date_of_ots_accepted = '';
-    $full_ots_paid_upto = '';
-    $compromise_ots_failed = '';
-    $property_sold_on = '';
-    $property_sold_for = '';
-    $full_amount_of_compromise_received_on = '';
-    $full_amount_of_ots_received_on = '';
-    $date_of_ra_bill = '';
-    $amount_of_ra_bill = '';
-    $ra_bill_forward_to_bank_on = '';
-    $ra_bill_paid_on = '';
-    $ra_bill_paid_amount = '';
-    $total_amount_of_expenses_incurred = '';
-    $income_case_wise_profit_loss = '';
+
+    $db_error = '';
+    if(isset($_GET['cid'])){
+        $home_loan_cid = base64_decode($_GET['cid']);
+        $sql = "SELECT * FROM home_loan WHERE home_loan_cid = '$home_loan_cid'";
+        $result = $conn->query($sql);
+
+        if($conn->error == ''){
+            if($result->num_rows == 1){
+                $home_loan = $result->fetch_assoc();
+
+                $case_date = $home_loan['case_date'];
+                $npa_case = $home_loan['npa_case'];
+                $bank_name = $home_loan['bank_name'];
+                $bank_contact_person_name = $home_loan['bank_contact_person_name'];
+                $bank_contact_person_number = $home_loan['bank_contact_person_number'];
+                $bank_contact_person_designation = $home_loan['bank_contact_person_designation'];
+                $bank_address = $home_loan['bank_address'];
+                $bank_contact_person_email = $home_loan['bank_contact_person_email'];
+                $borrower_name = $home_loan['borrower_name'];
+                $amount = $home_loan['amount'];
+                $outstanding_on = $home_loan['outstanding_on'];
+                $ra_agreement_signed_on = $home_loan['ra_agreement_signed_on'];
+                $ra_agreement_expired_on = $home_loan['ra_agreement_expired_on'];
+                $date_of_notice13_2 = $home_loan['date_of_notice13_2'];
+                $date_of_notice13_3 = $home_loan['date_of_notice13_3'];
+                $primary_security = $home_loan['primary_security'];
+                $collateral_security = $home_loan['collateral_security'];
+                $total_security = $home_loan['total_security'];
+                $date_of_symbolic_possession = $home_loan['date_of_symbolic_possession'];
+                $publication_hindu_newspaper = $home_loan['publication_hindi_newspaper_on'];
+                $publication_english_newspapaer = $home_loan['publication_english_newspaper_on'];
+                $requested_bank_for_documentation_on = $home_loan['requested_bank_for_documents'];
+                $documents_received_on = $home_loan['documents_received_on'];
+                $documents_given_to_advocate_on = $home_loan['documents_given_to_advocate_on'];
+                $application_file_dm_cmm_advocate_on = $home_loan['application_file_dm_cmm_by_advocate_on'];
+                $date_of_hearing = $home_loan['date_of_hearing'];
+                $compromise = $home_loan['compromise'];
+                $date_of_compromise = $home_loan['date_of_compromise'];
+                $amount_of_compromise = $home_loan['amount_of_compromise'];
+                $full_compromise_paid_upto = $home_loan['full_compromise_paid_upto'];
+                $ots = $home_loan['ots'];
+                $date_of_ots_accepted = $home_loan['date_of_ots_accepted'];
+                $full_ots_paid_upto = $home_loan['amount_of_ots_paid_upto'];
+                $compromise_ots_failed = $home_loan['compromise_ots_failed'];
+                $property_sold_on = $home_loan['property_sold_on'];
+                $property_sold_for = $home_loan['property_sold_for'];
+                $full_amount_of_compromise_received_on = $home_loan['full_amount_compromise_received_on'];
+                $full_amount_of_ots_received_on = $home_loan['full_amount_ots_received_on'];
+                $date_of_ra_bill = $home_loan['date_of_ra_bill'];
+                $amount_of_ra_bill = $home_loan['amount_of_ra_bill'];
+                $ra_bill_forward_to_bank_on = $home_loan['ra_bill_forward_to_bank_on'];
+                $ra_bill_paid_on = $home_loan['ra_bill_paid_on'];
+                $ra_bill_paid_amount = $home_loan['ra_bill_paid_amount'];
+                $total_amount_of_expenses_incurred = $home_loan['total_amount_of_expenses_incurred'];
+                $income_case_wise_profit_loss = $home_loan['income_case_wise_profit_loss'];
+                
+            }
+            else{
+                $_SESSION['error_msg'] = 'No loan exist with the give case ID';
+                $db_error = 'No loan exist with the give case ID';
+                header('Location: view-car-loans.php');
+                exit;
+            }
+        }
+        else{
+            $_SESSION['error_msg'] = 'Something went wrong!';
+            $db_error = $conn->error;
+            header('Location: view-car-loans.php');
+            exit;
+        }
+    }
+
     //errors
     $case_date_error = '';
     $npa_case_error = '';
@@ -493,16 +521,18 @@
         }
 
         if($control){ // Insert data into database control = 1
-            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding_on`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`) VALUES (NULL, '$case_date', '$npa_case', '$bank_name', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding_on', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$full_ots_paid_upto', '$compromise_ots_failed', '$property_sold_on', '$property_sold_for', '$full_amount_of_compromise_received_on', '$full_amount_of_ots_received_on', '$date_of_ra_bill', '$amount_of_ra_bill', '$ra_bill_forward_to_bank_on', '$ra_bill_paid_on', '$ra_bill_paid_amount', '$total_amount_of_expenses_incurred', '$income_case_wise_profit_loss')";
+            $sql = "UPDATE home_loan SET case_date = '$case_date', npa_case = '$npa_case', bank_name = '$bank_name', bank_contact_person_name = '$bank_contact_person_name', bank_contact_person_number = '$bank_contact_person_number', bank_contact_person_designation = '$bank_contact_person_designation', bank_address = '$bank_address', bank_contact_person_email = '$bank_contact_person_email', borrower_name = '$borrower_name', amount = '$amount', outstanding_on = '$outstanding_on', ra_agreement_signed_on = '$ra_agreement_signed_on', ra_agreement_expired_on = '$ra_agreement_expired_on', date_of_notice13_2 = '$date_of_notice13_2', date_of_notice13_3 = '$date_of_notice13_3', primary_security = '$primary_security', collateral_security = '$collateral_security', total_security = '$total_security', date_of_symbolic_possession = '$date_of_symbolic_possession', publication_hindi_newspaper_on = '$publication_hindu_newspaper', publication_english_newspaper_on = '$publication_english_newspapaer', requested_bank_for_documents = '$requested_bank_for_documentation_on', documents_received_on = '$documents_received_on', documents_given_to_advocate_on = '$documents_given_to_advocate_on', application_file_dm_cmm_by_advocate_on = '$application_file_dm_cmm_advocate_on', date_of_hearing = '$date_of_hearing', compromise = '$compromise', date_of_compromise = '$date_of_compromise', amount_of_compromise = '$amount_of_compromise', full_compromise_paid_upto = '$full_compromise_paid_upto', ots = '$ots', date_of_ots_accepted = '$date_of_ots_accepted', amount_of_ots_paid_upto = '$full_ots_paid_upto', compromise_ots_failed = '$compromise_ots_failed', property_sold_on = '$property_sold_on', property_sold_for = '$property_sold_for', full_amount_compromise_received_on = '$full_amount_of_compromise_received_on', full_amount_ots_received_on = '$full_amount_of_ots_received_on', date_of_ra_bill = '$date_of_ra_bill', amount_of_ra_bill = '$amount_of_ra_bill', ra_bill_forward_to_bank_on = '$ra_bill_forward_to_bank_on', ra_bill_paid_on = '$ra_bill_paid_on', ra_bill_paid_amount = '$ra_bill_paid_amount', total_amount_of_expenses_incurred = '$total_amount_of_expenses_incurred', income_case_wise_profit_loss = '$income_case_wise_profit_loss' WHERE home_loan_cid = '$home_loan_cid'";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
-                $_SESSION['success_msg'] = 'Added successfully';
-                header('Location: home-loan.php');
+                $_SESSION['success_msg'] = 'Updated successfully';
+                header('Location: view-home-loans.php');
                 exit;   
             }   
             else{
                 $_SESSION['error_msg'] = 'Something went wrong!';
+                header('Location: view-home-loans.php');
+                exit;   
             }
             
         }
@@ -551,7 +581,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Home Loan</h4>
+                    <h4 class="card-title">Home Loan <?php echo $npa_case; ?></h4>
                       <?php 
                           if(isset($_SESSION['success_msg'])){
                               ?>
@@ -621,7 +651,7 @@
                                         </span>
                                     </div>
                                     <select class="form-control form-input" name="npaCase" >
-                                        <option selectecd>Choose</option>
+                                        <option >Choose</option>
                                         <option value="1" <?php if($npa_case == '1') echo 'Selected'; ?>>New NPA Cases upto Rs 20 Lac</option>
                                         <option value="2" <?php if($npa_case == '2') echo 'Selected'; ?>>New NPA Cases From Rs. 20 Lac + to Rs. 10 Crore</option>
                                         <option value="3" <?php if($npa_case == '3') echo 'Selected'; ?>>New NPA Cases Over 10 Crore</option>
@@ -1494,7 +1524,7 @@
                         </div>
 
                         <div class="mt-3 form-inline justify-content-end">
-                            <button class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Create</button>
+                            <button class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Update</button>
                         </div>
                     </form>
                   </div>

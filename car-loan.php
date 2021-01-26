@@ -12,6 +12,7 @@
     $epoch_time = time();
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
 
+    $case_date = '';
     $home_branch = '';
     $account_number = '';
     $customer_name = '';
@@ -44,6 +45,7 @@
     $bill_raised = '';
     $payment_received = '';
     // errors
+    $case_date_error = '';
     $home_branch_error = '';
     $account_number_error = '';
     $customer_name_error = '';
@@ -78,9 +80,10 @@
 
     require_once('middleware.php');
 
-    if(isset($_POST['homeBranch']) && isset($_POST['accountNo']) && isset($_POST['customerName']) && isset($_POST['npaDate']) && isset($_POST['outstanding']) && isset($_POST['arrCoNd']) && isset($_POST['notice13SentOn']) && isset($_POST['principalOutstanding']) && isset($_POST['bounceCharges']) && isset($_POST['overdueCharges']) && isset($_POST['otherCharges']) && isset($_POST['loanEmiAmount']) && isset($_POST['noOfEmiOutstanding']) && isset($_POST['regNo']) && isset($_POST['residenceAddress']) && isset($_POST['residenceContactNo']) && isset($_POST['officeAddress']) && isset($_POST['officeContactNo']) && isset($_POST['make']) && isset($_POST['engineNo']) && isset($_POST['chassisNo']) && isset($_POST['tenure']) && isset($_POST['coApplicantName']) && isset($_POST['coApplicantMobile']) && isset($_POST['coApplicantAddress']) && isset($_POST['employerName']) && isset($_POST['employerMobile']) && isset($_POST['employerAddress']) && isset($_POST['amountRecovered']) && isset($_POST['billRaised']) && isset($_POST['paymentReceived'])){
+    if(isset($_POST['caseDate']) && isset($_POST['homeBranch']) && isset($_POST['accountNo']) && isset($_POST['customerName']) && isset($_POST['npaDate']) && isset($_POST['outstanding']) && isset($_POST['arrCoNd']) && isset($_POST['notice13SentOn']) && isset($_POST['principalOutstanding']) && isset($_POST['bounceCharges']) && isset($_POST['overdueCharges']) && isset($_POST['otherCharges']) && isset($_POST['loanEmiAmount']) && isset($_POST['noOfEmiOutstanding']) && isset($_POST['regNo']) && isset($_POST['residenceAddress']) && isset($_POST['residenceContactNo']) && isset($_POST['officeAddress']) && isset($_POST['officeContactNo']) && isset($_POST['make']) && isset($_POST['engineNo']) && isset($_POST['chassisNo']) && isset($_POST['tenure']) && isset($_POST['coApplicantName']) && isset($_POST['coApplicantMobile']) && isset($_POST['coApplicantAddress']) && isset($_POST['employerName']) && isset($_POST['employerMobile']) && isset($_POST['employerAddress']) && isset($_POST['amountRecovered']) && isset($_POST['billRaised']) && isset($_POST['paymentReceived'])){
         // initialize variables with loan data
         $control = 1;
+        $case_date = cleanInput($_POST['caseDate']);
         $home_branch = cleanInput($_POST['homeBranch']);
         $account_number = cleanInput($_POST['accountNo']);
         $customer_name = cleanInput($_POST['customerName']);
@@ -112,6 +115,17 @@
         $amount_recovered = cleanInput($_POST['amountRecovered']);
         $bill_raised = cleanInput($_POST['billRaised']);
         $payment_received = cleanInput($_POST['paymentReceived']);
+
+        if(!empty($case_date)){
+            if(!dateValidation($case_date)){
+                $case_date_error = 'Invalid Date';
+                $control = 0;
+            }
+        }
+        else{
+            $case_date_error = 'Required';
+            $control = 0;
+        }
 
         if(!empty($home_branch)){
             if(!alphaSpaceValidation($home_branch)){
@@ -454,7 +468,7 @@
             $office_address = str_replace("\n", "<br/>", $office_address);
             $employer_address = str_replace("\n", "<br/>", $employer_address);
             $co_applicant_address = str_replace("\n", "<br/>", $co_applicant_address);
-            $sql = "INSERT INTO `car_loan` (`car_loan_cid`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`) VALUES (NULL, '$home_branch', '$account_number', '$customer_name', '$npa_date', '$outstanding', '$arr_co_nd', '$notice13_sent_on', '$principal_outstanding', '$bounce_charges', '$overdue_charges', '$other_charges', '$loan_emi_amount', '$no_of_emi_outstanding', '$reg_no', '$residence_address', '$residence_contact_no', '$office_address', '$office_contact_no', '$make', '$engine_no', '$chassis_no', '$tenure', '$co_applicant_name', '$co_applicant_mobile', '$co_applicant_address', '$employer_name', '$employer_mobile', '$employer_address', '$amount_recovered', '$bill_raised', '$payment_received')";
+            $sql = "INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`) VALUES (NULL, '$case_date', '$home_branch', '$account_number', '$customer_name', '$npa_date', '$outstanding', '$arr_co_nd', '$notice13_sent_on', '$principal_outstanding', '$bounce_charges', '$overdue_charges', '$other_charges', '$loan_emi_amount', '$no_of_emi_outstanding', '$reg_no', '$residence_address', '$residence_contact_no', '$office_address', '$office_contact_no', '$make', '$engine_no', '$chassis_no', '$tenure', '$co_applicant_name', '$co_applicant_mobile', '$co_applicant_address', '$employer_name', '$employer_mobile', '$employer_address', '$amount_recovered', '$bill_raised', '$payment_received')";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
@@ -550,6 +564,27 @@
                           }
                       ?>
                     <form class="pt-3" method="POST">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Case Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="case-date" type="date" class="form-control form-input" name="caseDate" placeholder="Password" value="<?php  ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $case_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('case-date').defaultValue = '<?php echo $case_date; ?>'
+                                </script>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
