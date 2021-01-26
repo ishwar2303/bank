@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2021 at 06:42 PM
+-- Generation Time: Jan 26, 2021 at 10:53 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -172,8 +172,9 @@ CREATE TABLE `home_loan` (
 --
 
 INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`) VALUES
-(11, '2021-01-26', '3', 'PNB', 'Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', '9821671707', 'Manager', 'ishwar2303@gmail.com', 'Ishwar Baisla', '50000', '152365.22', '2021-01-22', '2021-01-14', '2021-01-24', '2021-01-28', 'primary security details', 'collateral security details', 'total security details', '2021-01-31', '2021-01-31', '2021-01-01', '2021-01-01', '2021-01-01', '2021-01-06', '2021-01-01', '2021-01-01', 1, '2021-01-29', '10000', '4556', 1, '2021-01-13', '15532', 1, '2021-01-22', '10000', '2021-01-23', '2021-01-29', '2021-01-16', '', '2021-01-23', '2021-01-28', '10000', '10000', '169'),
-(15, '2021-01-16', '2', 'IDBI', '1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '8447811595', 'Manager', 'ishwar2303@gmail.com', 'Samarth Tandon', '1000000', '1000.25635', '2021-01-17', '2021-01-10', '2021-01-10', '2021-01-22', '', '', '', '2021-01-08', '2021-01-17', '2021-01-15', '2021-01-23', '2021-01-16', '2021-01-23', '2021-01-22', '2021-01-16', 0, '0000-00-00', '0', '0', 0, '0000-00-00', '0', -1, '2021-01-24', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '', '10000256.565652');
+(11, '2021-01-26', '3', 'PNB', 'Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', '9821671707', 'Manager', 'ishwar2303@gmail.com', 'Ishwar Baisla', '50000', '152365.22', '2021-01-22', '2021-01-14', '2021-01-24', '2021-01-28', 'primary security details\r\nmultiline', 'collateral security details', 'total security details', '2021-01-31', '2021-01-31', '2021-01-01', '2021-01-01', '2021-01-01', '2021-01-06', '2021-01-01', '2021-01-01', 1, '2021-01-29', '10000', '4556', 1, '2021-01-13', '15532', 1, '2021-01-22', '10000', '2021-01-23', '2021-01-29', '2021-01-16', '', '2021-01-23', '2021-01-28', '10000', '10000', '169'),
+(15, '2021-01-16', '2', 'IDBI', '1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '8447811595', 'Manager', 'ishwar2303@gmail.com', 'Samarth Tandon', '1000000', '1000.25635', '2021-01-17', '2021-01-10', '2021-01-10', '2021-01-22', '', '', '', '2021-01-08', '2021-01-17', '2021-01-15', '2021-01-23', '2021-01-16', '2021-01-23', '2021-01-22', '2021-01-16', 0, '0000-00-00', '0', '0', 0, '0000-00-00', '0', -1, '2021-01-24', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '', '10000256.565652'),
+(16, '2021-01-15', '1', 'BANK OF BARODA', 'Wazirabad Village\r<br/>delhi 110084', 'Ishwar Baisla', '9821671707', 'Manager', 'ishwar2303@gmail.com', 'Samarth Tandon', '200000', '5000000', '2021-01-17', '2021-01-23', '2021-01-15', '2021-01-15', 'primary security', 'collateral security', 'total security', '2021-01-09', '2021-01-15', '2021-01-08', '2021-01-09', '2021-01-10', '2021-01-16', '2021-01-07', '2021-01-24', 0, '0000-00-00', '0', '0', 0, '0000-00-00', '0', -1, '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -210,7 +211,6 @@ CREATE TABLE `home_loan_comments` (
 
 INSERT INTO `home_loan_comments` (`comment_id`, `case_id`, `date_of_next_hearing`, `order_received_on`, `order_forwarded_to_bank_on`, `lease_on`, `physical_possession_on`, `notice_of_physical_possession`, `possession_taken_on`, `possession_postpone_on`, `possession_postpone_reason`, `property_on_auction`, `reserve_price`, `emd_amount`, `property_visit_by_prospective_buyers_on`, `auction_date`, `auction_status`, `doc_for_redirection_of_order_given_to_advocate_on`, `redirection_order_filled_with_dm_cmm_on`, `redirection_order_received_on`) VALUES
 (3, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 1, '0000-00-00', '0000-00-00', '0000-00-00'),
-(5, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 0, '0000-00-00', '0000-00-00', '0000-00-00'),
 (6, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 0, '0000-00-00', '0000-00-00', '0000-00-00'),
 (7, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 1, '0000-00-00', '0000-00-00', '0000-00-00'),
 (8, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 0, '0000-00-00', '0000-00-00', '0000-00-00'),
@@ -219,7 +219,8 @@ INSERT INTO `home_loan_comments` (`comment_id`, `case_id`, `date_of_next_hearing
 (12, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 0, '0000-00-00', '0000-00-00', '0000-00-00'),
 (15, 11, '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', 1, '0000-00-00', '0000-00-00', '0000-00-00'),
 (23, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 1, '0000-00-00', '0000-00-00', '2021-01-23'),
-(25, 11, '2021-01-24', '2021-01-03', '2021-01-15', '2021-01-15', '2021-01-16', '2021-01-15', '2021-01-16', '2021-01-16', 'reason', '2021-01-15', '1000', '5000', '2021-01-29', '2021-01-03', 1, '2021-01-22', '2021-01-03', '2021-01-23');
+(25, 11, '2021-01-24', '2021-01-03', '2021-01-15', '2021-01-15', '2021-01-16', '2021-01-15', '2021-01-16', '2021-01-16', 'reason', '2021-01-15', '1000', '5000', '2021-01-29', '2021-01-03', 1, '2021-01-22', '2021-01-03', '2021-01-23'),
+(26, 16, '2021-01-15', '2021-01-22', '2021-01-15', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -233,6 +234,31 @@ CREATE TABLE `home_loan_remarks` (
   `remark_date` date NOT NULL,
   `remark` varchar(400) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `to_do`
+--
+
+CREATE TABLE `to_do` (
+  `to_do_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `to_do_work` varchar(200) NOT NULL,
+  `status` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `to_do`
+--
+
+INSERT INTO `to_do` (`to_do_id`, `user_id`, `to_do_work`, `status`) VALUES
+(29, 4, 'Search functionality done', 1),
+(30, 4, 'Bank card color gradient changed', 1),
+(31, 4, 'Card button alignment', 1),
+(32, 4, 'Remark related to loans', 0),
+(33, 4, 'Meeting with Tushar at 1 PM', 0),
+(34, 4, 'Response block fixed', 1);
 
 -- --------------------------------------------------------
 
@@ -257,7 +283,8 @@ CREATE TABLE `user_registration` (
 INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES
 (4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-23 01:56:56pm'),
 (13, 'Tushar', 'dHVzaGFyQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-25 10:19:02pm'),
-(14, 'ishwar', 'aXNod2FyQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, '21-01-25 10:21:12pm');
+(14, 'ishwar', 'aXNod2FyQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, '21-01-25 10:21:12pm'),
+(15, 'Samarth Tandon', 'c2FtYXJ0aEBnbWFpbC5jb20=', 'NzIzNDkyNDk2Ng==', 'SXNod2FyMjMwM0A=', 0, '21-01-26 11:38:55pm');
 
 --
 -- Indexes for dumped tables
@@ -300,6 +327,12 @@ ALTER TABLE `home_loan_remarks`
   ADD PRIMARY KEY (`remark_id`);
 
 --
+-- Indexes for table `to_do`
+--
+ALTER TABLE `to_do`
+  ADD PRIMARY KEY (`to_do_id`);
+
+--
 -- Indexes for table `user_registration`
 --
 ALTER TABLE `user_registration`
@@ -331,13 +364,13 @@ ALTER TABLE `car_loan_remarks`
 -- AUTO_INCREMENT for table `home_loan`
 --
 ALTER TABLE `home_loan`
-  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `home_loan_comments`
 --
 ALTER TABLE `home_loan_comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `home_loan_remarks`
@@ -346,10 +379,16 @@ ALTER TABLE `home_loan_remarks`
   MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `to_do`
+--
+ALTER TABLE `to_do`
+  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

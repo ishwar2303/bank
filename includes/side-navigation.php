@@ -47,7 +47,7 @@
     <?php if($logged_in_user_role == '2'){ ?>
     <li class="nav-item">
       <a class="nav-link" href="view-users.php  ">
-        <span class="menu-title">View User</span>
+        <span class="menu-title">View Users</span>
         <i class="fas fa-users menu-icon"></i>
       </a>
     </li>

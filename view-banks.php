@@ -125,7 +125,7 @@
                                 $encoded_bank_id = base64_encode($row['bank_id']);
                                 ?>
                                 <div class="col-md-4 stretch-card grid-margin">
-                                  <div class="card bg-gradient-info card-img-holder text-white">
+                                  <div class="card bg-gradient-info card-img-holder text-white theme-gradient" >
                                     <div class="card-body">
                                       <h4 class="font-weight-normal mb-3">
                                         <?php echo $row['bank_name']; ?>
@@ -137,7 +137,7 @@
                                       <h5 class="mb-2">
                                         <?php echo $row['bank_city']; ?>
                                       </h5>
-                                      <h6 class="mb-5">
+                                      <h6 class="mb-3">
                                         <?php echo $row['bank_address']; ?>
                                       </h6>
                                       <h6 class="mb-2">

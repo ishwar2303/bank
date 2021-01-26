@@ -117,6 +117,7 @@
         if(dateValidation($cases_date_from)){
           $date = new DateTime($cases_date_from);
           $search_case_from = $date->format('U');
+          $cases_date_from = $date->format('d-m-Y');
           $cases_from_set = true;
           $control = 1;
         }
@@ -132,6 +133,7 @@
         if(dateValidation($cases_date_upto)){
           $date = new DateTime($cases_date_upto);
           $search_case_upto = $date->format('U');
+          $cases_date_upto = $date->format('d-m-Y');
           $cases_upto_set = true;
           $control = 1;
         }
@@ -581,7 +583,6 @@
                       </button>
                     </div>
                     </h4>
-                    <div class="table-container">
                     <?php 
                         if(isset($_SESSION['success_msg'])){
                             ?>
@@ -608,6 +609,7 @@
                             unset($_SESSION['error_msg']);
                         }
                     ?>
+                    <div class="table-container">
 
                     <!--
                     <p class="card-description"> Add class <code>.table-hover</code>

@@ -10734,11 +10734,11 @@ code {
 
 .bg-gradient-success {
   background: -webkit-gradient(linear, left top, right top, from(#84d9d2), to(#07cdae)) !important;
-  background: linear-gradient(to right, #84d9d2, #07cdae) !important; }
+  background: linear-gradient(to right, #07cdae, #84d9d2) !important; }
 
 .bg-gradient-info {
   background: -webkit-gradient(linear, left top, right top, from(#90caf9), color-stop(99%, #047edf)) !important;
-  background: linear-gradient(to right, #90caf9, #047edf 99%) !important; }
+  background: linear-gradient(to right, #047edf, #90caf9 99%) !important; }
 
 .bg-gradient-warning {
   background: -webkit-gradient(linear, left top, right top, from(#f6e384), to(#ffd500)) !important;
@@ -10746,7 +10746,7 @@ code {
 
 .bg-gradient-danger {
   background: -webkit-gradient(linear, left top, right top, from(#ffbf96), to(#fe7096)) !important;
-  background: linear-gradient(to right, #ffbf96, #fe7096) !important; }
+  background: linear-gradient(to right, #fe7096, #ffbf96) !important; }
 
 .bg-gradient-light {
   background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#e4e4e9)) !important;
@@ -12764,7 +12764,7 @@ dl {
       margin-left: 0.325rem; }
   .table th,
   .table td {
-    vertical-align: middle;
+    vertical-align: top;
     font-size: 0.875rem;
     line-height: 1;
     white-space: nowrap; }
@@ -12783,7 +12783,8 @@ dl {
     .table.table-borderless th {
       border: none; }
 .table-hover > thead{
-  background: rgb(154, 85, 255, 0.3);
+  background: rgb(154, 85, 255, 0.8);
+  color: white;
 }
 .table-hover tr:nth-child(even){
   background: #f0f3f4;
@@ -12791,8 +12792,7 @@ dl {
 
 /* Tabs */
 .add-items {
-  margin-bottom: 1.5rem;
-  overflow: hidden; }
+  margin-bottom: 1.5rem;}
   .add-items input[type="text"] {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -13661,16 +13661,21 @@ dl {
 .bank-operation{
   display: flex;
   justify-content: space-between;
+  flex: 1;
 }
 .bank-operation > a:hover{
   text-decoration: none;
+
+}
+.bank-operation > label, .bank-operation > a{
+  align-self: flex-end;
 }
 .edit-btn{
   
   background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
   color : white;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 7.5px 10px;
+  border-radius: 3px;
 }
 .edit-btn:hover{
   text-decoration: none;
@@ -13683,8 +13688,8 @@ dl {
   background: linear-gradient(45deg, rgba(255,0,0,0.9), rgba(255,0,0,0.5));
   color : white;
   margin-bottom: 0px;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 8px 10px;
+  border-radius: 3px;
 }
 .delete-btn:hover{
   text-decoration: none;
@@ -13702,7 +13707,7 @@ dl {
 .table-edit-op{
   background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
   color : white;
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -13719,7 +13724,7 @@ dl {
 .table-delete-op{
   background: linear-gradient(45deg, rgba(255,0,0,0.9), rgba(255,0,0,0.5));
   color : white;
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -13736,7 +13741,7 @@ dl {
 .table-add-op{
   background: linear-gradient(45deg, #16a085, rgb(26, 188, 156,0.6));
   color : white;
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -13751,7 +13756,7 @@ dl {
 }
 .table-view-op{
   background: linear-gradient(45deg, #e15f41, rgb(225, 95, 65,0.6));
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 3px;
   margin-top: 10px;
   color: white;
@@ -13852,14 +13857,17 @@ dl {
   border : 0.5px solid #95a5a6;
   display: none;
   position: fixed;
+  background: linear-gradient(to right, rgb(154, 85, 255,0.6), rgb(154, 85, 255,0.2) 99%) !important;
 }
 #confirm-resource-delete-popup-content-container{
+  background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  border-radius: 5px;
 }
 #delete-me{
   margin-top: 20px;
@@ -14146,4 +14154,54 @@ dl {
 .case-date{
   font-weight: 600;
   color : #8e44ad;
+}
+.theme-gradient{
+  background: linear-gradient(to right, rgb(154, 85, 255), rgb(154, 85, 255,0.8) 99%) !important;
+}
+.theme-text{
+  color :rgb(154, 85, 255,0.8);
+}
+.card-body{
+  display: flex;
+  flex-direction: column;
+}
+#all-to-do-list{
+  padding-left: 0;
+}
+#all-to-do-list > li{
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+#all-to-do-list > li > div{
+  display: flex;
+  justify-content: flex-start;
+}
+#all-to-do-list > li > div > span{
+  margin-right: 5px;
+  align-self: flex-start;
+}
+#all-to-do-list > li > div > label{
+  margin-bottom: 0;}
+#all-to-do-list > li > label{
+}
+#all-to-do-list > li > span{
+  display: flex;
+}
+#all-to-do-list > li > span > i{
+  align-self: flex-start;
+  margin-left: 10px;
+  font-size: 18px;
+}
+.make-status-success{
+  color : green;
+  cursor: pointer;
+}
+.remove-to-do-work{
+  color: red;
+  cursor: pointer;
 }
