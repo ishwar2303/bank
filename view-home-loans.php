@@ -12,7 +12,18 @@
     $epoch_time = time();
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
 
+    require_once('middleware.php');
+
+    // Selecting banks
     $db_error = '';
+    $sql = "SELECT * FROM bank ORDER BY bank_name ASC";
+    $bank_list = $conn->query($sql);
+
+    if($conn->error != ''){
+        $_SESSION['error_msg'] = 'Something went wrong!';
+        $db_error = $conn->error;
+    }
+
     // Deleting home loan
     if(isset($_GET['cid'])){
       $home_loan_cid = base64_decode($_GET['cid']);
@@ -52,18 +63,363 @@
       }
     }
 
-    $sql = "SELECT * FROM home_loan";
-    $result = $conn->query($sql);
 
-    if($conn->error != ''){
-        $_SESSION['error_msg'] = 'Something went wrong!';
-        $db_error = $conn->error;
+
+    // filter variables
+    $select_bank = '';
+    $cases_date_from = '';
+    $cases_date_upto = '';
+    $defaulter_name = '';
+    $cases_date_from_error = '';
+    $cases_date_upto_error = '';
+    $select_bank_error = '';
+    $defaulter_name_error = '';
+    $search_box_error = '';
+    //search
+    $display_search_box = false;
+
+    $result_array = array(); // search result
+    $control = 0; // check that atleast one field is selected
+    $error_occured = 0; // check if any validation error occured
+
+    if(isset($_POST['search'])){ // search request
+      // capture data from post
+      $select_bank = cleanInput($_POST['bankName']);
+      $cases_date_from = cleanInput($_POST['caseFrom']);
+      $cases_date_upto = cleanInput($_POST['caseTo']);
+      $defaulter_name = cleanInput($_POST['defaulterName']);
+
+      // defalt search field set to false
+      $select_bank_set = false;
+      $defaulter_name_set = false;
+      $cases_from_set = false;
+      $cases_upto_set = false;
+
+      $no_result_found_error = "We looked high and low, but your search result isn't here..";
+
+      //validation
+      if(!empty($select_bank)){ // bank selected
+        if(alphaSpaceValidation($select_bank)){
+          $select_bank_set = true;
+          $control = 1;
+        }
+        else{
+          $select_bank_error = 'Invalid Bank Name';
+          $display_search_box = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
+
+      if(!empty($defaulter_name)){ // defaulter name selected
+        if(alphaSpaceValidation($defaulter_name)){
+          $defaulter_name_set = true;
+          $control = 1;
+        }
+        else{
+          $defaulter_name_error = 'Invalid Name';
+          $display_search_box = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
+      
+      if(!empty($cases_date_from)){ // cases_from_set
+        if(dateValidation($cases_date_from)){
+          $date = new DateTime($cases_date_from);
+          $search_case_from = $date->format('U');
+          $cases_from_set = true;
+          $control = 1;
+        }
+        else{
+          $cases_date_from_error = 'Invalid Date';
+          $display_search_box = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
+      
+      if(!empty($cases_date_upto)){ // cases_upto_set
+        if(dateValidation($cases_date_upto)){
+          $date = new DateTime($cases_date_upto);
+          $search_case_upto = $date->format('U');
+          $cases_upto_set = true;
+          $control = 1;
+        }
+        else{
+          $cases_date_upto_error = 'Invalid Date';
+          $display_search_box = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
+      if($cases_from_set && $cases_upto_set){
+        if($search_case_from > $search_case_upto){
+          $cases_date_from_error = 'Invalid Date';
+          $display_search_box = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
+
+      if(!$control){ // atleast one filter is selected
+        $display_search_box = true;
+        $search_box_error = 'Please select atleast one filter!';
+      }
+      //searching....
+      if(!$error_occured){ // validation successfull
+        $search_query = 1;
+        $success_msg = '';
+        $error_msg = '';
+        $sql_1 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank'";
+        $sql_2 = "SELECT * FROM home_loan WHERE borrower_name = '$defaulter_name'";
+        $sql_3 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND borrower_name = '$defaulter_name'";
+        $sql_4 = "SELECT * FROM home_loan";
+        if($select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only bank B
+          $result = $conn->query($sql_1);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              array_push($result_array, $row);
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+
+        else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only defaulter name D
+          $result = $conn->query($sql_2);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              array_push($result_array, $row);
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for Defaulter Name : '.$defaulter_name;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+
+        else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+          $result = $conn->query($sql_4);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case >= $search_case_from){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+
+        else if(!$select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // Cases Upto T
+          $result = $conn->query($sql_4);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case <= $search_case_upto){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+        
+        else if($select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BF
+          $result = $conn->query($sql_1);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case >= $search_case_from){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+
+        else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BT
+          $result = $conn->query($sql_1);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case <= $search_case_upto){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+        
+        else if($select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // BD
+          $result = $conn->query($sql_3);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                array_push($result_array, $row);
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Defaulter Name : '.$defaulter_name;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+        
+        else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // FT
+          $result = $conn->query($sql_4);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+        
+        else if(!$select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // FD
+          $result = $conn->query($sql_2);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case >= $search_case_from){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+        
+        else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // TD
+          $result = $conn->query($sql_2);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case <= $search_case_upto){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+        
+        else if($select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // BFT
+          $result = $conn->query($sql_1);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+
+        else if($select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BFD
+          $result = $conn->query($sql_3);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case >= $search_case_from){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+
+        else if($select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BTD
+          $result = $conn->query($sql_3);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case <= $search_case_upto){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+        }
+
+        else if($select_bank_set && $defaulter_name_set && $cases_from_set && $cases_upto_set){ // if all four parameters are set B F T D
+          $result = $conn->query($sql_3);
+          if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+              $date = new DateTime($row['case_date']);
+              $epoch_time_of_case = $date->format('U');
+              if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                array_push($result_array, $row);
+              }
+            }
+            if(sizeof($result_array) == 0)
+              $_SESSION['error_msg'] = $no_result_found_error;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
+          }
+          else $_SESSION['error_msg'] = $no_result_found_error;
+          
+        }
+
+      }
     }
-    else if($result->num_rows == 0){
-        $_SESSION['error_msg'] = 'No Home loans';
+    if($error_occured || !$control){
+      $sql = "SELECT * FROM home_loan";
+      $result = $conn->query($sql);
+      if($conn->error != ''){
+          $_SESSION['error_msg'] = 'Something went wrong!';
+          $db_error = $conn->error;
+      }
+      else if($result->num_rows == 0){
+          $_SESSION['error_msg'] = 'No Home loans';
+      }
+      else{
+        while($row = $result->fetch_assoc()){
+          array_push($result_array, $row);
+        }
+      }
     }
-
-
 ?>
 
 
@@ -90,6 +446,122 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
+    <!-- search - box -->
+    <div class="black-cover-for-search-box"></div>
+    <div class="search-loans-form-popup">
+      <form class="pt-0" method="POST">
+        <h3 class="form-inline justify-content-between">
+          <span class="set-theme-color">Search...</span>
+          <i id="close-search-popup" class="far fa-times-circle"></i>
+        </h3>
+        <div class="form-input-response mb-3">
+            <?php echo $search_box_error; ?>
+        </div>
+            <!-- Bank-list -->
+            <?php if($bank_list->num_rows > 0){ ?>
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="exampleInputCity1">Bank</label>
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-gradient-primary text-white br">
+                                <i class="fas fa-university"></i>
+                            </span>
+                        </div>
+                        <select id="bank-list" class="form-control form-input" name="bankName">
+                            <option value="">Choose</option>
+                            <?php 
+                                while($bank = $bank_list->fetch_assoc()){
+                                  $option_selected = '';
+                                  if($select_bank == $bank['bank_name']){
+                                    $option_selected = 'Selected';
+                                  }
+                                    ?>
+                                    <option <?php echo $option_selected; ?> value="<?php echo $bank['bank_name']; ?>"><?php echo $bank['bank_name']; ?></option>
+                                    <?php 
+                                }
+                            ?>
+                        </select>
+                        </div>
+                        <div class="form-input-response">
+                            <?php echo $select_bank_error; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-md-6">
+                      <label for="exampleInputCity1">Cases From</label>
+                      <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text bg-gradient-primary text-white br">
+                              <i class="fas fa-clock"></i>
+                          </span>
+                      </div>
+                      <input id="case-from" type="date" class="form-control form-input" name="caseFrom" value="<?php  ?>">
+                      </div>
+                      <div class="form-input-response">
+                          <?php echo $cases_date_from_error; ?>
+                      </div>
+                  </div>
+                  <script>
+                      document.getElementById('case-from').defaultValue = '<?php echo $cases_date_from; ?>'
+                  </script>
+                  <div class="col-md-6">
+                      <label for="exampleInputCity1">Cases upto</label>
+                      <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text bg-gradient-primary text-white br">
+                              <i class="fas fa-clock"></i>
+                          </span>
+                      </div>
+                      <input id="case-upto" type="date" class="form-control form-input" name="caseTo" value="<?php  ?>">
+                      </div>
+                      <div class="form-input-response">
+                          <?php echo $cases_date_upto_error; ?>
+                      </div>
+                  </div>
+                  <script>
+                      document.getElementById('case-upto').defaultValue = '<?php echo $cases_date_upto; ?>'
+                  </script>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-12">
+                    <label for="exampleInputCity1">Defaulter Name</label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-gradient-primary text-white br">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control form-input" id="defaulter-name" name="defaulterName" placeholder="Name" value="<?php echo $defaulter_name; ?>">
+                    </div>
+                    <div class="form-input-response">
+                        <?php echo $defaulter_name_error; ?>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-inline justify-content-between">
+                <div id="reset-search-form" class="btn btn-light">Reset</div>
+                <button type="submit" name="search" class="btn btn-primary">
+                  <span>Search</span>
+                </button>
+            </div>
+      </form>
+    </div>
+    <?php if($display_search_box){ ?>
+      <script>
+        document.getElementsByClassName('search-loans-form-popup')[0].style.display = 'block'
+        document.getElementsByClassName('black-cover-for-search-box')[0].style.display = 'block'
+      </script>
+    <?php } ?>
+    <!-- search - box end -->
     <!-- case status popup -->
     <div class="show-case-status">
       <div class="show-case-content">
@@ -119,7 +591,19 @@
               <div class="col-lg grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Home Loans</h4>
+                    <h4 class="card-title form-inline justify-content-between">
+                    Home Loans 
+                    <div class="form-inline">
+                      <button onclick="location.href='view-home-loans.php'" class="btn btn-setting">
+                          <i class="fas fa-redo-alt"></i> 
+                          Refresh
+                      </button>
+                      <button id="show-search-popup" class="btn btn-primary">
+                          <i class="fas fa-search"></i> 
+                          Search
+                      </button>
+                    </div>
+                    </h4>
                     <div class="table-container">
                     <?php 
                         if(isset($_SESSION['success_msg'])){
@@ -153,7 +637,7 @@
                     </p>
                     -->
                     <?php if($db_error == ''){ ?>
-                        <?php if($result->num_rows > 0){ ?>
+                        <?php if(sizeof($result_array) > 0){ ?>
                             <table class="table table-hover">
                               <thead>
                                 <tr>
@@ -211,7 +695,7 @@
                             <?php 
                                 $serial_no = 1;
                                 $index = 0;
-                                while($home_loan = $result->fetch_assoc()){
+                                foreach ($result_array as $home_loan){
                                     $encoded_cid = base64_encode($home_loan['home_loan_cid']);
                                     $npa_case = $home_loan['npa_case'];
                                     if($npa_case == '1')
@@ -225,17 +709,17 @@
                                     ?>
                                     <tr>
                                       <td><?php echo $serial_no; ?></td>
-                                      <td><?php echo $home_loan['case_date']!= '0000-00-00'? $home_loan['case_date'] : '-'; ?></td>
-                                      <td><?php echo $home_loan['bank_name']; ?></td>
+                                      <td class="case-date"><?php echo $home_loan['case_date']!= '0000-00-00'? $home_loan['case_date'] : '-'; ?></td>
+                                      <td class="bank"><?php echo $home_loan['bank_name']; ?></td>
                                       <td><?php echo $npa_case_value; ?></td>
                                       <td><?php echo $home_loan['bank_contact_person_name']; ?></td>
                                       <td><?php echo $home_loan['bank_contact_person_designation']; ?></td>
                                       <td><?php echo $home_loan['bank_contact_person_number']; ?></td>
                                       <td><?php echo $home_loan['bank_contact_person_email']; ?></td>
                                       <td><?php echo $home_loan['bank_address']; ?></td>
-                                      <td><?php echo $home_loan['borrower_name']; ?></td>
+                                      <td class="borrower"><?php echo $home_loan['borrower_name']; ?></td>
                                       <td><?php echo $home_loan['amount']; ?></td>
-                                      <td><?php echo $home_loan['outstanding_on']; ?></td>
+                                      <td><?php echo $home_loan['outstanding']; ?></td>
                                       <td><?php echo $home_loan['ra_agreement_signed_on']!= '0000-00-00'? $home_loan['ra_agreement_signed_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['ra_agreement_expired_on']!= '0000-00-00'? $home_loan['ra_agreement_expired_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['date_of_notice13_2']!= '0000-00-00'? $home_loan['date_of_notice13_2'] : '-'; ?></td>
@@ -256,7 +740,32 @@
                                       <td><?php echo $home_loan['full_compromise_paid_upto']; ?></td>
                                       <td><?php echo $home_loan['date_of_ots_accepted']!= '0000-00-00'? $home_loan['date_of_ots_accepted'] : '-'; ?></td>
                                       <td><?php echo $home_loan['amount_of_ots_paid_upto']; ?></td>
-                                      <td><?php echo $home_loan['compromise_ots_failed']; ?></td>
+                                      <td>
+                                        <?php $compromise_ots_failed = $home_loan['compromise_ots_failed']; 
+                                            if($compromise_ots_failed == '-1')
+                                              echo '-';
+                                            if($compromise_ots_failed == '0'){
+                                              ?>
+
+                                              <div class="failed-status">
+                                                  <i class="fas fa-dot-circle"></i>
+                                                  <span>No</span>
+                                              </div>
+
+                                              <?php
+                                            }
+                                            if($compromise_ots_failed == '1'){
+                                              ?>
+
+                                              <div class="success-status">
+                                                  <i class="fas fa-dot-circle"></i>
+                                                  <span>Yes</span>
+                                              </div>
+
+                                              <?php
+                                            }
+                                        ?>
+                                      </td>
                                       <td><?php echo $home_loan['property_sold_on']!= '0000-00-00'? $home_loan['property_sold_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['property_sold_for']; ?></td>
                                       <td><?php echo $home_loan['case_date']!= 'full_amount_compromise_received_on'? $home_loan['full_amount_compromise_received_on'] : '-'; ?></td>
@@ -371,4 +880,24 @@
     document.getElementsByClassName('show-case-status')[0].style.display = 'none';
   })
   document.getElementsByClassName('comments-section')[0].style.height = (screen.height*0.73611111-10) +'px'
+</script>
+
+
+<script>
+  document.getElementById('close-search-popup').addEventListener('click', ()=>{
+    document.getElementsByClassName('search-loans-form-popup')[0].style.display = 'none'
+    document.getElementsByClassName('black-cover-for-search-box')[0].style.display = 'none'
+  })
+  document.getElementById('show-search-popup').addEventListener('click', ()=>{
+    document.getElementsByClassName('search-loans-form-popup')[0].style.display = 'block'
+    document.getElementsByClassName('black-cover-for-search-box')[0].style.display = 'block'
+  })
+</script>
+
+<script>
+  document.getElementById('reset-search-form').addEventListener('click', ()=>{
+    document.getElementById('case-from').defaultValue = 'yyyy-mm-dd'
+    document.getElementById('case-upto').defaultValue = 'yyyy-mm-dd'
+    document.getElementById('defaulter-name').value = ''
+  })
 </script>

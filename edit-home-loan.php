@@ -43,7 +43,7 @@
                 $bank_contact_person_email = $home_loan['bank_contact_person_email'];
                 $borrower_name = $home_loan['borrower_name'];
                 $amount = $home_loan['amount'];
-                $outstanding_on = $home_loan['outstanding_on'];
+                $outstanding = $home_loan['outstanding'];
                 $ra_agreement_signed_on = $home_loan['ra_agreement_signed_on'];
                 $ra_agreement_expired_on = $home_loan['ra_agreement_expired_on'];
                 $date_of_notice13_2 = $home_loan['date_of_notice13_2'];
@@ -79,6 +79,8 @@
                 $total_amount_of_expenses_incurred = $home_loan['total_amount_of_expenses_incurred'];
                 $income_case_wise_profit_loss = $home_loan['income_case_wise_profit_loss'];
                 
+                
+                $bank_address = str_replace("<br/>", "\n", $bank_address);
             }
             else{
                 $_SESSION['error_msg'] = 'No loan exist with the give case ID';
@@ -106,7 +108,7 @@
     $bank_contact_person_email_error = '';
     $borrower_name_error = '';
     $amount_error = '';
-    $outstanding_on_error = '';
+    $outstanding_error = '';
     $ra_agreement_signed_on_error = '';
     $ra_agreement_expired_on_error = '';
     $date_of_notice13_2_error = '';
@@ -140,7 +142,7 @@
     $total_amount_of_expenses_incurred_error = '';
     $income_case_wise_profit_loss_error = '';
 
-    if(isset($_POST['caseDate']) && isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstandingOn']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['fullOtsPaidUpto']) && isset($_POST['propertySoldOn']) && isset($_POST['propertySoldFor']) && isset($_POST['fullAmountCompromiseReceivedOn']) && isset($_POST['fullAmountOtsReceivedOn']) && isset($_POST['dateOfRaBill']) && isset($_POST['amountOfRaBill']) && isset($_POST['raBillForwardToBankOn']) && isset($_POST['raBillPaidOn']) && isset($_POST['raBillPaidAmount']) && isset($_POST['totalAmountOfExpensesIncurred']) && isset($_POST['incomeCaseWiseProfitLoss'])){
+    if(isset($_POST['caseDate']) && isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstanding']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['fullOtsPaidUpto']) && isset($_POST['propertySoldOn']) && isset($_POST['propertySoldFor']) && isset($_POST['fullAmountCompromiseReceivedOn']) && isset($_POST['fullAmountOtsReceivedOn']) && isset($_POST['dateOfRaBill']) && isset($_POST['amountOfRaBill']) && isset($_POST['raBillForwardToBankOn']) && isset($_POST['raBillPaidOn']) && isset($_POST['raBillPaidAmount']) && isset($_POST['totalAmountOfExpensesIncurred']) && isset($_POST['incomeCaseWiseProfitLoss'])){
         // initialize variables with loan data
         $control = 1;
 
@@ -154,7 +156,7 @@
         $bank_contact_person_email = cleanInput($_POST['bankContactPersonEmail']);
         $borrower_name = cleanInput($_POST['borrowerName']);
         $amount = cleanInput($_POST['amount']);
-        $outstanding_on = cleanInput($_POST['outstandingOn']);
+        $outstanding = cleanInput($_POST['outstanding']);
         $ra_agreement_signed_on = cleanInput($_POST['raAgreementSignedOn']);
         $ra_agreement_expired_on = cleanInput($_POST['raAgreementExpiredOn']);
         $date_of_notice13_2 = cleanInput($_POST['dateOfNotice132']);
@@ -228,6 +230,9 @@
             if(!alphaSpaceValidation($bank_name)){
                 $bank_name_error = 'Invalid Name';
                 $control = 0;
+            }
+            else{
+              $bank_name = strtoupper($bank_name);
             }
         }
         else{
@@ -311,14 +316,14 @@
             $control = 0;
         }
 
-        if(!empty($outstanding_on)){
-            if(!dateValidation($outstanding_on)){
-                $outstanding_on_error = 'Invalid Date';
+        if(!empty($outstanding)){
+            if(!amountValidation($outstanding)){
+                $outstanding_error = 'Invalid amount';
                 $control = 0;
             }
         }
         else{
-            $outstanding_on_error = 'Required';
+            $outstanding_error = 'Required';
             $control = 0;
         }
 
@@ -483,7 +488,11 @@
                 $control = 0;
             }
         }
-
+        else{
+            $full_compromise_paid_upto = '0';
+            $amount_of_compromise = '0';
+            $date_of_compromise = '';
+        }
         //ots
         if($ots == '1'){
             if(!empty($date_of_ots_accepted)){
@@ -519,9 +528,15 @@
                 $control = 0;
             }
         }
+        else{
+            $full_ots_paid_upto = '0';
+            $compromise_ots_failed = '-1';
+            $date_of_ots_accepted = '';
+        }
 
         if($control){ // Insert data into database control = 1
-            $sql = "UPDATE home_loan SET case_date = '$case_date', npa_case = '$npa_case', bank_name = '$bank_name', bank_contact_person_name = '$bank_contact_person_name', bank_contact_person_number = '$bank_contact_person_number', bank_contact_person_designation = '$bank_contact_person_designation', bank_address = '$bank_address', bank_contact_person_email = '$bank_contact_person_email', borrower_name = '$borrower_name', amount = '$amount', outstanding_on = '$outstanding_on', ra_agreement_signed_on = '$ra_agreement_signed_on', ra_agreement_expired_on = '$ra_agreement_expired_on', date_of_notice13_2 = '$date_of_notice13_2', date_of_notice13_3 = '$date_of_notice13_3', primary_security = '$primary_security', collateral_security = '$collateral_security', total_security = '$total_security', date_of_symbolic_possession = '$date_of_symbolic_possession', publication_hindi_newspaper_on = '$publication_hindu_newspaper', publication_english_newspaper_on = '$publication_english_newspapaer', requested_bank_for_documents = '$requested_bank_for_documentation_on', documents_received_on = '$documents_received_on', documents_given_to_advocate_on = '$documents_given_to_advocate_on', application_file_dm_cmm_by_advocate_on = '$application_file_dm_cmm_advocate_on', date_of_hearing = '$date_of_hearing', compromise = '$compromise', date_of_compromise = '$date_of_compromise', amount_of_compromise = '$amount_of_compromise', full_compromise_paid_upto = '$full_compromise_paid_upto', ots = '$ots', date_of_ots_accepted = '$date_of_ots_accepted', amount_of_ots_paid_upto = '$full_ots_paid_upto', compromise_ots_failed = '$compromise_ots_failed', property_sold_on = '$property_sold_on', property_sold_for = '$property_sold_for', full_amount_compromise_received_on = '$full_amount_of_compromise_received_on', full_amount_ots_received_on = '$full_amount_of_ots_received_on', date_of_ra_bill = '$date_of_ra_bill', amount_of_ra_bill = '$amount_of_ra_bill', ra_bill_forward_to_bank_on = '$ra_bill_forward_to_bank_on', ra_bill_paid_on = '$ra_bill_paid_on', ra_bill_paid_amount = '$ra_bill_paid_amount', total_amount_of_expenses_incurred = '$total_amount_of_expenses_incurred', income_case_wise_profit_loss = '$income_case_wise_profit_loss' WHERE home_loan_cid = '$home_loan_cid'";
+            $bank_address = str_replace("\n", "<br/>", $bank_address);
+            $sql = "UPDATE home_loan SET case_date = '$case_date', npa_case = '$npa_case', bank_name = '$bank_name', bank_contact_person_name = '$bank_contact_person_name', bank_contact_person_number = '$bank_contact_person_number', bank_contact_person_designation = '$bank_contact_person_designation', bank_address = '$bank_address', bank_contact_person_email = '$bank_contact_person_email', borrower_name = '$borrower_name', amount = '$amount', outstanding = '$outstanding', ra_agreement_signed_on = '$ra_agreement_signed_on', ra_agreement_expired_on = '$ra_agreement_expired_on', date_of_notice13_2 = '$date_of_notice13_2', date_of_notice13_3 = '$date_of_notice13_3', primary_security = '$primary_security', collateral_security = '$collateral_security', total_security = '$total_security', date_of_symbolic_possession = '$date_of_symbolic_possession', publication_hindi_newspaper_on = '$publication_hindu_newspaper', publication_english_newspaper_on = '$publication_english_newspapaer', requested_bank_for_documents = '$requested_bank_for_documentation_on', documents_received_on = '$documents_received_on', documents_given_to_advocate_on = '$documents_given_to_advocate_on', application_file_dm_cmm_by_advocate_on = '$application_file_dm_cmm_advocate_on', date_of_hearing = '$date_of_hearing', compromise = '$compromise', date_of_compromise = '$date_of_compromise', amount_of_compromise = '$amount_of_compromise', full_compromise_paid_upto = '$full_compromise_paid_upto', ots = '$ots', date_of_ots_accepted = '$date_of_ots_accepted', amount_of_ots_paid_upto = '$full_ots_paid_upto', compromise_ots_failed = '$compromise_ots_failed', property_sold_on = '$property_sold_on', property_sold_for = '$property_sold_for', full_amount_compromise_received_on = '$full_amount_of_compromise_received_on', full_amount_ots_received_on = '$full_amount_of_ots_received_on', date_of_ra_bill = '$date_of_ra_bill', amount_of_ra_bill = '$amount_of_ra_bill', ra_bill_forward_to_bank_on = '$ra_bill_forward_to_bank_on', ra_bill_paid_on = '$ra_bill_paid_on', ra_bill_paid_amount = '$ra_bill_paid_amount', total_amount_of_expenses_incurred = '$total_amount_of_expenses_incurred', income_case_wise_profit_loss = '$income_case_wise_profit_loss' WHERE home_loan_cid = '$home_loan_cid'";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
@@ -581,7 +596,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Home Loan <?php echo $npa_case; ?></h4>
+                    <h4 class="card-title">Home Loan</h4>
                       <?php 
                           if(isset($_SESSION['success_msg'])){
                               ?>
@@ -633,7 +648,7 @@
                                             <i class="fas fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input id="case-date" type="date" class="form-control form-input" name="caseDate" placeholder="Password" value="<?php  ?>">
+                                    <input id="case-date" type="date" class="form-control form-input" name="caseDate"  value="<?php  ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $case_date_error; ?>
@@ -817,7 +832,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <div class="row">
                                 <div class="col-md">
                                     <label for="exampleInputCity1">Bank Address</label>
@@ -854,7 +869,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="text" step="0.01" class="form-control form-input"  name="amount" placeholder="Number" value="<?php echo $amount; ?>">
+                                    <input type="text" step="0.000001" class="form-control form-input"  name="amount" placeholder="Number" value="<?php echo $amount; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $amount_error; ?>
@@ -865,22 +880,19 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputCity1">Outstanding on</label>
+                                    <label for="exampleInputCity1">Outstanding</label>
                                     <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fas fa-clock"></i>
+                                            <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input id="outstanding-on" type="date" class="form-control form-input" id="" name="outstandingOn" placeholder="Password" value="<?php  ?>">
+                                    <input  type="number" step="0.000001" class="form-control form-input" id="" name="outstanding"  value="<?php echo $outstanding; ?>">
                                     </div>
                                     <div class="form-input-response">
-                                        <?php echo $outstanding_on_error; ?>
+                                        <?php echo $outstanding_error; ?>
                                     </div>
                                 </div>
-                                <script>
-                                    document.getElementById('outstanding-on').defaultValue = '<?php echo $outstanding_on; ?>'
-                                </script>
                             </div>
                         </div>
                         <div class="form-group">
@@ -963,7 +975,7 @@
                         
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md">
+                                <div class="col-md mb-3">
                                     <label for="exampleInputCity1">Primary Security</label>
                                     <div class="input-group">
                                     <textarea class="form-control form-input" name="primarySecurity" id="" cols="30" rows="10"><?php echo $primary_security; ?></textarea>
@@ -972,7 +984,7 @@
                                         <?php echo $primary_security_error; ?>
                                     </div>
                                 </div>
-                                <div class="col-md">
+                                <div class="col-md mb-3">
                                     <label for="exampleInputCity1">Collateral Security</label>
                                     <div class="input-group">
                                     <textarea class="form-control form-input" name="collateralSecurity" id="" cols="30" rows="10"><?php echo $collateral_security; ?></textarea>
@@ -984,7 +996,7 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <div class="row">
                                 <div class="col-md">
                                     <label for="exampleInputCity1">Total Security</label>
@@ -1481,7 +1493,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" name="raBillPaidAmount" placeholder="Amount" value="<?php echo $ra_bill_paid_amount; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" name="raBillPaidAmount" placeholder="Amount" value="<?php echo $ra_bill_paid_amount; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $ra_bill_paid_amount_error; ?>
@@ -1500,7 +1512,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" name="totalAmountOfExpensesIncurred" placeholder="Amount" value="<?php echo $total_amount_of_expenses_incurred; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" name="totalAmountOfExpensesIncurred" placeholder="Amount" value="<?php echo $total_amount_of_expenses_incurred; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $total_amount_of_expenses_incurred_error; ?>
@@ -1514,7 +1526,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" name="incomeCaseWiseProfitLoss" value="<?php echo $income_case_wise_profit_loss; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" name="incomeCaseWiseProfitLoss" value="<?php echo $income_case_wise_profit_loss; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $income_case_wise_profit_loss_error; ?>

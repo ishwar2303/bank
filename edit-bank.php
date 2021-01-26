@@ -79,6 +79,9 @@
                 $bank_name_error = 'Invalid name';
                 $control = 0;
             }
+            else{
+              $bank_name = strtoupper($bank_name);
+            }
         }
         else{
             $bank_name_error = 'Bank name required';
@@ -146,18 +149,14 @@
             $conn->query($sql);
 
             if($conn->error == ''){
-                $bank_name = '';
-                $bank_branch = '';
-                $bank_city = '';
-                $bank_address = '';
-                $bank_contact_person_name = '';
-                $bank_contact_person_number = '';
                 $_SESSION['success_msg'] = 'Bank details updated successfully';
                 header('Location: view-banks.php');
                 exit;
             }
             else{
                 $_SESSION['error_msg'] = 'Something went wrong!';
+                header('Location: view-banks.php');
+                exit;
             }
         }
     }

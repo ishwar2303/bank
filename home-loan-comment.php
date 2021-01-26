@@ -52,7 +52,7 @@
     $emd_amount = '';
     $property_visit_by_prospective_buyers_on = '';
     $auction_date = '';
-    $auction_status = '';
+    $auction_status = '-1';
     $doc_for_redirection_of_order_given_to_advocate_on = '';
     $redirection_order_filled_with_dm_cmm_on = '';
     $redirection_order_received_on = '';
@@ -81,7 +81,6 @@
     if(isset($_POST['dateOfNextHearing']) && isset($_POST['orderReceivedOn']) && isset($_POST['orderForwardedOn']) && isset($_POST['leaseOn']) && isset($_POST['physicalPossessionOn']) && isset($_POST['noticeOfPhysicalPossessionOn']) && isset($_POST['possessionTakenOn']) && isset($_POST['possessionPostponeOn']) && isset($_POST['postponeReason']) && isset($_POST['propertyOnAuction']) && isset($_POST['reservePrice']) && isset($_POST['emdAmount']) && isset($_POST['prospectiveBuyerOn']) && isset($_POST['auctionDate']) && isset($_POST['docRedirectionToAdvocateOn']) && isset($_POST['redirectionOrderWithDmCmmOn']) && isset($_POST['redirectionOrderReceivedOn'])){
         // initialize variables with loan data
         $control = 1;
-        $_SESSION['success_msg'] = 'well';
         $date_of_next_hearing = cleanInput($_POST['dateOfNextHearing']);
         $order_received_on = cleanInput($_POST['orderReceivedOn']);
         $order_forwarded_to_bank_on = cleanInput($_POST['orderForwardedOn']);
@@ -98,6 +97,11 @@
         $auction_date = cleanInput($_POST['auctionDate']);
         if(isset($_POST['auctionStatus'])){
             $auction_status = cleanInput($_POST['auctionStatus']);
+            if($auction_status !='1' && $auction_status != '0' && $auction_status != '-1'){
+                $auction_status_error = 'You tried Invalid status code';
+                $control = 0;
+                $auction_status = '-1';
+            }
         }
         else{
             $auction_status = '-1';
@@ -380,7 +384,7 @@
                                     <div class="input-group">
                                     <textarea class="form-control form-input" name="postponeReason" id="bank-address" cols="30" rows="10"><?php echo $postpone_reason; ?></textarea>
                                     </div>
-                                    <div id="password-validate-response" class="form-input-response">
+                                    <div class="form-input-response">
                                         <?php echo $postpone_reason_error; ?>
                                     </div>
                                 </div>
@@ -457,7 +461,7 @@
                                     </div>
                                 </div>
                                 <script>
-                                    document.getElementById('date-of-compromise').defaultValue = '<?php echo $property_visit_by_prospective_buyers_on_error; ?>'
+                                    document.getElementById('prospective-buyer-on').defaultValue = '<?php echo $property_visit_by_prospective_buyers_on_error; ?>'
                                 </script>
                             </div>
                         </div>
@@ -498,6 +502,15 @@
                                                 Fail
                                             </span>
                                         </label>
+                                        <label>
+                                        <input type="radio" name="auctionStatus" value="-1" <?php if($auction_status == '-1') echo 'checked'; ?>>
+                                            <span>
+                                                None
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $auction_status_error; ?>
                                     </div>
                                 </div>
                             </div>

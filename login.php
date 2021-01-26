@@ -111,8 +111,7 @@
               <div class="auth-form-light text-left p-5">
                 <div class="brand-logo">
                 <h3 class="logo-container">
-                  <i class="fas fa-university"></i>
-                  <span>BANK</span>
+                  <span>Asset Reconservices</span>
                 </h3>
                 </div>
                 <h4>Hello!</h4>

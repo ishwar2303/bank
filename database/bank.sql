@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2021 at 02:25 AM
+-- Generation Time: Jan 26, 2021 at 06:42 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -42,10 +42,11 @@ CREATE TABLE `bank` (
 --
 
 INSERT INTO `bank` (`bank_id`, `bank_name`, `bank_branch`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`) VALUES
-(9, 'State Bank of India', 'Vijay Nagar', 'Delhi', ' H-7 Vijay Nagar, Distt. \r<br/>Delhi, Delhi 110 009', 'Ishwar Baisla', 9821671707),
+(9, 'SBI', 'Vijay Nagar', 'Delhi', ' H-7 Vijay Nagar, Distt. \r<br/>Delhi, Delhi 110 009', 'Ishwar Baisla', 9821671707),
 (10, 'IDBI', 'Mukherjee Nagar', 'Delhi', ' 1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', 8447811595),
 (11, 'HDFC', 'Mukherjee Nagar', 'Delhi', ' No 1054 A\r\nMukherjee Nagar\r\nNew Delhi-110009', 'Ishwar Baisla', 7573919585),
-(12, 'PNB', 'Mukherjee Nagar', 'Delhi', ' Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', 9821671707);
+(12, 'PNB', 'Mukherjee Nagar', 'Delhi', ' Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', 9821671707),
+(16, 'BANK OF BARODA', 'Vijay Nagar', 'Delhi', 'Wazirabad Village\r\ndelhi 110084', 'Ishwar Baisla', 9821671707);
 
 -- --------------------------------------------------------
 
@@ -56,6 +57,7 @@ INSERT INTO `bank` (`bank_id`, `bank_name`, `bank_branch`, `bank_city`, `bank_ad
 CREATE TABLE `car_loan` (
   `car_loan_cid` int(11) NOT NULL,
   `case_date` date NOT NULL,
+  `bank_name` varchar(200) NOT NULL,
   `home_branch` varchar(200) NOT NULL,
   `account_number` varchar(200) NOT NULL,
   `customer_name` varchar(200) NOT NULL,
@@ -93,8 +95,9 @@ CREATE TABLE `car_loan` (
 -- Dumping data for table `car_loan`
 --
 
-INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`) VALUES
-(17, '2021-01-15', 'Mukherjee Nagar', '1254568845', 'Ishwar', '2021-01-31', '12500', '7.5', '2021-01-15', '1000', '1000', '5000', '48566', '55666', 10, '55626', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', '9821671707', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', '9821671707', 'wazirabad village\r\nDelhi-110084\r\nHome - F/434', 'FAFA1421452', 'DL SP 4907', '1255', 'Ishwar Baisla', '9821671707', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', 'Ishwar Baisla', '9821671707', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', '1552233', '55552', '45585');
+INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`) VALUES
+(17, '2021-01-15', 'SBI', 'Mukherjee Nagar', '1254568845', 'Ishwar', '2021-01-31', '12500', '7.5', '2021-01-15', '1000', '1000', '5000', '48566', '55666', 10, '55626', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', '9821671707', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', '9821671707', 'wazirabad village\r\nDelhi-110084\r\nHome - F/434', 'FAFA1421452', 'DL SP 4907', '1255', 'Ishwar Baisla', '9821671707', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', 'Ishwar Baisla', '9821671707', 'wazirabad village\r<br/>Delhi-110084\r<br/>Home - F/434', '1552233', '55552', '45585'),
+(18, '2021-01-31', 'PNB', 'Mukherjee Nagar', '684354654', 'ishwar', '2021-01-01', '1.25', '6845.56', '2021-01-02', '6845212', '545', '3542', '5435', '35453', 5, '5656', '1048, Ground Floor, Banda\r<br/>Bahadur Marg,\r<br/>Mukherjee Nagar,\r<br/>New Delhi, Delhi 110009', '9821671707', '1048, Ground Floor, Banda\r<br/>Bahadur Marg,\r<br/>Mukherjee Nagar,\r<br/>New Delhi, Delhi 110009', '9821671707', '1048, Ground Floor, Banda\r\nBahadur Marg,\r\nMukherjee Nagar,\r\nNew Delhi, Delhi 110009', 'FAFA1421452', 'DL SP 4907', '15', 'Ishwar Baisla', '9821671707', '1048, Ground Floor, Banda\r<br/>Bahadur Marg,\r<br/>Mukherjee Nagar,\r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '9821671707', '1048, Ground Floor, Banda\r<br/>Bahadur Marg,\r<br/>Mukherjee Nagar,\r<br/>New Delhi, Delhi 110009', '102253', '26323', '366333');
 
 -- --------------------------------------------------------
 
@@ -127,7 +130,7 @@ CREATE TABLE `home_loan` (
   `bank_contact_person_email` varchar(200) NOT NULL,
   `borrower_name` varchar(200) NOT NULL,
   `amount` varchar(200) NOT NULL,
-  `outstanding_on` date NOT NULL,
+  `outstanding` varchar(200) NOT NULL,
   `ra_agreement_signed_on` date NOT NULL,
   `ra_agreement_expired_on` date NOT NULL,
   `date_of_notice13_2` date NOT NULL,
@@ -168,8 +171,9 @@ CREATE TABLE `home_loan` (
 -- Dumping data for table `home_loan`
 --
 
-INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding_on`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`) VALUES
-(11, '2021-01-26', '3', 'PNB', 'Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', '9821671707', 'Manager', 'ishwar2303@gmail.com', 'Ishwar Baisla', '50000', '2021-01-22', '2021-01-22', '2021-01-14', '2021-01-24', '2021-01-28', 'primary security details', 'collateral security details', 'total security details', '2021-01-31', '2021-01-31', '2021-01-01', '2021-01-01', '2021-01-01', '2021-01-06', '2021-01-01', '2021-01-01', 1, '2021-01-29', '10000', '4556', 1, '2021-01-13', '15532', 1, '2021-01-22', '10000', '2021-01-23', '2021-01-29', '2021-01-16', '', '2021-01-23', '2021-01-28', '10000', '10000', '169');
+INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`) VALUES
+(11, '2021-01-26', '3', 'PNB', 'Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', '9821671707', 'Manager', 'ishwar2303@gmail.com', 'Ishwar Baisla', '50000', '152365.22', '2021-01-22', '2021-01-14', '2021-01-24', '2021-01-28', 'primary security details', 'collateral security details', 'total security details', '2021-01-31', '2021-01-31', '2021-01-01', '2021-01-01', '2021-01-01', '2021-01-06', '2021-01-01', '2021-01-01', 1, '2021-01-29', '10000', '4556', 1, '2021-01-13', '15532', 1, '2021-01-22', '10000', '2021-01-23', '2021-01-29', '2021-01-16', '', '2021-01-23', '2021-01-28', '10000', '10000', '169'),
+(15, '2021-01-16', '2', 'IDBI', '1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '8447811595', 'Manager', 'ishwar2303@gmail.com', 'Samarth Tandon', '1000000', '1000.25635', '2021-01-17', '2021-01-10', '2021-01-10', '2021-01-22', '', '', '', '2021-01-08', '2021-01-17', '2021-01-15', '2021-01-23', '2021-01-16', '2021-01-23', '2021-01-22', '2021-01-16', 0, '0000-00-00', '0', '0', 0, '0000-00-00', '0', -1, '2021-01-24', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '', '10000256.565652');
 
 -- --------------------------------------------------------
 
@@ -214,8 +218,8 @@ INSERT INTO `home_loan_comments` (`comment_id`, `case_id`, `date_of_next_hearing
 (11, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 0, '0000-00-00', '0000-00-00', '0000-00-00'),
 (12, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 0, '0000-00-00', '0000-00-00', '0000-00-00'),
 (15, 11, '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', 1, '0000-00-00', '0000-00-00', '0000-00-00'),
-(23, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 1, '0000-00-00', '0000-00-00', '0000-00-00'),
-(25, 11, '2021-01-24', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00');
+(23, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 1, '0000-00-00', '0000-00-00', '2021-01-23'),
+(25, 11, '2021-01-24', '2021-01-03', '2021-01-15', '2021-01-15', '2021-01-16', '2021-01-15', '2021-01-16', '2021-01-16', 'reason', '2021-01-15', '1000', '5000', '2021-01-29', '2021-01-03', 1, '2021-01-22', '2021-01-03', '2021-01-23');
 
 -- --------------------------------------------------------
 
@@ -309,13 +313,13 @@ ALTER TABLE `user_registration`
 -- AUTO_INCREMENT for table `bank`
 --
 ALTER TABLE `bank`
-  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `car_loan`
 --
 ALTER TABLE `car_loan`
-  MODIFY `car_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `car_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `car_loan_remarks`
@@ -327,7 +331,7 @@ ALTER TABLE `car_loan_remarks`
 -- AUTO_INCREMENT for table `home_loan`
 --
 ALTER TABLE `home_loan`
-  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `home_loan_comments`

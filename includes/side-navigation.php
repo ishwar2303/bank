@@ -73,7 +73,7 @@
     
     <li class="nav-item">
       <a class="nav-link" href="home-loan.php  ">
-        <span class="menu-title">Home Loan</span>
+        <span class="menu-title">Add Home Loan</span>
         <i class="mdi mdi-home menu-icon"></i>
       </a>
     </li>
@@ -87,7 +87,7 @@
     
     <li class="nav-item">
       <a class="nav-link" href="car-loan.php  ">
-        <span class="menu-title">Car Loan</span>
+        <span class="menu-title">Add Car Loan</span>
         <i class="mdi mdi-car menu-icon"></i>
       </a>
     </li>
@@ -125,6 +125,7 @@
   </div>
   </div>
 </div>
+
 
 <!-- custom user confirmation script -->
 

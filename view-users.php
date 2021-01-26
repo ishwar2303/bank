@@ -148,7 +148,7 @@
                                 <div class="col-md-4 stretch-card grid-margin">
                                   <div class="<?php echo $css_card; ?>">
                                     <div class="card-body">
-                                      <h4 class="font-weight-normal mb-3">
+                                      <h4 class="font-weight-normal mb-3 capt">
                                         <?php echo $full_name; ?>
                                         <i class="fas fa-user mdi-24px float-right"></i>
                                       </h4>

@@ -46,6 +46,9 @@
                 $bank_name_error = 'Invalid name';
                 $control = 0;
             }
+            else{
+              $bank_name = strtoupper($bank_name);
+            }
         }
         else{
             $bank_name_error = 'Bank name required';
@@ -125,16 +128,14 @@
             $conn->query($sql);
 
             if($conn->error == ''){
-                $bank_name = '';
-                $bank_branch = '';
-                $bank_city = '';
-                $bank_address = '';
-                $bank_contact_person_name = '';
-                $bank_contact_person_number = '';
                 $_SESSION['success_msg'] = 'Bank added successfully';
+                header('Location: add-bank.php');
+                exit;
             }
             else{
                 $_SESSION['error_msg'] = 'Something went wrong!';
+                header('Location: add-bank.php');
+                exit;
             }
         }
     }
@@ -214,7 +215,7 @@
                               <div class="input-group-prepend ">
                                 <span class="input-group-text bg-gradient-primary text-white br"><i class="fas fa-university"></i></span>
                               </div>
-                              <input type="text" class="form-control form-input" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name">
+                              <input oninput="this.value = this.value.toUpperCase()" type="text" class="form-control form-input" name="bankName" value="<?php echo $bank_name; ?>" placeholder="Bank Name">
                             </div>
                             <div class="form-input-response">
                                 <?php echo $bank_name_error; ?>
