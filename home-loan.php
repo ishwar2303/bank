@@ -275,7 +275,7 @@
             $control = 0;
         }
 
-        if(!empty($amount)){
+        if($amount != ''){
             if(!amountValidation($amount)){
                 $amount_error = 'Invalid Amount';
                 $control = 0;
@@ -286,7 +286,7 @@
             $control = 0;
         }
 
-        if(!empty($outstanding)){
+        if($outstanding != ''){
             if(!amountValidation($outstanding)){
                 $outstanding_error = 'Invalid amount';
                 $control = 0;
@@ -436,7 +436,7 @@
                 $control = 0;
             }
 
-            if(!empty($amount_of_compromise)){
+            if($amount_of_compromise != ''){
                 if(!amountValidation($amount_of_compromise)){
                     $amount_of_compromise_error = 'Invalid Amount';
                     $control = 0;
@@ -447,7 +447,7 @@
                 $control = 0;
             }
 
-            if(!empty($full_compromise_paid_upto)){
+            if($full_compromise_paid_upto != ''){
                 if(!dateValidation($full_compromise_paid_upto)){
                     $full_compromise_paid_upto_error = 'Invalid Amount';
                     $control = 0;
@@ -472,7 +472,7 @@
                 $control = 0;
             }
 
-            if(!empty($full_ots_paid_upto)){
+            if($full_ots_paid_upto != ''){
                 if(!amountValidation($full_ots_paid_upto)){
                     $full_ots_paid_upto_error = 'Invalid Amount';
                     $control = 0;

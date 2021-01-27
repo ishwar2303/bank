@@ -453,8 +453,8 @@
     <div class="search-loans-form-popup">
       <form class="pt-0" method="POST">
         <h3 class="form-inline justify-content-between">
-          <span class="set-theme-color">Search...</span>
-          <i id="close-search-popup" class="far fa-times-circle"></i>
+          <span class="set-theme-color"><i class="fas fa-search"></i> Search...</span>
+          <i id="close-search-popup" class="far fa-times-circle set-theme-color"></i>
         </h3>
         <div class="form-input-response mb-3">
             <?php echo $search_box_error; ?>
@@ -472,7 +472,7 @@
                             </span>
                         </div>
                         <select id="bank-list" class="form-control form-input" name="bankName">
-                            <option value="">Choose</option>
+                            <option value="">All Banks</option>
                             <?php 
                                 while($bank = $bank_list->fetch_assoc()){
                                   $option_selected = '';
@@ -770,7 +770,7 @@
                                       </td>
                                       <td><?php echo $home_loan['property_sold_on']!= '0000-00-00'? $home_loan['property_sold_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['property_sold_for']; ?></td>
-                                      <td><?php echo $home_loan['case_date']!= 'full_amount_compromise_received_on'? $home_loan['full_amount_compromise_received_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['full_amount_compromise_received_on']!= '0000-00-00'? $home_loan['full_amount_compromise_received_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['full_amount_ots_received_on']!= '0000-00-00'? $home_loan['full_amount_ots_received_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['date_of_ra_bill']!= '0000-00-00'? $home_loan['date_of_ra_bill'] : '-'; ?></td>
                                       <td><?php echo $home_loan['amount_of_ra_bill']; ?></td>

@@ -187,7 +187,7 @@
             $control = 0;
         }
 
-        if(!empty($outstanding)){
+        if($outstanding != ''){
             if(!amountValidation($outstanding)){
                 $outstanding_error = 'Invalid amount';
                 $control = 0;
@@ -198,7 +198,7 @@
             $control = 0;
         }
 
-        if(!empty($arr_co_nd)){
+        if($arr_co_nd != ''){
         }
         else{
             $arr_co_nd_error = 'Required';
@@ -216,7 +216,7 @@
             $control = 0;
         }
 
-        if(!empty($principal_outstanding)){
+        if($principal_outstanding != ''){
             if(!amountValidation($principal_outstanding)){
                 $principal_outstanding = 'Invalid amount';
                 $control = 0;
@@ -227,7 +227,7 @@
             $control = 0;
         }
 
-        if(!empty($bounce_charges)){
+        if($bounce_charges != ''){
             if(!amountValidation($bounce_charges)){
                 $bounce_charges_error = 'Invalid amount';
                 $control = 0;
@@ -238,7 +238,7 @@
             $control = 0;
         }
 
-        if(!empty($overdue_charges)){
+        if($overdue_charges != ''){
             if(!amountValidation($overdue_charges)){
                 $overdue_charges_error = 'Invalid amount';
                 $control = 0;
@@ -249,7 +249,7 @@
             $control = 0;
         }
 
-        if(!empty($other_charges)){
+        if($other_charges != ''){
             if(!amountValidation($other_charges)){
                 $other_charges_error = 'Invalid amount';
                 $control = 0;
@@ -260,7 +260,7 @@
             $control = 0;
         }
 
-        if(!empty($loan_emi_amount)){
+        if($loan_emi_amount != ''){
             if(!amountValidation($loan_emi_amount)){
                 $loan_emi_amount_error = 'Invalid amount';
                 $control = 0;
@@ -271,7 +271,7 @@
             $control = 0;
         }
 
-        if(!empty($no_of_emi_outstanding)){
+        if($no_of_emi_outstanding != ''){
             if(!ctype_digit($no_of_emi_outstanding)){
                 $no_of_emi_outstanding_error = 'Only digits!';
                 $control = 0;
@@ -369,7 +369,7 @@
             $control = 0;
         }
         
-        if(!empty($tenure)){
+        if($tenure != ''){
             if(!alphaNumericSpaceValidation($tenure)){
                 $tenure_error = 'Invalid number';
                 $control = 0;
@@ -447,7 +447,7 @@
         }
 
 
-        if(!empty($amount_recovered)){
+        if($amount_recovered != ''){
             if(!amountValidation($amount_recovered)){
                 $amount_recovered_error = 'Invalid amount';
                 $control = 0;
@@ -458,7 +458,7 @@
             $control = 0;
         }
 
-        if(!empty($bill_raised)){
+        if($bill_raised != ''){
             if(!amountValidation($bill_raised)){
                 $bill_raised_error = 'Invalid amount';
                 $control = 0;
@@ -469,7 +469,7 @@
             $control = 0;
         }
 
-        if(!empty($payment_received)){
+        if($payment_received != ''){
             if(!amountValidation($payment_received)){
                 $payment_received_error = 'Invalid amount';
                 $control = 0;

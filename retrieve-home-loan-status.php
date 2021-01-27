@@ -79,13 +79,13 @@
                         <td><?php echo $row['doc_for_redirection_of_order_given_to_advocate_on'] != '0000-00-00' ? $row['doc_for_redirection_of_order_given_to_advocate_on'] : '-'; ?></td>
                         <td><?php echo $row['redirection_order_filled_with_dm_cmm_on'] != '0000-00-00' ? $row['redirection_order_filled_with_dm_cmm_on'] : '-'; ?></td>
                         <td><?php echo $row['redirection_order_received_on'] != '0000-00-00' ? $row['redirection_order_received_on'] : '-'; ?></td>
-                        <td >
+                        <td class="align-center">
                             <a class="edit-btn" href="edit-home-loan-comment.php?comment_id=<?php echo $encoded_comment_id; ?>" target="_blank">
                                 <span>Edit</span>
                                 <i class="fas fa-edit"></i>
                             </a>
                         </td>
-                        <td>
+                        <td class="align-center">
                             <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_comment_id; ?>','home-loan-comment')" >
                                 <span>Delete</span>
                                 <i class="fas fa-trash-alt"></i>

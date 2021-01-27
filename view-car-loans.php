@@ -442,8 +442,8 @@
     <div class="search-loans-form-popup">
       <form class="pt-0" method="POST">
         <h3 class="form-inline justify-content-between">
-          <span class="set-theme-color">Search...</span>
-          <i id="close-search-popup" class="far fa-times-circle"></i>
+          <span class="set-theme-color"><i class="fas fa-search"></i> Search...</span>
+          <i id="close-search-popup" class="far fa-times-circle set-theme-color"></i>
         </h3>
         <div class="form-input-response mb-3">
             <?php echo $search_box_error; ?>
@@ -461,7 +461,7 @@
                             </span>
                         </div>
                         <select id="bank-list" class="form-control form-input" name="bankName">
-                            <option value="">Choose</option>
+                            <option value="">All Banks</option>
                             <?php 
                                 while($bank = $bank_list->fetch_assoc()){
                                   $option_selected = '';

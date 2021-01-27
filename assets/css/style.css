@@ -3237,7 +3237,6 @@ pre {
   .table th,
   .table td {
     padding: 0.9375rem 10px;
-    vertical-align: top;
     border-top: 1px solid #ebedf2; }
   .table thead th {
     vertical-align: bottom;
@@ -12845,7 +12844,7 @@ dl {
   .auth .auth-form-light select {
     color: #c9c8c8; }
   .auth .auth-form-light .input-group .form-control:focus, .auth .auth-form-light .input-group .form-control:active {
-    border-color: #ebedf2; }
+    }
 
 .auth .brand-logo {
   margin-bottom: 2rem; }
@@ -13703,6 +13702,7 @@ dl {
 .table-container{
   overflow-x: auto;
   padding-bottom: 25px;
+  border-radius: 3px;
 }
 .table-edit-op{
   background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
@@ -13885,7 +13885,6 @@ dl {
 }
 #delete-me:focus{
   outline:  none;
-  box-shadow: 0px 0px 0px 4px rgb(154, 85, 255, 0.6);
   transition: 600ms;
   border: 0.5px solid #9a55ff;
 }
@@ -13902,17 +13901,17 @@ dl {
   padding: 10px 15px;
   font-weight: 350;
   border : 0.5px solid #bdc3c7;
+  background: white;
 }
 #delete-yes{
-  border-radius: 5px;
+  border-radius: 3px;
   border: none;
   padding: 10px 15px;
   display: none;
   font-weight: 350;
-  border : 0.5px solid #bdc3c7;
   color : white;
   background : linear-gradient(-180deg,#eb1d1d 0,rgb(196, 17, 17,0.8) 100%);
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.6);
 }
 #delete-yes:focus{
   outline: none;
@@ -13994,7 +13993,7 @@ dl {
 }
 .case-status-heading > i{
   font-size: 28px;
-  color : rgba(255,0,0,0.8);
+  color: rgba(255,0,0,0.6);
   position: absolute;
   right: 10px;
   position: fixed;
@@ -14058,7 +14057,7 @@ dl {
   margin-right: 5px;
 }
 #close-search-popup{
-  color : red;
+  cursor: pointer;
 }
 @media screen and (max-width : 990px){
   .search-loans-form-popup{
@@ -14198,10 +14197,14 @@ dl {
   font-size: 18px;
 }
 .make-status-success{
-  color : green;
   cursor: pointer;
 }
 .remove-to-do-work{
-  color: red;
   cursor: pointer;
+}
+.make-status-incomplete{
+  cursor: pointer;
+}
+.align-center{
+  vertical-align: middle;
 }

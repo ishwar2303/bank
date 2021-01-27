@@ -199,6 +199,7 @@
         $income_case_wise_profit_loss = cleanInput($_POST['incomeCaseWiseProfitLoss']);
 
 
+
         if(!empty($case_date)){
             if(!dateValidation($case_date)){
                 $case_date_error = 'Invalid Date';
@@ -211,7 +212,7 @@
         }
         
         if($npa_case != '1' && $npa_case != '2' && $npa_case != '3'){
-            $npa_case_error = 'Required';
+            $npa_case_error = 'Invalid npa code';
             $control = 0;
         }
         else{
@@ -305,7 +306,7 @@
             $control = 0;
         }
 
-        if(!empty($amount)){
+        if($amount != ''){
             if(!amountValidation($amount)){
                 $amount_error = 'Invalid Amount';
                 $control = 0;
@@ -316,7 +317,7 @@
             $control = 0;
         }
 
-        if(!empty($outstanding)){
+        if($outstanding != ''){
             if(!amountValidation($outstanding)){
                 $outstanding_error = 'Invalid amount';
                 $control = 0;
@@ -466,7 +467,7 @@
                 $control = 0;
             }
 
-            if(!empty($amount_of_compromise)){
+            if($amount_of_compromise != ''){
                 if(!amountValidation($amount_of_compromise)){
                     $amount_of_compromise_error = 'Invalid Amount';
                     $control = 0;
@@ -477,7 +478,7 @@
                 $control = 0;
             }
 
-            if(!empty($full_compromise_paid_upto)){
+            if($full_compromise_paid_upto != ''){
                 if(!dateValidation($full_compromise_paid_upto)){
                     $full_compromise_paid_upto_error = 'Invalid Amount';
                     $control = 0;
@@ -493,6 +494,7 @@
             $amount_of_compromise = '0';
             $date_of_compromise = '';
         }
+
         //ots
         if($ots == '1'){
             if(!empty($date_of_ots_accepted)){
@@ -506,7 +508,7 @@
                 $control = 0;
             }
 
-            if(!empty($full_ots_paid_upto)){
+            if($full_ots_paid_upto != ''){
                 if(!amountValidation($full_ots_paid_upto)){
                     $full_ots_paid_upto_error = 'Invalid Amount';
                     $control = 0;
