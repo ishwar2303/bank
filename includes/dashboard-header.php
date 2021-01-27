@@ -1,5 +1,5 @@
 
-<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+<nav class="asset-header navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <i onclick="toggleSideNavigation()" id="toggler-btn-for-side-navigation-for-phone" class="fas fa-bars"></i>
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
     <a class="navbar-brand brand-logo" href="index.php">

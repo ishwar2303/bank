@@ -167,12 +167,15 @@
                                       <h6 class="mb-2">
                                         <?php echo 'Created : '.$created_date->format('d-m-Y'); ?>
                                       </h6>
+                                      <h6 class="mb-2">
+                                        <?php echo 'Time : '.$created_date->format('h:i:sa'); ?>
+                                      </h6>
 
                                       <div class="bank-operation form-inline justify-content-end">
                                         <!-- <a href="edit-user.php?bankId=<?php echo $encoded_user_id; ?>">Edit
                                           <i class="fas fa-edit"></i>
                                         </a> -->
-                                        <?php if($role != '2'){ ?>
+                                        <?php if($_SESSION['user_id'] == $row['user_id'] || $role != '2'){ ?>
                                         <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_user_id; ?>','user')">Delete
                                           <i class="fas fa-trash-alt"></i>
                                         </label>

@@ -11,7 +11,8 @@
     date_default_timezone_set("Asia/Kolkata");
     $epoch_time = time();
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
-
+    $current_date = new DateTime($timestamp);
+    $current_date = $current_date->format('d-m-Y');
     require_once('middleware.php');
 
     // Selecting banks
@@ -448,6 +449,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
+    <!-- table scroll btn -->
+    <div class="table-scroll-btn">
+      <span id="scroll-to-left-end-of-div">
+          <i  class="fas fa-chevron-circle-left"></i>
+      </span>
+      <span id="scroll-to-right-end-of-div" >
+          <i class="fas fa-chevron-circle-right"></i>
+      </span>
+    </div>
     <!-- search - box -->
     <div class="black-cover-for-search-box"></div>
     <div class="search-loans-form-popup">
@@ -567,10 +577,10 @@
     <!-- case status popup -->
     <div class="show-case-status">
       <div class="show-case-content">
-          <div style="padding: 19px 0px;"></div>
+          <div style="padding: 35px 0px;"></div>
           <div class="case-status-heading">
-            <span>Status...</span>
-            <i id="close-case-status-container" class="fas fa-window-close"></i>
+            <span class="set-theme-color" style="font-weight: 600;"><i class="far fa-question-circle" style="margin-right : 5px;"></i>Asset Reconservices Home Loan Case Status...</span>
+            <i id="close-case-status-container" class="far fa-times-circle set-theme-color"></i>
           </div>
           <div class="comments-section">
           </div>
@@ -689,6 +699,7 @@
                                   <th>Income case wise profit/loss</th>
                                   <th>Edit</th>
                                   <th>Status</th>
+                                  <th>Remarks</th>
                                   <th>Delete</th>
                                 </tr>
                               </thead>
@@ -825,6 +836,34 @@
                                           ?>
                                       </td>
                                       <td>
+                                          <label class="edit-btn add-reamrk-table-btn">
+                                              <span>View</span>
+                                              <i class="fas fa-eye"></i>
+                                          </label>
+                                      </td>
+                                      <script>
+                                          $('.add-reamrk-table-btn').eq(<?php echo $serial_no-1; ?>).click(() => {
+                                            showRemarkPopup('<?php echo $encoded_cid; ?>')
+                                            let caseID = document.getElementById('case-id').innerHTML
+                                            let reqData = {
+                                              caseID
+                                            }
+                                            let url = 'add-home-loan-remark.php'
+                                            $.ajax({
+                                                    url,
+                                                    type : 'POST',
+                                                    dataType : 'html',
+                                                    success : (msg) => {
+                                                    },
+                                                    complete : (res) => {
+                                                        $('#remark-response').html(res.responseText)
+                                                        document.getElementById('case-remarks').style.display = 'block'
+                                                    },
+                                                    data : reqData
+                                              })
+                                          })
+                                      </script>
+                                      <td>
                                           <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','home-loan')" class="table-delete-op mb-0" href="view-home-loans.php?cid=<?php echo $encoded_cid; ?>">
                                               <span>Delete</span>
                                               <i class="fas fa-trash-alt"></i>
@@ -874,14 +913,107 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
+    <!-- Remark popup -->
+    <div class="remark-popup">
+        <div class="remark-form">
+            <div class="remark-form-content">
+              <h3 class="logo-container form-inline justify-content-between mb-2">
+                <span style=" font-size:18px;">Asset Reconservices</span>
+                <i id="close-remark-popup" class="far fa-times-circle set-theme-color"></i>
+              </h3>
+              <h5 >
+                <span class="set-theme-color">Date : <?php echo $current_date; ?></span>
+              </h5>
+              <label id="case-id"></label>
+              <label for="exampleInputCity1" class="set-theme-color">
+                <i class="fas fa-pen-alt"></i>
+                Case Remark
+              </label>
+              <textarea id="given-remark" class="form-input mb-2" name="" id="" cols="30" rows="5" placeholder="Add a remark..."></textarea>
+              <div id="remark-input-response" class="form-input-response mb-2"></div>
+              <div class="form-inline justify-content-between mb-2">
+              <button id="view-remark-direct" class="btn btn-primary">
+                  Refresh
+              </button>
+              <button id="add-remark" class="btn btn-primary">Add</button>
+              </div>
+            </div>
+
+        </div>
+        <div id="remark-response">
+        </div>
+    </div>
+    <script>
+      $('#add-remark').click(()=>{
+          let caseID = document.getElementById('case-id').innerHTML
+          let remark = document.getElementById('given-remark').value
+          let reqData = {
+            caseID,
+            remark
+          }
+          let url = 'add-home-loan-remark.php'
+          if(remark != ''){
+            $.ajax({
+                url,
+                type : 'POST',
+                dataType : 'html',
+                success : (msg) => {
+                },
+                complete : (res) => {
+                    $('#remark-response').html(res.responseText)
+                    document.getElementById('given-remark').value = ''
+                },
+                data : reqData
+            })
+          }
+          else{
+            document.getElementById('remark-input-response').innerHTML = 'Remark required!'
+          }
+      })
+      $('#view-remark-direct').click(() => {
+        let caseID = document.getElementById('case-id').innerHTML
+        let reqData = {
+          caseID
+        }
+        let url = 'add-home-loan-remark.php'
+        $.ajax({
+                url,
+                type : 'POST',
+                dataType : 'html',
+                success : (msg) => {
+                },
+                complete : (res) => {
+                    $('#remark-response').html(res.responseText)
+                    document.getElementById('case-remarks').style.display = 'block'
+                },
+                data : reqData
+          })
+      })
+    </script>
   </body>
 </html>
+
+<!-- remark script -->
+<script>
+  function showRemarkPopup(caseID){
+    document.getElementById('case-id').innerHTML = caseID
+    document.getElementById('given-remark').value = ''
+    let popup = document.getElementsByClassName('remark-popup')[0]
+    popup.style.display = 'block'
+  }
+  $('#close-remark-popup').click(() => {
+    let popup = document.getElementsByClassName('remark-popup')[0]
+    popup.style.display = 'none'
+    document.getElementById('given-remark').value = ''
+    document.getElementById('case-id').innerHTML = ''
+    document.getElementById('remark-response').innerHTML = ''
+  })
+</script>
 
 <script>
   document.getElementById('close-case-status-container').addEventListener('click', ()=>{
     document.getElementsByClassName('show-case-status')[0].style.display = 'none';
   })
-  document.getElementsByClassName('comments-section')[0].style.height = (screen.height*0.73611111-10) +'px'
 </script>
 
 
@@ -901,5 +1033,20 @@
     document.getElementById('case-from').defaultValue = 'yyyy-mm-dd'
     document.getElementById('case-upto').defaultValue = 'yyyy-mm-dd'
     document.getElementById('defaulter-name').value = ''
+  })
+</script>
+
+
+<!-- scroll table event -->
+
+<script>
+  document.getElementById('scroll-to-left-end-of-div').addEventListener('click', ()=>{
+    let tableContainer = document.getElementsByClassName('table-container')[0]
+    tableContainer.scroll(0,0)
+  })
+  document.getElementById('scroll-to-right-end-of-div').addEventListener('click', ()=>{
+    let tableContainer = document.getElementsByClassName('table-container')[0]
+    let tableContainerWidth = tableContainer.scrollWidth
+    tableContainer.scroll(tableContainerWidth,0)
   })
 </script>

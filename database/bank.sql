@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2021 at 09:19 AM
+-- Generation Time: Jan 28, 2021 at 12:36 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -220,7 +220,10 @@ INSERT INTO `home_loan_comments` (`comment_id`, `case_id`, `date_of_next_hearing
 (15, 11, '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', 1, '0000-00-00', '0000-00-00', '0000-00-00'),
 (23, 11, '2021-01-22', '2021-01-22', '2021-01-16', '2021-01-22', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 'Some Reason', '2021-01-16', '500000', '2500000', '0000-00-00', '2021-01-23', 1, '0000-00-00', '0000-00-00', '2021-01-23'),
 (25, 11, '2021-01-24', '2021-01-03', '2021-01-15', '2021-01-15', '2021-01-16', '2021-01-15', '2021-01-16', '2021-01-16', 'reason', '2021-01-15', '1000', '5000', '2021-01-29', '2021-01-03', 1, '2021-01-22', '2021-01-03', '2021-01-23'),
-(26, 16, '2021-01-15', '2021-01-22', '2021-01-15', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00');
+(26, 16, '2021-01-15', '2021-01-22', '2021-01-15', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00'),
+(27, 11, '2021-01-09', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00'),
+(28, 11, '2021-01-09', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00'),
+(29, 11, '2021-01-15', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -256,9 +259,9 @@ INSERT INTO `to_do` (`to_do_id`, `user_id`, `to_do_work`, `status`) VALUES
 (29, 4, 'Search functionality done', 1),
 (30, 4, 'Bank card color gradient changed', 1),
 (31, 4, 'Card button alignment', 1),
-(32, 4, 'Remark related to loans', 0),
-(33, 4, 'Meeting with Tushar at 1 PM', 0),
-(34, 4, 'Response block fixed', 1);
+(32, 4, 'Remark related to loans', 1),
+(34, 4, 'Response block fixed', 1),
+(56, 4, 'Setting required fields in loan forms', 0);
 
 -- --------------------------------------------------------
 
@@ -282,7 +285,8 @@ CREATE TABLE `user_registration` (
 
 INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES
 (4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-23 01:56:56pm'),
-(13, 'Tushar', 'dHVzaGFyQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-25 10:19:02pm');
+(13, 'Tushar', 'dHVzaGFyQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-25 10:19:02pm'),
+(16, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-27 11:16:04pm');
 
 --
 -- Indexes for dumped tables
@@ -356,7 +360,7 @@ ALTER TABLE `car_loan`
 -- AUTO_INCREMENT for table `car_loan_remarks`
 --
 ALTER TABLE `car_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `home_loan`
@@ -368,25 +372,25 @@ ALTER TABLE `home_loan`
 -- AUTO_INCREMENT for table `home_loan_comments`
 --
 ALTER TABLE `home_loan_comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `home_loan_remarks`
 --
 ALTER TABLE `home_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `to_do`
 --
 ALTER TABLE `to_do`
-  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
