@@ -73,13 +73,15 @@
                     $remark_date = $date->format('d-m-Y');
                     $remark_time = $date->format('h:i:sa');
                     ?>
-                        <div class="mb-2">
-                                <span><?php echo ($index+1).'.'; ?></span>
-                                <label><?php echo $row['remark']; ?></label>
-                                <div>
-                                    <div><?php echo $remark_date ?></div>
+                    <div class="mb-2">
+                        <div class="remark-value">
+                            <span><?php echo ($index+1).'.'; ?></span>
+                            <label><?php echo $row['remark']; ?></label>
+                        </div>
+                        <div class="remark-date-delete">
+                                <div>Date : <?php echo $remark_date ?></div>
 
-                                    <i class="far fa-trash-alt remove-remark"></i>
+                                <i class="far fa-trash-alt remove-remark"></i>
                                     <script>
                                         $('.remove-remark').eq(<?php echo $index; ?>).click(() => {
                                         let confirmation = confirm('Remove : Are your sure!')

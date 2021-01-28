@@ -28,6 +28,7 @@
         $user_email = $_POST['userEmail'];
         $user_password = $_POST['userPassword'];
         $control = 1;
+        $registered = 1;
         
         $user_email = cleanInput($user_email);
         if(!empty($user_email)){ // not empty
@@ -42,6 +43,7 @@
                 if($result->num_rows == 0){
                     $user_email_error = "Not registered!";
                     $control = 0;
+                    $registered = 0;
                 }
             }
         }
@@ -49,34 +51,35 @@
             $user_email_error = 'E-mail required';
             $control = 0;
         }
+        if($registered){
+          $user_password = cleanInput($user_password);
+          if(empty($user_password)){ // not empty
+              $user_password_error = 'Password required';
+              $control = 0;
+          }
+          else{
+              $encoded_user_password = base64_encode($user_password);
+          }
 
-        $user_password = cleanInput($user_password);
-        if(empty($user_password)){ // not empty
-            $user_password_error = 'Password required';
-            $control = 0;
-        }
-        else{
-            $encoded_user_password = base64_encode($user_password);
-        }
+          if($control){ 
 
-        if($control){ 
+              $sql = "SELECT user_id, user_role, user_full_name FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password'";
+              $result = $conn->query($sql);
 
-            $sql = "SELECT user_id, user_role, user_full_name FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password'";
-            $result = $conn->query($sql);
-
-            if($result->num_rows == 1){ // authenticated
-                $row = $result->fetch_assoc();
-                $_SESSION['login_time'] = time();
-                $_SESSION['user_id'] = $row['user_id'];
-                $_SESSION['user_role'] = $row['user_role'];
-                $_SESSION['user_full_name'] = $row['user_full_name'];
-                header('Location: index.php');
-                exit;
-            }
-            else{
-                $login_error = 'Wrong credentials!';
-            }
-            
+              if($result->num_rows == 1){ // authenticated
+                  $row = $result->fetch_assoc();
+                  $_SESSION['login_time'] = time();
+                  $_SESSION['user_id'] = $row['user_id'];
+                  $_SESSION['user_role'] = $row['user_role'];
+                  $_SESSION['user_full_name'] = $row['user_full_name'];
+                  header('Location: index.php');
+                  exit;
+              }
+              else{
+                  $login_error = 'Wrong credentials!';
+              }
+              
+          }
         }
     }
 ?>
@@ -188,7 +191,6 @@
                     </div>
                     <a href="#" class="auth-link text-black">Forgot password?</a>
                   </div>
-                  <!-- 
                   <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.php" class="text-primary">Create</a>
                   </div> -->
                 </form>

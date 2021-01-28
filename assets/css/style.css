@@ -13034,6 +13034,7 @@ dl {
           position: absolute;
           font-size: 0.9rem;
           margin-top: 0;
+          border-radius: 7px;
           padding: 0; }
           .rtl .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown {
             right: auto;
@@ -13926,7 +13927,7 @@ dl {
   background: #ecf0f1;
 }
 
-.black-cover-resource-delete, .black-cover-for-search-box{
+.black-cover-resource-delete, .black-cover-for-search-box, .change-password-popup-black-cover{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13960,6 +13961,7 @@ dl {
 .show-case-status{
   width: 100%;
   min-height: 100vh;
+  max-height: 100vh;
   position: relative;
   position: absolute;
   left : 0;
@@ -13968,6 +13970,8 @@ dl {
   padding: 10px;
   z-index: 20;
   display: none;
+  position: fixed;
+  overflow-y: auto;
 }
 .show-case-content{
   overflow-y: auto;
@@ -14060,16 +14064,9 @@ dl {
 }
 @media screen and (max-width : 990px){
   
-  .case-status-heading{
-    padding: 13px;
-  }
   .search-loans-form-popup{
     width: 99%;
     
-  }
-  .show-case-status{
-    width: 100%;
-    height: 100vh;
   }
   .sidebar-offcanvas{
     left : 0;
@@ -14222,9 +14219,11 @@ dl {
   box-shadow: 0px 0px 5px 0px;
   width: 100%;
   min-height: 100vh;
+  max-height: 100vh;
   display: none;
   border: 22px solid rgb(154, 85, 255);
-  border-radius: 4px;
+  overflow-y: auto;
+  position: fixed;
 }
 .remark-form-content{
   display: flex;
@@ -14243,50 +14242,37 @@ dl {
 #case-remarks > div{
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   padding:10px 5px;
   border-radius: 5px;
   background: rgb(182, 109, 255,0.2);
-  position : relative;
-  padding-bottom: 50px;
 }
-#case-remarks > div > span:nth-child(1){
+.remark-value{
+  display: flex;
+  width: 100%;
+}
+.remark-date-delete{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+#case-remarks > div > .remark-value > span{
   align-self: flex-start;
   margin-right: 5px;
 }
 
-#case-remarks > div > label:nth-child(2){
+#case-remarks > div > .remark-value > label{
   margin-bottom: 0;
   display: flex;
   flex: 1;
   align-self: flex-start;
-  padding-right: 90px;
 }
-#case-remarks > div > div{
+#case-remarks > div > .remark-date-delete{
   display: flex;
-  align-self: flex-start;
-}
-#case-remarks > div > div:nth-child(3){ 
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  font-size: 20px;
-  max-width: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  flex: 1;
-  padding: 10px;
+  margin-top: 5px;
 }
-
-#case-remarks > div > div:nth-child(3) > i{
-  align-self: flex-end;
-} 
-#case-remarks > div > div:nth-child(3) > div{
-  font-size: 15px;
-} 
 #case-id{
   display: none;
 }
@@ -14348,4 +14334,47 @@ dl {
 }
 .asset-header{
   box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.6);
+}
+
+.change-password-popup{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: white;
+  padding: 10px 20px;
+  z-index: 25;
+  box-shadow: 0px 0px 5px 0px ;
+  border-radius: 4px;
+  width: 350px;
+  display: none;
+  position: fixed;
+}
+.change-password-form{
+  display: flex;
+  flex-direction: column;
+}
+.margin-right-icon{
+  margin-right: 5px;
+}
+
+@media screen and (max-width : 450px){
+  .change-password-popup{
+    top : 10%;
+    transform: translate(-50%);
+
+  }
+  
+  .remark-popup{
+
+    border: 10px solid rgb(154, 85, 255);
+  }
+}
+
+@media screen and (max-width : 400px){
+  
+  .case-status-heading{
+    padding: 15px;
+  }
+
 }

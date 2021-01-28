@@ -30,7 +30,8 @@
       $car_loan_cid = base64_decode($_GET['cid']);
       $sql = "DELETE FROM car_loan WHERE car_loan_cid = '$car_loan_cid'";
       $conn->query($sql);
-
+      $sql = "DELETE FROM car_loan_remarks WHERE case_id = '$car_loan_cid'"; // Deleting remarks
+      $conn->query($sql);
       if($conn->error == ''){
         $_SESSION['success_msg'] = 'Deleted Successfully';
         header('Location: view-car-loans.php');
@@ -440,6 +441,8 @@
   </head>
   <body>
     <!-- table scroll btn -->
+    
+    <?php if(sizeof($result_array) > 0){ ?>
     <div class="table-scroll-btn">
       <span id="scroll-to-left-end-of-div">
           <i  class="fas fa-chevron-circle-left"></i>
@@ -448,7 +451,10 @@
           <i class="fas fa-chevron-circle-right"></i>
       </span>
     </div>
+    <?php } ?>
     <!-- search - box -->
+    
+    <?php if(sizeof($result_array) > 0){ ?>
     <div class="black-cover-for-search-box"></div>
     <div class="search-loans-form-popup">
       <form class="pt-0" method="POST">
@@ -557,6 +563,7 @@
             </div>
       </form>
     </div>
+    <?php } ?>
     <?php if($display_search_box){ ?>
       <script>
         document.getElementsByClassName('search-loans-form-popup')[0].style.display = 'block'
@@ -588,10 +595,13 @@
                           <i class="fas fa-redo-alt"></i> 
                           Refresh
                       </button>
+                      
+                      <?php if(sizeof($result_array) > 0){ ?>
                       <button id="show-search-popup" class="btn btn-primary">
                           <i class="fas fa-search"></i> 
                           Search
                       </button>
+                      <?php } ?>
                     </div>
                     </h4>
                     <?php 
@@ -779,10 +789,6 @@
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
-            <div class="container-fluid clearfix">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
-            </div>
           </footer>
           <!-- partial -->
         </div>
@@ -819,6 +825,7 @@
               <label id="case-id"></label>
               <label for="exampleInputCity1" class="set-theme-color">
                 <i class="fas fa-pen-alt"></i>
+                Case Remark
               </label>
               <textarea id="given-remark" class="form-input mb-2" name="" id="" cols="30" rows="5" placeholder="Add a remark..."></textarea>
               <div id="remark-input-response" class="form-input-response mb-2"></div>
@@ -838,6 +845,7 @@
       $('#add-remark').click(()=>{
           let caseID = document.getElementById('case-id').innerHTML
           let remark = document.getElementById('given-remark').value
+          document.getElementById('given-remark').value = ''
           let reqData = {
             caseID,
             remark
@@ -852,7 +860,6 @@
                 },
                 complete : (res) => {
                     $('#remark-response').html(res.responseText)
-                    document.getElementById('given-remark').value = ''
                 },
                 data : reqData
             })

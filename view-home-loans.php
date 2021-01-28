@@ -28,11 +28,12 @@
     // Deleting home loan
     if(isset($_GET['cid'])){
       $home_loan_cid = base64_decode($_GET['cid']);
-      $sql = "DELETE FROM home_loan WHERE home_loan_cid = '$home_loan_cid'";
+      $sql = "DELETE FROM home_loan WHERE home_loan_cid = '$home_loan_cid'"; 
       $conn->query($sql);
-      $sql = "DELETE FROM home_loan_comments WHERE case_id = '$home_loan_cid'";
+      $sql = "DELETE FROM home_loan_comments WHERE case_id = '$home_loan_cid'"; // Deleting status
       $conn->query($sql);
-
+      $sql = "DELETE FROM home_loan_remarks WHERE case_id = '$home_loan_cid'"; // Deleting remarks
+      $conn->query($sql);
       if($conn->error == ''){
         
         $_SESSION['success_msg'] = 'Deleted Successfully';
@@ -450,6 +451,8 @@
   </head>
   <body>
     <!-- table scroll btn -->
+    
+    <?php if(sizeof($result_array) > 0){ ?>
     <div class="table-scroll-btn">
       <span id="scroll-to-left-end-of-div">
           <i  class="fas fa-chevron-circle-left"></i>
@@ -458,7 +461,9 @@
           <i class="fas fa-chevron-circle-right"></i>
       </span>
     </div>
+    <?php } ?>
     <!-- search - box -->
+    <?php if(sizeof($result_array) > 0){ ?>
     <div class="black-cover-for-search-box"></div>
     <div class="search-loans-form-popup">
       <form class="pt-0" method="POST">
@@ -567,6 +572,7 @@
             </div>
       </form>
     </div>
+    <?php } ?>
     <?php if($display_search_box){ ?>
       <script>
         document.getElementsByClassName('search-loans-form-popup')[0].style.display = 'block'
@@ -579,7 +585,7 @@
       <div class="show-case-content">
           <div style="padding: 35px 0px;"></div>
           <div class="case-status-heading">
-            <span class="set-theme-color" style="font-weight: 600;"><i class="far fa-question-circle" style="margin-right : 5px;"></i>Asset Reconservices Home Loan Case Status...</span>
+            <span class="set-theme-color" style="font-weight: 600;">Asset Reconservices Home Loan Case Status...</span>
             <i id="close-case-status-container" class="far fa-times-circle set-theme-color"></i>
           </div>
           <div class="comments-section">
@@ -610,10 +616,13 @@
                           <i class="fas fa-redo-alt"></i> 
                           Refresh
                       </button>
+                      
+                      <?php if(sizeof($result_array) > 0){ ?>
                       <button id="show-search-popup" class="btn btn-primary">
                           <i class="fas fa-search"></i> 
                           Search
                       </button>
+                      <?php } ?>
                     </div>
                     </h4>
                     <?php 
@@ -889,10 +898,6 @@
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
-            <div class="container-fluid clearfix">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
-            </div>
           </footer>
           <!-- partial -->
         </div>
@@ -947,6 +952,7 @@
       $('#add-remark').click(()=>{
           let caseID = document.getElementById('case-id').innerHTML
           let remark = document.getElementById('given-remark').value
+          document.getElementById('given-remark').value = ''
           let reqData = {
             caseID,
             remark
@@ -961,7 +967,6 @@
                 },
                 complete : (res) => {
                     $('#remark-response').html(res.responseText)
-                    document.getElementById('given-remark').value = ''
                 },
                 data : reqData
             })

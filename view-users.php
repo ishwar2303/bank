@@ -23,8 +23,19 @@
 
       $sql = "DELETE FROM user_registration WHERE user_id = '$user_id'";
       $conn->query($sql);
+      $sql = "DELETE FROM to_do WHERE user_id = '$user_id'";
+      $conn->query($sql);
       if($conn->error == ''){
         $_SESSION['success_msg'] = 'User deleted successfully';
+        if($_SESSION['user_id'] == $user_id){
+          unset($_SESSION['login_time']);
+          unset($_SESSION['user_id']);
+          unset($_SESSION['user_role']);
+          unset($_SESSION['user_full_name']);
+          $_SESSION['success_msg'] = 'Your account has been removed successfully';
+          header('Location: login.php');
+          exit;
+        }
         header('Location: view-users.php');
         exit;
       }
@@ -34,7 +45,7 @@
     }
 
     $db_error = '';
-    $sql = "SELECT * FROM user_registration";
+    $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
     $result = $conn->query($sql);
 
     if($conn->error != ''){
@@ -58,6 +69,7 @@
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
     <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -161,9 +173,19 @@
                                       <h6 class="mb-2">
                                         <?php echo $contact; ?>
                                       </h6>
+                                      <?php if($_SESSION['user_id'] == $row['user_id']){ ?>
                                       <h6 class="mb-5">
                                         <?php echo 'Password : '.$password; ?>
                                       </h6>
+                                      <?php }
+                                      else{
+                                        ?>
+                                        <div class="mb-5"></div>
+                                        <div class="mb-3"></div>
+                                        <?php
+                                      }
+                                      ?>
+                                      
                                       <h6 class="mb-2">
                                         <?php echo 'Created : '.$created_date->format('d-m-Y'); ?>
                                       </h6>
@@ -204,10 +226,6 @@
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
-            <div class="container-fluid clearfix">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
-            </div>
           </footer>
           <!-- partial -->
         </div>

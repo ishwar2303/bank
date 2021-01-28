@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2021 at 12:36 AM
+-- Generation Time: Jan 28, 2021 at 10:53 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -223,7 +223,8 @@ INSERT INTO `home_loan_comments` (`comment_id`, `case_id`, `date_of_next_hearing
 (26, 16, '2021-01-15', '2021-01-22', '2021-01-15', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00'),
 (27, 11, '2021-01-09', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00'),
 (28, 11, '2021-01-09', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00'),
-(29, 11, '2021-01-15', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '', -1, '0000-00-00', '0000-00-00', '0000-00-00');
+(29, 11, '2021-01-15', '2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04', '2021-01-05', '2021-01-06', '2021-01-07', 'postpone due to this reason', '2021-01-08', '5000', '10000', '0000-00-00', '2021-01-10', 0, '2021-01-11', '2021-01-12', '2021-01-13'),
+(30, 16, '2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04', '2021-01-05', '2021-01-06', '2021-01-07', '2021-01-08', 'corona', '2021-01-09', '100', '200', '0000-00-00', '2021-01-11', -1, '2021-01-12', '2021-01-13', '2021-01-14');
 
 -- --------------------------------------------------------
 
@@ -261,7 +262,10 @@ INSERT INTO `to_do` (`to_do_id`, `user_id`, `to_do_work`, `status`) VALUES
 (31, 4, 'Card button alignment', 1),
 (32, 4, 'Remark related to loans', 1),
 (34, 4, 'Response block fixed', 1),
-(56, 4, 'Setting required fields in loan forms', 0);
+(56, 4, 'Setting required fields in loan forms', 0),
+(57, 4, '404 Error File', 0),
+(58, 4, 'Database Error File', 0),
+(59, 4, 'Validation set', 0);
 
 -- --------------------------------------------------------
 
@@ -284,7 +288,7 @@ CREATE TABLE `user_registration` (
 --
 
 INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES
-(4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-23 01:56:56pm'),
+(4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'QmFpc2xhMTk5OUA=', 2, '21-01-23 01:56:56pm'),
 (13, 'Tushar', 'dHVzaGFyQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-25 10:19:02pm'),
 (16, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-27 11:16:04pm');
 
@@ -348,7 +352,7 @@ ALTER TABLE `user_registration`
 -- AUTO_INCREMENT for table `bank`
 --
 ALTER TABLE `bank`
-  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `car_loan`
@@ -360,31 +364,31 @@ ALTER TABLE `car_loan`
 -- AUTO_INCREMENT for table `car_loan_remarks`
 --
 ALTER TABLE `car_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `home_loan`
 --
 ALTER TABLE `home_loan`
-  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `home_loan_comments`
 --
 ALTER TABLE `home_loan_comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `home_loan_remarks`
 --
 ALTER TABLE `home_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `to_do`
 --
 ALTER TABLE `to_do`
-  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `user_registration`

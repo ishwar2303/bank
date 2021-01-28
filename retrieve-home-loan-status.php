@@ -8,7 +8,7 @@
         if($conn->error == ''){
             if($result->num_rows > 0){
             ?>
-            <table class="table-container table table-hover">
+            <table class="table table-hover">
                 <thead>
                     <th>Serial No</th>
                     <th>Next hearing</th>

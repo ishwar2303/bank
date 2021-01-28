@@ -127,7 +127,101 @@
 </div>
 
 
-<!-- custom user confirmation script -->
+
+<!-- Change password popup -->
+<div class="change-password-popup">
+  <div class="change-password-form">
+    <h4 class="set-theme-color mb-2">
+    <i class="fas fa-lock" class="margin-right-icon"></i>
+      Change Password
+    </h4>
+    <div class="form-group mt-2 mb-0">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="exampleInputCity1">New Password</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-gradient-primary text-white br">
+                <i class="fas fa-key"></i>
+              </span>
+            </div>
+            <input id="new-password" type="password" class="form-control form-input" placeholder="Password">
+          </div>
+        </div>
+    </div>
+    <div class="form-group mt-3 mb-0">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="exampleInputCity1">Confirm Password</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-gradient-primary text-white br">
+                <i class="fas fa-check-double"></i>
+              </span>
+            </div>
+            <input id="confirm-password" type="password" class="form-control form-input" placeholder="Confirm Password">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="change-password-form-response" class="form-input-response mb-2"></div>
+    <div class="form-inline justify-content-end">
+      <button id="update-password" class="btn btn-primary">Update</button>
+    </div>
+  </div>
+</div>
+
+<div class="change-password-popup-black-cover"></div>
+<!-- Change password script -->
+<script>
+
+  function showChangePasswordPopup(){
+    $('.change-password-popup').slideDown()
+    $('.change-password-popup-black-cover').slideDown()
+    return false
+  }
+  $(document).ready(() => {
+    $('.change-password-popup-black-cover').click(() => {
+      $('.change-password-popup').slideUp()
+      $('.change-password-popup-black-cover').slideUp()
+    })
+  })
+  $('#update-password').click(() => {
+    let newPassword = document.getElementById('new-password').value
+    let confirmPassword = document.getElementById('confirm-password').value
+    let reqData = {
+      newPassword,
+      confirmPassword
+    }
+    let url = 'change-password.php'
+    $.ajax({
+      url,
+      type : 'POST',
+      dataType : 'html',
+      success : (msg) => {
+      },
+      complete : (res) => {
+          changePasswordResponse(res.responseText)
+      },
+      data : reqData
+    })
+  })
+
+  function changePasswordResponse(resData){
+    resData = JSON.parse(resData)
+    console.log(resData)
+    let formResponse = document.getElementById('change-password-form-response')
+    if(resData.success){
+      location.href = 'login.php'
+    }
+    if(resData.error){
+      formResponse.innerHTML = resData.error
+    }
+  }
+</script>
+
+<!-- Custom user confirmation script -->
 
 <script type="text/javascript">
     var DeleteRESOURCEID;
@@ -170,6 +264,8 @@
       document.getElementsByClassName('black-cover-resource-delete')[0].style.display = 'none';
     }
   </script>
+
+
 
 
 

@@ -147,7 +147,7 @@
 
         if($control){ // Insert data into database control = 1
             $postpone_reason = str_replace("\n", "<br/>", $postpone_reason);
-            $sql = "UPDATE home_loan_comments SET date_of_next_hearing = '$date_of_next_hearing', order_received_on = '$order_received_on', order_forwarded_to_bank_on = '$order_forwarded_to_bank_on', lease_on = '$lease_on', physical_possession_on = '$physical_possession_on', notice_of_physical_possession = '$notice_of_physical_possession_on', possession_taken_on = '$possession_postpone_on', possession_postpone_on = '$possession_postpone_on', possession_postpone_reason = '$postpone_reason', property_on_auction = '$property_on_auction', reserve_price = '$reserve_price', emd_amount = '$emd_amount', property_visit_by_prospective_buyers_on = '$property_visit_by_prospective_buyers_on', auction_date = '$auction_date', auction_status = '$auction_status', doc_for_redirection_of_order_given_to_advocate_on = '$doc_for_redirection_of_order_given_to_advocate_on', redirection_order_filled_with_dm_cmm_on = '$redirection_order_filled_with_dm_cmm_on', redirection_order_received_on = '$redirection_order_received_on' WHERE comment_id = '$comment_id'";
+            $sql = "UPDATE home_loan_comments SET date_of_next_hearing = '$date_of_next_hearing', order_received_on = '$order_received_on', order_forwarded_to_bank_on = '$order_forwarded_to_bank_on', lease_on = '$lease_on', physical_possession_on = '$physical_possession_on', notice_of_physical_possession = '$notice_of_physical_possession_on', possession_taken_on = '$possession_taken_on', possession_postpone_on = '$possession_postpone_on', possession_postpone_reason = '$postpone_reason', property_on_auction = '$property_on_auction', reserve_price = '$reserve_price', emd_amount = '$emd_amount', property_visit_by_prospective_buyers_on = '$property_visit_by_prospective_buyers_on', auction_date = '$auction_date', auction_status = '$auction_status', doc_for_redirection_of_order_given_to_advocate_on = '$doc_for_redirection_of_order_given_to_advocate_on', redirection_order_filled_with_dm_cmm_on = '$redirection_order_filled_with_dm_cmm_on', redirection_order_received_on = '$redirection_order_received_on' WHERE comment_id = '$comment_id'";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
@@ -611,10 +611,6 @@
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
-            <div class="container-fluid clearfix">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
-            </div>
           </footer>
           <!-- partial -->
         </div>
