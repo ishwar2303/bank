@@ -1,27 +1,13 @@
 <?php 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');  
+    
     $user_email = '';
     $user_password = '';
     $user_email_error = '';
     $user_password_error = '';
     $login_error = '';
-    function cleanInput($str){
-        $str = trim($str); 
-        $str = strip_tags($str); 
-        $str = addslashes($str);
-        return $str;
-    }
-    function emailValidation($email_to_validate){
-        $reg_exp = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"; // regular expression for email
-        return preg_match($reg_exp, $email_to_validate);
-    }
-    
-    function passwordValidation($password_to_validate){
-        $reg_exp = "/^(?=.*[0-9])"."(?=.*[a-z])(?=.*[A-Z])"."(?=.*[@#$%^&+=])"."(?=\\S+$).{8,20}$/"; // regular expression for password
-        return preg_match($reg_exp, $password_to_validate);
-    }
-    
 
     if(isset($_POST['userEmail']) && isset($_POST['userPassword'])){
         // initialize variables with user data
@@ -38,7 +24,7 @@
             }
             else{ 
                 $encoded_user_email = base64_encode($user_email);
-                $sql = "SELECT user_email FROM user_registration WHERE user_email = '$encoded_user_email'";
+                $sql = "SELECT user_id FROM user_registration WHERE user_email = '$encoded_user_email'";
                 $result = $conn->query($sql);
                 if($result->num_rows == 0){
                     $user_email_error = "Not registered!";
@@ -76,7 +62,7 @@
                   exit;
               }
               else{
-                  $login_error = 'Wrong credentials!';
+                  $login_error = 'Wrong Password!';
               }
               
           }

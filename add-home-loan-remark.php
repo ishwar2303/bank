@@ -2,12 +2,12 @@
 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');
 
     date_default_timezone_set("Asia/Kolkata");
     $epoch_time = time();
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
 
-    require_once('middleware.php');
 
     if(isset($_POST['caseID']) && isset($_POST['remark'])){
         $case_id = cleanInput($_POST['caseID']);
@@ -19,7 +19,10 @@
             $conn->query($sql);
             if($conn->error == ''){
                 ?>
-                <label class="success-msg mt-2 mb-2">Remark added to case successfully</label>
+                <label class="success-msg mt-2 mb-2">
+                    <i class="fa fa-check"></i>
+                    <span>Remark added to case successfully</span>
+                </label>
                 <?php
             }
             else{
@@ -42,7 +45,10 @@
             $conn->query($sql);
             if($conn->error == ''){
                 ?>
-                <label class="success-msg mt-2 mb-2">Remark deleted successfully</label>
+                <label class="success-msg mt-2 mb-2">
+                    <i class="fa fa-check"></i>
+                    <span>Remark deleted successfully</span>
+                </label>
                 <?php
             }
             else{

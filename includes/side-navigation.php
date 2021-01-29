@@ -3,7 +3,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
   <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
+      <a onclick="return false" href="" class="nav-link">
         <div class="nav-profile-image">
             <img src="assets/images/faces-clipart/pic-1.png" alt="">
           <span class="login-status online"></span>
@@ -28,7 +28,7 @@
     <li class="nav-item">
       <a class="nav-link" href="index.php">
         <span class="menu-title">Dashboard</span>
-        <i class="fas fa-tachometer-alt menu-icon"></i>
+        <i class="fas fa-chalkboard-teacher menu-icon"></i>
       </a>
     </li>
     
@@ -66,7 +66,7 @@
     <li class="nav-item">
       <a class="nav-link" href="view-banks.php  ">
         <span class="menu-title">View Banks</span>
-        <i class="fas fa-eye menu-icon"></i>
+        <i class="fas fa-university menu-icon"></i>
       </a>
     </li>
     <?php } ?>

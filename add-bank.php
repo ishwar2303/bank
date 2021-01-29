@@ -1,6 +1,7 @@
 <?php 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');
     
 
     if(isset($_SESSION['user_role'])){
@@ -29,7 +30,6 @@
     $bank_contact_person_name_error = '';
     $bank_contact_person_number_error = '';
     
-    require_once('middleware.php');
 
     if(isset($_POST['bankName']) && isset($_POST['bankBranch']) && isset($_POST['bankCity']) && isset($_POST['bankAddress']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonNumber'])){
 

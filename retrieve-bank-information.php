@@ -1,6 +1,7 @@
 <?php
     
     require_once('connection.php');
+    require_once('middleware.php');
 
     class response{
         public $bank;
@@ -17,7 +18,8 @@
     }
     $bank_response = new response();
     if(isset($_POST['bank_id'])){
-        $bank_id = base64_decode($_POST['bank_id']);
+        $bank_id = cleanInput($_POST['bank_id']);
+        $bank_id = base64_decode($bank_id);
         $sql = "SELECT * FROM bank WHERE bank_id = '$bank_id'";
         $result = $conn->query($sql);
 

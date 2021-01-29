@@ -614,7 +614,6 @@
                     <div class="form-inline">
                       <button onclick="location.href='view-home-loans.php'" class="btn btn-setting">
                           <i class="fas fa-redo-alt"></i> 
-                          Refresh
                       </button>
                       
                       <?php if(sizeof($result_array) > 0){ ?>
@@ -734,12 +733,12 @@
                                       <td class="case-date"><?php echo $home_loan['case_date']!= '0000-00-00'? $home_loan['case_date'] : '-'; ?></td>
                                       <td class="bank"><?php echo $home_loan['bank_name']; ?></td>
                                       <td><?php echo $npa_case_value; ?></td>
-                                      <td><?php echo $home_loan['bank_contact_person_name']; ?></td>
+                                      <td class="text-capitalize"><?php echo $home_loan['bank_contact_person_name']; ?></td>
                                       <td><?php echo $home_loan['bank_contact_person_designation']; ?></td>
                                       <td><?php echo $home_loan['bank_contact_person_number']; ?></td>
                                       <td><?php echo $home_loan['bank_contact_person_email']; ?></td>
                                       <td><?php echo $home_loan['bank_address']; ?></td>
-                                      <td class="borrower"><?php echo $home_loan['borrower_name']; ?></td>
+                                      <td class="borrower text-capitalize"><?php echo $home_loan['borrower_name']; ?></td>
                                       <td><?php echo $home_loan['amount']; ?></td>
                                       <td><?php echo $home_loan['outstanding']; ?></td>
                                       <td><?php echo $home_loan['ra_agreement_signed_on']!= '0000-00-00'? $home_loan['ra_agreement_signed_on'] : '-'; ?></td>

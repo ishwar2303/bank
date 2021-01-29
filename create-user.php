@@ -1,6 +1,7 @@
 <?php 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');
 
     if(isset($_SESSION['user_role'])){
         if($_SESSION['user_role'] != '2'){ // only admin
@@ -32,8 +33,6 @@
     $user_role_error = '';
     $user_confirm_password_error = '';
     $db_error = '';
-
-    require_once('middleware.php');
 
     if(isset($_POST['fullName']) && isset($_POST['userEmail']) && isset($_POST['userContact']) && isset($_POST['userRole']) && isset($_POST['userPassword']) && isset($_POST['userConfirmPassword'])){
         // initialize variables with user data

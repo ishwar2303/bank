@@ -25,7 +25,7 @@
       $sql = "DELETE FROM bank WHERE bank_id = '$bank_id'";
       $conn->query($sql);
       if($conn->error == ''){
-        $_SESSION['success_msg'] = 'Bank deleted successfully';
+        $_SESSION['success_msg'] = 'Bank removed successfully';
         header('Location: view-banks.php');
         exit;
       }
@@ -141,7 +141,7 @@
                                       <h6 class="mb-3">
                                         <?php echo $row['bank_address']; ?>
                                       </h6>
-                                      <h6 class="mb-2">
+                                      <h6 class="mb-2 text-capitalize">
                                         <?php echo $row['bank_contact_person_name']; ?>
                                       </h6>
                                       <h6 class="mb-2">

@@ -1,6 +1,7 @@
 <?php 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');
 
     if(!isset($_SESSION['user_role'])){ // all access
         $_SESSION['error_msg'] = 'Sign In to view that resource';
@@ -21,7 +22,6 @@
         $db_error = $conn->error;
     }
 
-    require_once('middleware.php');
     $case_date = '';
     $npa_case = '';
     $bank_name = '';

@@ -9,5 +9,5 @@ $db_name = 'bank';
 $conn = new mysqli($server_name, $user_name, $password, $db_name);
 
 if($conn->connect_error)
-    die(header('Location: database-connection-error.php'));
+    die(header('Location: 505-error.php'));
 ?>

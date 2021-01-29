@@ -1,6 +1,7 @@
 <?php 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');
 
     if(!isset($_SESSION['user_role'])){ // all access
         $_SESSION['error_msg'] = 'Sign In to view that resource';
@@ -80,7 +81,6 @@
     $bill_raised_error = '';
     $payment_received_error = '';
 
-    require_once('middleware.php');
 
     if(isset($_POST['caseDate']) && isset($_POST['bankName']) && isset($_POST['homeBranch']) && isset($_POST['accountNo']) && isset($_POST['customerName']) && isset($_POST['npaDate']) && isset($_POST['outstanding']) && isset($_POST['arrCoNd']) && isset($_POST['notice13SentOn']) && isset($_POST['principalOutstanding']) && isset($_POST['bounceCharges']) && isset($_POST['overdueCharges']) && isset($_POST['otherCharges']) && isset($_POST['loanEmiAmount']) && isset($_POST['noOfEmiOutstanding']) && isset($_POST['regNo']) && isset($_POST['residenceAddress']) && isset($_POST['residenceContactNo']) && isset($_POST['officeAddress']) && isset($_POST['officeContactNo']) && isset($_POST['make']) && isset($_POST['engineNo']) && isset($_POST['chassisNo']) && isset($_POST['tenure']) && isset($_POST['coApplicantName']) && isset($_POST['coApplicantMobile']) && isset($_POST['coApplicantAddress']) && isset($_POST['employerName']) && isset($_POST['employerMobile']) && isset($_POST['employerAddress']) && isset($_POST['amountRecovered']) && isset($_POST['billRaised']) && isset($_POST['paymentReceived'])){
         // initialize variables with loan data

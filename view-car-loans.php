@@ -593,7 +593,6 @@
                     <div class="form-inline">
                       <button onclick="location.href='view-car-loans.php'" class="btn btn-setting">
                           <i class="fas fa-redo-alt"></i> 
-                          Refresh
                       </button>
                       
                       <?php if(sizeof($result_array) > 0){ ?>
@@ -699,7 +698,7 @@
                                       <td class="bank"><?php echo $car_loan['bank_name']; ?></td>
                                       <td><?php echo $car_loan['home_branch']; ?></td>
                                       <td><?php echo $car_loan['account_number']; ?></td>
-                                      <td class="borrower"><?php echo $car_loan['customer_name']; ?></td>
+                                      <td class="borrower text-capitalize"><?php echo $car_loan['customer_name']; ?></td>
                                       <td><?php echo $car_loan['npa_date']!= '0000-00-00'? $npa_date->format('d-m-Y') : '-'; ?></td>
                                       <td><?php echo $car_loan['outstanding']; ?></td>
                                       <td><?php echo $car_loan['arr_co_nd']; ?></td>
@@ -719,10 +718,10 @@
                                       <td><?php echo $car_loan['engine_no']; ?></td>
                                       <td><?php echo $car_loan['chassis_no']; ?></td>
                                       <td><?php echo $car_loan['tenure']; ?></td>
-                                      <td><?php echo $car_loan['co_applicant_name']; ?></td>
+                                      <td class="text-capitalize"><?php echo $car_loan['co_applicant_name']; ?></td>
                                       <td><?php echo $car_loan['co_applicant_mobile']; ?></td>
                                       <td><?php echo $car_loan['co_applicant_address']; ?></td>
-                                      <td><?php echo $car_loan['employer_name']; ?></td>
+                                      <td class="text-capitalize"><?php echo $car_loan['employer_name']; ?></td>
                                       <td><?php echo $car_loan['employer_mobile']; ?></td>
                                       <td><?php echo $car_loan['employer_address']; ?></td>
                                       <td><?php echo $car_loan['amount_recovered']; ?></td>

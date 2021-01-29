@@ -1,6 +1,7 @@
 <?php 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');
 
     if(!isset($_SESSION['user_role'])){ // all access
         $_SESSION['error_msg'] = 'Sign In to view that resource';
@@ -13,7 +14,6 @@
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
 
 
-    require_once('middleware.php');
 
     $db_error = '';
     if(isset($_GET['cid'])){

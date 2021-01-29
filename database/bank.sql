@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2021 at 10:53 AM
+-- Generation Time: Jan 29, 2021 at 09:33 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -32,7 +32,7 @@ CREATE TABLE `bank` (
   `bank_name` varchar(200) NOT NULL,
   `bank_branch` varchar(200) NOT NULL,
   `bank_city` varchar(200) NOT NULL,
-  `bank_address` varchar(200) NOT NULL,
+  `bank_address` varchar(300) NOT NULL,
   `bank_contact_person_name` varchar(200) NOT NULL,
   `bank_contact_person_number` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -123,7 +123,7 @@ CREATE TABLE `home_loan` (
   `case_date` date NOT NULL,
   `npa_case` varchar(200) NOT NULL,
   `bank_name` varchar(200) NOT NULL,
-  `bank_address` varchar(200) NOT NULL,
+  `bank_address` varchar(300) NOT NULL,
   `bank_contact_person_name` varchar(200) NOT NULL,
   `bank_contact_person_number` varchar(200) NOT NULL,
   `bank_contact_person_designation` varchar(200) NOT NULL,
@@ -252,21 +252,6 @@ CREATE TABLE `to_do` (
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `to_do`
---
-
-INSERT INTO `to_do` (`to_do_id`, `user_id`, `to_do_work`, `status`) VALUES
-(29, 4, 'Search functionality done', 1),
-(30, 4, 'Bank card color gradient changed', 1),
-(31, 4, 'Card button alignment', 1),
-(32, 4, 'Remark related to loans', 1),
-(34, 4, 'Response block fixed', 1),
-(56, 4, 'Setting required fields in loan forms', 0),
-(57, 4, '404 Error File', 0),
-(58, 4, 'Database Error File', 0),
-(59, 4, 'Validation set', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -288,8 +273,7 @@ CREATE TABLE `user_registration` (
 --
 
 INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES
-(4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'QmFpc2xhMTk5OUA=', 2, '21-01-23 01:56:56pm'),
-(13, 'Tushar', 'dHVzaGFyQGdtYWlsLmNvbQ==', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, '21-01-25 10:19:02pm'),
+(4, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-23 01:56:56pm'),
 (16, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 2, '21-01-27 11:16:04pm');
 
 --
@@ -352,7 +336,7 @@ ALTER TABLE `user_registration`
 -- AUTO_INCREMENT for table `bank`
 --
 ALTER TABLE `bank`
-  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `car_loan`
@@ -382,19 +366,19 @@ ALTER TABLE `home_loan_comments`
 -- AUTO_INCREMENT for table `home_loan_remarks`
 --
 ALTER TABLE `home_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `to_do`
 --
 ALTER TABLE `to_do`
-  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

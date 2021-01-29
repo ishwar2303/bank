@@ -1,6 +1,7 @@
 <?php 
     session_start();
     require_once('connection.php');
+    require_once('middleware.php');
 
     if(!isset($_SESSION['user_role'])){ // all access
         $_SESSION['error_msg'] = 'Sign In to view that resource';
@@ -11,9 +12,6 @@
     date_default_timezone_set("Asia/Kolkata");
     $epoch_time = time();
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
-
-
-    require_once('middleware.php');
 
     $db_error = '';
     if(isset($_GET['comment_id'])){

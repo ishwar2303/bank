@@ -13617,13 +13617,14 @@ dl {
   align-items: center;
   background: rgba(255,0,0,0.1);
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px 10px;
   margin-bottom: 5px;
 }
 .error-msg i{
   padding-top: 3px;
   margin-right: 5px;
   align-self: flex-start;
+  margin-bottom: 2px;
 }
 .success-msg{
   display: flex;
@@ -13631,7 +13632,7 @@ dl {
   align-items: center;
   background: rgba(0,255,0,0.2);
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px 10px;
   margin-bottom: 5px;
 }
 .success-msg i{
@@ -13645,7 +13646,7 @@ dl {
   color: rgb(5, 83, 226);
   align-items: center;
   background: rgba(0,0,255,0.1);
-  padding: 10px;
+  padding: 15px 10px;
   border-radius: 5px;
 }
 .note-msg i{
@@ -13672,7 +13673,7 @@ dl {
 }
 .edit-btn{
   
-  background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
+  background: linear-gradient(45deg, rgba(0,0,255,0.6), rgba(0,0,255,0.3));
   color : white;
   padding: 7.5px 10px;
   border-radius: 3px;
@@ -13685,7 +13686,7 @@ dl {
   margin-left: 5px;
 }
 .delete-btn{
-  background: linear-gradient(45deg, rgba(255,0,0,0.9), rgba(255,0,0,0.5));
+  background: linear-gradient(45deg, rgba(255,0,0,0.7), rgba(255,0,0,0.5));
   color : white;
   margin-bottom: 0px;
   padding: 8px 10px;
@@ -13706,7 +13707,7 @@ dl {
   border-radius: 3px;
 }
 .table-edit-op{
-  background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
+  background: linear-gradient(45deg, rgba(0,0,255,0.7), rgba(0,0,255,0.3));
   color : white;
   padding: 8px 10px;
   border-radius: 3px;
@@ -13723,7 +13724,7 @@ dl {
   margin-left: 5px;
 }
 .table-delete-op{
-  background: linear-gradient(45deg, rgba(255,0,0,0.9), rgba(255,0,0,0.5));
+  background: linear-gradient(45deg, rgba(255,0,0,0.7), rgba(255,0,0,0.5));
   color : white;
   padding: 8px 10px;
   border-radius: 3px;
@@ -13740,7 +13741,7 @@ dl {
   margin-left: 5px;
 }
 .table-add-op{
-  background: linear-gradient(45deg, #16a085, rgb(26, 188, 156,0.6));
+  background: linear-gradient(45deg, #3bd8b9, rgb(26, 188, 156,0.6));
   color : white;
   padding: 8px 10px;
   border-radius: 3px;
@@ -13756,7 +13757,7 @@ dl {
   margin-left: 5px;
 }
 .table-view-op{
-  background: linear-gradient(45deg, rgba(0,0,255,0.8), rgba(0,0,255,0.3));
+  background: linear-gradient(45deg, rgba(0,0,255,0.7), rgba(0,0,255,0.3));
   padding: 8px 10px;
   border-radius: 3px;
   margin-top: 10px;
@@ -14057,7 +14058,6 @@ dl {
   margin-right: 5px;
 }
 .btn-setting > i{
-  margin-right: 5px;
 }
 #close-search-popup{
   cursor: pointer;
@@ -14246,7 +14246,7 @@ dl {
   align-items: center;
   padding:10px 5px;
   border-radius: 5px;
-  background: rgb(182, 109, 255,0.2);
+  background: linear-gradient(45deg,rgb(154, 85, 255,0.4) ,rgb(154, 85, 255,0.2));
 }
 .remark-value{
   display: flex;
@@ -14272,6 +14272,9 @@ dl {
   display: flex;
   justify-content: space-between;
   margin-top: 5px;
+}
+.remove-remark{
+  font-size: 18px;
 }
 #case-id{
   display: none;
@@ -14342,10 +14345,10 @@ dl {
   top: 50%;
   transform: translate(-50%,-50%);
   background: white;
-  padding: 10px 20px;
+  padding: 20px 20px;
   z-index: 25;
-  box-shadow: 0px 0px 5px 0px ;
-  border-radius: 4px;
+  box-shadow: 0px 0px 5px 0px;
+  border-radius: 7px;
   width: 350px;
   display: none;
   position: fixed;
