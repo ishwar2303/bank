@@ -14381,3 +14381,71 @@ dl {
   }
 
 }
+
+/* custom confirmation Cancel Ok */
+  .black-cover-for-confirmation{
+    position: absolute;
+    top : 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    position: fixed;
+    background: black;
+    opacity: 0.3;
+    z-index: 29;
+  }
+  .custom-confirmation{
+    position: absolute;
+    left: 50%;
+    top :50%;
+    transform: translate(-50%,-50%);
+    z-index: 30;
+    box-shadow: 0px 0px 2px 0px white;
+    max-width: 300px;
+    min-width: 225px;
+    height: 150px;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+    background: white;
+    border-radius: 5px;
+    display: none;
+    position: fixed;
+  }
+
+  .custom-confirmation > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+  }
+
+  #cancel, #confirm{
+    border-radius: 5px;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+
+  }
+
+  #cancel:focus, #confirm:focus{
+    outline: none;
+  }
+
+  #confirm{
+    color: white;
+  }
+
+  #cancel{
+    color: white;
+  }
+
+  .custom-btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+  }
+  #custom-confirmation-msg{
+    color : #9a55ff;
+    font-size: 20px;
+  }

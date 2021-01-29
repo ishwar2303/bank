@@ -90,27 +90,32 @@
                                     <i class="far fa-trash-alt remove-remark"></i>
                                     <script>
                                         $('.remove-remark').eq(<?php echo $index; ?>).click(() => {
-                                        let confirmation = confirm('Remove : Are your sure!')
-                                        if(confirmation){
-                                            let remarkIdDelete = '<?php echo $row['remark_id']; ?>'
-                                            let caseID = '<?php echo base64_encode($row['case_id']); ?>'
-                                            let reqData = {
-                                                remarkIdDelete,
-                                                caseID
-                                            }
-                                            let url = 'add-home-loan-remark.php'
-                                            $.ajax({
-                                                url,
-                                                type : 'POST',
-                                                dataType : 'html',
-                                                success : (msg) => {
-                                                },
-                                                complete : (res) => {
-                                                    $('#remark-response').html(res.responseText)
-                                                },
-                                                data : reqData
+                                            showCustomConfirmation('Remove remark!')
+                                            $('#cancel').click(() => {
+                                                $('#confirm').off()
+                                                hideCustomConfirmation()
                                             })
-                                            }
+                                            $('#confirm').click(() => {
+                                                hideCustomConfirmation()
+                                                let remarkIdDelete = '<?php echo $row['remark_id']; ?>'
+                                                let caseID = '<?php echo base64_encode($row['case_id']); ?>'
+                                                let reqData = {
+                                                    remarkIdDelete,
+                                                    caseID
+                                                }
+                                                let url = 'add-home-loan-remark.php'
+                                                $.ajax({
+                                                    url,
+                                                    type : 'POST',
+                                                    dataType : 'html',
+                                                    success : (msg) => {
+                                                    },
+                                                    complete : (res) => {
+                                                        $('#remark-response').html(res.responseText)
+                                                    },
+                                                    data : reqData
+                                                })
+                                            })
                                         })
                                     </script>
                                 </div>

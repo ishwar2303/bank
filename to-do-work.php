@@ -74,25 +74,30 @@
                         <i class="far fa-check-circle make-status-success"></i>
                 <script>
                     $('.make-status-success').eq(<?php echo $statusIndexDone; ?>).click(() => {
-                    let confirmation = confirm('Mark as done!')
-                    if(confirmation){
-                        let toDoSuccess = '<?php echo $row['to_do_id']; ?>'
-                        let reqData = {
-                            toDoSuccess
-                        }
-                        let url = 'to-do-work.php'
-                        $.ajax({
-                            url,
-                            type : 'POST',
-                            dataType : 'html',
-                            success : (msg) => {
-                            },
-                            complete : (res) => {
-                                $('#all-to-do-list').html(res.responseText)
-                            },
-                            data : reqData
+                        showCustomConfirmation('Mark as Done!')
+                        $('#cancel').click(() => {
+                            $('#confirm').off()
+                            hideCustomConfirmation()
                         })
-                    }
+                        $('#confirm').click(() => {
+                            hideCustomConfirmation()
+                            let toDoSuccess = '<?php echo $row['to_do_id']; ?>'
+                            let reqData = {
+                                toDoSuccess
+                            }
+                            let url = 'to-do-work.php'
+                            $.ajax({
+                                url,
+                                type : 'POST',
+                                dataType : 'html',
+                                success : (msg) => {
+                                },
+                                complete : (res) => {
+                                    $('#all-to-do-list').html(res.responseText)
+                                },
+                                data : reqData
+                            })
+                        })
                     })
                 </script>
                 <?php
@@ -103,25 +108,31 @@
                         <i class="far fa-times-circle make-status-incomplete"></i>
                 <script>
                     $('.make-status-incomplete').eq(<?php echo $statusIndexIncomplete; ?>).click(() => {
-                    let confirmation = confirm('Mark as incomplete!')
-                    if(confirmation){
-                        let toDoIncomplete = '<?php echo $row['to_do_id']; ?>'
-                        let reqData = {
-                            toDoIncomplete
-                        }
-                        let url = 'to-do-work.php'
-                        $.ajax({
-                            url,
-                            type : 'POST',
-                            dataType : 'html',
-                            success : (msg) => {
-                            },
-                            complete : (res) => {
-                                $('#all-to-do-list').html(res.responseText)
-                            },
-                            data : reqData
+                        showCustomConfirmation('Mark as Incomplete!')
+                        $('#cancel').click(() => {
+                            $('#confirm').off()
+                            hideCustomConfirmation()
                         })
-                    }
+                        $('#confirm').click(() => {
+                            hideCustomConfirmation()
+                            let toDoIncomplete = '<?php echo $row['to_do_id']; ?>'
+                            let reqData = {
+                                toDoIncomplete
+                            }
+                            let url = 'to-do-work.php'
+                            $.ajax({
+                                url,
+                                type : 'POST',
+                                dataType : 'html',
+                                success : (msg) => {
+                                },
+                                complete : (res) => {
+                                    $('#all-to-do-list').html(res.responseText)
+                                },
+                                data : reqData
+                            })
+                        })
+                    
                     })
                 </script>
                 <?php
@@ -133,25 +144,30 @@
         </li>
         <script>
             $('.remove-to-do-work').eq(<?php echo $index; ?>).click(() => {
-            let confirmation = confirm('Remove : Are your sure!')
-            if(confirmation){
-                let toDoIdDelete = '<?php echo $row['to_do_id']; ?>'
-                let reqData = {
-                    toDoIdDelete
-                }
-                let url = 'to-do-work.php'
-                $.ajax({
-                    url,
-                    type : 'POST',
-                    dataType : 'html',
-                    success : (msg) => {
-                    },
-                    complete : (res) => {
-                        $('#all-to-do-list').html(res.responseText)
-                    },
-                    data : reqData
+                showCustomConfirmation('Remove from list!')
+                $('#cancel').click(() => {
+                    $('#confirm').off()
+                    hideCustomConfirmation()
                 })
-            }
+                $('#confirm').click(() => {
+                    hideCustomConfirmation()
+                    let toDoIdDelete = '<?php echo $row['to_do_id']; ?>'
+                    let reqData = {
+                        toDoIdDelete
+                    }
+                    let url = 'to-do-work.php'
+                    $.ajax({
+                        url,
+                        type : 'POST',
+                        dataType : 'html',
+                        success : (msg) => {
+                        },
+                        complete : (res) => {
+                            $('#all-to-do-list').html(res.responseText)
+                        },
+                        data : reqData
+                    })
+                })
             })
         </script>
         <?php

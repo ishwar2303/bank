@@ -104,9 +104,19 @@
 
 
 
+<!-- custom confirmation Cancel Ok -->
 
-
-<!-- custom user confirmation -->
+<div class="custom-confirmation">
+    <div>
+      <div id="custom-confirmation-msg"></div>
+      <div class="custom-btn-container">
+        <button id="cancel" class="bg-gradient-danger">Cancel</button>
+        <button id="confirm" class="bg-gradient-success">Ok</button>
+      </div>
+    </div>
+  </div>
+<div class="black-cover-for-confirmation"></div>
+<!-- custom confirmation DELETE ME-->
 
 <div class="black-cover-resource-delete"></div>
 <div id="confirm-resource-delete-popup">
@@ -129,6 +139,7 @@
 
 
 <!-- Change password popup -->
+
 <div class="change-password-popup">
   <div class="change-password-form">
     <h4 class="set-theme-color mb-2">
@@ -173,6 +184,7 @@
 </div>
 
 <div class="change-password-popup-black-cover"></div>
+
 <!-- Change password script -->
 <script>
 
@@ -221,7 +233,7 @@
   }
 </script>
 
-<!-- Custom user confirmation script -->
+<!-- Custom  confirmation DELETE ME script -->
 
 <script type="text/javascript">
     var DeleteRESOURCEID;
@@ -266,6 +278,20 @@
   </script>
 
 
-
+<!-- Custom confirmation Cancel Ok  script-->
+<script type="text/javascript">
+  
+  function showCustomConfirmation(msg){
+    let customDialog = document.getElementsByClassName('custom-confirmation')[0]
+    customDialog.style.display='block'
+    let msgBlock = document.getElementById('custom-confirmation-msg')
+    msgBlock.innerHTML = msg
+    document.getElementsByClassName('black-cover-for-confirmation')[0].style.display='block'
+  }
+  function hideCustomConfirmation(){
+    document.getElementsByClassName('custom-confirmation')[0].style.display='none'
+    document.getElementsByClassName('black-cover-for-confirmation')[0].style.display='none'
+  }
+</script>
 
 
