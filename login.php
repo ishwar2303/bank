@@ -49,7 +49,7 @@
 
           if($control){ 
 
-              $sql = "SELECT user_id, user_role, user_full_name FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password'";
+              $sql = "SELECT user_id, user_role, user_full_name, user_password_changed FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password'";
               $result = $conn->query($sql);
 
               if($result->num_rows == 1){ // authenticated
@@ -58,11 +58,13 @@
                   $_SESSION['user_id'] = $row['user_id'];
                   $_SESSION['user_role'] = $row['user_role'];
                   $_SESSION['user_full_name'] = $row['user_full_name'];
+                  if($row['user_password_changed'] == '0')
+                      $_SESSION['note_msg'] = 'Please change your password';
                   header('Location: index.php');
                   exit;
               }
               else{
-                  $login_error = 'Wrong Password!';
+                  $_SESSION['error_msg'] = 'Wrong Password';
               }
               
           }
@@ -73,23 +75,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign In</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-    <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <?php require 'includes/layout.php'; ?>
   </head>
   <body>
     <div class="container-scroller">
@@ -105,43 +91,9 @@
                 </div>
                 <h4>Hello!</h4>
                 <h6 class="font-weight-light">Sign in to continue.</h6>
-
-                <?php if($login_error != ''){ ?>
-                    <div class="error-msg">
-                        <i class="fas fa-times"></i>
-                        <span>
-                            <?php echo $login_error; ?>
-                        </span>
-                    </div>
-                <?php } ?>
-              
-                <?php 
-                    if(isset($_SESSION['error_msg'])){
-                        ?>
-                        <div class="error-msg">
-                          <i class="fas fa-times"></i>
-                            <span>
-                                <?php echo $_SESSION['error_msg']; ?>
-                            </span>
-                        </div>
-                        <?php
-                        unset($_SESSION['error_msg']);
-                    }
-                ?>
                 
-                <?php 
-                    if(isset($_SESSION['success_msg'])){
-                        ?>
-                        <div class="success-msg">
-                            <i class="fa fa-check"></i>
-                            <span>
-                                <?php echo $_SESSION['success_msg']; ?>
-                            </span>
-                        </div>
-                        <?php
-                        unset($_SESSION['success_msg']);
-                    }
-                ?>
+                <!-- Flash Message  -->
+                <?php require 'includes/flash-message.php'; ?>
 
                 <form class="pt-3" method="POST">
                   <div class="form-group">

@@ -420,24 +420,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>View Car Loans</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" />
-    <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <?php require 'includes/layout.php'; ?>
   </head>
   <body>
     <!-- table scroll btn -->
@@ -603,32 +586,11 @@
                       <?php } ?>
                     </div>
                     </h4>
-                    <?php 
-                        if(isset($_SESSION['success_msg'])){
-                            ?>
-                            <div class="success-msg">
-                                <i class="fa fa-check"></i>
-                                <span>
-                                    <?php echo $_SESSION['success_msg']; ?>
-                                </span>
-                            </div>
-                            <?php
-                            unset($_SESSION['success_msg']);
-                        }
-                    ?>
-                    <?php 
-                        if(isset($_SESSION['error_msg'])){
-                            ?>
-                            <div class="error-msg">
-                                <i class="fa fa-close"></i>
-                                <span>
-                                    <?php echo $_SESSION['error_msg']; ?>
-                                </span>
-                            </div>
-                            <?php
-                            unset($_SESSION['error_msg']);
-                        }
-                    ?>
+            
+                
+                    <!-- Flash Message  -->
+                    <?php require 'includes/flash-message.php'; ?>
+
                     <div class="table-container">
 
                     <!--

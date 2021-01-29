@@ -54,7 +54,7 @@
 
         // if no error occur
         $hash_password = base64_encode($new_password);
-        $sql = "UPDATE user_registration SET user_password = '$hash_password' WHERE user_id = '$_SESSION[user_id]'";
+        $sql = "UPDATE user_registration SET user_password = '$hash_password', user_password_changed = '1' WHERE user_id = '$_SESSION[user_id]'";
         $conn->query($sql);
         if($conn->error == ''){
             unset($_SESSION['login_time']);

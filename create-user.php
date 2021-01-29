@@ -130,7 +130,7 @@
         }
         
         if($control){ // Insert data into database control = 1
-            $sql = "INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_role`, `user_updated_timestamp`) VALUES (NULL, '$user_full_name', '$encoded_user_email', '$encoded_user_contact', '$encoded_user_password', '$user_role', '$timestamp')";
+            $sql = "INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_password_changed`, `user_role`, `user_updated_timestamp`) VALUES (NULL, '$user_full_name', '$encoded_user_email', '$encoded_user_contact', '$encoded_user_password', '0', '$user_role', '$timestamp')";
             $conn->query($sql); 
             
             if($conn->error == ''){    
@@ -149,24 +149,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Create User</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-    <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <?php require 'includes/layout.php'; ?>
   </head>
   <body>
     <div class="container-scroller">
@@ -184,33 +167,11 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Create User</h4>
-                      <?php 
-                          if(isset($_SESSION['success_msg'])){
-                              ?>
-                              <div class="success-msg">
-                                  <i class="fa fa-check"></i>
-                                  <span>
-                                      <?php echo $_SESSION['success_msg']; ?>
-                                  </span>
-                              </div>
-                              <?php
-                              unset($_SESSION['success_msg']);
-                          }
-                      ?>
-                      <?php 
-                          if(isset($_SESSION['error_msg'])){
-                              ?>
-                              <div class="error-msg">
-                                  <i class="fa fa-close"></i>
-                                  <span>
-                                      <?php echo $_SESSION['error_msg']; ?>
-                                  </span>
-                              </div>
-                              <?php
-                              unset($_SESSION['error_msg']);
-                          }
-                      ?>
                     <p class="card-description">It only takes a few steps</p>
+                    
+                    <!-- Flash Message  -->
+                    <?php require 'includes/flash-message.php'; ?>
+
                     <form class="pt-3" method="POST">
                         <div class="form-group">
                             <div class="row">
