@@ -12,8 +12,6 @@
                 <thead>
                     <th>Serial No</th>
                     <th>Next hearing</th>
-                    <th>Order received</th>
-                    <th>Order forwarded</th>
                     <th>Lease On</th>
                     <th>Physical possession</th>
                     <th>Notice of physical possession</th>
@@ -40,8 +38,6 @@
                     <tbody>
                         <td><?php echo $serial_no; ?></td>
                         <td><?php echo $row['date_of_next_hearing'] != '0000-00-00' ? $row['date_of_next_hearing'] : '-'; ?></td>
-                        <td><?php echo $row['order_received_on'] != '0000-00-00' ? $row['order_received_on'] : '-'; ?></td>
-                        <td><?php echo $row['order_forwarded_to_bank_on'] != '0000-00-00' ? $row['order_forwarded_to_bank_on'] : '-'; ?></td>
                         <td><?php echo $row['lease_on'] != '0000-00-00' ? $row['lease_on'] : '-'; ?></td>
                         <td><?php echo $row['physical_possession_on'] != '0000-00-00' ? $row['physical_possession_on'] : '-'; ?></td>
                         <td><?php echo $row['notice_of_physical_possession'] != '0000-00-00' ? $row['notice_of_physical_possession'] : '-'; ?></td>

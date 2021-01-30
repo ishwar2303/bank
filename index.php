@@ -12,6 +12,18 @@
   $result = $conn->query($sql);
   $total_users = $result->num_rows;
 
+  $sql = "SELECT user_id FROM user_registration WHERE user_role = '2'";
+  $result = $conn->query($sql);
+  $total_admin = $result->num_rows;
+
+  $sql = "SELECT user_id FROM user_registration WHERE user_role = '1'";
+  $result = $conn->query($sql);
+  $total_privileged_user = $result->num_rows;
+
+  $sql = "SELECT user_id FROM user_registration WHERE user_role = '0'";
+  $result = $conn->query($sql);
+  $total_data_operator = $result->num_rows;
+
   $sql = "SELECT home_loan_cid FROM home_loan";
   $result = $conn->query($sql);
   $total_home_loan = $result->num_rows;
@@ -40,6 +52,7 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
+            <?php require 'includes/flash-message.php'; ?>
             <div class="page-header">
               <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white mr-2">
@@ -47,7 +60,6 @@
                 </span> Dashboard
               </h3>
             </div>
-            <?php require 'includes/flash-message.php'; ?>
             <div class="row">
               <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
@@ -57,6 +69,9 @@
                     </h4>
                     <h2 class="mb-5"><?php echo $total_home_loan; ?></h2>
                     <!-- <h6 class="card-text">Increased by 60%</h6> -->
+                    <h4 class="form-inline justify-content-end z-ind-10">
+                      <a href="home-loan-current-status.php">Status</a>
+                    </h4>
                   </div>
                 </div>
               </div>
@@ -68,6 +83,9 @@
                     </h4>
                     <h2 class="mb-5"><?php echo $total_car_loan; ?></h2>
                     <!-- <h6 class="card-text">Decreased by 10%</h6> -->
+                    <h4 class="form-inline justify-content-end z-ind-10">
+                      <a href="car-loan-current-status.php">Status</a>
+                    </h4>
                   </div>
                 </div>
               </div>
@@ -77,8 +95,11 @@
                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Total Users <i class="fas fa-users mdi-24px float-right"></i>
                     </h4>
-                    <h2 class="mb-5"><?php echo $total_users; ?></h2>
+                    <h2 class="mb-3"><?php echo $total_users; ?></h2>
                     <!-- <h6 class="card-text">Increased by 5%</h6> -->
+                    <h5>Admin : <?php echo $total_admin; ?></h5>
+                    <h5>Privileged User : <?php echo $total_privileged_user; ?></h5>
+                    <h5>Data Operator : <?php echo $total_data_operator; ?></h5>
                   </div>
                 </div>
               </div>
@@ -101,9 +122,9 @@
                             $statusIndexIncomplete = 0;
                             while($row = $result->fetch_assoc()){
                               if($row['status'] == '0')
-                                  $css_class = 'bg-gradient-danger';
+                                  $css_class = 'bg-gradient-dang';
                               if($row['status'] == '1')
-                                  $css_class = 'bg-gradient-success'
+                                  $css_class = 'bg-gradient-suc'
                           ?>
                           <li class="<?php echo $css_class; ?>">
                               <div>

@@ -12136,7 +12136,8 @@ code {
       position: absolute;
       top: 0;
       right: 0;
-      height: 100%; }
+      height: 100%;
+      z-index: 0; }
   .card.bg-blue-gradient {
     background: -webkit-gradient(linear, left top, right top, from(#065efd), color-stop(#3169fd), to(#6f79fc));
     background: linear-gradient(to right, #065efd, #3169fd, #6f79fc);
@@ -13620,6 +13621,7 @@ dl {
   padding: 15px 10px;
   margin-bottom: 5px;
   border: 0.5px solid rgba(255,0,0,0.4);
+  font-size: 14px;
 }
 .error-msg > span{
   display: flex;
@@ -13642,10 +13644,11 @@ dl {
   display: flex;
   color: green;
   align-items: center;
-  background: rgba(0,255,0,0.2);
+  background: rgba(0,255,0,0.1);
   border-radius: 5px;
   padding: 15px 10px;
   margin-bottom: 5px;
+  font-size: 14px;
   border : 0.5px solid rgba(0,255,0,0.8); 
 }
 .success-msg > span{
@@ -13672,6 +13675,7 @@ dl {
   background: rgba(0,0,255,0.1);
   padding: 15px 10px;
   border-radius: 5px;
+  font-size: 14px;
   margin-bottom: 5px;
   border : 0.5px solid rgba(0,0,255,0.4);
 }
@@ -13784,6 +13788,7 @@ dl {
   border-radius: 3px;
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
   justify-content: space-between;
 }
 .table-add-op:hover{
@@ -13797,7 +13802,6 @@ dl {
   background: linear-gradient(45deg, rgba(0,0,255,0.7), rgba(0,0,255,0.3));
   padding: 8px 10px;
   border-radius: 3px;
-  margin-top: 10px;
   color: white;
   display: flex;
   align-items: center;
@@ -14485,4 +14489,26 @@ dl {
   #custom-confirmation-msg{
     color : #9a55ff;
     font-size: 20px;
+  }
+  .bg-gradient-suc{
+  background: linear-gradient(to right, #67ffe8, #cff7f3) !important; 
+  }
+  .bg-gradient-dang{
+    background: linear-gradient(to right, #ff85a6, #ffd2b6) !important;
+  }
+  .z-ind-10{
+    z-index: 10;
+  }
+  .bank-representative{
+    color :rgb(197, 27, 78);
+    font-weight: 600;
+  }
+  .pending{
+    color : rgba(0,0,255);
+  }
+  .complete{
+    color : rgb(68, 156, 68);
+  }
+  .toggle-case-status{
+    font-size: 22px;
   }

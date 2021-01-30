@@ -25,6 +25,9 @@
     $case_date = '';
     $npa_case = '';
     $bank_name = '';
+    $bank_branch = '';
+    $bank_state = '';
+    $bank_city = '';
     $bank_contact_person_name = '';
     $bank_contact_person_number = '';
     $bank_contact_person_designation = '';
@@ -41,13 +44,17 @@
     $collateral_security = '';
     $total_security = '';
     $date_of_symbolic_possession = '';
+    $hindi_publication_name = '';
     $publication_hindu_newspaper = '';
+    $english_publication_name = '';
     $publication_english_newspapaer = '';
     $requested_bank_for_documentation_on = '';
     $documents_received_on = '';
     $documents_given_to_advocate_on = '';
     $application_file_dm_cmm_advocate_on = '';
     $date_of_hearing = '';
+    $order_received_on = '';
+    $order_forwarded_to_bank_on = '';
     $compromise = '0';
     $date_of_compromise = '';
     $amount_of_compromise = '';
@@ -71,6 +78,9 @@
     $case_date_error = '';
     $npa_case_error = '';
     $bank_name_error = '';
+    $bank_branch_error = '';
+    $bank_state_error = '';
+    $bank_city_error = '';
     $bank_contact_person_name_error = '';
     $bank_contact_person_number_error = '';
     $bank_contact_person_designation_error = '';
@@ -87,13 +97,17 @@
     $collateral_security_error = '';
     $total_security_error = '';
     $date_of_symbolic_possession_error = '';
+    $hindi_publication_name_error = '';
     $publication_hindu_newspaper_error = '';
+    $english_publication_name_error = '';
     $publication_english_newspapaer_error = '';
     $requested_bank_for_documentation_on_error = '';
     $documents_received_on_error = '';
     $documents_given_to_advocate_on_error = '';
     $application_file_dm_cmm_advocate_on_error = '';
     $date_of_hearing_error = '';
+    $order_received_on_error = '';
+    $order_forwarded_to_bank_on_error = '';
     $date_of_compromise_error = '';
     $amount_of_compromise_error = '';
     $full_compromise_paid_upto_error = '';
@@ -112,13 +126,16 @@
     $total_amount_of_expenses_incurred_error = '';
     $income_case_wise_profit_loss_error = '';
 
-    if(isset($_POST['caseDate']) && isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstanding']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['fullOtsPaidUpto']) && isset($_POST['propertySoldOn']) && isset($_POST['propertySoldFor']) && isset($_POST['fullAmountCompromiseReceivedOn']) && isset($_POST['fullAmountOtsReceivedOn']) && isset($_POST['dateOfRaBill']) && isset($_POST['amountOfRaBill']) && isset($_POST['raBillForwardToBankOn']) && isset($_POST['raBillPaidOn']) && isset($_POST['raBillPaidAmount']) && isset($_POST['totalAmountOfExpensesIncurred']) && isset($_POST['incomeCaseWiseProfitLoss'])){
+    if(isset($_POST['caseDate']) && isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankBranch']) && isset($_POST['bankState']) && isset($_POST['bankCity']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstanding']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['hindiPublicationName']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['englishPublicationName']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['orderReceivedOn']) && isset($_POST['orderForwardedOn']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['fullOtsPaidUpto']) && isset($_POST['propertySoldOn']) && isset($_POST['propertySoldFor']) && isset($_POST['fullAmountCompromiseReceivedOn']) && isset($_POST['fullAmountOtsReceivedOn']) && isset($_POST['dateOfRaBill']) && isset($_POST['amountOfRaBill']) && isset($_POST['raBillForwardToBankOn']) && isset($_POST['raBillPaidOn']) && isset($_POST['raBillPaidAmount']) && isset($_POST['totalAmountOfExpensesIncurred']) && isset($_POST['incomeCaseWiseProfitLoss'])){
         // initialize variables with loan data
         $control = 1;
 
         $case_date = cleanInput($_POST['caseDate']);
         $npa_case = cleanInput($_POST['npaCase']);
         $bank_name = cleanInput($_POST['bankName']);
+        $bank_branch = cleanInput($_POST['bankBranch']);
+        $bank_state = cleanInput($_POST['bankState']);
+        $bank_city = cleanInput($_POST['bankCity']);
         $bank_contact_person_name = cleanInput($_POST['bankContactPersonName']);
         $bank_contact_person_number = cleanInput($_POST['bankContactPersonNumber']);
         $bank_contact_person_designation = cleanInput($_POST['bankContactPersonDesignation']);
@@ -135,13 +152,17 @@
         $collateral_security = cleanInput($_POST['collateralSecurity']);
         $total_security = cleanInput($_POST['totalSecurity']);
         $date_of_symbolic_possession = cleanInput($_POST['dateOfSymbolicPossession']);
+        $hindi_publication_name = cleanInput($_POST['hindiPublicationName']);
         $publication_hindu_newspaper = cleanInput($_POST['publicationHindiNewspaperOn']);
+        $english_publication_name = cleanInput($_POST['englishPublicationName']);
         $publication_english_newspapaer = cleanInput($_POST['publicationEnglishNewspaperOn']);
         $requested_bank_for_documentation_on = cleanInput($_POST['requestedBankForDocumentsOn']);
         $documents_received_on = cleanInput($_POST['documentsReceivedOn']);
         $documents_given_to_advocate_on = cleanInput($_POST['documentsGivenToAdvocate']);
         $application_file_dm_cmm_advocate_on = cleanInput($_POST['applicationFileDmCmmByAdvocateOn']);
         $date_of_hearing = cleanInput($_POST['dateOfHearing']);
+        $order_received_on = cleanInput($_POST['orderReceivedOn']);
+        $order_forwarded_to_bank_on = cleanInput($_POST['orderForwardedOn']);
         $compromise = cleanInput($_POST['compromise']);
         $date_of_compromise = cleanInput($_POST['dateOfCompromise']);
         $amount_of_compromise = cleanInput($_POST['amountOfCompromise']);
@@ -209,6 +230,40 @@
             $bank_name_error = 'Required';
             $control = 0;
         }
+
+        if(!empty($bank_branch)){
+            if(!alphaSpaceValidation($bank_branch)){
+                $bank_branch_error = 'Invalid name';
+                $control = 0;
+            }
+        }
+        else{
+            $bank_branch_error = 'Branch name required';
+            $control = 0;
+        }
+        
+        if(!empty($bank_state)){
+          if(!alphaSpaceValidation($bank_state)){
+              $bank_state_error = 'Invalid state name';
+              $control = 0;
+          }
+        }
+        else{
+            $bank_state_error = 'State required';
+            $control = 0;
+        }
+
+        if(!empty($bank_city)){
+            if(!alphaSpaceValidation($bank_city)){
+                $bank_city_error = 'Invalid name';
+                $control = 0;
+            }
+        }
+        else{
+            $bank_city_error = 'City required';
+            $control = 0;
+        }
+
         if(!empty($bank_contact_person_name)){
             if(!alphaSpaceValidation($bank_contact_person_name)){
                 $bank_contact_person_name_error = 'Invalid Name';
@@ -287,8 +342,8 @@
         }
 
         if($outstanding != ''){
-            if(!amountValidation($outstanding)){
-                $outstanding_error = 'Invalid amount';
+            if(!dateValidation($outstanding)){
+                $outstanding_error = 'Invalid date';
                 $control = 0;
             }
         }
@@ -346,6 +401,17 @@
             $control = 0;
         }
 
+        if(!empty($hindi_publication_name)){
+            if(!alphaSpaceValidation($hindi_publication_name)){
+                $hindi_publication_name_error = 'Invalid name';
+                $control = 0;
+            }
+        }
+        else{
+            $hindi_publication_name_error = 'Required';
+            $control = 0;
+        }
+
         if(!empty($publication_hindu_newspaper)){
             if(!dateValidation($publication_hindu_newspaper)){
                 $publication_hindu_newspaper_error = 'Invalid Date';
@@ -354,6 +420,17 @@
         }
         else{
             $publication_hindu_newspaper_error = 'Required';
+            $control = 0;
+        }
+
+        if(!empty($english_publication_name)){
+            if(!alphaSpaceValidation($english_publication_name)){
+                $english_publication_name_error = 'Invalid name';
+                $control = 0;
+            }
+        }
+        else{
+            $english_publication_name_error = 'Required';
             $control = 0;
         }
 
@@ -497,7 +574,8 @@
 
         if($control){ // Insert data into database control = 1
             $bank_address = str_replace("\n", "<br/>", $bank_address);
-            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`) VALUES (NULL, '$case_date', '$npa_case', '$bank_name', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$full_ots_paid_upto', '$compromise_ots_failed', '$property_sold_on', '$property_sold_for', '$full_amount_of_compromise_received_on', '$full_amount_of_ots_received_on', '$date_of_ra_bill', '$amount_of_ra_bill', '$ra_bill_forward_to_bank_on', '$ra_bill_paid_on', '$ra_bill_paid_amount', '$total_amount_of_expenses_incurred', '$income_case_wise_profit_loss')";
+            $collateral_security = str_replace("\n", "<br/>", $collateral_security);
+            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_branch`, `bank_state`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `order_received_on`, `order_forwarded_to_bank_on`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`, `hindi_publication_name`, `english_publication_name`, `case_status`) VALUES (NULL, '$case_date', '$npa_case', '$bank_name', '$bank_branch', '$bank_state', '$bank_city', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$order_received_on', '$order_forwarded_to_bank_on', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$full_ots_paid_upto', '$compromise_ots_failed', '$property_sold_on', '$property_sold_for', '$full_amount_of_compromise_received_on', '$full_amount_of_ots_received_on', '$date_of_ra_bill', '$amount_of_ra_bill', '$ra_bill_forward_to_bank_on', '$ra_bill_paid_on', '$ra_bill_paid_amount', '$total_amount_of_expenses_incurred', '$income_case_wise_profit_loss', '$hindi_publication_name', '$english_publication_name', '0')";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
@@ -521,6 +599,7 @@
 <html lang="en">
   <head>
     <?php require 'includes/layout.php'; ?>
+    <script src="assets/js/home-loan.js"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -640,14 +719,22 @@
                                     resData = JSON.parse(resData)
                                     if(resData.success){
                                         let bankName = resData.bank.bank_name
-                                        let branchName = resData.bank.branch_name
+                                        let branchName = resData.bank.bank_branch
+                                        let bankCity = resData.bank.bank_city
+                                        let bankState = resData.bank.bank_state
                                         let bankAddress = resData.bank.bank_address
                                         let personName = resData.bank.bank_contact_person_name
                                         let personNumber = resData.bank.bank_contact_person_number
                                         document.getElementById('bank-name').value = bankName
                                         document.getElementById('bank-address').value = bankAddress.replace(/<br\/>/g, "\n").trim()
                                         document.getElementById('bank-person-name').value = personName
-                                        document.getElementById('bank-person-number').value = personNumber
+                                        if(personNumber != '0')
+                                            document.getElementById('bank-person-number').value = personNumber
+                                        else document.getElementById('bank-person-number').value = ''
+
+                                        document.getElementById('branch-name').value = branchName
+                                        document.getElementById('bank-city').value = bankCity
+                                        document.getElementById('bank-state').value = bankState
                                     }
                                     if(resData.error){
                                         alert(`Error : ${resData.error}`)
@@ -673,8 +760,48 @@
                                         <?php echo $bank_name_error; ?>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Branch Name</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br"><i class="fa fa-code-branch"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-input" id="branch-name" name="bankBranch" value="<?php echo $bank_branch; ?>" placeholder="Branch Name">
+                                    </div>
+                                    <div  class="form-input-response">
+                                        <?php echo $bank_branch_error; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="exampleInputCity1">Bank State</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fab fa-stripe-s"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" id="bank-state" name="bankState" value="<?php echo $bank_state; ?>" placeholder="State">
+                            </div>
+                            <div  class="form-input-response">
+                                <?php echo $bank_state_error; ?>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="exampleInputCity1">Bank City</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-gradient-primary text-white br"><i class="fa fa-map-marker-alt"></i></span>
+                              </div>
+                              <input type="text" class="form-control form-input" id="bank-city" name="bankCity" value="<?php echo $bank_city; ?>" placeholder="City Name">
+                            </div>
+                            <div class="form-input-response">
+                                <?php echo $bank_city_error; ?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -741,12 +868,12 @@
                         </div>
                         <div class="form-group mb-3">
                             <div class="row">
-                                <div class="col-md">
+                                <div class="col-md-6">
                                     <label for="exampleInputCity1">Bank Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="bankAddress" id="bank-address" cols="30" rows="10"><?php echo $bank_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="bankAddress" id="bank-address" cols="30" rows="5"><?php echo $bank_address; ?></textarea>
                                     </div>
-                                    <div id="password-validate-response" class="form-input-response">
+                                    <div  class="form-input-response">
                                         <?php echo $bank_address_error; ?>
                                     </div>
                                 </div>
@@ -791,15 +918,18 @@
                                     <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fas fa-rupee-sign"></i>
+                                            <i class="fas fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="outstanding"  value="<?php echo $outstanding; ?>">
+                                    <input type="date"  id="outstanding-on" class="form-control form-input" name="outstanding"  value="<?php echo $outstanding; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $outstanding_error; ?>
                                     </div>
                                 </div>
+                                <script>
+                                    document.getElementById('outstanding-on').defaultValue = '<?php echo $outstanding; ?>'
+                                </script>
                             </div>
                         </div>
                         <div class="form-group">
@@ -882,35 +1012,48 @@
                         
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md mb-3">
+                                <div class="col-md-6">
                                     <label for="exampleInputCity1">Primary Security</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="primarySecurity" id="" cols="30" rows="10"><?php echo $primary_security; ?></textarea>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
                                     </div>
-                                    <div id="password-validate-response" class="form-input-response">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="date-of-notice13-3"  name="primarySecurity" value="<?php echo $primary_security; ?>">
+                                    </div>
+                                    <div class="form-input-response">
                                         <?php echo $primary_security_error; ?>
                                     </div>
                                 </div>
-                                <div class="col-md mb-3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <label for="exampleInputCity1">Collateral Security</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="collateralSecurity" id="" cols="30" rows="10"><?php echo $collateral_security; ?></textarea>
+                                    <textarea class="form-control form-input" name="collateralSecurity" id="" cols="30" rows="5"><?php echo $collateral_security; ?></textarea>
                                     </div>
-                                    <div id="password-validate-response" class="form-input-response">
+                                    <div  class="form-input-response">
                                         <?php echo $collateral_security_error; ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="form-group mb-3">
                             <div class="row">
-                                <div class="col-md">
+                                <div class="col-md-6">
                                     <label for="exampleInputCity1">Total Security</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="totalSecurity" id="" cols="30" rows="10"><?php echo $total_security; ?></textarea>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
                                     </div>
-                                    <div id="password-validate-response" class="form-input-response">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="date-of-notice13-3"  name="totalSecurity" value="<?php echo $total_security; ?>">
+                                    </div>
+                                    <div  class="form-input-response">
                                         <?php echo $total_security_error; ?>
                                     </div>
                                 </div>
@@ -942,6 +1085,15 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <label for="exampleInputCity1">Hindi Publication Name</label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control form-input"  name="hindiPublicationName" value="<?php echo $hindi_publication_name; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $hindi_publication_name_error; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <label for="exampleInputCity1">Publication in Hindi Newspaper on</label>
                                     <div class="input-group">
                                     <div class="input-group-prepend">
@@ -958,6 +1110,20 @@
                                 <script>
                                     document.getElementById('hindi-newspaper').defaultValue = '<?php echo $publication_hindu_newspaper; ?>'
                                 </script>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">English Publication Name</label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control form-input"  name="englishPublicationName" value="<?php echo $english_publication_name; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $english_publication_name_error; ?>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Publication in English Newspaper on</label>
                                     <div class="input-group">
@@ -977,7 +1143,6 @@
                                 </script>
                             </div>
                         </div>
-                        
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -1073,6 +1238,41 @@
                                 <script>
                                     document.getElementById('date-of-hearing').defaultValue = '<?php echo $date_of_hearing; ?>'
                                 </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Order received on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="order-received-on" type="date" class="form-control form-input" name="orderReceivedOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $order_received_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('order-received-on').defaultValue = '<?php echo $order_received_on; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Order forwarded to bank on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="order-forwarded-on" type="date" class="form-control form-input" name="orderForwardedOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $order_forwarded_to_bank_on_error; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- if compromise -->
@@ -1452,8 +1652,8 @@
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-          </footer>
+          <!-- <footer class="footer">
+          </footer> -->
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

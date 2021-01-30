@@ -22,8 +22,6 @@
             if($result->num_rows == 1){ 
                 $comment = $result->fetch_assoc();
                 $date_of_next_hearing = $comment['date_of_next_hearing'];
-                $order_received_on = $comment['order_received_on'];
-                $order_forwarded_to_bank_on = $comment['order_forwarded_to_bank_on'];
                 $lease_on = $comment['lease_on'];
                 $physical_possession_on = $comment['physical_possession_on'];
                 $notice_of_physical_possession_on = $comment['notice_of_physical_possession'];
@@ -81,8 +79,6 @@
     //errors
 
     $date_of_next_hearing_error = '';
-    $order_received_on_error = '';
-    $order_forwarded_to_bank_on_error = '';
     $lease_on_error = '';
     $physical_possession_on_error = '';
     $notice_of_physical_possession_on_error = '';
@@ -100,12 +96,10 @@
     $redirection_order_received_on_error = '';
 
 
-    if(isset($_POST['dateOfNextHearing']) && isset($_POST['orderReceivedOn']) && isset($_POST['orderForwardedOn']) && isset($_POST['leaseOn']) && isset($_POST['physicalPossessionOn']) && isset($_POST['noticeOfPhysicalPossessionOn']) && isset($_POST['possessionTakenOn']) && isset($_POST['possessionPostponeOn']) && isset($_POST['postponeReason']) && isset($_POST['propertyOnAuction']) && isset($_POST['reservePrice']) && isset($_POST['emdAmount']) && isset($_POST['prospectiveBuyerOn']) && isset($_POST['auctionDate']) && isset($_POST['docRedirectionToAdvocateOn']) && isset($_POST['redirectionOrderWithDmCmmOn']) && isset($_POST['redirectionOrderReceivedOn'])){
+    if(isset($_POST['dateOfNextHearing']) && isset($_POST['leaseOn']) && isset($_POST['physicalPossessionOn']) && isset($_POST['noticeOfPhysicalPossessionOn']) && isset($_POST['possessionTakenOn']) && isset($_POST['possessionPostponeOn']) && isset($_POST['postponeReason']) && isset($_POST['propertyOnAuction']) && isset($_POST['reservePrice']) && isset($_POST['emdAmount']) && isset($_POST['prospectiveBuyerOn']) && isset($_POST['auctionDate']) && isset($_POST['docRedirectionToAdvocateOn']) && isset($_POST['redirectionOrderWithDmCmmOn']) && isset($_POST['redirectionOrderReceivedOn'])){
         // initialize variables with loan data
         $control = 1;
         $date_of_next_hearing = cleanInput($_POST['dateOfNextHearing']);
-        $order_received_on = cleanInput($_POST['orderReceivedOn']);
-        $order_forwarded_to_bank_on = cleanInput($_POST['orderForwardedOn']);
         $lease_on = cleanInput($_POST['leaseOn']);
         $physical_possession_on = cleanInput($_POST['physicalPossessionOn']);
         $notice_of_physical_possession_on = cleanInput($_POST['noticeOfPhysicalPossessionOn']);
@@ -145,7 +139,7 @@
 
         if($control){ // Insert data into database control = 1
             $postpone_reason = str_replace("\n", "<br/>", $postpone_reason);
-            $sql = "UPDATE home_loan_comments SET date_of_next_hearing = '$date_of_next_hearing', order_received_on = '$order_received_on', order_forwarded_to_bank_on = '$order_forwarded_to_bank_on', lease_on = '$lease_on', physical_possession_on = '$physical_possession_on', notice_of_physical_possession = '$notice_of_physical_possession_on', possession_taken_on = '$possession_taken_on', possession_postpone_on = '$possession_postpone_on', possession_postpone_reason = '$postpone_reason', property_on_auction = '$property_on_auction', reserve_price = '$reserve_price', emd_amount = '$emd_amount', property_visit_by_prospective_buyers_on = '$property_visit_by_prospective_buyers_on', auction_date = '$auction_date', auction_status = '$auction_status', doc_for_redirection_of_order_given_to_advocate_on = '$doc_for_redirection_of_order_given_to_advocate_on', redirection_order_filled_with_dm_cmm_on = '$redirection_order_filled_with_dm_cmm_on', redirection_order_received_on = '$redirection_order_received_on' WHERE comment_id = '$comment_id'";
+            $sql = "UPDATE home_loan_comments SET date_of_next_hearing = '$date_of_next_hearing', lease_on = '$lease_on', physical_possession_on = '$physical_possession_on', notice_of_physical_possession = '$notice_of_physical_possession_on', possession_taken_on = '$possession_taken_on', possession_postpone_on = '$possession_postpone_on', possession_postpone_reason = '$postpone_reason', property_on_auction = '$property_on_auction', reserve_price = '$reserve_price', emd_amount = '$emd_amount', property_visit_by_prospective_buyers_on = '$property_visit_by_prospective_buyers_on', auction_date = '$auction_date', auction_status = '$auction_status', doc_for_redirection_of_order_given_to_advocate_on = '$doc_for_redirection_of_order_given_to_advocate_on', redirection_order_filled_with_dm_cmm_on = '$redirection_order_filled_with_dm_cmm_on', redirection_order_received_on = '$redirection_order_received_on' WHERE comment_id = '$comment_id'";
             $conn->query($sql); 
             
             if($conn->error == ''){ 
@@ -213,44 +207,10 @@
                                 <script>
                                     document.getElementById('date-of-next-hearing').defaultValue = '<?php echo $date_of_next_hearing; ?>'
                                 </script>
-                                <div class="col-md-6">
-                                    <label for="exampleInputCity1">Order received on</label>
-                                    <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fas fa-clock"></i>
-                                        </span>
-                                    </div>
-                                    <input id="order-received-on" type="date" class="form-control form-input" name="orderReceivedOn">
-                                    </div>
-                                    <div class="form-input-response">
-                                        <?php echo $order_received_on_error; ?>
-                                    </div>
-                                </div>
-                                <script>
-                                    document.getElementById('order-received-on').defaultValue = '<?php echo $order_received_on; ?>'
-                                </script>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputCity1">Order forwarded to bank on</label>
-                                    <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fas fa-clock"></i>
-                                        </span>
-                                    </div>
-                                    <input id="order-forwarded-on" type="date" class="form-control form-input" name="orderForwardedOn">
-                                    </div>
-                                    <div class="form-input-response">
-                                        <?php echo $order_forwarded_to_bank_on_error; ?>
-                                    </div>
-                                </div>
-                                <script>
-                                    document.getElementById('order-forwarded-on').defaultValue = '<?php echo $order_forwarded_to_bank_on; ?>'
-                                </script>
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Lease on</label>
                                     <div class="input-group">
@@ -430,7 +390,7 @@
                                     </div>
                                 </div>
                                 <script>
-                                    document.getElementById('prospective-buyer-on').defaultValue = '<?php echo $property_visit_by_prospective_buyers_on_error; ?>'
+                                    document.getElementById('prospective-buyer-on').defaultValue = '<?php echo $property_visit_by_prospective_buyers_on; ?>'
                                 </script>
                             </div>
                         </div>

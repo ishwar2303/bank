@@ -637,8 +637,11 @@
                                   <th>Bill Raised ₹</th>
                                   <th>Payment Received ₹</th>
                                   <th>Edit</th>
+                                  
+                                  <?php if($logged_in_user_role != '0'){ ?>
                                   <th>Remarks</th>
                                   <th>Delete</th>
+                                  <?php } ?>
                                 </tr>
                               </thead>
 
@@ -695,6 +698,8 @@
                                               <i class="fas fa-edit"></i>
                                           </a>
                                       </td>
+                                      
+                                    <?php if($logged_in_user_role != '0'){ ?>
                                       <td>
                                           <label class="edit-btn add-reamrk-table-btn">
                                               <span>View</span>
@@ -729,6 +734,7 @@
                                               <i class="fas fa-trash-alt"></i>
                                           </label>
                                       </td>
+                                    <?php } ?>
                                     </tr>
                                     <?php
                                     $serial_no += 1;

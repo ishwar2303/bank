@@ -60,9 +60,9 @@
         $statusIndexIncomplete = 0;
         while($row = $result->fetch_assoc()){
             if($row['status'] == '0')
-                $css_class = 'bg-gradient-danger';
+                $css_class = 'bg-gradient-dang';
             if($row['status'] == '1')
-                $css_class = 'bg-gradient-success'
+                $css_class = 'bg-gradient-suc'
         ?>
         <li class="<?php echo $css_class; ?>">
             <div>

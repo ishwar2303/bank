@@ -93,8 +93,11 @@
                                         <?php echo $row['bank_name']; ?>
                                         <i class="mdi mdi-bank mdi-24px float-right"></i>
                                       </h4>
-                                      <h5 class="mb-2">
+                                      <h5 class="mb-3">
                                         <?php echo $row['bank_branch']; ?>
+                                      </h5>
+                                      <h5 class="mb-2">
+                                        <?php echo $row['bank_state']; ?>
                                       </h5>
                                       <h5 class="mb-2">
                                         <?php echo $row['bank_city']; ?>
@@ -106,7 +109,7 @@
                                         <?php echo $row['bank_contact_person_name']; ?>
                                       </h6>
                                       <h6 class="mb-2">
-                                        <?php echo $row['bank_contact_person_number']; ?>
+                                        <?php echo $row['bank_contact_person_number']!='0' ? $row['bank_contact_person_number'] : ''; ?>
                                       </h6>
 
                                       <div class="bank-operation">
