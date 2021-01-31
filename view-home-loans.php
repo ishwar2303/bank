@@ -25,6 +25,7 @@
         $db_error = $conn->error;
     }
 
+    // approving home loan case
     if(isset($_GET['approve_cid']) && isset($_GET['approve'])){
       $home_loan_cid = base64_decode(cleanInput($_GET['approve_cid']));
       $approve = cleanInput($_GET['approve']);
@@ -37,7 +38,7 @@
         }
         else if($approve == '0'){
           $msg = 'Case Refused';
-          $note_msg = "Data operator can commit any changes to the case from now";
+          $note_msg = "Data operator can commit changes to the case from now";
         }
         $_SESSION['success_msg'] = $msg;
         $_SESSION['note_msg'] = $note_msg;
@@ -681,6 +682,16 @@
                     <?php if($db_error == ''){ ?>
                         <?php if(sizeof($result_array) > 0){ ?>
                             <table class="table table-hover">
+
+                            <!-- dropdown - overlay -->
+                            <div class="custom-dropdown-overlay"></div>
+                            <script>
+                              $('.custom-dropdown-overlay').click(() => {
+                                $('.custom-dropdown-operations').hide()
+                                $('.custom-dropdown-overlay').toggle()
+                              })
+                            </script>
+
                               <thead>
                                 <tr>
                                   <th>S No</th>
@@ -949,7 +960,7 @@
                                                   }
                                                   ?>
                                                   <!-- activity log -->
-                                                  <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=1" target="_blank">Case activity log</a>
+                                                  <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=1" target="_blank">Case Activity log</a>
                                                   
                                                   <!-- pending, complete or withdraw -->
                                                   <?php 
@@ -1026,36 +1037,48 @@
                                           <!-- custom action dropdown script -->
 
                                           <script>
-                                          $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).click(function(){
-                                              // get the scollTop (distance scrolled from top)
+                                          $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).click(() => {
+                                            
                                               $(".custom-dropdown-operations").eq(<?php echo $serial_no-1; ?>).toggle()
                                               var scrollTop = $('.table-container').scrollTop();
                                               // get the top offset of the dropdown (distance from top of the page)
                                               var topOffset = $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).offset().top;
                                               // calculate the dropdown offset relative to window position
-                                              console.log('table scroll' + scrollTop)
-                                              console.log('top offset : ' + topOffset)
+                                              //console.log('table scroll' + scrollTop)
+                                              topOffset = topOffset - 115
+                                              console.log('toggle button distance from container top : ' + topOffset)
                                               var relativeOffset = topOffset-scrollTop;
-                                              console.log('relative height : ' + relativeOffset)
+                                              //console.log('relative height : ' + relativeOffset)
                                               // get the window height
                                               var windowHeight = $('.table-container').height();
-                                              console.log('Window height : ' + windowHeight)
+                                              console.log('table-container-height : ' + windowHeight)
                                               // if the relative offset is greater than half the window height,
                                               // reverse the dropdown.
                                               $('.custom-dropdown-overlay').toggle()
                                               let dropdownBox = document.getElementsByClassName('custom-dropdown-operations')[<?php echo $serial_no-1; ?>]
-                                              if(dropdownBox.offsetHeight > windowHeight-topOffset+dropdownBox.offsetHeight){
-                                                  let heightOfDropdownBox = dropdownBox.offsetHeight - 35
-                                                  console.log('height of dropdown box : ' + heightOfDropdownBox)
-                                                  dropdownBox.style.top = '-' + heightOfDropdownBox + 'px'
-                                                  console.log('reverse')
+                                              console.log('Dropdown menu height : ' + dropdownBox.offsetHeight)
+                                              console.log('available space : '+ (windowHeight - topOffset))
+                                              let containerHeight = windowHeight
+                                              let spaceAbove = topOffset
+                                              let spaceBelow = containerHeight - spaceAbove
+                                              console.log('container-height : ' + containerHeight)
+                                              console.log('space above : ' + spaceAbove)
+                                              console.log('space below : ' + spaceBelow)
+
+                                              let dropdownMenuHeight = dropdownBox.offsetHeight
+                                              if(dropdownMenuHeight <= spaceAbove){
+                                                dropdownBox.style.top = '-' + (dropdownMenuHeight - 35) + 'px'
+                                                console.log('space available above')
+                                              }
+                                              else if(dropdownMenuHeight <= spaceBelow + 50){
+                                                dropdownBox.style.top = '0px'
+                                                console.log('space available below')
                                               }
                                               else{
-                                                  let heightOfDropdownBox = dropdownBox.offsetHeight - 35
-                                                  console.log('height of dropdown box : ' + heightOfDropdownBox)
-                                                  dropdownBox.style.top = '0'
-                                                  console.log('normal')
+                                                dropdownBox.style.top = '-' + (spaceAbove-150) + 'px'
+                                                console.log('not available')
                                               }
+
                                               
                                           });
 
@@ -1180,14 +1203,6 @@
       })
     </script>
 
-    <!-- dropdown - overlay -->
-    <div class="custom-dropdown-overlay"></div>
-    <script>
-      $('.custom-dropdown-overlay').click(() => {
-        $('.custom-dropdown-operations').hide()
-        $('.custom-dropdown-overlay').toggle()
-      })
-    </script>
   </body>
 </html>
 
