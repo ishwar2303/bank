@@ -24,6 +24,33 @@
         $_SESSION['error_msg'] = 'Something went wrong!';
         $db_error = $conn->error;
     }
+
+    if(isset($_GET['approve_cid']) && isset($_GET['approve'])){
+      $home_loan_cid = base64_decode(cleanInput($_GET['approve_cid']));
+      $approve = cleanInput($_GET['approve']);
+      if($approve == '1' || $approve == '0'){
+        $sql = "UPDATE home_loan SET approved = '$approve' WHERE home_loan_cid = '$home_loan_cid'";
+        $conn->query($sql);
+        if($approve == '1'){
+          $msg = 'Case Approved';
+          $note_msg = "Data operator can't commit any changes to the case from now";
+        }
+        else if($approve == '0'){
+          $msg = 'Case Refused';
+          $note_msg = "Data operator can commit any changes to the case from now";
+        }
+        $_SESSION['success_msg'] = $msg;
+        $_SESSION['note_msg'] = $note_msg;
+        header('Location: view-home-loans.php');
+        exit;
+      }
+      else{
+        $_SESSION['error_msg'] = 'Something went wrong!';
+        header('Location: view-home-loans.php');
+        exit;
+      }
+    }
+
     // mark as complete, pending or withdraw
     if(isset($_GET['status']) && isset($_GET['hcid'])){
       $home_loan_cid = cleanInput($_GET['hcid']);
@@ -833,10 +860,11 @@
                                       <td><?php echo $home_loan['income_case_wise_profit_loss']; ?></td>
 
                                       <?php 
+                                          $home_loan_approved = $home_loan['approved'];
                                           $status = $home_loan['case_status']; ?>
                                           <?php
                                           if($status == '2'){
-                                            $btn_icon = '';
+                                            $btn_icon = "<i class='fas fa-exclamation icon-mr-5'></i>";
                                             $btn_class = 'case-withdraw';
                                             $status_value = 'Withdraw';
                                           } 
@@ -860,9 +888,16 @@
                                             </div>
                                             <div class="custom-dropdown-operations">
                                                 <!-- case edit --> 
+                                                <?php if($logged_in_user_role == '0' && !$home_loan_approved){ ?> <!-- Data operator can only edit till the case is not approved -->
                                                 <a href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
                                                   Edit
                                                 </a>
+                                                <?php } ?>
+                                                <?php if($logged_in_user_role != '0'){ ?> <!-- Admin and privileged user can edit -->
+                                                <a href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
+                                                  Edit
+                                                </a>
+                                                <?php } ?>
 
                                                 <!-- Add Status -->
                                                 <a href="home-loan-comment.php?cid=<?php echo $encoded_cid; ?>" target="_blank">
@@ -903,7 +938,16 @@
                                                 ?>
                                                 
                                                 <?php if($logged_in_user_role){ ?> <!-- only admin and privileged user --> 
-
+                                                  <!-- Approve case -->
+                                                  <?php if(!$home_loan_approved){ ?>
+                                                  <a onclick="return confirm('Approve Case')" href="view-home-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=1">Approve Case</a>
+                                                  <?php }
+                                                  else{
+                                                    ?>                                                  
+                                                    <a onclick="return confirm('Refuse Case')" href="view-home-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=0">Refuse Case</a>
+                                                    <?php
+                                                  }
+                                                  ?>
                                                   <!-- activity log -->
                                                   <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=1" target="_blank">Case activity log</a>
                                                   
@@ -977,6 +1021,47 @@
 
                                             </div>
                                           </div>
+
+                                                    
+                                          <!-- custom action dropdown script -->
+
+                                          <script>
+                                          $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).click(function(){
+                                              // get the scollTop (distance scrolled from top)
+                                              $(".custom-dropdown-operations").eq(<?php echo $serial_no-1; ?>).toggle()
+                                              var scrollTop = $('.table-container').scrollTop();
+                                              // get the top offset of the dropdown (distance from top of the page)
+                                              var topOffset = $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).offset().top;
+                                              // calculate the dropdown offset relative to window position
+                                              console.log('table scroll' + scrollTop)
+                                              console.log('top offset : ' + topOffset)
+                                              var relativeOffset = topOffset-scrollTop;
+                                              console.log('relative height : ' + relativeOffset)
+                                              // get the window height
+                                              var windowHeight = $('.table-container').height();
+                                              console.log('Window height : ' + windowHeight)
+                                              // if the relative offset is greater than half the window height,
+                                              // reverse the dropdown.
+                                              $('.custom-dropdown-overlay').toggle()
+                                              let dropdownBox = document.getElementsByClassName('custom-dropdown-operations')[<?php echo $serial_no-1; ?>]
+                                              if(dropdownBox.offsetHeight > windowHeight-topOffset+dropdownBox.offsetHeight){
+                                                  let heightOfDropdownBox = dropdownBox.offsetHeight - 35
+                                                  console.log('height of dropdown box : ' + heightOfDropdownBox)
+                                                  dropdownBox.style.top = '-' + heightOfDropdownBox + 'px'
+                                                  console.log('reverse')
+                                              }
+                                              else{
+                                                  let heightOfDropdownBox = dropdownBox.offsetHeight - 35
+                                                  console.log('height of dropdown box : ' + heightOfDropdownBox)
+                                                  dropdownBox.style.top = '0'
+                                                  console.log('normal')
+                                              }
+                                              
+                                          });
+
+                                          </script>
+
+
                                       </td>
                                     </tr>
                                     <?php
@@ -1094,6 +1179,15 @@
           })
       })
     </script>
+
+    <!-- dropdown - overlay -->
+    <div class="custom-dropdown-overlay"></div>
+    <script>
+      $('.custom-dropdown-overlay').click(() => {
+        $('.custom-dropdown-operations').hide()
+        $('.custom-dropdown-overlay').toggle()
+      })
+    </script>
   </body>
 </html>
 
@@ -1154,3 +1248,11 @@
     tableContainer.scroll(tableContainerWidth,0)
   })
 </script>
+
+
+
+
+
+
+
+

@@ -1374,7 +1374,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputCity1">Liase with Court Receiver/Tehsildar/SSP on</label>
+                                    <label for="exampleInputCity1">Lease with Court Receiver/Tehsildar/SSP on</label>
                                     <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-gradient-primary text-white br">
