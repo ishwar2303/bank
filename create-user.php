@@ -276,8 +276,8 @@
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-          </footer>
+          <!-- <footer class="footer">
+          </footer> -->
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

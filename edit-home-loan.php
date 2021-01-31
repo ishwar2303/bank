@@ -378,10 +378,10 @@
                 $control = 0;
             }
         }
-        else{
-            $outstanding_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $outstanding_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($ra_agreement_signed_on)){
             if(!dateValidation($ra_agreement_signed_on)){
@@ -389,30 +389,32 @@
                 $control = 0;
             }
         }
-        else{
-            $ra_agreement_signed_on_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $ra_agreement_signed_on_error = 'Required';
+        //     $control = 0;
+        // }
+
         if(!empty($ra_agreement_expired_on)){
             if(!dateValidation($ra_agreement_expired_on)){
                 $ra_agreement_expired_on_error = 'Invalid Date';
                 $control = 0;
             }
         }
-        else{
-            $ra_agreement_expired_on_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $ra_agreement_expired_on_error = 'Required';
+        //     $control = 0;
+        // }
+
         if(!empty($date_of_notice13_2)){
             if(!dateValidation($date_of_notice13_2)){
                 $date_of_notice13_2_error = 'Invalid Date';
                 $control = 0;
             }
         }
-        else{
-            $date_of_notice13_2_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $date_of_notice13_2_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($date_of_notice13_3)){
             if(!dateValidation($date_of_notice13_3)){
@@ -427,10 +429,10 @@
                 $control = 0;
             }
         }
-        else{
-            $date_of_symbolic_possession_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $date_of_symbolic_possession_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($hindi_publication_name)){
             if(!alphaSpaceValidation($hindi_publication_name)){
@@ -438,10 +440,10 @@
                 $control = 0;
             }
         }
-        else{
-            $hindi_publication_name_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $hindi_publication_name_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($publication_hindu_newspaper)){
             if(!dateValidation($publication_hindu_newspaper)){
@@ -449,10 +451,10 @@
                 $control = 0;
             }
         }
-        else{
-            $publication_hindu_newspaper_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $publication_hindu_newspaper_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($english_publication_name)){
             if(!alphaSpaceValidation($english_publication_name)){
@@ -460,10 +462,10 @@
                 $control = 0;
             }
         }
-        else{
-            $english_publication_name_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $english_publication_name_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($publication_english_newspapaer)){
             if(!dateValidation($publication_english_newspapaer)){
@@ -471,10 +473,10 @@
                 $control = 0;
             }
         }
-        else{
-            $publication_english_newspapaer_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $publication_english_newspapaer_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($requested_bank_for_documentation_on)){
             if(!dateValidation($requested_bank_for_documentation_on)){
@@ -482,10 +484,10 @@
                 $control = 0;
             }
         }
-        else{
-            $requested_bank_for_documentation_on_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $requested_bank_for_documentation_on_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($documents_received_on)){
             if(!dateValidation($documents_received_on)){
@@ -493,10 +495,10 @@
                 $control = 0;
             }
         }
-        else{
-            $documents_received_on_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $documents_received_on_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($documents_given_to_advocate_on)){
             if(!dateValidation($documents_given_to_advocate_on)){
@@ -504,10 +506,10 @@
                 $control = 0;
             }
         }
-        else{
-            $documents_given_to_advocate_on_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $documents_given_to_advocate_on_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($application_file_dm_cmm_advocate_on)){
             if(!dateValidation($application_file_dm_cmm_advocate_on)){
@@ -515,10 +517,10 @@
                 $control = 0;
             }
         }
-        else{
-            $application_file_dm_cmm_advocate_on_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $application_file_dm_cmm_advocate_on_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($date_of_hearing)){
             if(!dateValidation($date_of_hearing)){
@@ -526,10 +528,10 @@
                 $control = 0;
             }
         }
-        else{
-            $date_of_hearing_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $date_of_hearing_error = 'Required';
+        //     $control = 0;
+        // }
         // compromise
         if($compromise == '1'){
             if(!empty($date_of_compromise)){
@@ -616,13 +618,15 @@
             $bank_address = str_replace("\n", "<br/>", $bank_address);
             $collateral_security = str_replace("\n", "<br/>", $collateral_security);
             $sql = "UPDATE home_loan SET case_date = '$case_date', npa_case = '$npa_case', bank_name = '$bank_name', bank_branch = '$bank_branch', bank_state = '$bank_state', bank_city = '$bank_city', bank_contact_person_name = '$bank_contact_person_name', bank_contact_person_number = '$bank_contact_person_number', bank_contact_person_designation = '$bank_contact_person_designation', bank_address = '$bank_address', bank_contact_person_email = '$bank_contact_person_email', borrower_name = '$borrower_name', amount = '$amount', outstanding = '$outstanding', ra_agreement_signed_on = '$ra_agreement_signed_on', ra_agreement_expired_on = '$ra_agreement_expired_on', date_of_notice13_2 = '$date_of_notice13_2', date_of_notice13_3 = '$date_of_notice13_3', primary_security = '$primary_security', collateral_security = '$collateral_security', total_security = '$total_security', date_of_symbolic_possession = '$date_of_symbolic_possession', publication_hindi_newspaper_on = '$publication_hindu_newspaper', publication_english_newspaper_on = '$publication_english_newspapaer', requested_bank_for_documents = '$requested_bank_for_documentation_on', documents_received_on = '$documents_received_on', documents_given_to_advocate_on = '$documents_given_to_advocate_on', application_file_dm_cmm_by_advocate_on = '$application_file_dm_cmm_advocate_on', date_of_hearing = '$date_of_hearing', order_received_on = '$order_received_on', order_forwarded_to_bank_on = '$order_forwarded_to_bank_on', compromise = '$compromise', date_of_compromise = '$date_of_compromise', amount_of_compromise = '$amount_of_compromise', full_compromise_paid_upto = '$full_compromise_paid_upto', ots = '$ots', date_of_ots_accepted = '$date_of_ots_accepted', amount_of_ots_paid_upto = '$full_ots_paid_upto', compromise_ots_failed = '$compromise_ots_failed', property_sold_on = '$property_sold_on', property_sold_for = '$property_sold_for', full_amount_compromise_received_on = '$full_amount_of_compromise_received_on', full_amount_ots_received_on = '$full_amount_of_ots_received_on', date_of_ra_bill = '$date_of_ra_bill', amount_of_ra_bill = '$amount_of_ra_bill', ra_bill_forward_to_bank_on = '$ra_bill_forward_to_bank_on', ra_bill_paid_on = '$ra_bill_paid_on', ra_bill_paid_amount = '$ra_bill_paid_amount', total_amount_of_expenses_incurred = '$total_amount_of_expenses_incurred', income_case_wise_profit_loss = '$income_case_wise_profit_loss', hindi_publication_name = '$hindi_publication_name', english_publication_name = '$english_publication_name' WHERE home_loan_cid = '$home_loan_cid'";
-            $conn->query($sql); 
-            
-            if($conn->error == ''){ 
+            if($conn->query($sql) === TRUE){
+                
+                $case_id = $home_loan_cid;
+                $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '2', '$timestamp')";
+                $conn->query($sql);
                 $_SESSION['success_msg'] = 'Updated successfully';
                 header('Location: view-home-loans.php');
                 exit;   
-            }   
+            } 
             else{
                 $_SESSION['error_msg'] = 'Something went wrong';
                 header('Location: view-home-loans.php');

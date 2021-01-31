@@ -24,7 +24,7 @@
         $_SESSION['error_msg'] = 'Something went wrong!';
         $db_error = $conn->error;
     }
-    // mark as complete or pending
+    // mark as complete, pending or withdraw
     if(isset($_GET['status']) && isset($_GET['hcid'])){
       $home_loan_cid = cleanInput($_GET['hcid']);
       $home_loan_cid = base64_decode($home_loan_cid);
@@ -37,6 +37,10 @@
       else if($status == '1'){
         $sql = "UPDATE home_loan SET case_status = '1' WHERE home_loan_cid = '$home_loan_cid'";
         $status_msg = 'Case marked as completed';
+      }
+      else if($status == '2'){
+        $sql = "UPDATE home_loan SET case_status = '2' WHERE home_loan_cid = '$home_loan_cid'";
+        $status_msg = 'Case marked as withdraw';
       }
       $conn->query($sql);
       if($conn->error == ''){
@@ -61,6 +65,8 @@
       $sql = "DELETE FROM home_loan_comments WHERE case_id = '$home_loan_cid'"; // Deleting status
       $conn->query($sql);
       $sql = "DELETE FROM home_loan_remarks WHERE case_id = '$home_loan_cid'"; // Deleting remarks
+      $conn->query($sql);
+      $sql = "DELETE FROM user_activity WHERE case_id = '$home_loan_cid'";
       $conn->query($sql);
       if($conn->error == ''){
         
@@ -461,18 +467,6 @@
     <?php require 'includes/layout.php'; ?>
   </head>
   <body>
-    <!-- table scroll btn -->
-    
-    <?php if(sizeof($result_array) > 0){ ?>
-    <div class="table-scroll-btn">
-      <span id="scroll-to-left-end-of-div">
-          <i  class="fas fa-chevron-circle-left"></i>
-      </span>
-      <span id="scroll-to-right-end-of-div" >
-          <i class="fas fa-chevron-circle-right"></i>
-      </span>
-    </div>
-    <?php } ?>
     <!-- search - box -->
     <?php if(sizeof($result_array) > 0){ ?>
     <div class="black-cover-for-search-box"></div>
@@ -615,17 +609,28 @@
         <div class="main-panel">
           <div class="content-wrapper">
 
-            <div class="row">
+            <div class="row ht-100">
 
-              <div class="col-lg grid-margin stretch-card">
+              <div class="col-lg grid-margin stretch-card mb-0">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body set-table-height">
+                    
                     <h4 class="card-title form-inline justify-content-between">
                     Home Loans 
                     <div class="form-inline">
-                      <button onclick="location.href='view-home-loans.php'" class="btn btn-primary btn-setting">
-                          <i class="fas fa-redo-alt"></i> 
-                      </button>
+                    <!-- table scroll btn -->
+                      <div class="table-scroll-btn-container">
+                        <?php if(sizeof($result_array) > 0){ ?>
+                        <div class="table-scroll-btn">
+                          <span id="scroll-to-left-end-of-div">
+                              <i  class="fas fa-chevron-circle-left"></i>
+                          </span>
+                          <span id="scroll-to-right-end-of-div" >
+                              <i class="fas fa-chevron-circle-right"></i>
+                          </span>
+                        </div>
+                        <?php } ?>
+                      </div>
                       
                       <?php if(sizeof($result_array) > 0){ ?>
                       <button id="show-search-popup" class="btn btn-primary">
@@ -680,11 +685,24 @@
                                   <th>Publication in English Newspaper</th>
                                   <th>Requested Bank for documents</th>
                                   <th>Documents received on</th>
+                                  <th>Advocate Name</th>
                                   <th>Documents given to advocate</th>
                                   <th>Application file DM/CMM by Advocate</th>
                                   <th>Date of hearing</th>
                                   <th>Order u/s 14 Received on</th>
                                   <th>Order u/s Forwarded to Bank</th>
+                                  <th>Mortgaged Property on</th>
+                                  <th>Possession Taken on</th>
+                                  <th>Lease with Court Receiver/Tehsildar/SSP on</th>
+                                  <th>Date of  Physical Possession  fixed on</th>
+                                  <th>EMD Deposit</th>
+                                  <th>EMD Deposit on</th>
+                                  <th>15% Of Possession</th>
+                                  <th>15% Of Possession On</th>
+                                  <th>Full Deposit</th>
+                                  <th>Full Deposit on</th>
+                                  <th>Over Above</th>
+                                  <th>Forfitted</th>
                                   <th>Date of compromise</th>
                                   <th>Amount of compromise ₹</th>
                                   <th>Full compromise paid upto ₹</th>
@@ -702,15 +720,8 @@
                                   <th>RA Bill Paid Amount</th>
                                   <th>Total amount of expenses incurred</th>
                                   <th>Income case wise profit/loss</th>
-                                  <th>Case Status</th>
-                                  <th>Edit</th>
-                                  <th>Status</th>
-                                  
-                                  <?php if($logged_in_user_role != '0'){ ?>
-                                  <th>Remarks</th>
-                                  <th>Delete</th>
-                                  <?php } ?>
-
+                                  <th>Action</th>
+                                
                                 </tr>
                               </thead>
 
@@ -760,11 +771,24 @@
                                       <td><?php echo $home_loan['publication_english_newspaper_on']!= '0000-00-00'? $home_loan['publication_english_newspaper_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['requested_bank_for_documents']!= '0000-00-00'? $home_loan['requested_bank_for_documents'] : '-'; ?></td>
                                       <td><?php echo $home_loan['documents_received_on']!= '0000-00-00'? $home_loan['documents_received_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['advocate_name']; ?></td>
                                       <td><?php echo $home_loan['documents_given_to_advocate_on']!= '0000-00-00'? $home_loan['documents_given_to_advocate_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['application_file_dm_cmm_by_advocate_on']!= '0000-00-00'? $home_loan['application_file_dm_cmm_by_advocate_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['date_of_hearing']!= '0000-00-00'? $home_loan['date_of_hearing'] : '-'; ?></td>      
                                       <td><?php echo $home_loan['order_received_on'] != '0000-00-00' ? $home_loan['order_received_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['order_forwarded_to_bank_on'] != '0000-00-00' ? $home_loan['order_forwarded_to_bank_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['mortgage_property_on'] != '0000-00-00' ? $home_loan['mortgage_property_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['possession_taken_on'] != '0000-00-00' ? $home_loan['possession_taken_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['lease_on'] != '0000-00-00' ? $home_loan['lease_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['physical_possession_fixed_on'] != '0000-00-00' ? $home_loan['physical_possession_fixed_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['emd_deposit']; ?></td>
+                                      <td><?php echo $home_loan['emd_deposit_on'] != '0000-00-00' ? $home_loan['emd_deposit_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['fifteen_percent_possession'] ?></td>
+                                      <td><?php echo $home_loan['fifteen_percent_possession_on'] != '0000-00-00' ? $home_loan['fifteen_percent_possession_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['full_deposit']; ?></td>
+                                      <td><?php echo $home_loan['full_deposit_on'] != '0000-00-00' ? $home_loan['full_deposit_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['over_above']; ?></td>
+                                      <td><?php echo $home_loan['forfitted']; ?></td>
                                       <td><?php echo $home_loan['date_of_compromise']!= '0000-00-00'? $home_loan['date_of_compromise'] : '-'; ?></td>
                                       <td><?php echo $home_loan['amount_of_compromise']; ?></td>
                                       <td><?php echo $home_loan['full_compromise_paid_upto']; ?></td>
@@ -807,124 +831,153 @@
                                       <td><?php echo $home_loan['ra_bill_paid_amount']; ?></td>
                                       <td><?php echo $home_loan['total_amount_of_expenses_incurred']; ?></td>
                                       <td><?php echo $home_loan['income_case_wise_profit_loss']; ?></td>
-                                      <td>
-                                            <?php 
-                                              $status = $home_loan['case_status'];
-                                              if($status == '1'){
-                                                ?>
-                                                <i class="mdi mdi-check complete"></i>
-                                                  <span class="complete">Complete</span>
-                                                  <br/><br/>
-                                                  <?php if($logged_in_user_role != '0'){ ?>
-                                                  <a class="toggle-case-status" onclick="return confirm('Mark as pending...')" href="view-home-loans.php?hcid=<?php echo $encoded_cid; ?>&status=0">
-                                                    <i class="fas fa-toggle-on"></i>
-                                                  </a>
-                                                  <?php } ?>
-                                                  
-                                                <?php
-                                              }
-                                              else if($status == '0'){
-                                                ?>
-                                                <span class="pending">Pending...</span>
-                                                  <br/><br/>
-                                                  
-                                                <?php if($logged_in_user_role != '0'){ ?>
-                                                <a class="toggle-case-status" onclick="return confirm('Mark as complete.')" href="view-home-loans.php?hcid=<?php echo $encoded_cid; ?>&status=1">
-                                                  <i class="fas fa-toggle-off"></i>
-                                                </a>
-                                                <?php }  ?>
 
-                                                <?php
-                                              }
-                                            ?>
-                                      </td>
+                                      <?php 
+                                          $status = $home_loan['case_status']; ?>
+                                          <?php
+                                          if($status == '2'){
+                                            $btn_icon = '';
+                                            $btn_class = 'case-withdraw';
+                                            $status_value = 'Withdraw';
+                                          } 
+                                          else if($status == '1'){
+                                             $btn_icon = "<i class='mdi mdi-check icon-mr-5'></i>";
+                                             $btn_class = 'case-complete';
+                                             $status_value = 'Complete';
+                                          } 
+                                          else if($status == '0'){
+                                             $btn_icon = "<i class='fas fa-dot-circle icon-mr-5'></i>";
+                                             $btn_class = '';
+                                             $status_value = 'Pending...';
+                                          }
+                                      ?>
+
                                       <td>
-                                      <?php if($status == '0'){ ?>
-                                          <a class="table-edit-op mb-0" href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
-                                              <span>Edit</span>
-                                              <i class="fas fa-edit"></i>
-                                          </a>
-                                      <?php } ?>
+                                          <div class="custom-action-dropdown">
+                                            <div class="open-custom-dropdown <?php echo $btn_class; ?>">
+                                              <?php echo $btn_icon; ?>
+                                              <?php echo $status_value; ?>
+                                            </div>
+                                            <div class="custom-dropdown-operations">
+                                                <!-- case edit --> 
+                                                <a href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
+                                                  Edit
+                                                </a>
+
+                                                <!-- Add Status -->
+                                                <a href="home-loan-comment.php?cid=<?php echo $encoded_cid; ?>" target="_blank">
+                                                  Add Status
+                                                </a>
+                                                <!-- View Case status -->
+                                                <?php 
+                                                  $sql = "SELECT case_id FROM home_loan_comments WHERE case_id = '$home_loan[home_loan_cid]'";
+                                                  $comments = $conn->query($sql);
+                                                  if($comments->num_rows > 0){
+                                                ?>
+                                                <label class="view-case-status">
+                                                  View Status
+                                                </label>
+                                                <script>
+                                                    $('.view-case-status').eq(<?php echo $index; ?>).click(() => {
+                                                      let case_id = '<?php echo $encoded_cid; ?>'
+                                                      let reqData = {
+                                                        case_id
+                                                      }
+                                                      let url = 'retrieve-home-loan-status.php'
+                                                      $.ajax({
+                                                          url,
+                                                          type : 'POST',
+                                                          dataType : 'html',
+                                                          success : (msg) => {
+                                                          },
+                                                          complete : (res) => {
+                                                              $('.comments-section').html(res.responseText)
+                                                          },
+                                                          data : reqData
+                                                      })
+                                                    })
+                                                </script>
+                                                <?php 
+                                                    $index += 1;
+                                                  }
+                                                ?>
+                                                
+                                                <?php if($logged_in_user_role){ ?> <!-- only admin and privileged user --> 
+
+                                                  <!-- activity log -->
+                                                  <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=1" target="_blank">Case activity log</a>
+                                                  
+                                                  <!-- pending, complete or withdraw -->
+                                                  <?php 
+                                                    if($status == '1' || $status == '0'){
+                                                      ?>
+                                                        <?php if($logged_in_user_role != '0'){ ?>
+                                                        <a onclick="return confirm('Mark as withdraw')" href="view-home-loans.php?hcid=<?php echo $encoded_cid; ?>&status=2">
+                                                          Mark as withdraw
+                                                        </a>
+                                                        <?php } ?>
+                                                        
+                                                      <?php
+                                                    }
+                                                    if($status == '1' || $status == '2'){
+                                                      ?>
+                                                        <?php if($logged_in_user_role != '0'){ ?>
+                                                        <a onclick="return confirm('Mark as pending...')" href="view-home-loans.php?hcid=<?php echo $encoded_cid; ?>&status=0">
+                                                          Mark as pending
+                                                        </a>
+                                                        <?php } ?>
+                                                        
+                                                      <?php
+                                                    }
+                                                    if($status == '0' || $status == '2'){
+                                                      ?>
+                                                      <?php if($logged_in_user_role != '0'){ ?>
+                                                      <a onclick="return confirm('Mark as complete.')" href="view-home-loans.php?hcid=<?php echo $encoded_cid; ?>&status=1">
+                                                        Mark as complete
+                                                      </a>
+                                                      <?php }  ?>
+
+                                                      <?php
+                                                    }
+                                                  ?>
+
+                                                <!-- Add remark -->
+                                                <label class="add-reamrk-table-btn">
+                                                    <span>Add Remark</span>
+                                                </label>
+                                                <script>
+                                                    $('.add-reamrk-table-btn').eq(<?php echo $serial_no-1; ?>).click(() => {
+                                                      showRemarkPopup('<?php echo $encoded_cid; ?>')
+                                                      let caseID = document.getElementById('case-id').innerHTML
+                                                      let reqData = {
+                                                        caseID
+                                                      }
+                                                      let url = 'add-home-loan-remark.php'
+                                                      $.ajax({
+                                                              url,
+                                                              type : 'POST',
+                                                              dataType : 'html',
+                                                              success : (msg) => {
+                                                              },
+                                                              complete : (res) => {
+                                                                  $('#remark-response').html(res.responseText)
+                                                                  document.getElementById('case-remarks').style.display = 'block'
+                                                              },
+                                                              data : reqData
+                                                        })
+                                                    })
+                                                </script>
+
+                                                <!-- Delete case -->
+                                                <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','home-loan')" href="view-home-loans.php?cid=<?php echo $encoded_cid; ?>">
+                                                    Delete Case
+                                                </label>
+
+                                              <?php } ?>
+
+                                            </div>
+                                          </div>
                                       </td>
-                                      <td>
-                                          <?php if(!$status){ ?>
-                                          <a class="table-add-op" href="home-loan-comment.php?cid=<?php echo $encoded_cid; ?>" target="_blank">
-                                              <span>Add</span>
-                                              <i class="fas fa-plus-square"></i>
-                                          </a>
-                                          <?php } ?>
-                                          <?php 
-                                            $sql = "SELECT case_id FROM home_loan_comments WHERE case_id = '$home_loan[home_loan_cid]'";
-                                            $comments = $conn->query($sql);
-                                            if($comments->num_rows > 0){
-                                          ?>
-                                          <label class="table-view-op mb-0">
-                                              <span>View</span>
-                                              <i class="fas fa-eye"></i>
-                                          </label>
-                                          <script>
-                                              $('.table-view-op').eq(<?php echo $index; ?>).click(() => {
-                                                let case_id = '<?php echo $encoded_cid; ?>'
-                                                let reqData = {
-                                                  case_id
-                                                }
-                                                let url = 'retrieve-home-loan-status.php'
-                                                $.ajax({
-                                                    url,
-                                                    type : 'POST',
-                                                    dataType : 'html',
-                                                    success : (msg) => {
-                                                    },
-                                                    complete : (res) => {
-                                                        $('.comments-section').html(res.responseText)
-                                                    },
-                                                    data : reqData
-                                                })
-                                              })
-                                          </script>
-                                          <?php 
-                                              $index += 1;
-                                            }
-                                          ?>
-                                      </td>
-                                      
-                                    <?php if($logged_in_user_role != '0'){ ?>
-                                      <td>
-                                          <label class="edit-btn add-reamrk-table-btn">
-                                              <span>View</span>
-                                              <i class="fas fa-eye"></i>
-                                          </label>
-                                      </td>
-                                      <script>
-                                          $('.add-reamrk-table-btn').eq(<?php echo $serial_no-1; ?>).click(() => {
-                                            showRemarkPopup('<?php echo $encoded_cid; ?>')
-                                            let caseID = document.getElementById('case-id').innerHTML
-                                            let reqData = {
-                                              caseID
-                                            }
-                                            let url = 'add-home-loan-remark.php'
-                                            $.ajax({
-                                                    url,
-                                                    type : 'POST',
-                                                    dataType : 'html',
-                                                    success : (msg) => {
-                                                    },
-                                                    complete : (res) => {
-                                                        $('#remark-response').html(res.responseText)
-                                                        document.getElementById('case-remarks').style.display = 'block'
-                                                    },
-                                                    data : reqData
-                                              })
-                                          })
-                                      </script>
-                                      
-                                      <td>
-                                          <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','home-loan')" class="table-delete-op mb-0" href="view-home-loans.php?cid=<?php echo $encoded_cid; ?>">
-                                              <span>Delete</span>
-                                              <i class="fas fa-trash-alt"></i>
-                                          </label>
-                                      </td>
-                                    <?php } ?>
                                     </tr>
                                     <?php
                                     $serial_no += 1;
@@ -939,13 +992,12 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-          </footer>
+          <!-- <footer class="footer">
+          </footer> -->
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

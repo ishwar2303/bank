@@ -99,17 +99,14 @@
                                 $role = $row['user_role'];
                                 if($role == '2'){
                                   $role_value = 'Admin';
-                                  $css_class = 'admin';
                                   $css_card = 'card bg-gradient-danger card-img-holder text-white';
                                 }
                                 if($role == '1'){
                                   $role_value = 'Privileged User';
-                                  $css_class = 'privileged-user';
                                   $css_card = 'card bg-gradient-info card-img-holder text-white';
                                 }
                                 if($role == '0'){
                                   $role_value = 'Data operator';
-                                  $css_class = 'data-operator';
                                   $css_card = 'card bg-gradient-success card-img-holder text-white';
                                 }
                                 $email = base64_decode($row['user_email']);
@@ -123,7 +120,7 @@
                                         <?php echo $full_name; ?>
                                         <i class="fas fa-user mdi-24px float-right"></i>
                                       </h4>
-                                      <h5 class="mb-2 <?php echo $css_class; ?>">
+                                      <h5 class="mb-2 user-role">
                                         <?php echo $role_value; ?>
                                       </h5>
                                       <h5 class="mb-2">
@@ -184,8 +181,8 @@
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-          </footer>
+          <!-- <footer class="footer">
+          </footer> -->
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

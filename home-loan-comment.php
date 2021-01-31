@@ -208,6 +208,7 @@
                                 </script>
                             </div>
                         </div>
+                        <h4 class="form-part-heading mb-3">If possession pospone on or before of possession </h4>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -297,6 +298,7 @@
                                 </div>
                             </div>
                         </div>
+                        <h4 class="form-part-heading mb-3">Bank put the property on E-auction : </h4>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">

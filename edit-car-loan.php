@@ -227,17 +227,17 @@
                 $control = 0;
             }
         }
-        else{
-            $outstanding_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $outstanding_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($arr_co_nd != ''){
         }
-        else{
-            $arr_co_nd_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $arr_co_nd_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($notice13_sent_on)){
             if(!dateValidation($notice13_sent_on)){
@@ -245,10 +245,10 @@
                 $control = 0;
             }
         }
-        else{
-            $notice13_sent_on_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $notice13_sent_on_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($principal_outstanding != ''){
             if(!amountValidation($principal_outstanding)){
@@ -256,10 +256,10 @@
                 $control = 0;
             }
         }
-        else{
-            $principal_outstanding_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $principal_outstanding_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($bounce_charges != ''){
             if(!amountValidation($bounce_charges)){
@@ -267,10 +267,10 @@
                 $control = 0;
             }
         }
-        else{
-            $bounce_charges_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $bounce_charges_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($overdue_charges != ''){
             if(!amountValidation($overdue_charges)){
@@ -278,10 +278,10 @@
                 $control = 0;
             }
         }
-        else{
-            $overdue_charges_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $overdue_charges_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($other_charges != ''){
             if(!amountValidation($other_charges)){
@@ -289,10 +289,10 @@
                 $control = 0;
             }
         }
-        else{
-            $other_charges_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $other_charges_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($loan_emi_amount != ''){
             if(!amountValidation($loan_emi_amount)){
@@ -300,10 +300,10 @@
                 $control = 0;
             }
         }
-        else{
-            $loan_emi_amount_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $loan_emi_amount_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($no_of_emi_outstanding != ''){
             if(!ctype_digit($no_of_emi_outstanding)){
@@ -311,10 +311,10 @@
                 $control = 0;
             }
         }
-        else{
-            $no_of_emi_outstanding_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $no_of_emi_outstanding_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($reg_no)){
             if(!ctype_digit($reg_no)){
@@ -322,10 +322,10 @@
                 $control = 0;
             }
         }
-        else{
-            $reg_no_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $reg_no_error = 'Required';
+        //     $control = 0;
+        // }
         
         if(!empty($residence_address)){
             if(!addressValidation($residence_address)){
@@ -333,10 +333,10 @@
                 $control = 0;
             }
         }
-        else{
-            $residence_address_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $residence_address_error = 'Required';
+        //     $control = 0;
+        // }
 
         
         if(!empty($residence_contact_no)){
@@ -345,10 +345,10 @@
                 $control = 0;
             }
         }
-        else{
-            $residence_contact_no_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $residence_contact_no_error = 'Required';
+        //     $control = 0;
+        // }
         
         if(!empty($office_address)){
             if(!addressValidation($office_address)){
@@ -356,10 +356,10 @@
                 $control = 0;
             }
         }
-        else{
-            $office_address_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $office_address_error = 'Required';
+        //     $control = 0;
+        // }
 
         
         if(!empty($office_contact_no)){
@@ -368,18 +368,18 @@
                 $control = 0;
             }
         }
-        else{
-            $office_contact_no_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $office_contact_no_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($make)){
 
         }
-        else{
-            $make_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $make_error = 'Required';
+        //     $control = 0;
+        // }
         
         if(!empty($engine_no)){
             if(!alphaNumericSpaceValidation($engine_no)){
@@ -387,10 +387,10 @@
                 $control = 0;
             }
         }
-        else{
-            $engine_no_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $engine_no_error = 'Required';
+        //     $control = 0;
+        // }
         
         if(!empty($chassis_no)){
             if(!alphaNumericSpaceValidation($chassis_no)){
@@ -398,10 +398,10 @@
                 $control = 0;
             }
         }
-        else{
-            $chassis_no_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $chassis_no_error = 'Required';
+        //     $control = 0;
+        // }
         
         if($tenure != ''){
             if(!alphaNumericSpaceValidation($tenure)){
@@ -409,10 +409,10 @@
                 $control = 0;
             }
         }
-        else{
-            $tenure_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $tenure_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($co_applicant_name)){
             if(!alphaSpaceValidation($co_applicant_name)){
@@ -420,10 +420,10 @@
                 $control = 0;
             }
         }
-        else{
-            $co_applicant_name_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $co_applicant_name_error = 'Required';
+        //     $control = 0;
+        // }
         
         if(!empty($co_applicant_mobile)){
             if(!contactValidation($co_applicant_mobile)){
@@ -431,10 +431,10 @@
                 $control = 0;
             }
         }
-        else{
-            $co_applicant_mobile_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $co_applicant_mobile_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($co_applicant_address)){
             if(!addressValidation($co_applicant_address)){
@@ -442,10 +442,10 @@
                 $control = 0;
             }
         }
-        else{
-            $co_applicant_address_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $co_applicant_address_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($employer_name)){
             if(!alphaSpaceValidation($employer_name)){
@@ -453,10 +453,10 @@
                 $control = 0;
             }
         }
-        else{
-            $employer_name_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $employer_name_error = 'Required';
+        //     $control = 0;
+        // }
         
         if(!empty($employer_mobile)){
             if(!contactValidation($employer_mobile)){
@@ -464,10 +464,10 @@
                 $control = 0;
             }
         }
-        else{
-            $employer_mobile_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $employer_mobile_error = 'Required';
+        //     $control = 0;
+        // }
 
         if(!empty($employer_address)){
             if(!addressValidation($employer_address)){
@@ -475,10 +475,10 @@
                 $control = 0;
             }
         }
-        else{
-            $employer_address_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $employer_address_error = 'Required';
+        //     $control = 0;
+        // }
 
 
         if($amount_recovered != ''){
@@ -487,10 +487,10 @@
                 $control = 0;
             }
         }
-        else{
-            $amount_recovered_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $amount_recovered_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($bill_raised != ''){
             if(!amountValidation($bill_raised)){
@@ -498,10 +498,10 @@
                 $control = 0;
             }
         }
-        else{
-            $bill_raised_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $bill_raised_error = 'Required';
+        //     $control = 0;
+        // }
 
         if($payment_received != ''){
             if(!amountValidation($payment_received)){
@@ -509,10 +509,10 @@
                 $control = 0;
             }
         }
-        else{
-            $payment_received_error = 'Required';
-            $control = 0;
-        }
+        // else{
+        //     $payment_received_error = 'Required';
+        //     $control = 0;
+        // }
         
         
         if($control){ // Insert data into database control = 1
@@ -521,15 +521,18 @@
             $employer_address = str_replace("\n", '<br/>', $employer_address);
             $co_applicant_address = str_replace("\n", '<br/>', $co_applicant_address);
             $sql = "UPDATE car_loan SET case_date = '$case_date', bank_name = '$bank_name', home_branch = '$home_branch', account_number = '$account_number', customer_name = '$customer_name', npa_date = '$npa_date', outstanding = '$outstanding', arr_co_nd = '$arr_co_nd', notice13_sent_on = '$notice13_sent_on', principal_outstanding = '$principal_outstanding', bounce_charges = '$bounce_charges', overdue_charges = '$overdue_charges', other_charges = '$other_charges', loan_emi_amount = '$loan_emi_amount', no_of_emi_outstanding = '$no_of_emi_outstanding', reg_no = '$reg_no', residence_address = '$residence_address', residence_contact_no = '$residence_contact_no', office_address = '$office_address', office_contact_no = '$office_contact_no', make = '$make', engine_no = '$engine_no', chassis_no = '$chassis_no', tenure = '$tenure', co_applicant_name = '$co_applicant_name', co_applicant_mobile = '$co_applicant_mobile', co_applicant_address = '$co_applicant_address', employer_name ='$employer_name', employer_mobile = '$employer_mobile', employer_address = '$employer_address', amount_recovered = '$amount_recovered', bill_raised = '$bill_raised', payment_received = '$payment_received' WHERE car_loan_cid = '$car_loan_cid'";
-            $conn->query($sql); 
-            
-            if($conn->error == ''){ 
+            if($conn->query($sql) === TRUE){
+                $case_id = $car_loan_cid;
+                $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '2', '$case_id', '$_SESSION[user_id]', '2', '$timestamp')";
+                $conn->query($sql);
                 $_SESSION['success_msg'] = 'Updated successfully';
                 header('Location: view-car-loans.php');
                 exit;   
-            }   
+            } 
             else{
-                $_SESSION['error_msg'] = 'Something went wrong!';
+                $_SESSION['error_msg'] = 'Something went wrong';
+                header('Location: view-car-loans.php');
+                exit;   
             }
         }
         else{

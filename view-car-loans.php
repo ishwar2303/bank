@@ -423,18 +423,6 @@
     <?php require 'includes/layout.php'; ?>
   </head>
   <body>
-    <!-- table scroll btn -->
-    
-    <?php if(sizeof($result_array) > 0){ ?>
-    <div class="table-scroll-btn">
-      <span id="scroll-to-left-end-of-div">
-          <i  class="fas fa-chevron-circle-left"></i>
-      </span>
-      <span id="scroll-to-right-end-of-div" >
-          <i class="fas fa-chevron-circle-right"></i>
-      </span>
-    </div>
-    <?php } ?>
     <!-- search - box -->
     
     <?php if(sizeof($result_array) > 0){ ?>
@@ -566,17 +554,27 @@
         <div class="main-panel">
           <div class="content-wrapper">
 
-            <div class="row">
+            <div class="row ht-100">
 
-              <div class="col-lg grid-margin stretch-card">
+              <div class="col-lg grid-margin stretch-card mb-0">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body set-table-height">
                     <h4 class="card-title form-inline justify-content-between">
                     Car Loans 
                     <div class="form-inline">
-                      <button onclick="location.href='view-car-loans.php'" class="btn btn-setting">
-                          <i class="fas fa-redo-alt"></i> 
-                      </button>
+                      <!-- table scroll btn -->
+                      <div class="table-scroll-btn-container">
+                        <?php if(sizeof($result_array) > 0){ ?>
+                        <div class="table-scroll-btn">
+                          <span id="scroll-to-left-end-of-div">
+                              <i  class="fas fa-chevron-circle-left"></i>
+                          </span>
+                          <span id="scroll-to-right-end-of-div" >
+                              <i class="fas fa-chevron-circle-right"></i>
+                          </span>
+                        </div>
+                        <?php } ?>
+                      </div>
                       
                       <?php if(sizeof($result_array) > 0){ ?>
                       <button id="show-search-popup" class="btn btn-primary">
@@ -636,6 +634,7 @@
                                   <th>Amount Recovered ₹</th>
                                   <th>Bill Raised ₹</th>
                                   <th>Payment Received ₹</th>
+                                  <th>Activity</th>
                                   <th>Edit</th>
                                   
                                   <?php if($logged_in_user_role != '0'){ ?>
@@ -692,6 +691,9 @@
                                       <td><?php echo $car_loan['amount_recovered']; ?></td>
                                       <td><?php echo $car_loan['bill_raised']; ?></td>
                                       <td><?php echo $car_loan['payment_received']; ?></td>
+                                      <td>
+                                        <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=2" target="_blank">Show</a>
+                                      </td>
                                       <td>
                                           <a class="table-edit-op" href="edit-car-loan.php?cid=<?php echo $encoded_cid; ?>">
                                               <span>Edit</span>
@@ -755,8 +757,8 @@
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-          </footer>
+          <!-- <footer class="footer">
+          </footer> -->
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
