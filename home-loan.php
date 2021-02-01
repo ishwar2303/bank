@@ -52,6 +52,7 @@
     $documents_received_on = '';
     $advocate_name = '';
     $documents_given_to_advocate_on = '';
+    $date_of_redirection_by_advocate = '';
     $application_file_dm_cmm_advocate_on = '';
     $date_of_hearing = '';
     $order_received_on = '';
@@ -60,6 +61,14 @@
     $physical_possession_fixed_on = '';
     $mortgaged_property_on = '';
     $possession_taken_on = '';
+    $possession_postpone_on = '';
+    $postpone_reason = '';
+    $property_on_auction = '';
+    $reserve_price = '';
+    $emd_amount = '';
+    $property_visit_by_prospective_buyers_on = '';
+    $auction_date = '';
+    $auction_status = '-1';
     $emd_deposit = '';
     $emd_deposit_on = '';
     $fifteen_percent_possession_amount = '';
@@ -76,7 +85,8 @@
     $date_of_ots_accepted = '';
     $ots_amount = '';
     $full_ots_paid_upto = '';
-    $compromise_ots_failed = '';
+    $compromise_ots_failed_date = '';
+    $compromise_ots_failed = '-1';
     $property_sold_on = '';
     $property_sold_for = '';
     $full_amount_of_compromise_received_on = '';
@@ -119,6 +129,7 @@
     $documents_received_on_error = '';
     $advocate_name_error = '';
     $documents_given_to_advocate_on_error = '';
+    $date_of_redirection_by_advocate_error = '';
     $application_file_dm_cmm_advocate_on_error = '';
     $date_of_hearing_error = '';
     $order_received_on_error = '';
@@ -127,6 +138,14 @@
     $physical_possession_fixed_on_error = '';
     $mortgaged_property_on_error = '';
     $possession_taken_on_error = '';
+    $possession_postpone_on_error = '';
+    $postpone_reason_error = '';
+    $property_on_auction_error = '';
+    $reserve_price_error = '';
+    $emd_amount_error = '';
+    $property_visit_by_prospective_buyers_on_error = '';
+    $auction_date_error = '';
+    $auction_status_error = '';
     $emd_deposit_error = '';
     $emd_deposit_on_error = '';
     $fifteen_percent_possession_amount_error = '';
@@ -141,6 +160,7 @@
     $date_of_ots_accepted_error = '';
     $ots_amount_error = '';
     $full_ots_paid_upto_error = '';
+    $compromise_ots_failed_date_error = '';
     $compromise_ots_failed_error = '';
     $property_sold_on_error = '';
     $property_sold_for_error = '';
@@ -154,7 +174,7 @@
     $total_amount_of_expenses_incurred_error = '';
     $income_case_wise_profit_loss_error = '';
 
-    if(isset($_POST['caseDate']) && isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankBranch']) && isset($_POST['bankState']) && isset($_POST['bankCity']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstanding']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['hindiPublicationName']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['englishPublicationName']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['advocateName']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['orderReceivedOn']) && isset($_POST['orderForwardedOn']) && isset($_POST['leaseOn']) && isset($_POST['physicalPossessionFixedOn']) && isset($_POST['mortgagedPropertyOn']) && isset($_POST['possessionTakenOn']) && isset($_POST['emdDeposit']) && isset($_POST['emdDepositOn'])  && isset($_POST['fifteenPercentPossession']) && isset($_POST['fifteenPercentPossessionOn']) && isset($_POST['fullDeposit']) && isset($_POST['fullDepositOn']) && isset($_POST['overAbove'])  && isset($_POST['forfitted']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['otsAmount']) && isset($_POST['fullOtsPaidUpto']) && isset($_POST['propertySoldOn']) && isset($_POST['propertySoldFor']) && isset($_POST['fullAmountCompromiseReceivedOn']) && isset($_POST['fullAmountOtsReceivedOn']) && isset($_POST['dateOfRaBill']) && isset($_POST['amountOfRaBill']) && isset($_POST['raBillForwardToBankOn']) && isset($_POST['raBillPaidOn']) && isset($_POST['raBillPaidAmount']) && isset($_POST['totalAmountOfExpensesIncurred']) && isset($_POST['incomeCaseWiseProfitLoss'])){
+    if(isset($_POST['caseDate']) && isset($_POST['npaCase']) && isset($_POST['bankName']) && isset($_POST['bankBranch']) && isset($_POST['bankState']) && isset($_POST['bankCity']) && isset($_POST['bankContactPersonName']) && isset($_POST['bankContactPersonDesignation']) && isset($_POST['bankContactPersonNumber']) && isset($_POST['bankContactPersonEmail']) && isset($_POST['bankAddress']) && isset($_POST['borrowerName']) && isset($_POST['amount']) && isset($_POST['outstanding']) && isset($_POST['raAgreementSignedOn']) && isset($_POST['raAgreementExpiredOn']) && isset($_POST['dateOfNotice132']) && isset($_POST['dateOfNotice133']) && isset($_POST['primarySecurity']) && isset($_POST['collateralSecurity']) && isset($_POST['totalSecurity']) && isset($_POST['dateOfSymbolicPossession']) && isset($_POST['hindiPublicationName']) && isset($_POST['publicationHindiNewspaperOn']) && isset($_POST['englishPublicationName']) && isset($_POST['publicationEnglishNewspaperOn']) && isset($_POST['requestedBankForDocumentsOn']) && isset($_POST['documentsReceivedOn']) && isset($_POST['advocateName']) && isset($_POST['documentsGivenToAdvocate']) && isset($_POST['dateOfRedirectionByAdvocate']) && isset($_POST['applicationFileDmCmmByAdvocateOn']) && isset($_POST['dateOfHearing']) && isset($_POST['orderReceivedOn']) && isset($_POST['orderForwardedOn']) && isset($_POST['leaseOn']) && isset($_POST['physicalPossessionFixedOn']) && isset($_POST['mortgagedPropertyOn']) && isset($_POST['possessionTakenOn']) && isset($_POST['possessionPostponeOn']) && isset($_POST['postponeReason']) && isset($_POST['reservePrice']) && isset($_POST['emdAmount']) && isset($_POST['prospectiveBuyerOn']) && isset($_POST['auctionDate']) && isset($_POST['emdDeposit']) && isset($_POST['emdDepositOn'])  && isset($_POST['fifteenPercentPossession']) && isset($_POST['fifteenPercentPossessionOn']) && isset($_POST['fullDeposit']) && isset($_POST['fullDepositOn']) && isset($_POST['overAbove'])  && isset($_POST['forfitted']) && isset($_POST['compromise']) && isset($_POST['dateOfCompromise']) && isset($_POST['amountOfCompromise']) && isset($_POST['fullCompromisePaidUpto']) && isset($_POST['ots']) && isset($_POST['dateOfOtsAccepted']) && isset($_POST['otsAmount']) && isset($_POST['fullOtsPaidUpto']) && isset($_POST['compromiseOtsFailedDate']) && isset($_POST['propertySoldOn']) && isset($_POST['propertySoldFor']) && isset($_POST['fullAmountCompromiseReceivedOn']) && isset($_POST['fullAmountOtsReceivedOn']) && isset($_POST['dateOfRaBill']) && isset($_POST['amountOfRaBill']) && isset($_POST['raBillForwardToBankOn']) && isset($_POST['raBillPaidOn']) && isset($_POST['raBillPaidAmount']) && isset($_POST['totalAmountOfExpensesIncurred']) && isset($_POST['incomeCaseWiseProfitLoss'])){
         // initialize variables with loan data
         $control = 1;
         $case_date = cleanInput($_POST['caseDate']);
@@ -187,6 +207,7 @@
         $documents_received_on = cleanInput($_POST['documentsReceivedOn']);
         $advocate_name = cleanInput($_POST['advocateName']);
         $documents_given_to_advocate_on = cleanInput($_POST['documentsGivenToAdvocate']);
+        $date_of_redirection_by_advocate = cleanInput($_POST['dateOfRedirectionByAdvocate']);
         $application_file_dm_cmm_advocate_on = cleanInput($_POST['applicationFileDmCmmByAdvocateOn']);
         $date_of_hearing = cleanInput($_POST['dateOfHearing']);
         $order_received_on = cleanInput($_POST['orderReceivedOn']);
@@ -195,6 +216,23 @@
         $physical_possession_fixed_on = cleanInput($_POST['physicalPossessionFixedOn']);
         $mortgaged_property_on = cleanInput($_POST['mortgagedPropertyOn']);
         $possession_taken_on = cleanInput($_POST['possessionTakenOn']);
+        $possession_postpone_on = cleanInput($_POST['possessionPostponeOn']);
+        $postpone_reason = cleanInput($_POST['postponeReason']);
+        $reserve_price = cleanInput($_POST['reservePrice']);
+        $emd_amount = cleanInput($_POST['emdAmount']);
+        $property_visit_by_prospective_buyers_on = cleanInput($_POST['prospectiveBuyerOn']);
+        $auction_date = cleanInput($_POST['auctionDate']);
+        if(isset($_POST['auctionStatus'])){
+            $auction_status = cleanInput($_POST['auctionStatus']);
+            if($auction_status !='1' && $auction_status != '0' && $auction_status != '-1'){
+                $auction_status_error = 'You tried Invalid status code';
+                $control = 0;
+                $auction_status = '-1';
+            }
+        }
+        else{
+            $auction_status = '-1';
+        }
         $emd_deposit = cleanInput($_POST['emdDeposit']);
         $emd_deposit_on = cleanInput($_POST['emdDepositOn']);
         $fifteen_percent_possession_amount = cleanInput($_POST['fifteenPercentPossession']);
@@ -211,6 +249,7 @@
         $date_of_ots_accepted = cleanInput($_POST['dateOfOtsAccepted']);
         $ots_amount = cleanInput($_POST['otsAmount']);
         $full_ots_paid_upto = cleanInput($_POST['fullOtsPaidUpto']);
+        $compromise_ots_failed_date = cleanInput($_POST['compromiseOtsFailedDate']);
         if(isset($_POST['compromiseOtsFailed'])){
             $compromise_ots_failed = cleanInput($_POST['compromiseOtsFailed']);
         }
@@ -651,7 +690,7 @@
         if($control){ // Insert data into database control = 1
             $bank_address = str_replace("\n", "<br/>", $bank_address);
             $collateral_security = str_replace("\n", "<br/>", $collateral_security);
-            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_branch`, `bank_state`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `advocate_name`,  `documents_given_to_advocate_on`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `order_received_on`, `order_forwarded_to_bank_on`, `lease_on`, `physical_possession_fixed_on`, `mortgage_property_on`, `possession_taken_on`, `emd_deposit`, `emd_deposit_on`,  `fifteen_percent_possession`, `fifteen_percent_possession_on`, `full_deposit`, `full_deposit_on`, `over_above`, `forfitted`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`, `hindi_publication_name`, `english_publication_name`, `approved`, `case_status`) VALUES (NULL, '$case_date', '$npa_case', '$bank_name', '$bank_branch', '$bank_state', '$bank_city', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$advocate_name', '$documents_given_to_advocate_on', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$order_received_on', '$order_forwarded_to_bank_on', '$lease_on', '$physical_possession_fixed_on', '$mortgaged_property_on', '$possession_taken_on', '$emd_deposit', '$emd_deposit_on', '$fifteen_percent_possession_amount', '$fifteen_percent_possession_on', '$full_deposit', '$full_deposit_on', '$over_above', '$forfitted', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$ots_amount', '$full_ots_paid_upto', '$compromise_ots_failed', '$property_sold_on', '$property_sold_for', '$full_amount_of_compromise_received_on', '$full_amount_of_ots_received_on', '$date_of_ra_bill', '$amount_of_ra_bill', '$ra_bill_forward_to_bank_on', '$ra_bill_paid_on', '$ra_bill_paid_amount', '$total_amount_of_expenses_incurred', '$income_case_wise_profit_loss', '$hindi_publication_name', '$english_publication_name', '0', '0')";
+            $sql = "INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_branch`, `bank_state`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `advocate_name`,  `documents_given_to_advocate_on`, `date_of_redirection_by_advocate`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `order_received_on`, `order_forwarded_to_bank_on`, `lease_on`, `physical_possession_fixed_on`, `mortgage_property_on`, `possession_taken_on`, `possession_postpone_on`, `possession_postpone_reason`,  `reserve_price`, `emd_amount`, `property_visit_by_prospective_buyers_on`, `auction_date`, `auction_status`,  `emd_deposit`, `emd_deposit_on`,  `fifteen_percent_possession`, `fifteen_percent_possession_on`, `full_deposit`, `full_deposit_on`, `over_above`, `forfitted`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots`, `amount_of_ots_paid_upto`, `compromise_ots_failed_date`, `compromise_ots_failed`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`, `hindi_publication_name`, `english_publication_name`, `approved`, `case_status`) VALUES (NULL, '$case_date', '$npa_case', '$bank_name', '$bank_branch', '$bank_state', '$bank_city', '$bank_address', '$bank_contact_person_name', '$bank_contact_person_number', '$bank_contact_person_designation', '$bank_contact_person_email', '$borrower_name', '$amount', '$outstanding', '$ra_agreement_signed_on', '$ra_agreement_expired_on', '$date_of_notice13_2', '$date_of_notice13_3', '$primary_security', '$collateral_security', '$total_security', '$date_of_symbolic_possession', '$publication_hindu_newspaper', '$publication_english_newspapaer', '$requested_bank_for_documentation_on', '$documents_received_on', '$advocate_name', '$documents_given_to_advocate_on', '$date_of_redirection_by_advocate', '$application_file_dm_cmm_advocate_on', '$date_of_hearing', '$order_received_on', '$order_forwarded_to_bank_on', '$lease_on', '$physical_possession_fixed_on', '$mortgaged_property_on', '$possession_taken_on', '$possession_postpone_on', '$postpone_reason', '$reserve_price', '$emd_amount', '$property_visit_by_prospective_buyers_on', '$auction_date', '$auction_status', '$emd_deposit', '$emd_deposit_on', '$fifteen_percent_possession_amount', '$fifteen_percent_possession_on', '$full_deposit', '$full_deposit_on', '$over_above', '$forfitted', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$ots_amount', '$full_ots_paid_upto', '$compromise_ots_failed_date', '$compromise_ots_failed', '$property_sold_on', '$property_sold_for', '$full_amount_of_compromise_received_on', '$full_amount_of_ots_received_on', '$date_of_ra_bill', '$amount_of_ra_bill', '$ra_bill_forward_to_bank_on', '$ra_bill_paid_on', '$ra_bill_paid_amount', '$total_amount_of_expenses_incurred', '$income_case_wise_profit_loss', '$hindi_publication_name', '$english_publication_name', '0', '0')";
             if($conn->query($sql) === TRUE){ 
                 $case_id = $conn->insert_id;
                 $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '1', '$timestamp')";
@@ -903,7 +942,7 @@
                                             <i class="fas fa-dot-circle"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-input" id="" name="bankContactPersonDesignation" placeholder="Designation" value="<?php echo $bank_contact_person_designation; ?>">
+                                    <input type="text" class="form-control form-input" name="bankContactPersonDesignation" placeholder="Designation" value="<?php echo $bank_contact_person_designation; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $bank_contact_person_designation_error; ?>
@@ -1097,7 +1136,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="date-of-notice13-3"  name="primarySecurity" value="<?php echo $primary_security; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" name="primarySecurity" value="<?php echo $primary_security; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $primary_security_error; ?>
@@ -1110,7 +1149,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Collateral Security</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="collateralSecurity" id="" cols="30" rows="5"><?php echo $collateral_security; ?></textarea>
+                                    <textarea class="form-control form-input" name="collateralSecurity"  cols="30" rows="5"><?php echo $collateral_security; ?></textarea>
                                     </div>
                                     <div  class="form-input-response">
                                         <?php echo $collateral_security_error; ?>
@@ -1128,7 +1167,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="date-of-notice13-3"  name="totalSecurity" value="<?php echo $total_security; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="totalSecurity" value="<?php echo $total_security; ?>">
                                     </div>
                                     <div  class="form-input-response">
                                         <?php echo $total_security_error; ?>
@@ -1274,10 +1313,6 @@
                                         <?php echo $advocate_name_error; ?>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Documents given to advocte for filling appliation u/s 14 on</label>
                                     <div class="input-group">
@@ -1294,6 +1329,27 @@
                                 </div>
                                 <script>
                                     document.getElementById('documents-to-advocate').defaultValue = '<?php echo $documents_given_to_advocate_on; ?>'
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date Of Redirection by advocate</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="date-of-redirection-by-advocate" name="dateOfRedirectionByAdvocate">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $date_of_redirection_by_advocate_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('date-of-redirection-by-advocate').defaultValue = '<?php echo $date_of_redirection_by_advocate; ?>'
                                 </script>
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Application file with DM/CMM by Advocate on</label>
@@ -1314,6 +1370,7 @@
                                 </script>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -1448,6 +1505,150 @@
                             </div>
                         </div>
 
+                        <h4 class="form-part-heading mb-3">If possession pospone on or before of possession </h4>
+                        <div class="form-group postpone-part">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Possession postpone on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="possession-postpone-on" type="date" class="form-control form-input" name="possessionPostponeOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $possession_postpone_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('possession-postpone-on').defaultValue = '<?php echo $possession_postpone_on; ?>'
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group postpone-part">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Postpone reason</label>
+                                    <div class="input-group">
+                                    <textarea class="form-control form-input" name="postponeReason" cols="30" rows="5"><?php echo $postpone_reason; ?></textarea>
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $postpone_reason_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="form-part-heading mb-3">Bank put the property on E-auction : </h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Reserve Price</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step=".000001" class="form-control form-input" name="reservePrice" placeholder="Amount" value="<?php echo $reserve_price; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $reserve_price_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">EMD Amount</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step=".000001" class="form-control form-input" name="emdAmount" placeholder="Amount" value="<?php echo $emd_amount; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $emd_amount_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Property visit by prospective buyers on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="prospective-buyer-on" name="prospectiveBuyerOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $property_visit_by_prospective_buyers_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('prospective-buyer-on').defaultValue = '<?php echo $property_visit_by_prospective_buyers_on; ?>'
+                                </script>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Auction Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="auction-date" name="auctionDate">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $auction_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('auction-date').defaultValue = '<?php echo $auction_date; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label class="exampleInputCity1">Auction Status</label>
+                                    <div class="radio-inputs">
+                                        <label>
+                                            <input type="radio" name="auctionStatus" value="1" <?php if($auction_status == '1') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-check radio-check-icon"></i>
+                                                Success
+                                            </span>
+                                        </label>
+                                        <label>
+                                        <input type="radio" name="auctionStatus" value="0" <?php if($auction_status == '0') echo 'checked'; ?>>
+                                            <span>
+                                                <i class="fa fa-close radio-cross-icon"></i>
+                                                Fail
+                                            </span>
+                                        </label>
+                                        <label>
+                                        <input type="radio" name="auctionStatus" value="-1" <?php if($auction_status == '-1') echo 'checked'; ?>>
+                                            <span>
+                                                None
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $auction_status_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- EMD -->
                         <div class="form-group postpone-part">
                             <div class="row">
@@ -1640,7 +1841,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step=".01" class="form-control form-input" name="amountOfCompromise" placeholder="Amount" value="<?php echo $amount_of_compromise; ?>">
+                                    <input type="number" step=".000001" class="form-control form-input" name="amountOfCompromise" placeholder="Amount" value="<?php echo $amount_of_compromise; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $amount_of_compromise_error; ?>
@@ -1658,7 +1859,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step=".01" class="form-control form-input" name="fullCompromisePaidUpto" placeholder="Amount" value="<?php echo $full_compromise_paid_upto; ?>">
+                                    <input type="number" step=".000001" class="form-control form-input" name="fullCompromisePaidUpto" placeholder="Amount" value="<?php echo $full_compromise_paid_upto; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $full_compromise_paid_upto_error; ?>
@@ -1720,7 +1921,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step=".01" class="form-control form-input" name="otsAmount" placeholder="Amount" value="<?php echo $ots_amount; ?>">
+                                    <input type="number" step=".000001" class="form-control form-input" name="otsAmount" placeholder="Amount" value="<?php echo $ots_amount; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $ots_amount_error; ?>
@@ -1738,12 +1939,34 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step=".01" class="form-control form-input" name="fullOtsPaidUpto" placeholder="Amount" value="<?php echo $full_ots_paid_upto; ?>">
+                                    <input type="number" step=".000001" class="form-control form-input" name="fullOtsPaidUpto" placeholder="Amount" value="<?php echo $full_ots_paid_upto; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $full_ots_paid_upto_error; ?>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <h4 class="form-part-heading mb-3">Compromise/OTS - failed </h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Compromise/OTS failed Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="compromise-ots-failed-date" name="compromiseOtsFailedDate">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $compromise_ots_failed_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('compromise-ots-failed-date').defaultValue = '<?php echo $compromise_ots_failed_date; ?>'
+                                </script>
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Compromise OTS Failed</label>
                                     <div class="radio-inputs">
@@ -1761,6 +1984,12 @@
                                                 No
                                             </span>
                                         </label>
+                                        <label>
+                                        <input type="radio" name="compromiseOtsFailed" value="-1" <?php if($compromise_ots_failed == '-1') echo 'checked'; ?>>
+                                            <span>
+                                                None
+                                            </span>
+                                        </label>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $compromise_ots_failed_error; ?>
@@ -1768,7 +1997,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -1796,7 +2024,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step=".01" class="form-control form-input" name="propertySoldFor" placeholder="Amount" value="<?php echo $property_sold_for; ?>">
+                                    <input type="number" step=".000001" class="form-control form-input" name="propertySoldFor" placeholder="Amount" value="<?php echo $property_sold_for; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $property_sold_for_error; ?>
@@ -1871,7 +2099,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step=".01" class="form-control form-input" name="amountOfRaBill" placeholder="Amount" value="<?php echo $amount_of_ra_bill; ?>">
+                                    <input type="number" step=".000001" class="form-control form-input" name="amountOfRaBill" placeholder="Amount" value="<?php echo $amount_of_ra_bill; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $amount_of_ra_bill_error; ?>

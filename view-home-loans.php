@@ -35,13 +35,17 @@
         if($approve == '1'){
           $msg = 'Case Approved';
           $note_msg = "Data operator can't commit any changes to the case from now";
+          $operation = '3';
         }
         else if($approve == '0'){
           $msg = 'Case Refused';
           $note_msg = "Data operator can commit changes to the case from now";
+          $operation = '4';
         }
         $_SESSION['success_msg'] = $msg;
         $_SESSION['note_msg'] = $note_msg;
+        $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$home_loan_cid', '$_SESSION[user_id]', '$operation', '$timestamp')";
+        $conn->query($sql);
         header('Location: view-home-loans.php');
         exit;
       }
@@ -61,15 +65,20 @@
       if($status == '0'){
         $sql = "UPDATE home_loan SET case_status = '0' WHERE home_loan_cid = '$home_loan_cid'";
         $status_msg = 'Case marked as pending...';
+        $operation = '5';
       }
       else if($status == '1'){
         $sql = "UPDATE home_loan SET case_status = '1' WHERE home_loan_cid = '$home_loan_cid'";
         $status_msg = 'Case marked as completed';
+        $operation = '6';
       }
       else if($status == '2'){
         $sql = "UPDATE home_loan SET case_status = '2' WHERE home_loan_cid = '$home_loan_cid'";
         $status_msg = 'Case marked as withdraw';
+        $operation = '7';
       }
+      $conn->query($sql);
+      $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$home_loan_cid', '$_SESSION[user_id]', '$operation', '$timestamp')";
       $conn->query($sql);
       if($conn->error == ''){
         $_SESSION['success_msg'] = $status_msg;
@@ -90,7 +99,7 @@
       $home_loan_cid = base64_decode($home_loan_cid);
       $sql = "DELETE FROM home_loan WHERE home_loan_cid = '$home_loan_cid'"; 
       $conn->query($sql);
-      $sql = "DELETE FROM home_loan_comments WHERE case_id = '$home_loan_cid'"; // Deleting status
+      $sql = "DELETE FROM home_loan_status WHERE case_id = '$home_loan_cid'"; // Deleting status
       $conn->query($sql);
       $sql = "DELETE FROM home_loan_remarks WHERE case_id = '$home_loan_cid'"; // Deleting remarks
       $conn->query($sql);
@@ -110,12 +119,17 @@
       }
     }
 
-    // Deleting home loan comment
-    if(isset($_GET['comment_id'])){
-      $comment_id = base64_decode($_GET['comment_id']);
-      $sql = "DELETE FROM home_loan_comments WHERE comment_id = '$comment_id'";
+    // Deleting home loan status
+    if(isset($_GET['status_id'])){
+      $status_id = base64_decode(cleanInput($_GET['status_id']));
+      $sql = "SELECT case_id FROM home_loan_status WHERE status_id = '$status_id'";
+      $result = $conn->query($sql);
+      $row = $result->fetch_assoc();
+      $case_id = $row['case_id'];
+      $sql = "DELETE FROM home_loan_status WHERE status_id = '$status_id'";
       $conn->query($sql);
-
+      $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '11', '$timestamp')";
+      $conn->query($sql);
       if($conn->error == ''){
         $_SESSION['success_msg'] = 'Deleted Successfully';
         header('Location: view-home-loans.php');
@@ -725,12 +739,21 @@
                                   <th>Documents received on</th>
                                   <th>Advocate Name</th>
                                   <th>Documents given to advocate</th>
+                                  <th>Date Of Redirection by advocate</th>
                                   <th>Application file DM/CMM by Advocate</th>
                                   <th>Date of hearing</th>
                                   <th>Order u/s 14 Received on</th>
                                   <th>Order u/s Forwarded to Bank</th>
                                   <th>Mortgaged Property on</th>
                                   <th>Possession Taken on</th>
+                                  <th>Possession postpone</th>
+                                  <th>Postpone reason</th>
+                                  <th>Property on Auction</th>
+                                  <th>Reserve Price</th>
+                                  <th>EMD Amount</th>
+                                  <th>Property visit by prospective buyers</th>
+                                  <th>Auction Date</th>
+                                  <th>Auction Status</th>
                                   <th>Lease with Court Receiver/Tehsildar/SSP on</th>
                                   <th>Date of  Physical Possession  fixed on</th>
                                   <th>EMD Deposit</th>
@@ -746,7 +769,8 @@
                                   <th>Full compromise paid upto ₹</th>
                                   <th>OTS accepted</th>
                                   <th>Full amount of OTS paid upto ₹</th>
-                                  <th>Compromise OTS Failed</th>
+                                  <th>Compromise/OTS Failed Date</th>
+                                  <th>Compromise/OTS Failed</th>
                                   <th>Property sold on</th>
                                   <th>Property sold for</th>
                                   <th>Full amount of compromise received on</th>
@@ -811,12 +835,44 @@
                                       <td><?php echo $home_loan['documents_received_on']!= '0000-00-00'? $home_loan['documents_received_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['advocate_name']; ?></td>
                                       <td><?php echo $home_loan['documents_given_to_advocate_on']!= '0000-00-00'? $home_loan['documents_given_to_advocate_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['date_of_redirection_by_advocate'] != '0000-00-00' ? $home_loan['date_of_redirection_by_advocate'] : '-'; ?></td>
                                       <td><?php echo $home_loan['application_file_dm_cmm_by_advocate_on']!= '0000-00-00'? $home_loan['application_file_dm_cmm_by_advocate_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['date_of_hearing']!= '0000-00-00'? $home_loan['date_of_hearing'] : '-'; ?></td>      
                                       <td><?php echo $home_loan['order_received_on'] != '0000-00-00' ? $home_loan['order_received_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['order_forwarded_to_bank_on'] != '0000-00-00' ? $home_loan['order_forwarded_to_bank_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['mortgage_property_on'] != '0000-00-00' ? $home_loan['mortgage_property_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['possession_taken_on'] != '0000-00-00' ? $home_loan['possession_taken_on'] : '-'; ?></td>
+                                      
+                                      <td><?php echo $home_loan['possession_postpone_on'] != '0000-00-00' ? $home_loan['possession_postpone_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['possession_postpone_reason']; ?></td>
+                                      <td><?php echo $home_loan['property_on_auction'] != '0000-00-00' ? $home_loan['property_on_auction'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['reserve_price'] != '0000-00-00' ? $home_loan['reserve_price'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['emd_amount'] != '0000-00-00' ? $home_loan['emd_amount'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['property_visit_by_prospective_buyers_on'] != '0000-00-00' ? $home_loan['property_visit_by_prospective_buyers_on'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['auction_date'] != '0000-00-00' ? $home_loan['auction_date'] : '-'; ?></td>
+                                      <td>
+                                          <?php 
+                                          $status = $home_loan['auction_status'];
+                                              if($status == '-1')
+                                                  echo '-';
+                                              else if($status == '1'){
+                                                  ?>
+                                                  <div class="success-status">
+                                                      <i class="fas fa-dot-circle"></i>
+                                                      <span>Success</span>
+                                                  </div>
+                                                  <?php
+                                              }
+                                              else if($status == '0'){
+                                                  ?>
+                                                  <div class="failed-status">
+                                                      <i class="fas fa-dot-circle"></i>
+                                                      <span>Failed</span>
+                                                  </div>
+                                                  <?php
+                                              }
+                                          ?>
+                                      </td>
                                       <td><?php echo $home_loan['lease_on'] != '0000-00-00' ? $home_loan['lease_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['physical_possession_fixed_on'] != '0000-00-00' ? $home_loan['physical_possession_fixed_on'] : '-'; ?></td>
                                       <td><?php echo $home_loan['emd_deposit']; ?></td>
@@ -832,6 +888,7 @@
                                       <td><?php echo $home_loan['full_compromise_paid_upto']; ?></td>
                                       <td><?php echo $home_loan['date_of_ots_accepted']!= '0000-00-00'? $home_loan['date_of_ots_accepted'] : '-'; ?></td>
                                       <td><?php echo $home_loan['amount_of_ots_paid_upto']; ?></td>
+                                      <td><?php echo $home_loan['compromise_ots_failed_date']!= '0000-00-00'? $home_loan['compromise_ots_failed_date'] : '-'; ?></td>
                                       <td>
                                         <?php $compromise_ots_failed = $home_loan['compromise_ots_failed']; 
                                             if($compromise_ots_failed == '-1')
@@ -885,9 +942,10 @@
                                              $status_value = 'Complete';
                                           } 
                                           else if($status == '0'){
-                                             $btn_icon = "<i class='fas fa-dot-circle icon-mr-5'></i>";
+                                            
+                                             $btn_icon = "<i class='fas fa-spinner fa-spin icon-mr-5'></i>";
                                              $btn_class = '';
-                                             $status_value = 'Pending...';
+                                             $status_value = 'In Progress';
                                           }
                                       ?>
 
@@ -901,24 +959,24 @@
                                                 <!-- case edit --> 
                                                 <?php if($logged_in_user_role == '0' && !$home_loan_approved){ ?> <!-- Data operator can only edit till the case is not approved -->
                                                 <a href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
-                                                  Edit
+                                                  Edit Case
                                                 </a>
                                                 <?php } ?>
                                                 <?php if($logged_in_user_role != '0'){ ?> <!-- Admin and privileged user can edit -->
                                                 <a href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
-                                                  Edit
+                                                  Edit Case
                                                 </a>
                                                 <?php } ?>
 
                                                 <!-- Add Status -->
-                                                <a href="home-loan-comment.php?cid=<?php echo $encoded_cid; ?>" target="_blank">
+                                                <a href="home-loan-status.php?cid=<?php echo $encoded_cid; ?>" target="_blank">
                                                   Add Status
                                                 </a>
                                                 <!-- View Case status -->
                                                 <?php 
-                                                  $sql = "SELECT case_id FROM home_loan_comments WHERE case_id = '$home_loan[home_loan_cid]'";
-                                                  $comments = $conn->query($sql);
-                                                  if($comments->num_rows > 0){
+                                                  $sql = "SELECT case_id FROM home_loan_status WHERE case_id = '$home_loan[home_loan_cid]'";
+                                                  $home_loan_status = $conn->query($sql);
+                                                  if($home_loan_status->num_rows > 0){
                                                 ?>
                                                 <label class="view-case-status">
                                                   View Status
@@ -978,7 +1036,7 @@
                                                       ?>
                                                         <?php if($logged_in_user_role != '0'){ ?>
                                                         <a onclick="return confirm('Mark as pending...')" href="view-home-loans.php?hcid=<?php echo $encoded_cid; ?>&status=0">
-                                                          Mark as pending
+                                                          In Progress...
                                                         </a>
                                                         <?php } ?>
                                                         
@@ -1066,13 +1124,13 @@
                                               console.log('space below : ' + spaceBelow)
 
                                               let dropdownMenuHeight = dropdownBox.offsetHeight
-                                              if(dropdownMenuHeight <= spaceAbove){
-                                                dropdownBox.style.top = '-' + (dropdownMenuHeight - 35) + 'px'
-                                                console.log('space available above')
-                                              }
-                                              else if(dropdownMenuHeight <= spaceBelow + 50){
+                                              if(dropdownMenuHeight <= spaceBelow + 50){
                                                 dropdownBox.style.top = '0px'
                                                 console.log('space available below')
+                                              }
+                                              else if(dropdownMenuHeight <= spaceAbove){
+                                                dropdownBox.style.top = '-' + (dropdownMenuHeight - 35) + 'px'
+                                                console.log('space available above')
                                               }
                                               else{
                                                 dropdownBox.style.top = '-' + (spaceAbove-150) + 'px'
@@ -1255,12 +1313,12 @@
 <script>
   document.getElementById('scroll-to-left-end-of-div').addEventListener('click', ()=>{
     let tableContainer = document.getElementsByClassName('table-container')[0]
-    tableContainer.scroll(0,0)
+    tableContainer.scroll(0, tableContainer.scrollTop)
   })
   document.getElementById('scroll-to-right-end-of-div').addEventListener('click', ()=>{
     let tableContainer = document.getElementsByClassName('table-container')[0]
     let tableContainerWidth = tableContainer.scrollWidth
-    tableContainer.scroll(tableContainerWidth,0)
+    tableContainer.scroll(tableContainerWidth, tableContainer.scrollTop)
   })
 </script>
 

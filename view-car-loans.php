@@ -902,11 +902,11 @@
 <script>
   document.getElementById('scroll-to-left-end-of-div').addEventListener('click', ()=>{
     let tableContainer = document.getElementsByClassName('table-container')[0]
-    tableContainer.scroll(0,0)
+    tableContainer.scroll(0, tableContainer.scrollTop)
   })
   document.getElementById('scroll-to-right-end-of-div').addEventListener('click', ()=>{
     let tableContainer = document.getElementsByClassName('table-container')[0]
     let tableContainerWidth = tableContainer.scrollWidth
-    tableContainer.scroll(tableContainerWidth,0)
+    tableContainer.scroll(tableContainerWidth, tableContainer.scrollTop)
   })
 </script>

@@ -11,6 +11,12 @@
     }
   }
 
+
+  date_default_timezone_set("Asia/Kolkata");
+  $epoch_time = time();
+  $timestamp = date("y-m-d h:i:sa", $epoch_time);
+
+
   if(isset($_GET['cid']) && isset($_GET['loan'])){
         $case_id = base64_decode(cleanInput($_GET['cid']));
         $loan = cleanInput($_GET['loan']);
@@ -23,8 +29,13 @@
           header('Location: index.php');
           exit;
         }
-        $sql = "SELECT user_registration.user_full_name, user_registration.user_email, user_registration.user_mobile, user_registration.user_role, user_activity.operation, user_activity.timestamp FROM user_registration JOIN user_activity ON user_registration.user_id = user_activity.user_id WHERE user_activity.case_id = '$case_id' AND user_activity.loan = '$loan'";
+        $sql = "SELECT user_registration.user_full_name, user_registration.user_email, user_registration.user_mobile, user_registration.user_role, user_activity.operation, user_activity.timestamp FROM user_registration JOIN user_activity ON user_registration.user_id = user_activity.user_id WHERE user_activity.case_id = '$case_id' AND user_activity.loan = '$loan' ORDER BY user_activity.timestamp DESC";
         $result = $conn->query($sql);
+        if($result->num_rows == 0){
+          $_SESSION['error_msg'] = 'View Activity Log case wise';
+          header('Location: index.php');
+          exit;
+        }
   }
   else{
       $_SESSION['error_msg'] = 'Select a case to view its activity';
@@ -58,7 +69,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title form-inline justify-content-between">
-                      <?php echo $loan_name; ?> Case Activity
+                      <?php echo $loan_name; ?> Case Activity Log
                     </h4>
             
                 
@@ -91,6 +102,24 @@
                                                     $operation_value = 'Created';
                                                 else if($operation == '2')
                                                     $operation_value = 'Updated';
+                                                else if($operation == '3')
+                                                    $operation_value = 'Approved';
+                                                else if($operation == '4')
+                                                    $operation_value = 'Refused';
+                                                else if($operation == '5')
+                                                    $operation_value = 'In Progress';
+                                                else if($operation == '6')
+                                                    $operation_value = 'Complete';
+                                                else if($operation == '7')
+                                                    $operation_value = 'Withdraw';
+                                                else if($operation == '8')
+                                                    $operation_value = 'Added Remark';
+                                                else if($operation == '9')
+                                                    $operation_value = 'Added Status';
+                                                else if($operation == '10')
+                                                    $operation_value = 'Deleted Remark';
+                                                else if($operation == '11')
+                                                    $operation_value = 'Deleted Status';
                                                 echo $operation_value;
                                             ?>
                                         </td>

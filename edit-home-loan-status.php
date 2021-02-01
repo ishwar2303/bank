@@ -16,7 +16,7 @@
     $db_error = '';
     if(isset($_GET['comment_id'])){
         $comment_id = base64_decode($_GET['comment_id']);
-        $sql = "SELECT * FROM home_loan_comments WHERE comment_id = '$comment_id'";
+        $sql = "SELECT * FROM home_loan_status WHERE status_id = '$comment_id'";
         $result = $conn->query($sql);
         if($conn->error == ''){
             if($result->num_rows == 1){ 

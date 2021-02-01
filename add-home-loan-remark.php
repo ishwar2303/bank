@@ -17,6 +17,8 @@
             $remark = str_replace("\n", "<br/>", $remark);
             $sql = "INSERT INTO `home_loan_remarks` (`remark_id`, `case_id`, `remark_date`, `remark`) VALUES (NULL, '$case_id', '$timestamp', '$remark')";
             $conn->query($sql);
+            $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '8', '$timestamp')";
+            $conn->query($sql);
             if($conn->error == ''){
                 ?>
                 <label class="success-msg mt-2 mb-2">
@@ -38,10 +40,13 @@
         }
     }
 
-    if(isset($_POST['remarkIdDelete'])){
+    if(isset($_POST['remarkIdDelete']) && isset($_POST['caseID'])){
+        $case_id = base64_decode(cleanInput($_POST['caseID']));
         $remark_id = cleanInput($_POST['remarkIdDelete']);
         if($remark_id != ''){
             $sql = "DELETE FROM home_loan_remarks WHERE remark_id = '$remark_id'";
+            $conn->query($sql);
+            $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '10', '$timestamp')";
             $conn->query($sql);
             if($conn->error == ''){
                 ?>

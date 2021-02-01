@@ -258,8 +258,8 @@
         URL = 'view-car-loans.php?cid=' + DeleteRESOURCEID;
       if(ResourceTypeID == 'user')
         URL = 'view-users.php?user_id=' + DeleteRESOURCEID;
-      if(ResourceTypeID == 'home-loan-comment')
-        URL = 'view-home-loans.php?comment_id=' + DeleteRESOURCEID;
+      if(ResourceTypeID == 'home-loan-status')
+        URL = 'view-home-loans.php?status_id=' + DeleteRESOURCEID;
       location.href= URL;
     }
     function confirmResourceDeletion(RID, TID){

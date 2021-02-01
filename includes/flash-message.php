@@ -8,6 +8,11 @@ if(isset($_SESSION['success_msg'])){
         </span>
         <i class="mdi mdi-window-close close-success-flash-msg"></i>
     </div>
+    <script>
+    setTimeout(() => {
+        $('.success-msg').remove()
+    }, 10000)
+    </script>
     <?php
     unset($_SESSION['success_msg']);
 }
@@ -22,6 +27,11 @@ if(isset($_SESSION['error_msg'])){
         </span>
         <i class="mdi mdi-window-close close-error-flash-msg"></i>
     </div>
+    <script>
+    setTimeout(() => {
+        $('.error-msg').remove()
+    }, 10000)
+    </script>
     <?php
     unset($_SESSION['error_msg']);
 }
@@ -36,6 +46,11 @@ if(isset($_SESSION['note_msg'])){
         </span>
         <i class="mdi mdi-window-close close-note-flash-msg"></i>
     </div>
+    <script>
+    setTimeout(() => {
+        $('.note-msg').remove()
+    }, 10000)
+    </script>
     <?php
     unset($_SESSION['note_msg']);
 }

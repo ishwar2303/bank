@@ -12100,7 +12100,7 @@ code {
   border: 0;
   background: #fff; }
   .card .card-body {
-    padding: 2rem 2rem; }
+    padding: 1rem 1rem; }
     .card .card-body + .card-body {
       padding-top: 1rem; }
   .card .card-title {
@@ -14343,7 +14343,7 @@ scroll-behavior: smooth;
 .table-container th{
   position: sticky;
   top: 0;
-  background: #9a55ff;
+  background: #a680de;
   z-index: 5;
   color: white;
 }
@@ -14375,7 +14375,7 @@ position: relative;
   align-items: center;
   border-radius: 50%;
   font-size: 25px;
-  color : rgb(154, 85, 255, 1);
+  color : rgb(154, 85, 255, 0.7);
 }
 #scroll-to-right-end-of-div{
   width: 35px;
@@ -14385,7 +14385,7 @@ position: relative;
   align-items: center;
   border-radius: 50%;
   font-size: 25px;
-  color : rgb(154, 85, 255, 1);
+  color : rgb(154, 85, 255, 0.7);
 }
 
 #scroll-to-left-end-of-div:hover, #scroll-to-right-end-of-div:hover{
@@ -14534,14 +14534,14 @@ position: relative;
   position: relative;
 }
 .open-custom-dropdown{
-  width: 100px;
+  width: 110px;
   border-radius: 5px;
   border: 0.5px solid #ecf0f1;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 35px;
-  background: #b688fc;
+  background: #3498db;
   color : white;
   cursor: pointer;
 }
@@ -14557,6 +14557,7 @@ position: relative;
   z-index: 10;
   width: 135px;
   margin-bottom: 10px;
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5);
 }
 .custom-dropdown-operations > a, .custom-dropdown-operations > label{
   padding: 0px 5px;
@@ -14566,6 +14567,10 @@ position: relative;
   justify-content: flex-start;
   align-items: center;
   color: #2980b9;
+  border-bottom: 0.5px solid rgb(154, 85, 255, 0.4);
+}
+.custom-action-dropdown label:last-child, .custom-action-dropdown a:last-child{
+  border-bottom: none;
 }
 .custom-dropdown-operations > a:hover,.custom-dropdown-operations > label:hover{
   text-decoration: none;
