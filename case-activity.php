@@ -29,7 +29,7 @@
           header('Location: index.php');
           exit;
         }
-        $sql = "SELECT user_registration.user_full_name, user_registration.user_email, user_registration.user_mobile, user_registration.user_role, user_activity.operation, user_activity.timestamp FROM user_registration JOIN user_activity ON user_registration.user_id = user_activity.user_id WHERE user_activity.case_id = '$case_id' AND user_activity.loan = '$loan' ORDER BY user_activity.timestamp DESC";
+        $sql = "SELECT user_registration.user_full_name, user_registration.user_email, user_registration.user_mobile, user_registration.user_role, user_activity.timestamp, activity_list.operation_name FROM user_registration JOIN user_activity ON user_registration.user_id = user_activity.user_id JOIN activity_list ON user_activity.operation_id = activity_list.operation_id WHERE user_activity.case_id = '$case_id' AND user_activity.loan = '$loan' ORDER BY user_activity.timestamp DESC";
         $result = $conn->query($sql);
         if($result->num_rows == 0){
           $_SESSION['error_msg'] = 'View Activity Log case wise';
@@ -63,11 +63,11 @@
         <div class="main-panel">
           <div class="content-wrapper">
 
-            <div class="row">
+            <div class="row ht-100">
 
-              <div class="col-lg grid-margin stretch-card">
+              <div class="col-lg grid-margin stretch-card mb-0">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body set-table-height">
                     <h4 class="card-title form-inline justify-content-between">
                       <?php echo $loan_name; ?> Case Activity Log
                     </h4>
@@ -95,34 +95,7 @@
                                     ?>
                                     <tr>
                                         <td><?php echo $serial_no; ?></td>
-                                        <td>
-                                            <?php 
-                                                $operation = $row['operation'];
-                                                if($operation == '1')
-                                                    $operation_value = 'Created';
-                                                else if($operation == '2')
-                                                    $operation_value = 'Updated';
-                                                else if($operation == '3')
-                                                    $operation_value = 'Approved';
-                                                else if($operation == '4')
-                                                    $operation_value = 'Refused';
-                                                else if($operation == '5')
-                                                    $operation_value = 'In Progress';
-                                                else if($operation == '6')
-                                                    $operation_value = 'Complete';
-                                                else if($operation == '7')
-                                                    $operation_value = 'Withdraw';
-                                                else if($operation == '8')
-                                                    $operation_value = 'Added Remark';
-                                                else if($operation == '9')
-                                                    $operation_value = 'Added Status';
-                                                else if($operation == '10')
-                                                    $operation_value = 'Deleted Remark';
-                                                else if($operation == '11')
-                                                    $operation_value = 'Deleted Status';
-                                                echo $operation_value;
-                                            ?>
-                                        </td>
+                                        <td><?php echo $row['operation_name']; ?></td>
                                         <td><?php echo $row['user_full_name']; ?></td>
                                         <td>
                                             <?php 

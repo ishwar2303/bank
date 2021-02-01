@@ -53,23 +53,19 @@
     </li>
     <?php } ?>
     
-    <?php if($logged_in_user_role != '0'){ ?>
     <li class="nav-item">
       <a class="nav-link" href="add-bank.php  ">
         <span class="menu-title">Add Bank</span>
         <i class="mdi mdi-message-plus menu-icon"></i>
       </a>
     </li>
-    <?php } ?>
     
-    <?php if($logged_in_user_role != '0'){ ?>
     <li class="nav-item">
       <a class="nav-link" href="view-banks.php  ">
         <span class="menu-title">View Banks</span>
         <i class="fas fa-university menu-icon"></i>
       </a>
     </li>
-    <?php } ?>
     
     <li class="nav-item">
       <a class="nav-link" href="home-loan.php  ">

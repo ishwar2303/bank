@@ -48,7 +48,6 @@
     $date_of_redirection_by_advocate = '';
     $lease_on = '';
     $physical_possession_fixed_on = '';
-    $notice_of_physical_possession_on = '';
     $possession_postpone_on = '';
     $postpone_reason = '';
     $date_of_compromise = '';
@@ -68,14 +67,13 @@
     $emd_amount = '';
     $property_visit_by_prospective_buyers_on = '';
     $auction_date = '';
+    
     //errors
-
     $date_of_next_hearing_error = '';
     $ra_agreement_expired_on_error = '';
     $date_of_redirection_by_advocate_error = '';
     $lease_on_error = '';
     $physical_possession_fixed_on_error = '';
-    $notice_of_physical_possession_on_error = '';
     $possession_postpone_on_error = '';
     $postpone_reason_error = '';
     $compromise_error = '';
@@ -192,7 +190,7 @@
             $sql = "INSERT INTO `home_loan_status` (`status_id`, `case_id`, `ra_agreement_expired_on`, `date_of_next_hearing`, `date_of_redirection_by_advocate`, `lease_on`, `physical_possession_fixed_on`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`,  `date_of_ots_accepted`, `amount_of_ots`, `amount_of_ots_paid_upto`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `possession_postpone_on`, `possession_postpone_reason`, `reserve_price`, `emd_amount`, `property_visit_by_prospective_buyers_on`, `auction_date`, `compromise_ots_failed_date`, `compromise_ots_failed`) VALUES (NULL, '$case_id', '$ra_agreement_expired_on', '$date_of_next_hearing', '$date_of_redirection_by_advocate', '$lease_on', '$physical_possession_fixed_on', '$compromise', '$date_of_compromise', '$amount_of_compromise', '$full_compromise_paid_upto', '$ots', '$date_of_ots_accepted', '$ots_amount', '$full_ots_paid_upto', '$date_of_ra_bill', '$amount_of_ra_bill', '$ra_bill_forward_to_bank_on', '$ra_bill_paid_on', '$ra_bill_paid_amount', '$possession_postpone_on', '$postpone_reason', '$reserve_price', '$emd_amount', '$property_visit_by_prospective_buyers_on', '$auction_date', '$compromise_ots_failed_date', '$compromise_ots_failed')";
             
             if($conn->query($sql) === TRUE){ 
-                $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '9', '$timestamp')";
+                $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '3', '$timestamp')";
                 $conn->query($sql);
                 $_SESSION['success_msg'] = 'Status added successfully';
                 header('Location: view-home-loans.php');

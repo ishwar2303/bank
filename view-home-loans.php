@@ -35,16 +35,16 @@
         if($approve == '1'){
           $msg = 'Case Approved';
           $note_msg = "Data operator can't commit any changes to the case from now";
-          $operation = '3';
+          $operation_id = '8';
         }
         else if($approve == '0'){
           $msg = 'Case Refused';
           $note_msg = "Data operator can commit changes to the case from now";
-          $operation = '4';
+          $operation_id = '9';
         }
         $_SESSION['success_msg'] = $msg;
         $_SESSION['note_msg'] = $note_msg;
-        $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$home_loan_cid', '$_SESSION[user_id]', '$operation', '$timestamp')";
+        $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$home_loan_cid', '$_SESSION[user_id]', '$operation_id', '$timestamp')";
         $conn->query($sql);
         header('Location: view-home-loans.php');
         exit;
@@ -65,20 +65,20 @@
       if($status == '0'){
         $sql = "UPDATE home_loan SET case_status = '0' WHERE home_loan_cid = '$home_loan_cid'";
         $status_msg = 'Case marked as pending...';
-        $operation = '5';
+        $operation_id = '10';
       }
       else if($status == '1'){
         $sql = "UPDATE home_loan SET case_status = '1' WHERE home_loan_cid = '$home_loan_cid'";
         $status_msg = 'Case marked as completed';
-        $operation = '6';
+        $operation_id = '12';
       }
       else if($status == '2'){
         $sql = "UPDATE home_loan SET case_status = '2' WHERE home_loan_cid = '$home_loan_cid'";
         $status_msg = 'Case marked as withdraw';
-        $operation = '7';
+        $operation_id = '11';
       }
       $conn->query($sql);
-      $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$home_loan_cid', '$_SESSION[user_id]', '$operation', '$timestamp')";
+      $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$home_loan_cid', '$_SESSION[user_id]', '$operation_id', '$timestamp')";
       $conn->query($sql);
       if($conn->error == ''){
         $_SESSION['success_msg'] = $status_msg;
@@ -128,7 +128,7 @@
       $case_id = $row['case_id'];
       $sql = "DELETE FROM home_loan_status WHERE status_id = '$status_id'";
       $conn->query($sql);
-      $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '11', '$timestamp')";
+      $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '5', '$timestamp')";
       $conn->query($sql);
       if($conn->error == ''){
         $_SESSION['success_msg'] = 'Deleted Successfully';
@@ -956,6 +956,9 @@
                                               <?php echo $status_value; ?>
                                             </div>
                                             <div class="custom-dropdown-operations">
+                                            <!-- check case status -->
+
+                                            <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
                                                 <!-- case edit --> 
                                                 <?php if($logged_in_user_role == '0' && !$home_loan_approved){ ?> <!-- Data operator can only edit till the case is not approved -->
                                                 <a href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
@@ -972,6 +975,7 @@
                                                 <a href="home-loan-status.php?cid=<?php echo $encoded_cid; ?>" target="_blank">
                                                   Add Status
                                                 </a>
+                                            <?php } ?>
                                                 <!-- View Case status -->
                                                 <?php 
                                                   $sql = "SELECT case_id FROM home_loan_status WHERE case_id = '$home_loan[home_loan_cid]'";
@@ -1006,17 +1010,21 @@
                                                   }
                                                 ?>
                                                 
-                                                <?php if($logged_in_user_role){ ?> <!-- only admin and privileged user --> 
-                                                  <!-- Approve case -->
-                                                  <?php if(!$home_loan_approved){ ?>
-                                                  <a onclick="return confirm('Approve Case')" href="view-home-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=1">Approve Case</a>
-                                                  <?php }
-                                                  else{
-                                                    ?>                                                  
-                                                    <a onclick="return confirm('Refuse Case')" href="view-home-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=0">Refuse Case</a>
-                                                    <?php
-                                                  }
-                                                  ?>
+
+                                              <?php if($logged_in_user_role){ ?> <!-- only admin and privileged user --> 
+
+                                                  <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
+                                                    <!-- Approve case -->
+                                                    <?php if(!$home_loan_approved){ ?>
+                                                    <a onclick="return confirm('Approve Case')" href="view-home-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=1">Approve Case</a>
+                                                    <?php }
+                                                    else{
+                                                      ?>                                                  
+                                                      <a onclick="return confirm('Refuse Case')" href="view-home-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=0">Refuse Case</a>
+                                                      <?php
+                                                    }
+                                                    ?>
+                                                  <?php } ?>
                                                   <!-- activity log -->
                                                   <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=1" target="_blank">Case Activity log</a>
                                                   
@@ -1054,33 +1062,36 @@
                                                     }
                                                   ?>
 
-                                                <!-- Add remark -->
-                                                <label class="add-reamrk-table-btn">
-                                                    <span>Add Remark</span>
-                                                </label>
-                                                <script>
-                                                    $('.add-reamrk-table-btn').eq(<?php echo $serial_no-1; ?>).click(() => {
-                                                      showRemarkPopup('<?php echo $encoded_cid; ?>')
-                                                      let caseID = document.getElementById('case-id').innerHTML
-                                                      let reqData = {
-                                                        caseID
-                                                      }
-                                                      let url = 'add-home-loan-remark.php'
-                                                      $.ajax({
-                                                              url,
-                                                              type : 'POST',
-                                                              dataType : 'html',
-                                                              success : (msg) => {
-                                                              },
-                                                              complete : (res) => {
-                                                                  $('#remark-response').html(res.responseText)
-                                                                  document.getElementById('case-remarks').style.display = 'block'
-                                                              },
-                                                              data : reqData
-                                                        })
-                                                    })
-                                                </script>
+                                              
+                                                <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
 
+                                                    <!-- Add remark -->
+                                                    <label class="add-reamrk-table-btn">
+                                                        <span>Add Remark</span>
+                                                    </label>
+                                                    <script>
+                                                        $('.add-reamrk-table-btn').eq(<?php echo $serial_no-1; ?>).click(() => {
+                                                          showRemarkPopup('<?php echo $encoded_cid; ?>')
+                                                          let caseID = document.getElementById('case-id').innerHTML
+                                                          let reqData = {
+                                                            caseID
+                                                          }
+                                                          let url = 'add-home-loan-remark.php'
+                                                          $.ajax({
+                                                                  url,
+                                                                  type : 'POST',
+                                                                  dataType : 'html',
+                                                                  success : (msg) => {
+                                                                  },
+                                                                  complete : (res) => {
+                                                                      $('#remark-response').html(res.responseText)
+                                                                      document.getElementById('case-remarks').style.display = 'block'
+                                                                  },
+                                                                  data : reqData
+                                                            })
+                                                        })
+                                                    </script>
+                                                <?php } ?>
                                                 <!-- Delete case -->
                                                 <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','home-loan')" href="view-home-loans.php?cid=<?php echo $encoded_cid; ?>">
                                                     Delete Case

@@ -53,8 +53,8 @@
                         <td><?php echo $row['possession_postpone_reason']; ?></td>
                         <td><?php echo $row['reserve_price']; ?></td>
                         <td><?php echo $row['emd_amount']; ?></td>
-                        <td><?php echo $row['property_visit_by_prospective_buyers_on']; ?></td>
-                        <td><?php echo $row['auction_date']; ?></td>
+                        <td><?php echo $row['property_visit_by_prospective_buyers_on'] != '0000-00-00' ? $row['property_visit_by_prospective_buyers_on'] : '-'; ?></td>
+                        <td><?php echo $row['auction_date'] != '0000-00-00' ? $row['auction_date'] : '-'; ?></td>
                         <td><?php echo $row['date_of_compromise'] != '0000-00-00' ? $row['date_of_compromise'] : '-'; ?></td>
                         <td><?php echo $row['amount_of_compromise'] != '0000-00-00' ? $row['amount_of_compromise'] : '-'; ?></td>
                         <td><?php echo $row['full_compromise_paid_upto'] != '0000-00-00' ? $row['full_compromise_paid_upto'] : '-'; ?></td>
@@ -96,7 +96,7 @@
                         <td><?php echo $row['ra_bill_paid_amount'] != '0000-00-00' ? $row['ra_bill_paid_amount'] : '-'; ?></td>
                         
                         <td>
-                            <a class="edit-btn" href="edit-home-loan-status.php?status_id=<?php echo $encoded_status_id; ?>" target="_blank">
+                            <a class="edit-btn mr-1" href="edit-home-loan-status.php?status_id=<?php echo $encoded_status_id; ?>" target="_blank">
                                 <span>Edit</span>
                                 <i class="fas fa-edit"></i>
                             </a>

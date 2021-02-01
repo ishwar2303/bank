@@ -14507,10 +14507,10 @@ position: relative;
     font-size: 20px;
   }
   .bg-gradient-suc{
-  background: linear-gradient(to right, #67ffe8, #cff7f3) !important; 
+    background: linear-gradient(45deg, rgba(0,255,0,0.4), rgba(0,255,0,0.1));
   }
-  .bg-gradient-dang{
-    background: linear-gradient(to right, #ff85a6, #ffd2b6) !important;
+  .bg-gradient-dang{ 
+    background: linear-gradient(45deg, rgba(255,0,0,0.3), rgba(255,0,0,0.1));
   }
   .z-ind-10{
     z-index: 10;
@@ -14544,6 +14544,10 @@ position: relative;
   background: #3498db;
   color : white;
   cursor: pointer;
+}
+.open-custom-dropdown:hover{
+  
+  box-shadow: 0px 0px 0px 3px rgb(154, 85, 255,0.2);
 }
 .custom-dropdown-operations{
   position: absolute;
