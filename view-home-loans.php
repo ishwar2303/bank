@@ -492,7 +492,9 @@
           $db_error = $conn->error;
       }
       else if($result->num_rows == 0){
-          $_SESSION['error_msg'] = 'No Home loans';
+          $_SESSION['note_msg'] = 'Add a Home loan';
+          header('Location: home-loan.php');
+          exit;
       }
       else{
         while($row = $result->fetch_assoc()){
@@ -791,6 +793,7 @@
                             <?php 
                                 $serial_no = 1;
                                 $index = 0;
+                                $remark_index = 0;
                                 foreach ($result_array as $home_loan){
                                     $encoded_cid = base64_encode($home_loan['home_loan_cid']);
                                     $npa_case = $home_loan['npa_case'];
@@ -1066,11 +1069,11 @@
                                                 <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
 
                                                     <!-- Add remark -->
-                                                    <label class="add-reamrk-table-btn">
+                                                    <label class="add-remark-table-btn">
                                                         <span>Add Remark</span>
                                                     </label>
                                                     <script>
-                                                        $('.add-reamrk-table-btn').eq(<?php echo $serial_no-1; ?>).click(() => {
+                                                        $('.add-remark-table-btn').eq(<?php echo $remark_index; ?>).click(() => {
                                                           showRemarkPopup('<?php echo $encoded_cid; ?>')
                                                           let caseID = document.getElementById('case-id').innerHTML
                                                           let reqData = {
@@ -1091,7 +1094,7 @@
                                                             })
                                                         })
                                                     </script>
-                                                <?php } ?>
+                                                <?php $remark_index += 1; } ?>
                                                 <!-- Delete case -->
                                                 <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','home-loan')" href="view-home-loans.php?cid=<?php echo $encoded_cid; ?>">
                                                     Delete Case

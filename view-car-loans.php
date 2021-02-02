@@ -25,6 +25,76 @@
         $db_error = $conn->error;
     }
 
+    // approving car loan case
+    if(isset($_GET['approve_cid']) && isset($_GET['approve'])){
+      $car_loan_cid = base64_decode(cleanInput($_GET['approve_cid']));
+      $approve = cleanInput($_GET['approve']);
+      if($approve == '1' || $approve == '0'){
+        $sql = "UPDATE car_loan SET approved = '$approve' WHERE car_loan_cid = '$car_loan_cid'";
+        $conn->query($sql);
+        if($approve == '1'){
+          $msg = 'Case Approved';
+          $note_msg = "Data operator can't commit any changes to the case from now";
+          $operation_id = '8';
+        }
+        else if($approve == '0'){
+          $msg = 'Case Refused';
+          $note_msg = "Data operator can commit changes to the case from now";
+          $operation_id = '9';
+        }
+        $_SESSION['success_msg'] = $msg;
+        $_SESSION['note_msg'] = $note_msg;
+        $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$car_loan_cid', '$_SESSION[user_id]', '$operation_id', '$timestamp')";
+        $conn->query($sql);
+        header('Location: view-car-loans.php');
+        exit;
+      }
+      else{
+        $_SESSION['error_msg'] = 'Something went wrong!';
+        header('Location: view-car-loans.php');
+        exit;
+      }
+    }
+
+    // mark as complete, pending or withdraw
+    if(isset($_GET['status']) && isset($_GET['hcid'])){
+      $car_loan_cid = cleanInput($_GET['hcid']);
+      $car_loan_cid = base64_decode($car_loan_cid);
+      $status = cleanInput($_GET['status']);
+      
+      if($status == '0'){
+        $sql = "UPDATE car_loan SET case_status = '0' WHERE car_loan_cid = '$car_loan_cid'";
+        $status_msg = 'Case marked as pending...';
+        $operation_id = '10';
+      }
+      else if($status == '1'){
+        $sql = "UPDATE car_loan SET case_status = '1' WHERE car_loan_cid = '$car_loan_cid'";
+        $status_msg = 'Case marked as completed';
+        $operation_id = '12';
+      }
+      else if($status == '2'){
+        $sql = "UPDATE car_loan SET case_status = '2' WHERE car_loan_cid = '$car_loan_cid'";
+        $status_msg = 'Case marked as withdraw';
+        $operation_id = '11';
+      }
+      $conn->query($sql);
+      $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$car_loan_cid', '$_SESSION[user_id]', '$operation_id', '$timestamp')";
+      $conn->query($sql);
+      if($conn->error == ''){
+        $_SESSION['success_msg'] = $status_msg;
+        header('Location: view-car-loans.php');
+        exit;
+      }
+      else{
+        $_SESSION['error_msg'] = 'Something went wrong';
+        header('Location: view-car-loans.php');
+        exit;
+        
+      }
+    }
+
+
+
     // deleting car loan
     if(isset($_GET['cid'])){
       $car_loan_cid = base64_decode($_GET['cid']);
@@ -42,19 +112,6 @@
         $db_error = $conn->error;
       }
     }
-/*
-    $sql = "SELECT * FROM car_loan";
-    $result = $conn->query($sql);
-
-    if($conn->error != ''){
-        $_SESSION['error_msg'] = 'Something went wrong!';
-        $db_error = $conn->error;
-    }
-    else if($result->num_rows == 0){
-        $_SESSION['error_msg'] = 'No Car loans';
-    }
-*/
-
 
     // filter variables
     $select_bank = '';
@@ -405,7 +462,9 @@
           $db_error = $conn->error;
       }
       else if($result->num_rows == 0){
-          $_SESSION['error_msg'] = 'No Car loans';
+          $_SESSION['note_msg'] = 'Add a Car Loan';
+          header('Location: car-loan.php');
+          exit;
       }
       else{
         while($row = $result->fetch_assoc()){
@@ -598,6 +657,16 @@
                     <?php if($db_error == ''){ ?>
                         <?php if(sizeof($result_array) > 0){ ?>
                             <table class="table table-hover">
+                            
+                              <!-- dropdown - overlay -->
+                              <div class="custom-dropdown-overlay"></div>
+                              <script>
+                                $('.custom-dropdown-overlay').click(() => {
+                                  $('.custom-dropdown-operations').hide()
+                                  $('.custom-dropdown-overlay').toggle()
+                                })
+                              </script>
+
                               <thead>
                                 <tr>
                                   <th>S No</th>
@@ -634,19 +703,14 @@
                                   <th>Amount Recovered ₹</th>
                                   <th>Bill Raised ₹</th>
                                   <th>Payment Received ₹</th>
-                                  <th>Activity</th>
-                                  <th>Edit</th>
-                                  
-                                  <?php if($logged_in_user_role != '0'){ ?>
-                                  <th>Remarks</th>
-                                  <th>Delete</th>
-                                  <?php } ?>
+                                  <th>Action</th>
                                 </tr>
                               </thead>
 
                             <tbody>
                             <?php 
                                 $serial_no = 1;
+                                $remark_index = 0;
                                 foreach ($result_array as $car_loan){
                                     $encoded_cid = base64_encode($car_loan['car_loan_cid']);
                                     $date = $car_loan['case_date'];
@@ -691,52 +755,202 @@
                                       <td><?php echo $car_loan['amount_recovered']; ?></td>
                                       <td><?php echo $car_loan['bill_raised']; ?></td>
                                       <td><?php echo $car_loan['payment_received']; ?></td>
-                                      <td>
-                                        <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=2" target="_blank">Show</a>
-                                      </td>
-                                      <td>
-                                          <a class="table-edit-op" href="edit-car-loan.php?cid=<?php echo $encoded_cid; ?>">
-                                              <span>Edit</span>
-                                              <i class="fas fa-edit"></i>
-                                          </a>
-                                      </td>
                                       
-                                    <?php if($logged_in_user_role != '0'){ ?>
+
+                                      
+                                      <?php 
+                                          $car_loan_approved = $car_loan['approved'];
+                                          $status = $car_loan['case_status']; ?>
+                                          <?php
+                                          if($status == '2'){
+                                            $btn_icon = "<i class='fas fa-exclamation icon-mr-5'></i>";
+                                            $btn_class = 'case-withdraw';
+                                            $status_value = 'Withdraw';
+                                          } 
+                                          else if($status == '1'){
+                                             $btn_icon = "<i class='mdi mdi-check icon-mr-5'></i>";
+                                             $btn_class = 'case-complete';
+                                             $status_value = 'Complete';
+                                          } 
+                                          else if($status == '0'){
+                                            
+                                             $btn_icon = "<i class='fas fa-spinner fa-spin icon-mr-5'></i>";
+                                             $btn_class = '';
+                                             $status_value = 'In Progress';
+                                          }
+                                      ?>
+
                                       <td>
-                                          <label class="edit-btn add-reamrk-table-btn">
-                                              <span>View</span>
-                                              <i class="fas fa-eye"></i>
-                                          </label>
+                                          <div class="custom-action-dropdown">
+                                            <div class="open-custom-dropdown <?php echo $btn_class; ?>">
+                                              <?php echo $btn_icon; ?>
+                                              <?php echo $status_value; ?>
+                                            </div>
+                                            <div class="custom-dropdown-operations">
+                                            <!-- check case status -->
+
+                                            <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
+                                                <!-- case edit --> 
+                                                <?php if($logged_in_user_role == '0' && !$car_loan_approved){ ?> <!-- Data operator can only edit till the case is not approved -->
+                                                <a href="edit-car-loan.php?cid=<?php echo $encoded_cid; ?>">
+                                                  Edit Case
+                                                </a>
+                                                <?php } ?>
+                                                <?php if($logged_in_user_role != '0'){ ?> <!-- Admin and privileged user can edit -->
+                                                <a href="edit-car-loan.php?cid=<?php echo $encoded_cid; ?>">
+                                                  Edit Case
+                                                </a>
+                                                <?php } ?>
+
+                                            <?php } ?>
+
+                                                
+
+                                              <?php if($logged_in_user_role){ ?> <!-- only admin and privileged user --> 
+
+                                                  <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
+                                                    <!-- Approve case -->
+                                                    <?php if(!$car_loan_approved){ ?>
+                                                    <a onclick="return confirm('Approve Case')" href="view-car-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=1">Approve Case</a>
+                                                    <?php }
+                                                    else{
+                                                      ?>                                                  
+                                                      <a onclick="return confirm('Refuse Case')" href="view-car-loans.php?approve_cid=<?php echo $encoded_cid; ?>&approve=0">Refuse Case</a>
+                                                      <?php
+                                                    }
+                                                    ?>
+                                                  <?php } ?>
+                                                  <!-- activity log -->
+                                                  <a href="case-activity.php?cid=<?php echo $encoded_cid; ?>&loan=2" target="_blank">Case Activity log</a>
+                                                  
+                                                  <!-- pending, complete or withdraw -->
+                                                  <?php 
+                                                    if($status == '1' || $status == '0'){
+                                                      ?>
+                                                        <?php if($logged_in_user_role != '0'){ ?>
+                                                        <a onclick="return confirm('Mark as withdraw')" href="view-car-loans.php?hcid=<?php echo $encoded_cid; ?>&status=2">
+                                                          Mark as withdraw
+                                                        </a>
+                                                        <?php } ?>
+                                                        
+                                                      <?php
+                                                    }
+                                                    if($status == '1' || $status == '2'){
+                                                      ?>
+                                                        <?php if($logged_in_user_role != '0'){ ?>
+                                                        <a onclick="return confirm('Mark as pending...')" href="view-car-loans.php?hcid=<?php echo $encoded_cid; ?>&status=0">
+                                                          In Progress...
+                                                        </a>
+                                                        <?php } ?>
+                                                        
+                                                      <?php
+                                                    }
+                                                    if($status == '0' || $status == '2'){
+                                                      ?>
+                                                      <?php if($logged_in_user_role != '0'){ ?>
+                                                      <a onclick="return confirm('Mark as complete.')" href="view-car-loans.php?hcid=<?php echo $encoded_cid; ?>&status=1">
+                                                        Mark as complete
+                                                      </a>
+                                                      <?php }  ?>
+
+                                                      <?php
+                                                    }
+                                                  ?>
+
+                                              
+                                                <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
+
+                                                    <!-- Add remark -->
+                                                    <label class="add-remark-table-btn">
+                                                        <span>Add Remark</span>
+                                                    </label>
+                                                    <script>
+                                                        $('.add-remark-table-btn').eq(<?php echo $remark_index; ?>).click(() => {
+                                                          showRemarkPopup('<?php echo $encoded_cid; ?>')
+                                                          let caseID = document.getElementById('case-id').innerHTML
+                                                          let reqData = {
+                                                            caseID
+                                                          }
+                                                          let url = 'add-car-loan-remark.php'
+                                                          $.ajax({
+                                                                  url,
+                                                                  type : 'POST',
+                                                                  dataType : 'html',
+                                                                  success : (msg) => {
+                                                                  },
+                                                                  complete : (res) => {
+                                                                      $('#remark-response').html(res.responseText)
+                                                                      document.getElementById('case-remarks').style.display = 'block'
+                                                                  },
+                                                                  data : reqData
+                                                            })
+                                                        })
+                                                    </script>
+                                                <?php $remark_index += 1; } ?>
+                                                <!-- Delete case -->
+                                                <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','car-loan')" href="view-car-loans.php?cid=<?php echo $encoded_cid; ?>">
+                                                    Delete Case
+                                                </label>
+
+                                              <?php } ?>
+
+                                            </div>
+                                          </div>
+
+                                                    
+                                          <!-- custom action dropdown script -->
+
+                                          <script>
+                                          $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).click(() => {
+                                            
+                                              $(".custom-dropdown-operations").eq(<?php echo $serial_no-1; ?>).toggle()
+                                              var scrollTop = $('.table-container').scrollTop();
+                                              // get the top offset of the dropdown (distance from top of the page)
+                                              var topOffset = $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).offset().top;
+                                              // calculate the dropdown offset relative to window position
+                                              //console.log('table scroll' + scrollTop)
+                                              topOffset = topOffset - 115
+                                              console.log('toggle button distance from container top : ' + topOffset)
+                                              var relativeOffset = topOffset-scrollTop;
+                                              //console.log('relative height : ' + relativeOffset)
+                                              // get the window height
+                                              var windowHeight = $('.table-container').height();
+                                              console.log('table-container-height : ' + windowHeight)
+                                              // if the relative offset is greater than half the window height,
+                                              // reverse the dropdown.
+                                              $('.custom-dropdown-overlay').toggle()
+                                              let dropdownBox = document.getElementsByClassName('custom-dropdown-operations')[<?php echo $serial_no-1; ?>]
+                                              console.log('Dropdown menu height : ' + dropdownBox.offsetHeight)
+                                              console.log('available space : '+ (windowHeight - topOffset))
+                                              let containerHeight = windowHeight
+                                              let spaceAbove = topOffset
+                                              let spaceBelow = containerHeight - spaceAbove
+                                              console.log('container-height : ' + containerHeight)
+                                              console.log('space above : ' + spaceAbove)
+                                              console.log('space below : ' + spaceBelow)
+
+                                              let dropdownMenuHeight = dropdownBox.offsetHeight
+                                              if(dropdownMenuHeight <= spaceBelow + 50){
+                                                dropdownBox.style.top = '0px'
+                                                console.log('space available below')
+                                              }
+                                              else if(dropdownMenuHeight <= spaceAbove){
+                                                dropdownBox.style.top = '-' + (dropdownMenuHeight - 35) + 'px'
+                                                console.log('space available above')
+                                              }
+                                              else{
+                                                dropdownBox.style.top = '-' + (spaceAbove-150) + 'px'
+                                                console.log('not available')
+                                              }
+
+                                              
+                                          });
+
+                                          </script>
+
+
                                       </td>
-                                      <script>
-                                          $('.add-reamrk-table-btn').eq(<?php echo $serial_no-1; ?>).click(() => {
-                                            showRemarkPopup('<?php echo $encoded_cid; ?>')
-                                            let caseID = document.getElementById('case-id').innerHTML
-                                            let reqData = {
-                                              caseID
-                                            }
-                                            let url = 'add-car-loan-remark.php'
-                                            $.ajax({
-                                                    url,
-                                                    type : 'POST',
-                                                    dataType : 'html',
-                                                    success : (msg) => {
-                                                    },
-                                                    complete : (res) => {
-                                                        $('#remark-response').html(res.responseText)
-                                                        document.getElementById('case-remarks').style.display = 'block'
-                                                    },
-                                                    data : reqData
-                                              })
-                                          })
-                                      </script>
-                                      <td>
-                                          <label onclick="confirmResourceDeletion('<?php echo $encoded_cid; ?>','car-loan')" class="table-delete-op mb-0" href="view-car-loans.php?cid=<?php echo $encoded_cid; ?>">
-                                              <span>Delete</span>
-                                              <i class="fas fa-trash-alt"></i>
-                                          </label>
-                                      </td>
-                                    <?php } ?>
+
                                     </tr>
                                     <?php
                                     $serial_no += 1;

@@ -523,7 +523,7 @@
             $sql = "UPDATE car_loan SET case_date = '$case_date', bank_name = '$bank_name', home_branch = '$home_branch', account_number = '$account_number', customer_name = '$customer_name', npa_date = '$npa_date', outstanding = '$outstanding', arr_co_nd = '$arr_co_nd', notice13_sent_on = '$notice13_sent_on', principal_outstanding = '$principal_outstanding', bounce_charges = '$bounce_charges', overdue_charges = '$overdue_charges', other_charges = '$other_charges', loan_emi_amount = '$loan_emi_amount', no_of_emi_outstanding = '$no_of_emi_outstanding', reg_no = '$reg_no', residence_address = '$residence_address', residence_contact_no = '$residence_contact_no', office_address = '$office_address', office_contact_no = '$office_contact_no', make = '$make', engine_no = '$engine_no', chassis_no = '$chassis_no', tenure = '$tenure', co_applicant_name = '$co_applicant_name', co_applicant_mobile = '$co_applicant_mobile', co_applicant_address = '$co_applicant_address', employer_name ='$employer_name', employer_mobile = '$employer_mobile', employer_address = '$employer_address', amount_recovered = '$amount_recovered', bill_raised = '$bill_raised', payment_received = '$payment_received' WHERE car_loan_cid = '$car_loan_cid'";
             if($conn->query($sql) === TRUE){
                 $case_id = $car_loan_cid;
-                $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation`, `timestamp`) VALUES (NULL, '2', '$case_id', '$_SESSION[user_id]', '2', '$timestamp')";
+                $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '2', '$case_id', '$_SESSION[user_id]', '2', '$timestamp')";
                 $conn->query($sql);
                 $_SESSION['success_msg'] = 'Updated successfully';
                 header('Location: view-car-loans.php');
@@ -683,7 +683,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="outstanding" value="<?php echo $outstanding; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="outstanding" value="<?php echo $outstanding; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $outstanding_error; ?>
@@ -697,7 +697,7 @@
                                             <i class="fas fa-percent"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input"  name="arrCoNd"  value="<?php echo $arr_co_nd; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="arrCoNd"  value="<?php echo $arr_co_nd; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $arr_co_nd_error; ?>
@@ -732,7 +732,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="principalOutstanding" placeholder="Amount" value="<?php echo $principal_outstanding; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="principalOutstanding" placeholder="Amount" value="<?php echo $principal_outstanding; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $principal_outstanding_error; ?>
@@ -750,7 +750,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="bounceCharges" placeholder="Amount" value="<?php echo $bounce_charges; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="bounceCharges" placeholder="Amount" value="<?php echo $bounce_charges; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $bounce_charges_error; ?>
@@ -764,7 +764,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="overdueCharges" placeholder="Amount" value="<?php echo $overdue_charges; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="overdueCharges" placeholder="Amount" value="<?php echo $overdue_charges; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $overdue_charges_error; ?>
@@ -783,7 +783,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="otherCharges" placeholder="Amount" value="<?php echo $other_charges; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="otherCharges" placeholder="Amount" value="<?php echo $other_charges; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $other_charges_error; ?>
@@ -797,7 +797,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="loanEmiAmount" placeholder="Amount" value="<?php echo $loan_emi_amount; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="loanEmiAmount" placeholder="Amount" value="<?php echo $loan_emi_amount; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $loan_emi_amount_error; ?>
@@ -1067,7 +1067,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="amountRecovered" placeholder="Amount" value="<?php echo $amount_recovered; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="amountRecovered" placeholder="Amount" value="<?php echo $amount_recovered; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $amount_recovered_error; ?>
@@ -1081,7 +1081,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="billRaised" placeholder="Amount" value="<?php echo $bill_raised; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="billRaised" placeholder="Amount" value="<?php echo $bill_raised; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $bill_raised_error; ?>
@@ -1099,7 +1099,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.01" class="form-control form-input" id="" name="paymentReceived" placeholder="Amount" value="<?php echo $payment_received; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="paymentReceived" placeholder="Amount" value="<?php echo $payment_received; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $payment_received_error; ?>

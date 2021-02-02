@@ -30,8 +30,8 @@
           exit;
         }
         $sql = "SELECT user_registration.user_full_name, user_registration.user_email, user_registration.user_mobile, user_registration.user_role, user_activity.timestamp, activity_list.operation_name FROM user_registration JOIN user_activity ON user_registration.user_id = user_activity.user_id JOIN activity_list ON user_activity.operation_id = activity_list.operation_id WHERE user_activity.case_id = '$case_id' AND user_activity.loan = '$loan' ORDER BY user_activity.timestamp DESC";
-        $result = $conn->query($sql);
-        if($result->num_rows == 0){
+        $activity_result = $conn->query($sql);
+        if($activity_result->num_rows == 0){
           $_SESSION['error_msg'] = 'View Activity Log case wise';
           header('Location: index.php');
           exit;
@@ -89,9 +89,9 @@
                                     <th>E-mail</th>
                                     <th>Contact</th>
                                 </tr>
-                                <?php if($result->num_rows > 0){ 
+                                <?php 
                                     $serial_no = 1;
-                                    while($row = $result->fetch_assoc()){
+                                    while($row = $activity_result->fetch_assoc()){
                                     ?>
                                     <tr>
                                         <td><?php echo $serial_no; ?></td>
@@ -125,7 +125,7 @@
                                     
                                     $serial_no += 1;
                                         }
-                                } 
+                                
                                 ?>
                             </table>
                             </div>

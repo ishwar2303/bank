@@ -1,3 +1,16 @@
+<?php 
+
+  $sql = "SELECT home_loan_cid FROM home_loan";
+  $result = $conn->query($sql);
+  $total_home_loan_cases = $result->num_rows;
+
+  $sql = "SELECT car_loan_cid FROM car_loan";
+  $result = $conn->query($sql);
+  $total_car_loan_cases = $result->num_rows;
+
+
+
+?>
 <div id="black-cover-side-navigation"></div>
 <div class="sidebar-space-cover"></div>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -73,13 +86,15 @@
         <i class="mdi mdi-home menu-icon"></i>
       </a>
     </li>
-
+    
+    <?php if($total_home_loan_cases){ ?>
     <li class="nav-item">
       <a class="nav-link" href="view-home-loans.php  ">
         <span class="menu-title">View Home Loans</span>
         <i class="fas fa-eye menu-icon"></i>
       </a>
     </li>
+    <?php } ?>
     
     <li class="nav-item">
       <a class="nav-link" href="car-loan.php  ">
@@ -87,13 +102,15 @@
         <i class="mdi mdi-car menu-icon"></i>
       </a>
     </li>
-    
+
+    <?php if($total_car_loan_cases){ ?>
     <li class="nav-item">
       <a class="nav-link" href="view-car-loans.php  ">
         <span class="menu-title">View Car Loans</span>
         <i class="fas fa-eye menu-icon"></i>
       </a>
     </li>
+    <?php } ?>
 
   </ul>
 </nav>
