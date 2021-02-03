@@ -1,7 +1,7 @@
 <?php 
     session_start();
     require_once('connection.php');
-    
+    require_once('middleware.php');
 
     if(isset($_SESSION['user_role'])){
         if($_SESSION['user_role'] != '2'){ // only admin
@@ -43,15 +43,51 @@
     }
 
     $db_error = '';
-    $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
-    $result = $conn->query($sql);
 
-    if($conn->error != ''){
-        $_SESSION['error_msg'] = 'Something went wrong!';
-        $db_error = $conn->error;
+    $users_array = array();
+    $temp_array = array();
+    $search_user = '';
+    if(isset($_REQUEST['searchUser'])){
+      
+      $search_user = strtoupper(cleanInput($_REQUEST['searchUser']));
+      $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
+      $result = $conn->query($sql);
+      $str_len = strlen($search_user);
+      while($row = $result->fetch_assoc()){
+        array_push($temp_array, $row);
+        $control = 1;
+        $user_name = strtoupper($row['user_full_name']);
+        for($i=0; $i<$str_len; $i++){
+          if($user_name[$i] != $search_user[$i]){
+            $control = 0;
+            break;
+          }
+        }
+        if($control){
+          array_push($users_array, $row);
+        }
+      }
+      if(sizeof($users_array) == 0){
+        $users_array = $temp_array;
+        $_SESSION['error_msg'] = 'No user found with the given name';
+      }
     }
-    else if($result->num_rows == 0){
-      $_SESSION['error_msg'] = 'No user';
+    else{
+      $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
+      $result = $conn->query($sql);
+
+      if($conn->error != ''){
+          $_SESSION['error_msg'] = 'Something went wrong!';
+          $db_error = $conn->error;
+      }
+      else if($result->num_rows == 0){
+        $_SESSION['error_msg'] = 'No user';
+      }
+      else{
+        while($row = $result->fetch_assoc()){
+          array_push($users_array, $row);
+        }
+      }
     }
 ?>
 
@@ -76,27 +112,42 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Users</h4>
 
                     <!-- Flash Message  -->
                     <?php require 'includes/flash-message.php'; ?>
 
-
                       <?php 
-                    
                         if($db_error == ''){
-                          if($result->num_rows > 0){
+                          if(sizeof($users_array) > 0){
                             ?>
-                            <p class="card-description"> User Details </p>
-                                  
+                            <h4 class="card-title">Users</h4>
+                            <form action="" method="POST">
+                              <div class="form-group mb-3">
+                                <div class="row">
+                                  <div class="col-md-6 mb-2">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                          <i class="fas fa-search"></i>
+                                        </span>
+                                      </div>
+                                      <input oninput="this.value = this.value.toUpperCase()" type="text" class="form-control form-input" name="searchUser" value="<?php echo $search_user; ?>" placeholder="Search user by name...">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6 mb-3 form-inline">
+                                      <button type="submit" class="btn btn-gradient-primary mr-2">Search</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
                             <div class="row bank-card-container">
                             <?php
-                            while($row = $result->fetch_assoc()){
-                                $encoded_user_id = base64_encode($row['user_id']);
-                                $created_date = new DateTime($row['user_updated_timestamp']);
+                            foreach($users_array as $user){
+                                $encoded_user_id = base64_encode($user['user_id']);
+                                $created_date = new DateTime($user['user_updated_timestamp']);
 
-                                $full_name = $row['user_full_name'];
-                                $role = $row['user_role'];
+                                $full_name = $user['user_full_name'];
+                                $role = $user['user_role'];
                                 if($role == '2'){
                                   $role_value = 'Admin';
                                   $css_card = 'card bg-gradient-danger card-img-holder text-white';
@@ -109,9 +160,9 @@
                                   $role_value = 'Data operator';
                                   $css_card = 'card bg-gradient-success card-img-holder text-white';
                                 }
-                                $email = base64_decode($row['user_email']);
-                                $contact = base64_decode($row['user_mobile']);
-                                $password = base64_decode($row['user_password'])
+                                $email = base64_decode($user['user_email']);
+                                $contact = base64_decode($user['user_mobile']);
+                                $password = base64_decode($user['user_password'])
                                 ?>
                                 <div class="col-md-4 stretch-card grid-margin">
                                   <div class="<?php echo $css_card; ?>">
@@ -129,7 +180,7 @@
                                       <h6 class="mb-2">
                                         <?php echo $contact; ?>
                                       </h6>
-                                      <?php if($_SESSION['user_id'] == $row['user_id']){ ?>
+                                      <?php if($_SESSION['user_id'] == $user['user_id']){ ?>
                                       <h6 class="mb-5">
                                         <?php echo 'Password : '.$password; ?>
                                       </h6>
@@ -153,7 +204,7 @@
                                         <!-- <a href="edit-user.php?bankId=<?php echo $encoded_user_id; ?>">Edit
                                           <i class="fas fa-edit"></i>
                                         </a> -->
-                                        <?php if($_SESSION['user_id'] == $row['user_id'] || $role != '2'){ ?>
+                                        <?php if($_SESSION['user_id'] == $user['user_id'] || $role != '2'){ ?>
                                         <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_user_id; ?>','user')">Delete
                                           <i class="fas fa-trash-alt"></i>
                                         </label>

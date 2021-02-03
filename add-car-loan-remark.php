@@ -128,7 +128,7 @@
             }
             else{
                 ?>
-                <label class="error-msg mt-2">No remarks!</label>
+                <label class="form-input-response mt-2">No remarks!</label>
                 <?php
             }
             ?>

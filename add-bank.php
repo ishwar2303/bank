@@ -4,17 +4,10 @@
     require_once('middleware.php');
     
 
-    if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] == '0'){// Data operator not allowed
-            $_SESSION['error_msg'] = 'Only Admin and Privileged user can access that resource';
-            header('Location: login.php');
-            exit;
-        }
-    }
-    else{
-        $_SESSION['error_msg'] = 'Sign In to view that resource';
-        header('Location: login.php');
-        exit;
+    if(!isset($_SESSION['user_role'])){ // all access
+      $_SESSION['error_msg'] = 'Sign In to view that resource';
+      header('Location: login.php');
+      exit;
     }
 
     $bank_name = '';

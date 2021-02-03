@@ -6,7 +6,7 @@
       $_SESSION['error_msg'] = 'Sign In to view that resource';
       header('Location: login.php');
       exit;
-  }
+    }
 
     date_default_timezone_set("Asia/Kolkata");
     $epoch_time = time();
@@ -173,7 +173,7 @@
       $cases_from_set = false;
       $cases_upto_set = false;
 
-      $no_result_found_error = "We looked high and low, but your search result isn't here..";
+      $no_result_found_error = "We looked high and low, but your search result isn't here.. &nbsp;&nbsp;<a href='view-home-loans.php'>View all loans</a>";
 
       //validation
       if(!empty($select_bank)){ // bank selected
@@ -481,7 +481,7 @@
           else $_SESSION['error_msg'] = $no_result_found_error;
           
         }
-
+        
       }
     }
     if($error_occured || !$control){

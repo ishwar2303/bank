@@ -134,8 +134,9 @@
             $conn->query($sql); 
             
             if($conn->error == ''){    
-                $_SESSION['success_msg'] = 'User created successfully';  
-                header('Location: create-user.php');
+                $_SESSION['success_msg'] = 'User created successfully&nbsp;&nbsp; <a href="view-users.php">View all users</a>';  
+                $url = 'Location: view-users.php?searchUser='.$user_full_name.'&userCreated=true';
+                header($url);
                 exit; 
             }
             else{

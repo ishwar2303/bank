@@ -14099,6 +14099,10 @@ dl {
 #close-search-popup{
   cursor: pointer;
 }
+
+#close-search-popup:hover{
+  color: red;
+}
 @media screen and (max-width : 990px){
   
   .search-loans-form-popup{
@@ -14283,7 +14287,7 @@ dl {
   align-items: center;
   padding:10px 5px;
   border-radius: 5px;
-  background: linear-gradient(45deg,rgb(154, 85, 255,0.4) ,rgb(154, 85, 255,0.2));
+  background: linear-gradient(45deg,rgb(154, 85, 255,0.2) ,rgb(154, 85, 255,0.1));
 }
 .remark-value{
   display: flex;
@@ -14496,6 +14500,10 @@ position: relative;
     color: white;
   }
 
+  #confirm:hover, #cancel:hover{
+    
+    box-shadow: 0px 0px 18px 0px rgb(0,0,0,0.4);
+  }
   .custom-btn-container{
     width: 100%;
     display: flex;

@@ -21,7 +21,7 @@ if(isset($_SESSION['success_msg'])){
 if(isset($_SESSION['error_msg'])){
     ?>
     <div class="error-msg">
-        <i class="fas fa-exclamation"></i>
+        <i class="fas fa-exclamation-triangle"></i>
         <span>
             <?php echo $_SESSION['error_msg']; ?>
         </span>

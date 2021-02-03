@@ -1,7 +1,12 @@
 <?php 
     require_once('connection.php');
+    require_once('middleware.php');
     if(isset($_POST['case_id'])){
-        $case_id = base64_decode($_POST['case_id']);
+        $case_id = base64_decode(cleanInput($_POST['case_id']));
+        $sql = "SELECT case_status FROM home_loan WHERE home_loan_cid = '$case_id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $case_status = $row['case_status'];
         $sql = "SELECT * FROM home_loan_status WHERE case_id = $case_id";
         $result = $conn->query($sql);
 
@@ -35,7 +40,11 @@
                     <th>RA Bill forward to Bank on</th>
                     <th>RA Bill paid on</th>
                     <th>RA Bill paid amount</th>
+
+                    <th>Status ID</th>
+                    <?php if($case_status == '0'){ ?> <!-- case in progress -->
                     <th>Action</th>
+                    <?php } ?>
                 </thead>
             <?php
                 $serial_no = 1;
@@ -95,6 +104,8 @@
                         <td><?php echo $row['ra_bill_paid_on'] != '0000-00-00' ? $row['ra_bill_paid_on'] : '-'; ?></td>
                         <td><?php echo $row['ra_bill_paid_amount'] != '0000-00-00' ? $row['ra_bill_paid_amount'] : '-'; ?></td>
                         
+                        <td><?php echo $row['status_id']; ?></td>
+                        <?php if($case_status == '0'){ ?> <!-- case in progress -->
                         <td>
                             <a class="edit-btn mr-1" href="edit-home-loan-status.php?status_id=<?php echo $encoded_status_id; ?>" target="_blank">
                                 <span>Edit</span>
@@ -105,6 +116,7 @@
                                 <i class="fas fa-trash-alt"></i>
                             </label>
                         </td>
+                        <?php } ?>
                     </tbody>
             <?php   
 
