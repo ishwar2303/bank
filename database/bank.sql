@@ -329,7 +329,7 @@ CREATE TABLE `user_activity` (
   `case_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `operation_id` int(11) NOT NULL,
-  `timestamp` varchar(100) NOT NULL DEFAULT current_timestamp()
+  `timestamp` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
