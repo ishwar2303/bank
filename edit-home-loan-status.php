@@ -216,7 +216,7 @@
             if($conn->query($sql) === TRUE){
                 $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '4', '$timestamp')";
                 $conn->query($sql);
-                $_SESSION['success_msg'] = 'Updated successfully';
+                $_SESSION['success_msg'] = 'Status Updated successfully';
                 header('Location: view-home-loans.php');
                 exit;   
             } 

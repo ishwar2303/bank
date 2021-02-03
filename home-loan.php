@@ -282,7 +282,7 @@
         }
         
         if($npa_case != '1' && $npa_case != '2' && $npa_case != '3'){
-            $npa_case_error = 'Invalid npa code';
+            $npa_case_error = 'Required';
             $control = 0;
         }
         else{
@@ -732,7 +732,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Home Loan</h4>
+                    <h4 class="card-title">Add Home Loan</h4>
             
                 
                     <!-- Flash Message  -->

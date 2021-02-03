@@ -1,12 +1,12 @@
 <?php 
 
   $sql = "SELECT home_loan_cid FROM home_loan";
-  $result = $conn->query($sql);
-  $total_home_loan_cases = $result->num_rows;
+  $home_loans_res = $conn->query($sql);
+  $total_home_loan_cases = $home_loans_res->num_rows;
 
   $sql = "SELECT car_loan_cid FROM car_loan";
-  $result = $conn->query($sql);
-  $total_car_loan_cases = $result->num_rows;
+  $car_loans_res = $conn->query($sql);
+  $total_car_loan_cases = $car_loans_res->num_rows;
 
 
 

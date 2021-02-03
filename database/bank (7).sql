@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2021 at 08:39 PM
+-- Generation Time: Feb 03, 2021 at 08:12 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -119,6 +119,7 @@ CREATE TABLE `car_loan` (
   `amount_recovered` varchar(200) NOT NULL,
   `bill_raised` varchar(200) NOT NULL,
   `payment_received` varchar(200) NOT NULL,
+  `approved` tinyint(4) NOT NULL,
   `case_status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -126,8 +127,8 @@ CREATE TABLE `car_loan` (
 -- Dumping data for table `car_loan`
 --
 
-INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `case_status`) VALUES
-(1, '2021-01-01', 'ISHWAR BAISLA', 'Ishwar Baisla', '1811003030232', 'Ishwar Baisla', '2021-01-15', '', '', '0000-00-00', '', '', '', '', '', 0, '', 'Wazirabad Village', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0);
+INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `approved`, `case_status`) VALUES
+(12, '2021-02-01', 'HDFC', 'Mukherjee Nagar', '1811003030232', 'Ishwar Baisla', '2021-02-10', '', '', '0000-00-00', '', '', '', '', '', 0, '', 'Wazirabad Village', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -242,11 +243,7 @@ CREATE TABLE `home_loan` (
 --
 
 INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_branch`, `bank_state`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `advocate_name`, `documents_given_to_advocate_on`, `date_of_redirection_by_advocate`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `order_received_on`, `order_forwarded_to_bank_on`, `lease_on`, `physical_possession_fixed_on`, `mortgage_property_on`, `possession_taken_on`, `possession_postpone_on`, `possession_postpone_reason`, `property_on_auction`, `reserve_price`, `emd_amount`, `property_visit_by_prospective_buyers_on`, `auction_date`, `auction_status`, `emd_deposit`, `emd_deposit_on`, `fifteen_percent_possession`, `fifteen_percent_possession_on`, `full_deposit`, `full_deposit_on`, `over_above`, `forfitted`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `compromise_ots_failed_date`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`, `hindi_publication_name`, `english_publication_name`, `approved`, `case_status`) VALUES
-(4, '2021-02-01', '2', 'IDBI', 'Mukherjee Nagar', 'New Delhi', 'Delhi', '1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '8447811595', '', '', 'Jatin Kumar', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '100000', '', '500000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '0', '0', 0, '0000-00-00', '', '0', 1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 1, 1),
-(5, '2021-02-02', '1', 'PNB', 'Mukherjee Nagar', 'Chandigarh', 'Delhi', 'Shop No G1, G2, G3, G4 Manushri Ansal Building', 'Ishwar Baisla', '9821671707', '', '', 'Samarth Tandon', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '2000000', '', '1500000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 0, 0),
-(6, '2021-02-03', '3', 'BANK OF BARODA', 'Vijay Nagar', 'Gujarat', 'Delhi', 'Wazirabad Village\r<br/>delhi 110084', 'Ishwar Baisla', '9821671707', 'Manager', 'ishwar2303@gmail.com', 'Tapas Baranwal', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '5000000', '', '6000000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '', '', -1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 0, 2),
-(7, '2021-02-05', '1', 'HDFC', 'Mukherjee Nagar', 'Delhi', 'Wazirabad Village', 'No 1054 A\r<br/>Mukherjee Nagar\r<br/>New Delhi-110009', 'Ishwar Baisla', '7573919585', '', '', 'Jatin Kumar', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '500000', '', '25000000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '', '', -1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 0, 0),
-(8, '2021-02-05', '1', 'HDFC', 'Mukherjee Nagar', 'Delhi', 'Wazirabad Village', 'No 1054 A\r<br/>Mukherjee Nagar\r<br/>New Delhi-110009', 'Ishwar Baisla', '7573919585', '', '', 'Jatin Kumar', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '500000', '', '25000000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '', '', -1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 0, 1);
+(9, '2021-02-03', '1', 'HDFC', 'Mukherjee Nagar', 'Delhi', 'Wazirabad Village', 'No 1054 A\r<br/>Mukherjee Nagar\r<br/>New Delhi-110009', 'Ishwar Baisla', '7573919585', '', '', 'Jatin Kumar', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '500000', '', '4500000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '', '', -1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -298,14 +295,6 @@ CREATE TABLE `home_loan_status` (
   `compromise_ots_failed` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `home_loan_status`
---
-
-INSERT INTO `home_loan_status` (`status_id`, `case_id`, `ra_agreement_expired_on`, `date_of_next_hearing`, `date_of_redirection_by_advocate`, `lease_on`, `physical_possession_fixed_on`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots`, `amount_of_ots_paid_upto`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `possession_postpone_on`, `possession_postpone_reason`, `reserve_price`, `emd_amount`, `property_visit_by_prospective_buyers_on`, `auction_date`, `compromise_ots_failed_date`, `compromise_ots_failed`) VALUES
-(9, 7, '2021-02-03', '2021-02-12', '2021-02-13', '0000-00-00', '0000-00-00', 1, '2021-02-05', '150000000', '', 1, '2021-02-07', '8500000', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '15000', '0000-00-00', 'Reason for postopne of possession', '', '', '0000-00-00', '0000-00-00', '0000-00-00', -1),
-(10, 4, '2021-02-03', '2021-02-12', '2021-02-13', '0000-00-00', '0000-00-00', 1, '2021-02-05', '150000000', '', 1, '2021-02-07', '8500000', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '15000.25666', '0000-00-00', 'Reason for postopne of possession', '', '', '0000-00-00', '0000-00-00', '0000-00-00', -1);
-
 -- --------------------------------------------------------
 
 --
@@ -344,7 +333,7 @@ CREATE TABLE `user_activity` (
   `case_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `operation_id` int(11) NOT NULL,
-  `timestamp` varchar(100) NOT NULL DEFAULT current_timestamp()
+  `timestamp` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -352,26 +341,9 @@ CREATE TABLE `user_activity` (
 --
 
 INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES
-(4, 1, 4, 21, 1, '21-02-01 10:37:44pm'),
-(5, 1, 4, 21, 2, '21-02-01 10:38:16pm'),
-(6, 1, 4, 21, 3, '21-02-01 10:38:35pm'),
-(7, 1, 4, 21, 3, '21-02-01 10:38:52pm'),
-(8, 1, 4, 21, 5, '21-02-01 10:39:15pm'),
-(9, 1, 4, 21, 9, '21-02-01 10:42:03pm'),
-(10, 1, 4, 21, 8, '21-02-01 10:42:13pm'),
-(11, 1, 5, 21, 1, '21-02-01 10:51:09pm'),
-(12, 1, 6, 21, 1, '21-02-01 10:52:16pm'),
-(13, 1, 7, 21, 1, '21-02-01 10:53:37pm'),
-(14, 1, 8, 21, 1, '21-02-01 10:53:37pm'),
-(15, 1, 7, 21, 3, '21-02-01 10:54:12pm'),
-(16, 1, 8, 21, 12, '21-02-01 11:00:24pm'),
-(17, 1, 6, 21, 11, '21-02-01 11:00:40pm'),
-(18, 1, 4, 21, 3, '21-02-01 11:57:18pm'),
-(19, 1, 4, 21, 4, '21-02-02 12:15:14am'),
-(20, 1, 4, 21, 4, '21-02-02 12:15:55am'),
-(21, 1, 4, 21, 4, '21-02-02 12:18:24am'),
-(22, 1, 4, 21, 5, '21-02-02 12:20:26am'),
-(23, 1, 4, 21, 12, '21-02-02 12:42:20am');
+(7, 2, 12, 21, 1, '21-02-02 11:30:36am'),
+(8, 1, 9, 21, 1, '21-02-02 11:31:02am'),
+(9, 1, 9, 21, 12, '21-02-03 12:42:13pm');
 
 -- --------------------------------------------------------
 
@@ -486,31 +458,31 @@ ALTER TABLE `bank`
 -- AUTO_INCREMENT for table `car_loan`
 --
 ALTER TABLE `car_loan`
-  MODIFY `car_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `car_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `car_loan_remarks`
 --
 ALTER TABLE `car_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `home_loan`
 --
 ALTER TABLE `home_loan`
-  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `home_loan_remarks`
 --
 ALTER TABLE `home_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `home_loan_status`
 --
 ALTER TABLE `home_loan_status`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `to_do`
@@ -522,7 +494,7 @@ ALTER TABLE `to_do`
 -- AUTO_INCREMENT for table `user_activity`
 --
 ALTER TABLE `user_activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_registration`
