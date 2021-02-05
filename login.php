@@ -24,7 +24,7 @@
             }
             else{ 
                 $encoded_user_email = base64_encode($user_email);
-                $sql = "SELECT user_id FROM user_registration WHERE user_email = '$encoded_user_email'";
+                $sql = "SELECT user_id FROM user_registration WHERE user_email = '$encoded_user_email' AND user_permitted = '1'";
                 $result = $conn->query($sql);
                 if($result->num_rows == 0){
                     $user_email_error = "Not registered!";

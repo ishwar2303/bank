@@ -17,9 +17,9 @@
     }
 
     if(isset($_GET['user_id'])){
-      $user_id = base64_decode($_GET['user_id']);
+      $user_id = base64_decode(cleanInput($_GET['user_id']));
 
-      $sql = "DELETE FROM user_registration WHERE user_id = '$user_id'";
+      $sql = "UPDATE user_registration SET user_permitted = '0' WHERE user_id = '$user_id'";
       $conn->query($sql);
       $sql = "DELETE FROM to_do WHERE user_id = '$user_id'";
       $conn->query($sql);
@@ -54,7 +54,7 @@
         $search_user_error = 'Search user by name...';
     }
 
-    $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
+    $sql = "SELECT * FROM user_registration WHERE user_permitted = '1' ORDER BY user_role DESC";
     $result = $conn->query($sql);
     $str_len_search = strlen($search_user);
     while($row = $result->fetch_assoc()){
@@ -79,8 +79,11 @@
       $users_array = $temp_array;
       $_SESSION['error_msg'] = 'No user found with the given name';
     }
-    else if($search_user != ''){
+    else if($search_user != '' && !isset($_REQUEST['userCreated'])){
       $_SESSION['success_msg'] = 'Search result for `'.$search_user.'` &nbsp;&nbsp; <a href="view-users.php">View all users</a>';
+    }
+    else if(isset($_REQUEST['userCreated'])){
+      $_SESSION['success_msg'] = 'User `'.$search_user.'` created successfully&nbsp;&nbsp; <a href="view-users.php">View all users</a>';
     }
     if($conn->error != ''){
       $_SESSION['error_msg'] = $conn->error;

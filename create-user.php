@@ -69,7 +69,7 @@
             }
             else{ // valid E-mail
                 $encoded_user_email = base64_encode($user_email);
-                $sql = "SELECT user_email FROM user_registration WHERE user_email = '$encoded_user_email'";
+                $sql = "SELECT user_email FROM user_registration WHERE user_email = '$encoded_user_email' AND user_permitted = '1'";
                 $result = $conn->query($sql);
                 if($result->num_rows == 1){
                     $user_email_error = 'E-mail already register';
@@ -130,7 +130,7 @@
         }
         
         if($control){ // Insert data into database control = 1
-            $sql = "INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_password_changed`, `user_role`, `user_updated_timestamp`) VALUES (NULL, '$user_full_name', '$encoded_user_email', '$encoded_user_contact', '$encoded_user_password', '0', '$user_role', '$timestamp')";
+            $sql = "INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_password_changed`, `user_role`, `user_permitted`, `user_updated_timestamp`) VALUES (NULL, '$user_full_name', '$encoded_user_email', '$encoded_user_contact', '$encoded_user_password', '0', '$user_role', '1', '$timestamp')";
             $conn->query($sql); 
             
             if($conn->error == ''){    

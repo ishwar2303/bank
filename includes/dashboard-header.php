@@ -25,7 +25,7 @@
         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
           <div class="dropdown-divider"></div>
           <a onclick="return showChangePasswordPopup()" class="dropdown-item" href="logout.php">
-          <i class="fas fa-lock mr-2"></i> Change Password 
+          <i class="mdi mdi-lock-outline mr-2"></i> Change Password 
           </a>
           <a class="dropdown-item mt-1" href="logout.php">
             <i class="mdi mdi-logout mr-2"></i> Signout 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2021 at 03:09 PM
+-- Generation Time: Feb 05, 2021 at 08:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -244,7 +244,9 @@ CREATE TABLE `home_loan` (
 
 INSERT INTO `home_loan` (`home_loan_cid`, `case_date`, `npa_case`, `bank_name`, `bank_branch`, `bank_state`, `bank_city`, `bank_address`, `bank_contact_person_name`, `bank_contact_person_number`, `bank_contact_person_designation`, `bank_contact_person_email`, `borrower_name`, `amount`, `outstanding`, `ra_agreement_signed_on`, `ra_agreement_expired_on`, `date_of_notice13_2`, `date_of_notice13_3`, `primary_security`, `collateral_security`, `total_security`, `date_of_symbolic_possession`, `publication_hindi_newspaper_on`, `publication_english_newspaper_on`, `requested_bank_for_documents`, `documents_received_on`, `advocate_name`, `documents_given_to_advocate_on`, `date_of_redirection_by_advocate`, `application_file_dm_cmm_by_advocate_on`, `date_of_hearing`, `order_received_on`, `order_forwarded_to_bank_on`, `lease_on`, `physical_possession_fixed_on`, `mortgage_property_on`, `possession_taken_on`, `possession_postpone_on`, `possession_postpone_reason`, `property_on_auction`, `reserve_price`, `emd_amount`, `property_visit_by_prospective_buyers_on`, `auction_date`, `auction_status`, `emd_deposit`, `emd_deposit_on`, `fifteen_percent_possession`, `fifteen_percent_possession_on`, `full_deposit`, `full_deposit_on`, `over_above`, `forfitted`, `compromise`, `date_of_compromise`, `amount_of_compromise`, `full_compromise_paid_upto`, `ots`, `date_of_ots_accepted`, `amount_of_ots`, `amount_of_ots_paid_upto`, `compromise_ots_failed`, `compromise_ots_failed_date`, `property_sold_on`, `property_sold_for`, `full_amount_compromise_received_on`, `full_amount_ots_received_on`, `date_of_ra_bill`, `amount_of_ra_bill`, `ra_bill_forward_to_bank_on`, `ra_bill_paid_on`, `ra_bill_paid_amount`, `total_amount_of_expenses_incurred`, `income_case_wise_profit_loss`, `hindi_publication_name`, `english_publication_name`, `approved`, `case_status`) VALUES
 (9, '2021-02-03', '1', 'HDFC', 'Mukherjee Nagar', 'Delhi', 'Wazirabad Village', 'No 1054 A\r<br/>Mukherjee Nagar\r<br/>New Delhi-110009', 'Ishwar Baisla', '7573919585', '', '', 'Samarth Tandon', '1000000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '500000', '', '4500000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', 1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '-', '-', 0, '0000-00-00', '-', '-', -1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '15000.420', '', '', 1, 0),
-(10, '2021-02-01', '2', 'IDBI', 'Mukherjee Nagar', 'New Delhi', 'Delhi', '1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '8447811595', 'Manager', 'ishwar2303@gmail.com', 'Jatin Kumar', '2000000', '2021-02-02', '2021-02-03', '2021-02-04', '2021-02-05', '2021-02-06', '500000', 'asset 1\r<br/>asset 2', '700000', '2021-02-07', '2021-02-08', '2021-02-09', '2021-02-10', '2021-02-11', 'Tapas Baranwal', '2021-02-12', '2021-02-13', '2021-02-14', '2021-02-15', '2021-02-16', '0000-00-00', '2021-02-18', '2021-02-19', '2021-02-20', '2021-02-21', '2021-02-22', 'Postpone reason here...', '0000-00-00', '200000', '50000', '2021-02-23', '2021-02-24', 1, '450000', '2021-02-25', '150000', '2021-02-26', '850000', '2021-02-27', '1500000', '250000', 1, '2021-02-28', '650000', '350000', 1, '2021-03-01', '250000', '150000', 0, '2021-03-02', '2021-03-03', '1800000', '2021-03-04', '2021-03-05', '2021-03-06', '750000', '2021-03-07', '2021-03-08', '9500000', '4530000', '1000000.500', 'Dainik Jagaran', 'Times of India', 0, 0);
+(10, '2021-02-01', '2', 'IDBI', 'Mukherjee Nagar', 'New Delhi', 'Delhi', '1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '8447811595', 'Manager', 'ishwar2303@gmail.com', 'Jatin Kumar', '2000000', '2021-02-02', '2021-02-03', '2021-02-04', '2021-02-05', '2021-02-06', '500000', 'asset 1\r<br/>asset 2', '700000', '2021-02-07', '2021-02-08', '2021-02-09', '2021-02-10', '2021-02-11', 'Tapas Baranwal', '2021-02-12', '2021-02-13', '2021-02-14', '2021-02-15', '2021-02-16', '0000-00-00', '2021-02-18', '2021-02-19', '2021-02-20', '2021-02-21', '2021-02-22', 'Postpone reason here...', '0000-00-00', '200000', '50000', '2021-02-23', '2021-02-24', 1, '450000', '2021-02-25', '150000', '2021-02-26', '850000', '2021-02-27', '1500000', '250000', 1, '2021-02-28', '650000', '350000', 1, '2021-03-01', '250000', '150000', 0, '2021-03-02', '2021-03-03', '1800000', '2021-03-04', '2021-03-05', '2021-03-06', '750000', '2021-03-07', '2021-03-08', '9500000', '4530000', '1000000.500', 'Dainik Jagaran', 'Times of India', 0, 0),
+(11, '2021-02-05', '2', 'IDBI', 'Mukherjee Nagar', 'New Delhi', 'Delhi', '1048, Ground Floor, Banda \r<br/>Bahadur Marg, \r<br/>Mukherjee Nagar, \r<br/>New Delhi, Delhi 110009', 'Ishwar Baisla', '8447811595', '', '', 'Tapas Baranwal', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '850000', '', '2500000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '', '', -1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 0, 0),
+(12, '2021-02-05', '1', 'SBI', 'Vijay Nagar', 'Uttar Pradesh', 'Mirzapur', 'H-7 Vijay Nagar, Distt. \r<br/>Delhi, Delhi 110 009', 'Samarth Tandon', '', '', '', 'Shubham Maurya', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '500000', '', '1500000', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '', '', '0000-00-00', '0000-00-00', -1, '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '', 0, '0000-00-00', '', '', 0, '0000-00-00', '', '', -1, '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00', '', '0000-00-00', '0000-00-00', '', '', '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -322,6 +324,14 @@ CREATE TABLE `to_do` (
   `to_do_work` varchar(200) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `to_do`
+--
+
+INSERT INTO `to_do` (`to_do_id`, `user_id`, `to_do_work`, `status`) VALUES
+(124, 21, 'View user search', 1),
+(126, 21, 'Coursera registration', 0);
 
 -- --------------------------------------------------------
 
@@ -407,7 +417,13 @@ INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `opera
 (68, 1, 9, 21, 2, '21-02-05 07:21:12pm'),
 (69, 1, 9, 21, 6, '21-02-05 07:34:28pm'),
 (70, 1, 9, 21, 7, '21-02-05 07:36:35pm'),
-(71, 2, 12, 21, 2, '21-02-05 07:37:34pm');
+(71, 2, 12, 21, 2, '21-02-05 07:37:34pm'),
+(72, 1, 11, 21, 1, '21-02-05 11:59:57pm'),
+(73, 1, 12, 21, 1, '21-02-06 12:01:15am'),
+(74, 1, 9, 21, 6, '21-02-06 12:03:55am'),
+(75, 1, 9, 21, 7, '21-02-06 12:05:16am'),
+(76, 1, 11, 21, 6, '21-02-06 12:12:09am'),
+(77, 1, 11, 21, 7, '21-02-06 12:12:26am');
 
 -- --------------------------------------------------------
 
@@ -423,6 +439,7 @@ CREATE TABLE `user_registration` (
   `user_password` varchar(200) NOT NULL,
   `user_password_changed` tinyint(4) NOT NULL,
   `user_role` tinyint(4) NOT NULL,
+  `user_permitted` tinyint(4) NOT NULL,
   `user_updated_timestamp` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -430,12 +447,13 @@ CREATE TABLE `user_registration` (
 -- Dumping data for table `user_registration`
 --
 
-INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_password_changed`, `user_role`, `user_updated_timestamp`) VALUES
-(21, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, 2, '21-01-29 07:07:19pm'),
-(23, 'Tushar', 'dHVzaGFyQGdtYWlsLmNvbQ==', 'OTA2OTU5OTcwOA==', 'VHVzaGFyQDEyMzQ=', 0, 2, '21-01-30 01:22:50pm'),
-(24, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, '21-01-30 04:34:11pm'),
-(25, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'ODQ0NzgxMTU5NQ==', 'SXNod2FyMjMwM0A=', 0, 1, '21-01-30 11:51:26pm'),
-(29, 'Jatin Kumar', 'amF0aW5AZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 1, '21-02-03 11:21:11pm');
+INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `user_mobile`, `user_password`, `user_password_changed`, `user_role`, `user_permitted`, `user_updated_timestamp`) VALUES
+(21, 'Ishwar Baisla', 'aXNod2FyMjMwM0BnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 1, 2, 1, '21-01-29 07:07:19pm'),
+(23, 'Tushar', 'dHVzaGFyQGdtYWlsLmNvbQ==', 'OTA2OTU5OTcwOA==', 'VHVzaGFyQDEyMzQ=', 0, 2, 1, '21-01-30 01:22:50pm'),
+(24, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 0, '21-01-30 04:34:11pm'),
+(25, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'ODQ0NzgxMTU5NQ==', 'SXNod2FyMjMwM0A=', 0, 1, 0, '21-01-30 11:51:26pm'),
+(29, 'Jatin Kumar', 'amF0aW5AZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 1, 0, '21-02-03 11:21:11pm'),
+(33, 'Tapas Baranwal', 'dGFwYXNAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 0, '21-02-06 01:00:08am');
 
 --
 -- Indexes for dumped tables
@@ -535,13 +553,13 @@ ALTER TABLE `car_loan_remarks`
 -- AUTO_INCREMENT for table `home_loan`
 --
 ALTER TABLE `home_loan`
-  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `home_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `home_loan_remarks`
 --
 ALTER TABLE `home_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `home_loan_status`
@@ -553,19 +571,19 @@ ALTER TABLE `home_loan_status`
 -- AUTO_INCREMENT for table `to_do`
 --
 ALTER TABLE `to_do`
-  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT for table `user_activity`
 --
 ALTER TABLE `user_activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables
