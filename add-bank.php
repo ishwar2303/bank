@@ -90,10 +90,10 @@
                 $control = 0;
             }
         }
-        else{
-            $bank_address_error = 'Address required';
-            $control = 0;
-        }
+        // else{
+        //     $bank_address_error = 'Address required';
+        //     $control = 0;
+        // }
 
         if(!empty($bank_contact_person_name)){
             if(!alphaSpaceValidation($bank_contact_person_name)){
@@ -167,7 +167,7 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-12 grid-margin stretch-card">
+              <div class="col-12 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Add Bank</h4>

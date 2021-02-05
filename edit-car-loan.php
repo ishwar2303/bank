@@ -222,8 +222,8 @@
         }
 
         if($outstanding != ''){
-            if(!amountValidation($outstanding)){
-                $outstanding_error = 'Invalid amount';
+            if(!dateValidation($outstanding)){
+                $outstanding_error = 'Invalid date';
                 $control = 0;
             }
         }
@@ -680,15 +680,18 @@
                                     <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fas fa-rupee-sign"></i>
+                                            <i class="fas fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="outstanding" value="<?php echo $outstanding; ?>">
+                                    <input type="date" class="form-control form-input" id="outstanding" name="outstanding" value="<?php echo $outstanding; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $outstanding_error; ?>
                                     </div>
                                 </div>
+                                <script>
+                                    document.getElementById('outstanding').defaultValue = '<?php echo $outstanding; ?>'
+                                </script>
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">ARR-CO ND</label>
                                     <div class="input-group">

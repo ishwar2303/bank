@@ -47,48 +47,45 @@
     $users_array = array();
     $temp_array = array();
     $search_user = '';
+    $search_user_error = '';
     if(isset($_REQUEST['searchUser'])){
-      
       $search_user = strtoupper(cleanInput($_REQUEST['searchUser']));
-      $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
-      $result = $conn->query($sql);
-      $str_len = strlen($search_user);
-      while($row = $result->fetch_assoc()){
-        array_push($temp_array, $row);
-        $control = 1;
-        $user_name = strtoupper($row['user_full_name']);
-        for($i=0; $i<$str_len; $i++){
-          if($user_name[$i] != $search_user[$i]){
-            $control = 0;
-            break;
-          }
-        }
-        if($control){
-          array_push($users_array, $row);
-        }
-      }
-      if(sizeof($users_array) == 0){
-        $users_array = $temp_array;
-        $_SESSION['error_msg'] = 'No user found with the given name';
-      }
+      if($search_user == '')
+        $search_user_error = 'Search user by name...';
     }
-    else{
-      $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
-      $result = $conn->query($sql);
 
-      if($conn->error != ''){
-          $_SESSION['error_msg'] = 'Something went wrong!';
-          $db_error = $conn->error;
-      }
-      else if($result->num_rows == 0){
-        $_SESSION['error_msg'] = 'No user';
-      }
-      else{
-        while($row = $result->fetch_assoc()){
-          array_push($users_array, $row);
+    $sql = "SELECT * FROM user_registration ORDER BY user_role DESC";
+    $result = $conn->query($sql);
+    $str_len_search = strlen($search_user);
+    while($row = $result->fetch_assoc()){
+      array_push($temp_array, $row);
+      $control = 1;
+      $user_name = strtoupper($row['user_full_name']);
+      $str_len_name = strlen($user_name);
+      if($str_len_search > $str_len_name)
+        $str_len = $str_len_name;
+      else $str_len = $str_len_search;
+      for($i=0; $i<$str_len; $i++){
+        if($user_name[$i] != $search_user[$i]){
+          $control = 0;
+          break;
         }
       }
+      if($control){
+        array_push($users_array, $row);
+      }
     }
+    if(sizeof($users_array) == 0){
+      $users_array = $temp_array;
+      $_SESSION['error_msg'] = 'No user found with the given name';
+    }
+    else if($search_user != ''){
+      $_SESSION['success_msg'] = 'Search result for `'.$search_user.'` &nbsp;&nbsp; <a href="view-users.php">View all users</a>';
+    }
+    if($conn->error != ''){
+      $_SESSION['error_msg'] = $conn->error;
+    }
+    
 ?>
 
 
@@ -109,7 +106,7 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-12 grid-margin stretch-card">
+              <div class="col-12 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
 
@@ -132,6 +129,9 @@
                                         </span>
                                       </div>
                                       <input oninput="this.value = this.value.toUpperCase()" type="text" class="form-control form-input" name="searchUser" value="<?php echo $search_user; ?>" placeholder="Search user by name...">
+                                    </div>
+                                    <div class="form-input-response">
+                                      <?php echo $search_user_error; ?>
                                     </div>
                                   </div>
                                   <div class="col-md-6 mb-3 form-inline">

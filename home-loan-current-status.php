@@ -12,12 +12,15 @@
   $result = $conn->query($sql);
   $total_home_loan = $result->num_rows;
 
-  $sql = "SELECT home_loan_cid FROM home_loan WHERE case_status = '1'";
+  $sql = "SELECT home_loan_cid FROM home_loan WHERE case_status = '1' OR case_status = '2'";
   $result = $conn->query($sql);
   $total_completed_cases = $result->num_rows;
 
   $pending_cases = $total_home_loan - $total_completed_cases;
   
+  $sql = "SELECT home_loan_cid FROM home_loan WHERE auction_status = '1'";
+  $result = $conn->query($sql);
+  $property_sold = $result->num_rows;
 ?>
 
 
@@ -87,7 +90,7 @@
                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Property Sold <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                     </h4>
-                    <h2 class="mb-5"><?php echo '1'; ?></h2>
+                    <h2 class="mb-5"><?php echo $property_sold; ?></h2>
                     <!-- <h6 class="card-text">Increased by 5%</h6> -->
                   </div>
                 </div>

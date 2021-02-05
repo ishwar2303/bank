@@ -14028,6 +14028,7 @@ dl {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
+  z-index: 20;
 }
 .case-status-heading > i{
   font-size: 28px;
@@ -14570,6 +14571,8 @@ position: relative;
   width: 135px;
   margin-bottom: 10px;
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5);
+  max-height: 200px;
+  overflow-y: auto;
 }
 .custom-dropdown-operations > a, .custom-dropdown-operations > label{
   padding: 0px 5px;
@@ -14625,4 +14628,14 @@ position: relative;
   background: rgba(75, 75, 75,0.1);
   z-index: 9;
   display: none;
+}
+.status-link{
+  color :rgb(74, 52, 107);
+}
+.set-vh-80{
+  height: 87vh;
+  overflow-y: auto;
+}
+.pointer-behaviour-none{
+  pointer-events: none;
 }

@@ -689,7 +689,7 @@
                     <!-- Flash Message  -->
                     <?php require 'includes/flash-message.php'; ?>
 
-                    <div class="table-container">
+                    <div class="table-container table-container-home-loan">
 
                     <!--
                     <p class="card-description"> Add class <code>.table-hover</code>
@@ -770,6 +770,7 @@
                                   <th>Amount of compromise ₹</th>
                                   <th>Full compromise paid upto ₹</th>
                                   <th>OTS accepted</th>
+                                  <th>Amount of OTS ₹</th>
                                   <th>Full amount of OTS paid upto ₹</th>
                                   <th>Compromise/OTS Failed Date</th>
                                   <th>Compromise/OTS Failed</th>
@@ -890,6 +891,7 @@
                                       <td><?php echo $home_loan['amount_of_compromise']; ?></td>
                                       <td><?php echo $home_loan['full_compromise_paid_upto']; ?></td>
                                       <td><?php echo $home_loan['date_of_ots_accepted']!= '0000-00-00'? $home_loan['date_of_ots_accepted'] : '-'; ?></td>
+                                      <td><?php echo $home_loan['amount_of_ots']; ?></td>
                                       <td><?php echo $home_loan['amount_of_ots_paid_upto']; ?></td>
                                       <td><?php echo $home_loan['compromise_ots_failed_date']!= '0000-00-00'? $home_loan['compromise_ots_failed_date'] : '-'; ?></td>
                                       <td>
@@ -961,7 +963,7 @@
                                             <div class="custom-dropdown-operations">
                                             <!-- check case status -->
 
-                                            <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
+                                            <?php if($status == '0'){ ?> <!-- case completed or set as withdraw hide option -->
                                                 <!-- case edit --> 
                                                 <?php if($logged_in_user_role == '0' && !$home_loan_approved){ ?> <!-- Data operator can only edit till the case is not approved -->
                                                 <a href="edit-home-loan.php?cid=<?php echo $encoded_cid; ?>">
@@ -1066,7 +1068,7 @@
                                                   ?>
 
                                               
-                                                <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
+                                                <?php if($status == '0'){ ?> <!-- case completed or set as withdraw hide option -->
 
                                                     <!-- Add remark -->
                                                     <label class="add-remark-table-btn">
@@ -1326,11 +1328,11 @@
 
 <script>
   document.getElementById('scroll-to-left-end-of-div').addEventListener('click', ()=>{
-    let tableContainer = document.getElementsByClassName('table-container')[0]
+    let tableContainer = document.getElementsByClassName('table-container-home-loan')[0]
     tableContainer.scroll(0, tableContainer.scrollTop)
   })
   document.getElementById('scroll-to-right-end-of-div').addEventListener('click', ()=>{
-    let tableContainer = document.getElementsByClassName('table-container')[0]
+    let tableContainer = document.getElementsByClassName('table-container-home-loan')[0]
     let tableContainerWidth = tableContainer.scrollWidth
     tableContainer.scroll(tableContainerWidth, tableContainer.scrollTop)
   })

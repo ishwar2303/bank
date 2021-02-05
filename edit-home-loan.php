@@ -641,10 +641,10 @@
                     $control = 0;
                 }
             }
-            else{
-                $date_of_compromise_error = 'Required';
-                $control = 0;
-            }
+            // else{
+            //     $date_of_compromise_error = 'Required';
+            //     $control = 0;
+            // }
 
             if($amount_of_compromise != ''){
                 if(!amountValidation($amount_of_compromise)){
@@ -663,14 +663,14 @@
                     $control = 0;
                 }
             }
-            else{
-                $full_compromise_paid_upto_error = 'Required';
-                $control = 0;
-            }
+            // else{
+            //     $full_compromise_paid_upto_error = 'Required';
+            //     $control = 0;
+            // }
         }
         else{
-            $full_compromise_paid_upto = '0';
-            $amount_of_compromise = '0';
+            $full_compromise_paid_upto = '-';
+            $amount_of_compromise = '-';
             $date_of_compromise = '';
         }
 
@@ -682,10 +682,10 @@
                     $control = 0;
                 }
             }
-            else{
-                $date_of_ots_accepted_error = 'Required';
-                $control = 0;
-            }
+            // else{
+            //     $date_of_ots_accepted_error = 'Required';
+            //     $control = 0;
+            // }
 
             if($full_ots_paid_upto != ''){
                 if(!amountValidation($full_ots_paid_upto)){
@@ -711,8 +711,9 @@
             // }
         }
         else{
-            $full_ots_paid_upto = '0';
+            $full_ots_paid_upto = '-';
             $date_of_ots_accepted = '';
+            $ots_amount = '-';
         }
 
         if($control){ // Insert data into database control = 1
@@ -761,10 +762,17 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-12 grid-margin stretch-card">
+              <div class="col-12 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Edit Home Loan</h4>
+                    <h4 class="card-title form-inline justify-content-between">
+                        <span>
+                            <i class="fas fa-edit mr-1 set-theme-color"></i> Edit Home Loan 
+                        </span> 
+                        <span class="set-theme-color">
+                            Borrower : <?php echo $borrower_name; ?>
+                        </span>
+                    </h4>
             
                 
                     <!-- Flash Message  -->

@@ -13,6 +13,7 @@
         if($conn->error == ''){
             if($result->num_rows > 0){
             ?>
+            <div class="table-container set-vh-80">
             <table class="table table-hover">
                 <thead>
                     <th>Serial No</th>
@@ -41,7 +42,7 @@
                     <th>RA Bill paid on</th>
                     <th>RA Bill paid amount</th>
 
-                    <th>Status ID</th>
+                    <!-- <th>Status ID</th> -->
                     <?php if($case_status == '0'){ ?> <!-- case in progress -->
                     <th>Action</th>
                     <?php } ?>
@@ -104,17 +105,17 @@
                         <td><?php echo $row['ra_bill_paid_on'] != '0000-00-00' ? $row['ra_bill_paid_on'] : '-'; ?></td>
                         <td><?php echo $row['ra_bill_paid_amount'] != '0000-00-00' ? $row['ra_bill_paid_amount'] : '-'; ?></td>
                         
-                        <td><?php echo $row['status_id']; ?></td>
+                        <!-- <td><?php echo $row['status_id']; ?></td> -->
                         <?php if($case_status == '0'){ ?> <!-- case in progress -->
                         <td>
                             <a class="edit-btn mr-1" href="edit-home-loan-status.php?status_id=<?php echo $encoded_status_id; ?>" target="_blank">
                                 <span>Edit</span>
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_status_id; ?>','home-loan-status')" >
+                            <!-- <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_status_id; ?>','home-loan-status')" >
                                 <span>Delete</span>
                                 <i class="fas fa-trash-alt"></i>
-                            </label>
+                            </label> -->
                         </td>
                         <?php } ?>
                     </tbody>
@@ -126,6 +127,7 @@
             ?>
 
             </table>
+            </div>
             <script>
                 document.getElementsByClassName('show-case-status')[0].style.display = 'block';
             </script>

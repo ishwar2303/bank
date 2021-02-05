@@ -124,10 +124,10 @@
                 $control = 0;
             }
         }
-        else{
-            $bank_address_error = 'Address required';
-            $control = 0;
-        }
+        // else{
+        //     $bank_address_error = 'Address required';
+        //     $control = 0;
+        // }
 
         if(!empty($bank_contact_person_name)){
             if(!alphaSpaceValidation($bank_contact_person_name)){

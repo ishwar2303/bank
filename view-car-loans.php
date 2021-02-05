@@ -728,7 +728,7 @@
                                       <td><?php echo $car_loan['account_number']; ?></td>
                                       <td class="borrower text-capitalize"><?php echo $car_loan['customer_name']; ?></td>
                                       <td><?php echo $car_loan['npa_date']!= '0000-00-00'? $npa_date->format('d-m-Y') : '-'; ?></td>
-                                      <td><?php echo $car_loan['outstanding']; ?></td>
+                                      <td><?php echo $car_loan['outstanding']!= '0000-00-00'? $car_loan['outstanding'] : '-'; ?></td>
                                       <td><?php echo $car_loan['arr_co_nd']; ?></td>
                                       <td><?php echo $car_loan['notice13_sent_on']!= '0000-00-00'? $notice13_sent_on->format('d-m-Y') : '-'; ?></td>
                                       <td><?php echo $car_loan['principal_outstanding']; ?></td>

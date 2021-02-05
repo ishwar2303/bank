@@ -70,7 +70,7 @@
                     <h2 class="mb-5"><?php echo $total_home_loan; ?></h2>
                     <!-- <h6 class="card-text">Increased by 60%</h6> -->
                     <h4 class="form-inline justify-content-end z-ind-10">
-                      <a href="home-loan-current-status.php">Status</a>
+                      <a class="status-link" href="home-loan-current-status.php">View Status</a>
                     </h4>
                   </div>
                 </div>
@@ -84,7 +84,7 @@
                     <h2 class="mb-5"><?php echo $total_car_loan; ?></h2>
                     <!-- <h6 class="card-text">Decreased by 10%</h6> -->
                     <h4 class="form-inline justify-content-end z-ind-10">
-                      <a href="car-loan-current-status.php">Status</a>
+                      <a class="status-link" href="car-loan-current-status.php">View Status</a>
                     </h4>
                   </div>
                 </div>

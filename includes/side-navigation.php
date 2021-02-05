@@ -14,9 +14,9 @@
 <div id="black-cover-side-navigation"></div>
 <div class="sidebar-space-cover"></div>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
+  <ul class="nav mb-0 ">
   <li class="nav-item nav-profile">
-      <a onclick="return false" href="" class="nav-link">
+      <a onclick="return false" href="" class="nav-link pointer-behaviour-none">
         <div class="nav-profile-image">
             <img src="assets/images/faces-clipart/pic-1.png" alt="">
           <span class="login-status online"></span>

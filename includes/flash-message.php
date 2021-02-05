@@ -46,11 +46,12 @@ if(isset($_SESSION['note_msg'])){
         </span>
         <i class="mdi mdi-window-close close-note-flash-msg"></i>
     </div>
-    <!-- <script>
+    <!-- Remove message after 10 seconds -->
+    <script>
     setTimeout(() => {
         $('.note-msg').remove()
     }, 10000)
-    </script> -->
+    </script>
     <?php
     unset($_SESSION['note_msg']);
 }
