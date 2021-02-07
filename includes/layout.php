@@ -17,3 +17,11 @@
 <link rel="shortcut icon" href="assets/images/favicon.ico" />
 <script src="https://kit.fontawesome.com/196c90f518.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Data Tables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+<script>$(document).ready(function () {
+    $.noConflict();
+});</script>

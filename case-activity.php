@@ -78,7 +78,8 @@
 
                     <div class="table-container">
                             <div class="table table-hover">
-                            <table>
+                            <table id="case-activity-table">
+                              <thead>
                                 <tr>
                                     <th>S No</th>
                                     <th>Activity</th>
@@ -89,6 +90,8 @@
                                     <th>E-mail</th>
                                     <th>Contact</th>
                                 </tr>
+                              </thead>
+                              <tbody>
                                 <?php 
                                     $serial_no = 1;
                                     while($row = $activity_result->fetch_assoc()){
@@ -127,6 +130,7 @@
                                         }
                                 
                                 ?>
+                              </tbody>
                             </table>
                             </div>
                         </div>
@@ -160,3 +164,10 @@
     <!-- End custom js for this page -->
   </body>
 </html>
+
+
+<script>
+  $(document).ready( function () {
+    $('#case-activity-table').DataTable();
+  } );
+</script>

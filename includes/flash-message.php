@@ -8,11 +8,11 @@ if(isset($_SESSION['success_msg'])){
         </span>
         <i class="mdi mdi-window-close close-success-flash-msg"></i>
     </div>
-    <!-- <script>
+    <script>
     setTimeout(() => {
         $('.success-msg').remove()
     }, 10000)
-    </script> -->
+    </script>
     <?php
     unset($_SESSION['success_msg']);
 }
@@ -40,7 +40,7 @@ if(isset($_SESSION['error_msg'])){
 if(isset($_SESSION['note_msg'])){
     ?>
     <div class="note-msg">
-        <i class="fas fa-exclamation"></i>
+        <i class="mdi mdi-exclamation"></i>
         <span>
             <?php echo $_SESSION['note_msg']; ?>
         </span>

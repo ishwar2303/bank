@@ -12,15 +12,15 @@
   $result = $conn->query($sql);
   $total_users = $result->num_rows;
 
-  $sql = "SELECT user_id FROM user_registration WHERE user_role = '2'";
+  $sql = "SELECT user_id FROM user_registration WHERE user_role = '2' AND user_permitted = '1'";
   $result = $conn->query($sql);
   $total_admin = $result->num_rows;
 
-  $sql = "SELECT user_id FROM user_registration WHERE user_role = '1'";
+  $sql = "SELECT user_id FROM user_registration WHERE user_role = '1' AND user_permitted = '1'";
   $result = $conn->query($sql);
   $total_privileged_user = $result->num_rows;
 
-  $sql = "SELECT user_id FROM user_registration WHERE user_role = '0'";
+  $sql = "SELECT user_id FROM user_registration WHERE user_role = '0' AND user_permitted = '1'";
   $result = $conn->query($sql);
   $total_data_operator = $result->num_rows;
 
@@ -106,7 +106,7 @@
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="theme-text">Todo</h4>
+                    <h4 class="theme-text">To do</h4>
                     <form class="d-flex" method="POST">
                       <input style="margin-right: 10px;" type="text" id="to-do-work" class="form-control todo-list-input form-input" placeholder="What do you need to do today?">
                       <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" type="submit" id="add-task">Add</button>

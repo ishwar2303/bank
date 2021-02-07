@@ -49,7 +49,7 @@
 
           if($control){ 
 
-              $sql = "SELECT user_id, user_role, user_full_name, user_password_changed FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password'";
+              $sql = "SELECT user_id, user_role, user_full_name, user_password_changed FROM user_registration WHERE user_email = '$encoded_user_email' AND user_password ='$encoded_user_password' AND user_permitted = '1'";
               $result = $conn->query($sql);
 
               if($result->num_rows == 1){ // authenticated

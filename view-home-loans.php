@@ -142,6 +142,7 @@
     }
 
 
+    $print_set = false;
 
     // filter variables
     $select_bank = '';
@@ -152,6 +153,9 @@
     $cases_date_upto_error = '';
     $select_bank_error = '';
     $defaulter_name_error = '';
+    // $case_completed = '1';
+    // $case_in_progress = '1';
+    // $case_withdraw = '1';
     $search_box_error = '';
     //search
     $display_search_box = false;
@@ -251,6 +255,10 @@
         $search_query = 1;
         $success_msg = '';
         $error_msg = '';
+
+        if($select_bank_set)
+          $print_set = true;
+
         $sql_1 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank'";
         $sql_2 = "SELECT * FROM home_loan WHERE borrower_name = '$defaulter_name'";
         $sql_3 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND borrower_name = '$defaulter_name'";
@@ -481,6 +489,15 @@
           else $_SESSION['error_msg'] = $no_result_found_error;
           
         }
+
+        if($print_set){
+          if(sizeof($result_array) > 0){
+            $_SESSION['print-home-loan-report'] = array();
+            foreach($result_array as $home_loan){
+              array_push($_SESSION['print-home-loan-report'], $home_loan['home_loan_cid']);
+            }
+          }
+        }
         
       }
     }
@@ -629,6 +646,7 @@
       </script>
     <?php } ?>
     <!-- search - box end -->
+
     <!-- case status popup -->
     <div class="show-case-status">
       <div class="show-case-content">
@@ -667,20 +685,34 @@
                         <?php if(sizeof($result_array) > 0){ ?>
                         <div class="table-scroll-btn">
                           <span id="scroll-to-left-end-of-div">
-                              <i  class="fas fa-chevron-circle-left"></i>
+                              <i  class="mdi mdi-arrow-left-bold-circle-outline"></i>
                           </span>
                           <span id="scroll-to-right-end-of-div" >
-                              <i class="fas fa-chevron-circle-right"></i>
+                              <i class="mdi mdi-arrow-right-bold-circle-outline"></i>
                           </span>
                         </div>
                         <?php } ?>
                       </div>
                       
                       <?php if(sizeof($result_array) > 0){ ?>
-                      <button id="show-search-popup" class="btn btn-primary">
-                          <i class="fas fa-search"></i> 
-                          Search
-                      </button>
+                        <button id="show-search-popup" class="btn btn-primary btn-setting">
+                            <i class="mdi mdi-file-find"></i> 
+                            Search
+                        </button>
+                        <a id="refresh-loans" href="view-home-loans.php">
+                          <button  class="btn btn-primary btn-setting">
+                              <i class="mdi mdi-reload mr-1"></i> 
+                              Refresh
+                          </button>
+                        </a>
+                        <?php if($print_set){?>
+                          <a id="show-report-popup" href="print-home-loan-report.php" target="_blank">
+                          <button  class="btn btn-primary btn-setting">
+                            <i class="mdi mdi-printer mr-1"></i> 
+                            Print Report
+                          </button>
+                        </a>
+                        <?php } ?>
                       <?php } ?>
                     </div>
                     </h4>
@@ -696,9 +728,6 @@
                     </p>
                     -->
                     <?php if($db_error == ''){ ?>
-                        <?php if(sizeof($result_array) > 0){ ?>
-                            <table class="table table-hover">
-
                             <!-- dropdown - overlay -->
                             <div class="custom-dropdown-overlay"></div>
                             <script>
@@ -707,6 +736,9 @@
                                 $('.custom-dropdown-overlay').toggle()
                               })
                             </script>
+                        <?php if(sizeof($result_array) > 0){ ?>
+                            <table id="home-loan-table" class="table table-hover">
+
 
                               <thead>
                                 <tr>
@@ -937,7 +969,7 @@
                                           $status = $home_loan['case_status']; ?>
                                           <?php
                                           if($status == '2'){
-                                            $btn_icon = "<i class='fas fa-exclamation icon-mr-5'></i>";
+                                            $btn_icon = "<i class='mdi mdi-exclamation icon-mr-5'></i>";
                                             $btn_class = 'case-withdraw';
                                             $status_value = 'Withdraw';
                                           } 
@@ -956,11 +988,11 @@
 
                                       <td>
                                           <div class="custom-action-dropdown">
-                                            <div class="open-custom-dropdown <?php echo $btn_class; ?>">
+                                            <div class="open-custom-dropdown <?php echo $btn_class; ?>" id="open-custom-dropdown<?php echo $serial_no; ?>">
                                               <?php echo $btn_icon; ?>
                                               <?php echo $status_value; ?>
                                             </div>
-                                            <div class="custom-dropdown-operations">
+                                            <div class="custom-dropdown-operations" id="custom-dropdown-operations<?php echo $serial_no; ?>">
                                             <!-- check case status -->
 
                                             <?php if($status == '0'){ ?> <!-- case completed or set as withdraw hide option -->
@@ -1111,12 +1143,12 @@
                                           <!-- custom action dropdown script -->
 
                                           <script>
-                                          $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).click(() => {
+                                          $("#open-custom-dropdown<?php echo $serial_no; ?>").click(() => {
                                             
-                                              $(".custom-dropdown-operations").eq(<?php echo $serial_no-1; ?>).toggle()
+                                              $("#custom-dropdown-operations<?php echo $serial_no; ?>").toggle()
                                               var scrollTop = $('.table-container').scrollTop();
                                               // get the top offset of the dropdown (distance from top of the page)
-                                              var topOffset = $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).offset().top;
+                                              var topOffset = $("#custom-dropdown-operations<?php echo $serial_no; ?>").offset().top;
                                               // calculate the dropdown offset relative to window position
                                               //console.log('table scroll' + scrollTop)
                                               topOffset = topOffset - 115
@@ -1129,7 +1161,7 @@
                                               // if the relative offset is greater than half the window height,
                                               // reverse the dropdown.
                                               $('.custom-dropdown-overlay').toggle()
-                                              let dropdownBox = document.getElementsByClassName('custom-dropdown-operations')[<?php echo $serial_no-1; ?>]
+                                              let dropdownBox = document.getElementById('custom-dropdown-operations<?php echo $serial_no; ?>')
                                               console.log('Dropdown menu height : ' + dropdownBox.offsetHeight)
                                               console.log('available space : '+ (windowHeight - topOffset))
                                               let containerHeight = windowHeight
@@ -1140,7 +1172,7 @@
                                               console.log('space below : ' + spaceBelow)
 
                                               let dropdownMenuHeight = dropdownBox.offsetHeight
-                                              if(dropdownMenuHeight <= spaceBelow + 50){
+                                              if(dropdownMenuHeight <= spaceBelow-100){
                                                 dropdownBox.style.top = '0px'
                                                 console.log('space available below')
                                               }
@@ -1338,9 +1370,28 @@
   })
 </script>
 
+<!-- report popup -->
+<!-- <script>
+  document.getElementById('show-report-popup').addEventListener('click', () => {
+    document.getElementsByClassName('print-report-popup')[0].style.display = 'block'
+    document.getElementsByClassName('black-cover-for-report')[0].style.display = 'block'
+  })
+  document.getElementById('close-report-popup').addEventListener('click', () => {
+    document.getElementsByClassName('print-report-popup')[0].style.display = 'none'
+    document.getElementsByClassName('black-cover-for-report')[0].style.display = 'none'
+  })
+</script> -->
 
 
 
+<script>
+  $(document).ready( function () {
+    $('#home-loan-table').DataTable({
+      pageLength : 5,
+      lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
+    });
+  } );
+</script>
 
 
 

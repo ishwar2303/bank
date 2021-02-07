@@ -96,21 +96,21 @@
     </li>
     <?php } ?>
     
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" href="car-loan.php  ">
         <span class="menu-title">Add Car Loan</span>
         <i class="mdi mdi-car menu-icon"></i>
       </a>
-    </li>
+    </li> -->
 
-    <?php if($total_car_loan_cases){ ?>
+    <!-- <?php if($total_car_loan_cases){ ?>
     <li class="nav-item">
       <a class="nav-link" href="view-car-loans.php  ">
         <span class="menu-title">View Car Loans</span>
         <i class="fas fa-eye menu-icon"></i>
       </a>
     </li>
-    <?php } ?>
+    <?php } ?> -->
 
   </ul>
 </nav>
