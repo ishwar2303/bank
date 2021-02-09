@@ -103,10 +103,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-12 grid-margin stretch-card">
+              <div class="col-md-6 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="theme-text">To do</h4>
+                    <h4 class="theme-text"><i class="mdi mdi-format-list-bulleted mr-1"></i>   To do</h4>
                     <form class="d-flex" method="POST">
                       <input style="margin-right: 10px;" type="text" id="to-do-work" class="form-control todo-list-input form-input" placeholder="What do you need to do today?">
                       <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" type="submit" id="add-task">Add</button>
@@ -120,6 +120,18 @@
                             $index = 0;
                             $statusIndexDone = 0;
                             $statusIndexIncomplete = 0;
+                          ?>
+                          <?php 
+                            if($result->num_rows == 0){
+                              ?>
+                              <div class="direction-col">
+                                  <img src="assets/images/faces-clipart/to-do-list.png" class="to-do-img mt-1" alt="">
+                                  <label class="set-theme-color mt-2">Add Your To Do Work...</label>
+                              </div>
+                              <?php
+                            }
+                          ?>
+                          <?php
                             while($row = $result->fetch_assoc()){
                               if($row['status'] == '0')
                                   $css_class = 'bg-gradient-dang';

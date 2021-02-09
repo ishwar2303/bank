@@ -767,7 +767,7 @@
                   <div class="card-body">
                     <h4 class="card-title form-inline justify-content-between">
                         <span>
-                            <i class="fas fa-edit mr-1 set-theme-color"></i> Edit Home Loan 
+                            <i class="mdi mdi-table-edit"></i> Edit Home Loan 
                         </span> 
                         <span class="set-theme-color">
                             Borrower : <?php echo $borrower_name; ?>

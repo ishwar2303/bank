@@ -732,7 +732,7 @@
               <div class="col-12 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add Home Loan</h4>
+                    <h4 class="card-title pg-heading"><i class="mdi mdi-library-plus"></i>  Add Home Loan</h4>
             
                 
                     <!-- Flash Message  -->

@@ -2,17 +2,17 @@
 if(isset($_SESSION['success_msg'])){
     ?>
     <div class="success-msg">
-        <i class="fa fa-check"></i>
+        <i class="mdi mdi-check"></i>
         <span>
             <?php echo $_SESSION['success_msg']; ?>
         </span>
         <i class="mdi mdi-window-close close-success-flash-msg"></i>
     </div>
-    <script>
+    <!-- <script>
     setTimeout(() => {
         $('.success-msg').remove()
     }, 10000)
-    </script>
+    </script> -->
     <?php
     unset($_SESSION['success_msg']);
 }
@@ -21,7 +21,7 @@ if(isset($_SESSION['success_msg'])){
 if(isset($_SESSION['error_msg'])){
     ?>
     <div class="error-msg">
-        <i class="fas fa-exclamation-triangle"></i>
+        <!-- <i class="fas fa-exclamation-triangle"></i> -->
         <span>
             <?php echo $_SESSION['error_msg']; ?>
         </span>
@@ -47,11 +47,11 @@ if(isset($_SESSION['note_msg'])){
         <i class="mdi mdi-window-close close-note-flash-msg"></i>
     </div>
     <!-- Remove message after 10 seconds -->
-    <script>
+    <!-- <script>
     setTimeout(() => {
         $('.note-msg').remove()
     }, 10000)
-    </script>
+    </script> -->
     <?php
     unset($_SESSION['note_msg']);
 }

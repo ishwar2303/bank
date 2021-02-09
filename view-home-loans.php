@@ -727,6 +727,23 @@
                     <p class="card-description"> Add class <code>.table-hover</code>
                     </p>
                     -->
+                    <!-- No search results -->
+                    <?php  
+                      if(sizeof($result_array) == 0){
+                        ?>
+                          <div class="form-inline justify-content-center direction-col">
+                              <img src="assets/images/faces-clipart/no-search-result.png" alt="" class="mt-3">
+                              <a href="view-home-loans.php" class="link-style">
+                                <button class="btn btn-primary btn-setting mt-5">
+                                  <i class="fas fa-sync mr-2"></i>
+                                  Load All Home Loans
+                                </button>
+                              </a>
+                              <div class="form-input-response mt-3">Nothing here matches your search</div>
+                          </div>
+                        <?php 
+                      }
+                    ?>
                     <?php if($db_error == ''){ ?>
                             <!-- dropdown - overlay -->
                             <div class="custom-dropdown-overlay"></div>
@@ -736,6 +753,7 @@
                                 $('.custom-dropdown-overlay').toggle()
                               })
                             </script>
+                        <!-- search results -->    
                         <?php if(sizeof($result_array) > 0){ ?>
                             <table id="home-loan-table" class="table table-hover">
 
@@ -1388,7 +1406,7 @@
   $(document).ready( function () {
     $('#home-loan-table').DataTable({
       pageLength : 5,
-      lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
+      lengthMenu: [[3, 5, 10, 20, -1], [3, 5, 10, 20, 'All']]
     });
   } );
 </script>

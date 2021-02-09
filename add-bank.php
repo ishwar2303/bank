@@ -212,7 +212,45 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text bg-gradient-primary text-white br"><i class="fab fa-stripe-s"></i></span>
                               </div>
-                              <input type="text" class="form-control form-input" name="bankState" value="<?php echo $bank_state; ?>" placeholder="State">
+                              <select type="text" class="form-control form-input" name="bankState" value="<?php echo $bank_state; ?>">
+                                <option >Choose</option>
+                                <option value="Andhra Pradesh" <?php echo $bank_state == 'Andhra Pradesh' ? 'selected' : ''; ?>>Andhra Pradesh</option>
+                                <option value="Andaman and Nicobar Islands"  <?php echo $bank_state == 'Andaman and Nicobar Islands' ? 'selected' : ''; ?>>Andaman and Nicobar Islands</option>
+                                <option value="Arunachal Pradesh"  <?php echo $bank_state == 'Arunachal Pradesh' ? 'selected' : ''; ?>>Arunachal Pradesh</option>
+                                <option value="Assam"  <?php echo $bank_state == 'Assam' ? 'selected' : ''; ?>>Assam</option>
+                                <option value="Bihar" <?php echo $bank_state == 'Bihar' ? 'selected' : ''; ?>>Bihar</option>
+                                <option value="Chandigarh" <?php echo $bank_state == 'Chandigarh' ? 'selected' : ''; ?>>Chandigarh</option>
+                                <option value="Chhattisgarh" <?php echo $bank_state == 'Chhattisgarh' ? 'selected' : ''; ?>>Chhattisgarh</option>
+                                <option value="Dadar and Nagar Haveli" <?php echo $bank_state == 'Dadar and Nagar Haveli' ? 'selected' : ''; ?>>Dadar and Nagar Haveli</option>
+                                <option value="Daman and Diu" <?php echo $bank_state == 'Daman and Diu' ? 'selected' : ''; ?>>Daman and Diu</option>
+                                <option value="Delhi" <?php echo $bank_state == 'Delhi' ? 'selected' : ''; ?>>Delhi</option>
+                                <option value="Lakshadweep" <?php echo $bank_state == 'Lakshadweep' ? 'selected' : ''; ?>>Lakshadweep</option>
+                                <option value="Puducherry" <?php echo $bank_state == 'Puducherry' ? 'selected' : ''; ?>>Puducherry</option>
+                                <option value="Goa" <?php echo $bank_state == 'Goa' ? 'selected' : ''; ?>>Goa</option>
+                                <option value="Gujarat" <?php echo $bank_state == 'Gujarat' ? 'selected' : ''; ?>>Gujarat</option>
+                                <option value="Haryana" <?php echo $bank_state == 'Haryana' ? 'selected' : ''; ?>>Haryana</option>
+                                <option value="Himachal Pradesh" <?php echo $bank_state == 'Himachal Pradesh' ? 'selected' : ''; ?>>Himachal Pradesh</option>
+                                <option value="Jammu and Kashmir" <?php echo $bank_state == 'Jammu and Kashmir' ? 'selected' : ''; ?>>Jammu and Kashmir</option>
+                                <option value="Jharkhand" <?php echo $bank_state == 'Jharkhand' ? 'selected' : ''; ?>>Jharkhand</option>
+                                <option value="Karnataka" <?php echo $bank_state == 'Karnataka' ? 'selected' : ''; ?>>Karnataka</option>
+                                <option value="Kerala" <?php echo $bank_state == 'Kerala' ? 'selected' : ''; ?>>Kerala</option>
+                                <option value="Madhya Pradesh" <?php echo $bank_state == 'Madhya Pradesh' ? 'selected' : ''; ?>>Madhya Pradesh</option>
+                                <option value="Maharashtra" <?php echo $bank_state == 'Maharashtra' ? 'selected' : ''; ?>>Maharashtra</option>
+                                <option value="Manipur" <?php echo $bank_state == 'Manipur' ? 'selected' : ''; ?>>Manipur</option>
+                                <option value="Meghalaya" <?php echo $bank_state == 'Meghalaya' ? 'selected' : ''; ?>>Meghalaya</option>
+                                <option value="Mizoram" <?php echo $bank_state == 'Mizoram' ? 'selected' : ''; ?>>Mizoram</option>
+                                <option value="Nagaland" <?php echo $bank_state == 'Nagaland' ? 'selected' : ''; ?>>Nagaland</option>
+                                <option value="Odisha" <?php echo $bank_state == 'Odisha' ? 'selected' : ''; ?>>Odisha</option>
+                                <option value="Punjab" <?php echo $bank_state == 'Punjab' ? 'selected' : ''; ?>>Punjab</option>
+                                <option value="Rajasthan" <?php echo $bank_state == 'Rajasthan' ? 'selected' : ''; ?>>Rajasthan</option>
+                                <option value="Sikkim" <?php echo $bank_state == 'Sikkim' ? 'selected' : ''; ?>>Sikkim</option>
+                                <option value="Tamil Nadu" <?php echo $bank_state == 'Tamil Nadu' ? 'selected' : ''; ?>>Tamil Nadu</option>
+                                <option value="Telangana" <?php echo $bank_state == 'Telangana' ? 'selected' : ''; ?>>Telangana</option>
+                                <option value="Tripura" <?php echo $bank_state == 'Tripura' ? 'selected' : ''; ?>>Tripura</option>
+                                <option value="Uttar Pradesh" <?php echo $bank_state == 'Uttar Pradesh' ? 'selected' : ''; ?>>Uttar Pradesh</option>
+                                <option value="Uttarakhand" <?php echo $bank_state == 'Uttarakhand' ? 'selected' : ''; ?>>Uttarakhand</option>
+                                <option value="West Bengal" <?php echo $bank_state == 'West Bengal' ? 'selected' : ''; ?>>West Bengal</option>
+                              </select>
                             </div>
                             <div  class="form-input-response">
                                 <?php echo $bank_state_error; ?>

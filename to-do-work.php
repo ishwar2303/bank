@@ -10,7 +10,7 @@
             $conn->query($sql);
             if($conn->error != ''){
                 ?>
-                    <div class="error-msg">Somthing went wrong!</div>
+                    <div class="error-msg">Something went wrong!</div>
                 <?php
             }
         }
@@ -23,7 +23,7 @@
         $conn->query($sql);
         if($conn->error != ''){
             ?>
-                <div class="error-msg">Somthing went wrong!</div>
+                <div class="error-msg">Something went wrong!</div>
             <?php
         }
 
@@ -35,7 +35,7 @@
         $conn->query($sql);
         if($conn->error != ''){
             ?>
-                <div class="error-msg">Somthing went wrong!</div>
+                <div class="error-msg">Something went wrong!</div>
             <?php
         }
     }
@@ -46,7 +46,7 @@
         $conn->query($sql);
         if($conn->error != ''){
             ?>
-                <div class="error-msg">Somthing went wrong!</div>
+                <div class="error-msg">Something went wrong!</div>
             <?php
         }
     }
@@ -58,6 +58,19 @@
         $index = 0;
         $statusIndexDone = 0;
         $statusIndexIncomplete = 0;
+?>
+        
+<?php 
+        if($result->num_rows == 0){
+            ?>
+            <div class="direction-col">
+                <img src="assets/images/faces-clipart/to-do-list.png" class="to-do-img mt-1" alt="">
+                <label class="set-theme-color mt-2">Add Your To Do Work...</label>
+            </div>
+            <?php
+        }
+?>
+<?php
         while($row = $result->fetch_assoc()){
             if($row['status'] == '0')
                 $css_class = 'bg-gradient-dang';

@@ -12104,7 +12104,7 @@ code {
     .card .card-body + .card-body {
       padding-top: 1rem; }
   .card .card-title {
-    color: #343a40;
+    color: rgb(154, 85, 255);
     margin-bottom: 0.75rem;
     text-transform: capitalize;
     font-family: "ubuntu-medium", sans-serif;
@@ -13620,12 +13620,12 @@ dl {
   display: flex;
   color: red;
   align-items: center;
-  background: rgba(255,0,0,0.05);
+  background: rgba(255,0,0,0.03);
   border-radius: 5px;
-  padding: 15px 10px;
+  padding: 13px 10px;
   margin-bottom: 5px;
   border: 0.5px solid rgba(255,0,0,0.4);
-  font-size: 14px;
+  font-size: 13px;
 }
 .error-msg > span{
   display: flex;
@@ -13639,7 +13639,7 @@ dl {
   align-self: flex-start;
   margin-bottom: 2px;
 }
-.error-msg > i:nth-child(3){
+.error-msg > i:nth-child(2){
   padding-left: 5px;
   cursor: pointer;
   align-self: flex-start;
@@ -13648,11 +13648,11 @@ dl {
   display: flex;
   color: green;
   align-items: center;
-  background: rgba(0,255,0,0.1);
+  background: rgba(0,255,0,0.07);
   border-radius: 5px;
-  padding: 15px 10px;
+  padding: 13px 10px;
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 13px;
   border : 0.5px solid rgba(0,255,0,0.8); 
 }
 .success-msg > span{
@@ -13676,10 +13676,10 @@ dl {
   padding: 10px 0px;
   color: rgb(5, 83, 226);
   align-items: center;
-  background: rgba(0,0,255,0.1);
-  padding: 15px 10px;
+  background: rgba(0,0,255,0.06);
+  padding: 13px 10px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 5px;
   border : 0.5px solid rgba(0,0,255,0.4);
 }
@@ -13701,7 +13701,7 @@ dl {
 }
 .form-input-response{
   margin-top: 5px;
-  font-size: 14px;
+  font-size: 13px;
   color : red;
 }
 .bank-operation{
@@ -14311,6 +14311,10 @@ dl {
 .remove-to-do-work{
   cursor: pointer;
 }
+
+.remove-to-do-work:hover{
+  color: red;
+}
 .make-status-incomplete{
   cursor: pointer;
 }
@@ -14460,7 +14464,7 @@ position: relative;
 }
 
 #scroll-to-left-end-of-div:hover, #scroll-to-right-end-of-div:hover{
-  background: rgb(154, 85, 255, 0.2);
+  background: rgb(154, 85, 255, 0.07);
   cursor: pointer;
 }
 .asset-header{
@@ -14581,12 +14585,6 @@ position: relative;
     color : #9a55ff;
     font-size: 20px;
   }
-  .bg-gradient-suc{
-    background: linear-gradient(45deg, rgba(0,255,0,0.4), rgba(0,255,0,0.1));
-  }
-  .bg-gradient-dang{ 
-    background: linear-gradient(45deg, rgba(255,0,0,0.3), rgba(255,0,0,0.1));
-  }
   .z-ind-10{
     z-index: 10;
   }
@@ -14678,7 +14676,7 @@ position: relative;
   margin-right: 5px;
 }
 .form-part-heading{
-  color: rgb(180, 70, 70);
+  color: #3498db;
 }
 .custom-dropdown-overlay{
   
@@ -14930,8 +14928,31 @@ position: relative;
   position: fixed;
 }
 .dataTables_paginate{
-  
+/*   
   position: absolute;
   right: 45px;
-  position: fixed;
+  position: fixed; */
+  margin-bottom: 10px;
+}
+.link-style{
+  text-decoration: none;
+}
+.link-style:hover{
+  text-decoration: none;
+}
+.direction-col{
+  display: flex;
+  flex-direction: column;
+}
+.to-do-img{
+  width: 90px;
+}
+
+.bg-gradient-suc{
+  background: rgba(0,255,0,0.07);
+  border : 0.5px solid rgba(0,255,0,0.8); 
+}
+.bg-gradient-dang{ 
+  background: rgba(255,0,0,0.03);
+  border: 0.5px solid rgba(255,0,0,0.4);
 }

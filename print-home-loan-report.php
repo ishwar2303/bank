@@ -115,8 +115,8 @@
                 <span>To</span>
                 <div>
                     <div>
-                        <span id="report-to-bank" class="mk-bold mr-2">TO ANNUAL GENERAL MANAGER</span>
-                        <input type="text" id="input-report-to-bank" class="mr-2 form-input set-input-style mb-2" value="TO ANNUAL GENERAL MANAGER">
+                        <span id="report-to-bank" class="mk-bold mr-2">ANNUAL GENERAL MANAGER</span>
+                        <input type="text" id="input-report-to-bank" class="mr-2 form-input set-input-style mb-2" value="ANNUAL GENERAL MANAGER">
                         <span id="edit-report-to-bank" class="blue-color"><i class="fas fa-pen-alt"></i> Edit</span>
                         <span id="update-report-to-bank" class="blue-color"><i class="fas fa-save"></i> Save</span><br/>
                     </div>
