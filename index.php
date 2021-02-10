@@ -32,6 +32,12 @@
   $result = $conn->query($sql);
   $total_car_loan = $result->num_rows;
   
+  $sql = "SELECT * FROM e_auction";
+  $result = $conn->query($sql);
+  $e_auction = array();
+  while($row = $result->fetch_assoc()){
+    array_push($e_auction, $row);
+  }
   
 ?>
 
@@ -103,9 +109,26 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 grid-margin stretch-card mb-0">
+              <div class="col-md-6 grid-margin stretch-card mb-0 mtp-5">
+                <div class="card bg-transparent">
+                  <div class="card-body max-height">
+                    <div class="e-auction">
+                        <a class="e-auction-btn" href="add-e-auction.php" target="_blank">
+                          <button class="btn btn-primary">Add E-Auction Details</button>
+                        </a>
+                        <div class="e-auction-count set-theme-bg bg-gradient-success">
+                          <label for=""> <i class="fas fa-gavel fs-45 mb-2"></i> </label>
+                          <label for="">Property Sold</label>
+                          <label>Open E-Auction</label>
+                          <span class="mt-2 fs-23"><?php echo sizeof($e_auction); ?></span>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card mb-0 mtp-5">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body max-height">
                     <h4 class="theme-text"><i class="mdi mdi-format-list-bulleted mr-1"></i>   To do</h4>
                     <form class="d-flex" method="POST">
                       <input style="margin-right: 10px;" type="text" id="to-do-work" class="form-control todo-list-input form-input" placeholder="What do you need to do today?">
@@ -290,6 +313,45 @@
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
+        <div class="card mt-5">
+          <div class="card-body">
+            
+            <h4 class="card-title form-inline justify-content-between">
+              E-Auction Details
+            </h4>
+            <div class="table-container">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>S No.</th>
+                    <th>Bank Name</th>
+                    <th>Branch Address</th>
+                    <th>Borrower Name</th>
+                    <th>Mortgaged Property Address</th>
+                    <th>Sold Price</th>
+                    <th>Bidder Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php
+                  $serial_no = 1; 
+                  foreach($e_auction as $auction_detail){
+                ?>
+                  <tr>
+                    <td><?php echo $serial_no; ?></td>
+                    <td><?php echo $auction_detail['bank_name']; ?></td>
+                    <td><?php echo $auction_detail['branch_address']; ?></td>
+                    <td><?php echo $auction_detail['borrower_name']; ?></td>
+                    <td><?php echo $auction_detail['property_address']; ?></td>
+                    <td><?php echo $auction_detail['sold_price']; ?></td>
+                    <td><?php echo $auction_detail['bidder_name']; ?></td>
+                  </tr>
+                <?php $serial_no += 1; } ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- page-body-wrapper ends -->
     </div>

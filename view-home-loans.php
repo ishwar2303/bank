@@ -149,10 +149,14 @@
     $cases_date_from = '';
     $cases_date_upto = '';
     $defaulter_name = '';
+    $date_of_hearing_from = '';
+    $date_of_hearing_upto = '';
     $cases_date_from_error = '';
     $cases_date_upto_error = '';
     $select_bank_error = '';
     $defaulter_name_error = '';
+    $date_of_hearing_from_error = '';
+    $date_of_hearing_upto_error = '';
     // $case_completed = '1';
     // $case_in_progress = '1';
     // $case_withdraw = '1';
@@ -170,13 +174,15 @@
       $cases_date_from = cleanInput($_POST['caseFrom']);
       $cases_date_upto = cleanInput($_POST['caseTo']);
       $defaulter_name = cleanInput($_POST['defaulterName']);
-
+      $date_of_hearing_from = cleanInput($_POST['dateOfHearingFrom']);
+      $date_of_hearing_upto = cleanInput($_POST['dateOfHearingUpto']);
       // defalt search field set to false
       $select_bank_set = false;
       $defaulter_name_set = false;
       $cases_from_set = false;
       $cases_upto_set = false;
-
+      $date_of_hearing_from_set = false;
+      $date_of_hearing_upto_set = false;
       $no_result_found_error = "We looked high and low, but your search result isn't here.. &nbsp;&nbsp;<a href='view-home-loans.php'>View all loans</a>";
 
       //validation
@@ -245,6 +251,47 @@
           $control = 1;
         }
       }
+      
+      if(!empty($date_of_hearing_from)){ // date of hearing from
+        if(dateValidation($date_of_hearing_from)){
+          $date = new DateTime($date_of_hearing_from);
+          $search_date_of_hearing_from = $date->format('U');
+          $date_of_hearing_from = $date->format('d-m-Y');
+          $date_of_hearing_from_set = true;
+          $control = 1;
+        }
+        else{
+          $date_of_hearing_from_error = 'Invalid Date';
+          $date_of_hearing_from_set = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
+
+      if(!empty($date_of_hearing_upto)){ // date of hearing upto
+        if(dateValidation($date_of_hearing_upto)){
+          $date = new DateTime($date_of_hearing_upto);
+          $search_date_of_hearing_upto = $date->format('U');
+          $date_of_hearing_upto = $date->format('d-m-Y');
+          $date_of_hearing_upto_set = true;
+          $control = 1;
+        }
+        else{
+          $date_of_hearing_upto_error = 'Invalid Date';
+          $date_of_hearing_upto_set = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
+      
+      if($date_of_hearing_from_set && $date_of_hearing_upto_set){
+        if($search_date_of_hearing_from > $search_date_of_hearing_upto){
+          $date_of_hearing_from_error = 'Invalid Date';
+          $display_search_box = true;
+          $error_occured = 1;
+          $control = 1;
+        }
+      }
 
       if(!$control){ // atleast one filter is selected
         $display_search_box = true;
@@ -259,11 +306,922 @@
         if($select_bank_set)
           $print_set = true;
 
+        $hl_cid = '';
         $sql_1 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank'";
         $sql_2 = "SELECT * FROM home_loan WHERE borrower_name = '$defaulter_name'";
         $sql_3 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND borrower_name = '$defaulter_name'";
         $sql_4 = "SELECT * FROM home_loan";
-        if($select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only bank B
+
+        // date of hearing from
+        if($date_of_hearing_from_set && !$date_of_hearing_upto_set){
+          
+          if(!$select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only date of hearing from
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only bank B
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only defaulter name D
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // Cases Upto T
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BF
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BT
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // BD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // FT
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // FD
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // TD
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // BFT
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BFD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BTD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && $cases_from_set && $cases_upto_set){ // if all four parameters are set B F T D
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+            
+          }
+        }
+        // date of hearing upto
+        
+        else if(!$date_of_hearing_from_set && $date_of_hearing_upto_set){
+          
+          if(!$select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only Date of Hearing Upto
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only bank B
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only defaulter name D
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // Cases Upto T
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BF
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BT
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // BD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // FT
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // FD
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // TD
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // BFT
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BFD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BTD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && $cases_from_set && $cases_upto_set){ // if all four parameters are set B F T D
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+            
+          }
+        }
+        // date of hearing from and date of hearing upto
+        
+        else if($date_of_hearing_from_set && $date_of_hearing_upto_set){
+          
+          if(!$select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only Date of Hearing Upto
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only bank B
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only defaulter name D
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if(!$select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // Cases Upto T
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BF
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BT
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && $defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // BD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $next_hearing = $row['date_of_hearing'];
+                $next_hearing = new DateTime($next_hearing);
+                $next_hearing = $next_hearing->format('U');
+                if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                  array_push($result_array, $row);
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // FT
+            $result = $conn->query($sql_4);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // FD
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if(!$select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // TD
+            $result = $conn->query($sql_2);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+          
+          else if($select_bank_set && !$defaulter_name_set && $cases_from_set && $cases_upto_set){ // BFT
+            $result = $conn->query($sql_1);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && $cases_from_set && !$cases_upto_set){ // BFD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && !$cases_from_set && $cases_upto_set){ // BTD
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+          }
+
+          else if($select_bank_set && $defaulter_name_set && $cases_from_set && $cases_upto_set){ // if all four parameters are set B F T D
+            $result = $conn->query($sql_3);
+            if($result->num_rows > 0){
+              while($row = $result->fetch_assoc()){
+                $date = new DateTime($row['case_date']);
+                $epoch_time_of_case = $date->format('U');
+                if($epoch_time_of_case >= $search_case_from && $epoch_time_of_case <= $search_case_upto){
+                  $next_hearing = $row['date_of_hearing'];
+                  $next_hearing = new DateTime($next_hearing);
+                  $next_hearing = $next_hearing->format('U');
+                  if($search_date_of_hearing_from <= $next_hearing && $search_date_of_hearing_upto >= $next_hearing)
+                    array_push($result_array, $row);
+                }
+              }
+              if(sizeof($result_array) == 0)
+                $_SESSION['error_msg'] = $no_result_found_error;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+            }
+            else $_SESSION['error_msg'] = $no_result_found_error;
+            
+          }
+        }
+        // without date of hearing
+        else if($select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only bank B
           $result = $conn->query($sql_1);
           if($result->num_rows > 0){
             while($row = $result->fetch_assoc()){
@@ -628,6 +1586,44 @@
                         <?php echo $defaulter_name_error; ?>
                     </div>
                 </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-md-6">
+                      <label for="exampleInputCity1">Date of Hearing From</label>
+                      <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text bg-gradient-primary text-white br">
+                              <i class="fas fa-clock"></i>
+                          </span>
+                      </div>
+                      <input id="doh-from" type="date" class="form-control form-input" name="dateOfHearingFrom" value="<?php  ?>">
+                      </div>
+                      <div class="form-input-response">
+                          <?php echo $date_of_hearing_from_error; ?>
+                      </div>
+                  </div>
+                  <script>
+                      document.getElementById('doh-from').defaultValue = ''
+                  </script>
+                  <div class="col-md-6">
+                      <label for="exampleInputCity1">Upto</label>
+                      <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text bg-gradient-primary text-white br">
+                              <i class="fas fa-clock"></i>
+                          </span>
+                      </div>
+                      <input id="doh-upto" type="date" class="form-control form-input" name="dateOfHearingUpto" value="<?php  ?>">
+                      </div>
+                      <div class="form-input-response">
+                          <?php echo $date_of_hearing_upto_error; ?>
+                      </div>
+                  </div>
+                  <script>
+                      document.getElementById('doh-upto').defaultValue = ''
+                  </script>
               </div>
             </div>
             <div class="form-inline justify-content-between">

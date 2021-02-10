@@ -214,8 +214,8 @@
         document.getElementById('print-report-btn').addEventListener('click', () => {
         let printHeader = document.getElementsByClassName('print-header')[0]
         let headerCoverSpace = document.getElementsByClassName('print-header-cover-space')[0]
-        printHeader.style.display = 'none'
-        headerCoverSpace.style.display = 'none'
+        //printHeader.style.display = 'none'
+        //headerCoverSpace.style.display = 'none'
         document.getElementById('edit-report-to-bank').style.display = 'none'
         document.getElementById('update-report-to-bank').style.display = 'none'
         document.getElementById('report-to-bank').style.display = 'block'
@@ -225,9 +225,9 @@
         document.getElementById('report-to-bank-name').style.display = 'block'
         document.getElementById('input-report-to-bank-name').style.display = 'none'
         window.print();
-        printHeader.style.display = 'block'
-        printHeader.style.display = 'flex'
-        headerCoverSpace.style.display = 'block'
+        //printHeader.style.display = 'block'
+        //printHeader.style.display = 'flex'
+        //headerCoverSpace.style.display = 'block'
         document.getElementById('edit-report-to-bank').style.display = 'block'
         document.getElementById('update-report-to-bank').style.display = 'none'
         document.getElementById('report-to-bank').style.display = 'block'
