@@ -14,4 +14,8 @@ $conn = new mysqli($server_name, $user_name, $password, $db_name);
 
 if($conn->connect_error)
     die(header('Location: pages/samples/error-500.html'));
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> ef88602d97f118a7eb49ab1991454bdc474f5ea2
