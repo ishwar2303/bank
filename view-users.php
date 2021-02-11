@@ -113,18 +113,18 @@
                 <div class="card">
                   <div class="card-body">
 
-                    <!-- Flash Message  -->
-                    <?php require 'includes/flash-message.php'; ?>
 
                       <?php 
                         if($db_error == ''){
                           if(sizeof($users_array) > 0){
                             ?>
-                            <h4 class="card-title">Users</h4>
+                            <h4 class="card-title"><i class="fas fa-users mr-1"></i> Users</h4>
+                            <!-- Flash Message  -->
+                            <?php require 'includes/flash-message.php'; ?>
                             <form action="" method="POST">
-                              <div class="form-group mb-3">
+                              <div class="form-group mb-0">
                                 <div class="row">
-                                  <div class="col-md-6 mb-2">
+                                  <div class="col-md-6 mb-0">
                                     <div class="input-group">
                                       <div class="input-group-prepend">
                                         <span class="input-group-text bg-gradient-primary text-white br">
@@ -133,14 +133,14 @@
                                       </div>
                                       <input oninput="this.value = this.value.toUpperCase()" type="text" class="form-control form-input" name="searchUser" value="<?php echo $search_user; ?>" placeholder="Search user by name...">
                                     </div>
-                                    <div class="form-input-response">
-                                      <?php echo $search_user_error; ?>
-                                    </div>
                                   </div>
-                                  <div class="col-md-6 mb-3 form-inline">
+                                  <div class="col-md-6 mb-0 form-inline">
                                       <button type="submit" class="btn btn-gradient-primary mr-2">Search</button>
                                   </div>
                                 </div>
+                              </div>
+                              <div class="form-input-response mb-3">
+                                <?php echo $search_user_error; ?>
                               </div>
                             </form>
                             <div class="row bank-card-container">

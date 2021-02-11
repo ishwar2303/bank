@@ -313,6 +313,7 @@
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
+        <?php if(sizeof($e_auction) > 0){ ?>
         <div class="card mt-5">
           <div class="card-body">
             
@@ -352,6 +353,8 @@
             </div>
           </div>
         </div>
+        <?php } ?>
+
       </div>
       <!-- page-body-wrapper ends -->
     </div>

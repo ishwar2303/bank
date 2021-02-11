@@ -14173,6 +14173,34 @@ dl {
 #close-search-popup:hover{
   color: red;
 }
+.dataTables_filter{
+  
+  position: absolute;
+  right: 45px;
+  position: fixed;
+}
+.dataTables_paginate{
+/*   
+  position: absolute;
+  right: 45px;
+  position: fixed; */
+  margin-bottom: 10px;
+}
+@media screen and (max-width : 700px){
+  
+  .dataTables_filter{
+    
+    position: relative;
+    left : 0;
+  }
+  .dataTables_paginate{
+  /*   
+    position: absolute;
+    right: 45px;
+    position: fixed; */
+    margin-bottom: 10px;
+  }
+}
 @media screen and (max-width : 990px){
   
   .search-loans-form-popup{
@@ -14907,19 +14935,6 @@ position: relative;
 #refresh-loans:hover{
   text-decoration: none;
 }
-.dataTables_filter{
-  
-  position: absolute;
-  right: 45px;
-  position: fixed;
-}
-.dataTables_paginate{
-/*   
-  position: absolute;
-  right: 45px;
-  position: fixed; */
-  margin-bottom: 10px;
-}
 .link-style{
   text-decoration: none;
 }
@@ -14946,7 +14961,7 @@ position: relative;
 .e-auction{
   width: 100%;
   height: 100%;
-  min-height: 300px;
+  min-height: 340px;
   position: relative;
   display: flex;
   justify-content: center;

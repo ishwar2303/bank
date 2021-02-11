@@ -17,7 +17,7 @@
             $remark = str_replace("\n", "<br/>", $remark);
             $sql = "INSERT INTO `car_loan_remarks` (`remark_id`, `case_id`, `remark_date`, `remark`) VALUES (NULL, '$case_id', '$timestamp', '$remark')";
             $conn->query($sql);
-            $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '6', '$timestamp')";
+            $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '2', '$case_id', '$_SESSION[user_id]', '6', '$timestamp')";
             $conn->query($sql);
             if($conn->error == ''){
                 ?>
@@ -43,7 +43,7 @@
         if($remark_id != ''){
             $sql = "DELETE FROM car_loan_remarks WHERE remark_id = '$remark_id'";
             $conn->query($sql);
-            $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '1', '$case_id', '$_SESSION[user_id]', '7', '$timestamp')";
+            $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '2', '$case_id', '$_SESSION[user_id]', '7', '$timestamp')";
             $conn->query($sql);
             if($conn->error == ''){
                 ?>

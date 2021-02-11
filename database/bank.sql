@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2021 at 09:16 PM
+-- Generation Time: Feb 11, 2021 at 06:24 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -129,7 +129,7 @@ CREATE TABLE `car_loan` (
 --
 
 INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `approved`, `case_status`) VALUES
-(12, '2021-02-01', 'HDFC', 'Mukherjee Nagar', '1811003030232', 'Ishwar Baisla', '2021-02-10', '2021-02-19', '', '0000-00-00', '', '', '', '', '', 0, '', 'Wazirabad Village', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0);
+(13, '2021-02-11', 'SBI', 'Mukherjee Nagar', '1811003030232', 'Ishwar Baisla', '2021-02-13', '2021-02-13', '7.5', '0000-00-00', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -149,7 +149,9 @@ CREATE TABLE `car_loan_remarks` (
 --
 
 INSERT INTO `car_loan_remarks` (`remark_id`, `case_id`, `remark_date`, `remark`) VALUES
-(61, 18, '2021-01-29', 'Perfect');
+(61, 18, '2021-01-29', 'Perfect'),
+(64, 13, '2021-02-11', 'SBI Car loan remark'),
+(65, 13, '2021-02-11', 'Another remark');
 
 -- --------------------------------------------------------
 
@@ -374,17 +376,6 @@ CREATE TABLE `to_do` (
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `to_do`
---
-
-INSERT INTO `to_do` (`to_do_id`, `user_id`, `to_do_work`, `status`) VALUES
-(136, 21, 'E-Auction Integrated', 1),
-(137, 21, 'Car Loan Update', 0),
-(138, 21, 'Date Of Next Hearing automatically update', 0),
-(139, 21, 'Edit E-Auction Feature', 0),
-(140, 21, 'View E-Auction', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -508,7 +499,11 @@ INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `opera
 (112, 1, 9, 21, 3, '21-02-10 09:49:32pm'),
 (113, 1, 9, 21, 3, '21-02-10 09:52:04pm'),
 (114, 1, 9, 21, 3, '21-02-10 09:53:02pm'),
-(115, 1, 9, 21, 3, '21-02-10 09:53:36pm');
+(115, 1, 9, 21, 3, '21-02-10 09:53:36pm'),
+(116, 2, 13, 21, 1, '21-02-11 10:24:35am'),
+(117, 2, 13, 21, 2, '21-02-11 10:28:29am'),
+(118, 2, 13, 21, 6, '21-02-11 10:44:47am'),
+(119, 2, 13, 21, 6, '21-02-11 10:53:36am');
 
 -- --------------------------------------------------------
 
@@ -636,13 +631,13 @@ ALTER TABLE `bank`
 -- AUTO_INCREMENT for table `car_loan`
 --
 ALTER TABLE `car_loan`
-  MODIFY `car_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `car_loan_cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `car_loan_remarks`
 --
 ALTER TABLE `car_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `e_auction`
@@ -678,7 +673,7 @@ ALTER TABLE `to_do`
 -- AUTO_INCREMENT for table `user_activity`
 --
 ALTER TABLE `user_activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `user_registration`

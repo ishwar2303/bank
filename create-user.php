@@ -163,11 +163,11 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            <div class="row">
-              <div class="col-12 grid-margin stretch-card">
+            <div class="row ht-100">
+              <div class="col-12 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Create User</h4>
+                    <h4 class="card-title"><i class="fas fa-user mr-1"></i> Create User</h4>
                     <p class="card-description">It only takes a few steps</p>
                     
                     <!-- Flash Message  -->

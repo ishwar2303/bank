@@ -233,6 +233,10 @@
         // }
 
         if($arr_co_nd != ''){
+            if(!amountValidation($arr_co_nd)){
+                $arr_co_nd_error = "Invalid";
+                $control = 0;
+            }
         }
         // else{
         //     $arr_co_nd_error = 'Required';

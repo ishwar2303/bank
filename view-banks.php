@@ -61,7 +61,7 @@
               <div class="col-12 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Banks</h4>
+                    <h4 class="card-title"><i class="fas fa-university mr-1"></i> Banks</h4>
                 
                     <!-- Flash Message  -->
                     <?php require 'includes/flash-message.php'; ?>

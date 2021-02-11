@@ -199,6 +199,10 @@
         // }
 
         if($arr_co_nd != ''){
+            if(!amountValidation($arr_co_nd)){
+                $arr_co_nd_error = "Invalid";
+                $control = 0;
+            }
         }
         // else{
         //     $arr_co_nd_error = 'Required';
@@ -522,10 +526,10 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-12 grid-margin stretch-card">
+              <div class="col-12 grid-margin stretch-card mb-0">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Car Loan</h4>
+                    <h4 class="card-title"><i class="mdi mdi-library-plus"></i>  Car Loan</h4>
 
                     <!-- Flash Message  -->
                     <?php require 'includes/flash-message.php'; ?>
@@ -660,7 +664,7 @@
                                             <i class="fas fa-percent"></i>
                                         </span>
                                     </div>
-                                    <input type="text" step="0.000001" class="form-control form-input"  name="arrCoNd"  value="<?php echo $arr_co_nd; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="arrCoNd"  value="<?php echo $arr_co_nd; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $arr_co_nd_error; ?>
@@ -807,7 +811,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Residence Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="residenceAddress" id="" cols="30" rows="10"><?php echo $residence_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="residenceAddress" id="" cols="30" rows="5"><?php echo $residence_address; ?></textarea>
                                     </div>
                                     <div id="password-validate-response" class="form-input-response">
                                         <?php echo $residence_address_error; ?>
@@ -839,7 +843,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Office Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="officeAddress" id="" cols="30" rows="10"><?php echo $office_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="officeAddress" id="" cols="30" rows="5"><?php echo $office_address; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $office_address_error; ?>
@@ -870,7 +874,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Make</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="make" id="" cols="30" rows="10"><?php echo $make; ?></textarea>
+                                    <textarea class="form-control form-input" name="make" id="" cols="30" rows="5"><?php echo $make; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $make_error; ?>
@@ -966,7 +970,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Co Applicant Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="coApplicantAddress" id="" cols="30" rows="10"><?php echo $co_applicant_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="coApplicantAddress" id="" cols="30" rows="5"><?php echo $co_applicant_address; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $co_applicant_address_error; ?>
@@ -1012,7 +1016,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Employer Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="employerAddress" id="" cols="30" rows="10"><?php echo $employer_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="employerAddress" id="" cols="30" rows="5"><?php echo $employer_address; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $employer_address_error; ?>

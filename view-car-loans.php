@@ -113,6 +113,7 @@
       }
     }
 
+    $print_set = false;
     // filter variables
     $select_bank = '';
     $cases_date_from = '';
@@ -218,6 +219,10 @@
       }
       //searching....
       if(!$error_occured){ // validation successfull
+
+        if($select_bank_set)
+          $print_set = true;
+
         $search_query = 1;
         $success_msg = '';
         $error_msg = '';
@@ -452,6 +457,15 @@
           
         }
 
+        if($print_set){
+          if(sizeof($result_array) > 0){
+            $_SESSION['print-car-loan-report'] = array();
+            foreach($result_array as $home_loan){
+              array_push($_SESSION['print-car-loan-report'], $home_loan['car_loan_cid']);
+            }
+          }
+        }
+
       }
     }
     if($error_occured || !$control){
@@ -483,7 +497,6 @@
   </head>
   <body>
     <!-- search - box -->
-    
     <?php if(sizeof($result_array) > 0){ ?>
     <div class="black-cover-for-search-box"></div>
     <div class="search-loans-form-popup">
@@ -626,20 +639,35 @@
                         <?php if(sizeof($result_array) > 0){ ?>
                         <div class="table-scroll-btn">
                           <span id="scroll-to-left-end-of-div">
-                              <i  class="fas fa-chevron-circle-left"></i>
+                              <i  class="mdi mdi-arrow-left-bold-circle-outline"></i>
                           </span>
                           <span id="scroll-to-right-end-of-div" >
-                              <i class="fas fa-chevron-circle-right"></i>
+                              <i class="mdi mdi-arrow-right-bold-circle-outline"></i>
                           </span>
                         </div>
                         <?php } ?>
                       </div>
                       
+                      
                       <?php if(sizeof($result_array) > 0){ ?>
-                      <button id="show-search-popup" class="btn btn-primary">
-                          <i class="fas fa-search"></i> 
-                          Search
-                      </button>
+                        <button id="show-search-popup" class="btn btn-primary btn-setting">
+                            <i class="mdi mdi-file-find"></i> 
+                            Search
+                        </button>
+                        <a id="refresh-loans" href="view-car-loans.php">
+                          <button  class="btn btn-primary btn-setting">
+                              <i class="mdi mdi-reload mr-1"></i> 
+                              Refresh
+                          </button>
+                        </a>
+                        <?php if($print_set){?>
+                          <a id="show-report-popup" href="print-car-loan-report.php" target="_blank">
+                          <button  class="btn btn-primary btn-setting">
+                            <i class="mdi mdi-printer mr-1"></i> 
+                            Print Report
+                          </button>
+                        </a>
+                        <?php } ?>
                       <?php } ?>
                     </div>
                     </h4>
@@ -654,9 +682,26 @@
                     <p class="card-description"> Add class <code>.table-hover</code>
                     </p>
                     -->
+                    <!-- No search results -->
+                    <?php  
+                      if(sizeof($result_array) == 0){
+                        ?>
+                          <div class="form-inline justify-content-center direction-col">
+                              <img src="assets/images/faces-clipart/no-search-result.png" alt="" class="mt-3">
+                              <a href="view-car-loans.php" class="link-style">
+                                <button class="btn btn-primary btn-setting mt-5">
+                                  <i class="fas fa-sync mr-2"></i>
+                                  Load All Car Loans
+                                </button>
+                              </a>
+                              <div class="form-input-response mt-3">Nothing here matches your search</div>
+                          </div>
+                        <?php 
+                      }
+                    ?>
                     <?php if($db_error == ''){ ?>
                         <?php if(sizeof($result_array) > 0){ ?>
-                            <table class="table table-hover">
+                            <table id="car-loan-table" class="table table-hover">
                             
                               <!-- dropdown - overlay -->
                               <div class="custom-dropdown-overlay"></div>
@@ -1123,4 +1168,16 @@
     let tableContainerWidth = tableContainer.scrollWidth
     tableContainer.scroll(tableContainerWidth, tableContainer.scrollTop)
   })
+</script>
+
+
+
+
+<script>
+  $(document).ready( function () {
+    $('#car-loan-table').DataTable({
+      pageLength : 5,
+      lengthMenu: [[3, 5, 10, 20, -1], [3, 5, 10, 20, 'All']]
+    });
+  } );
 </script>
