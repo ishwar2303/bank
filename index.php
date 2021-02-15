@@ -119,9 +119,26 @@
                     </h4>
                     <h2 class="mb-3"><?php echo $total_users; ?></h2>
                     <!-- <h6 class="card-text">Increased by 5%</h6> -->
-                    <h5>Admin : <?php echo $total_admin; ?></h5>
-                    <h5>Privileged User : <?php echo $total_privileged_user; ?></h5>
-                    <h5>Data Operator : <?php echo $total_data_operator; ?></h5>
+                    <?php 
+                      if($total_admin == 0)
+                        $css_class_admin = 'inactive-link';
+                      else $css_class_admin = 'active-link';
+                      if($total_privileged_user == 0)
+                        $css_class_privileged = 'inactive-link';
+                      else $css_class_privileged = 'active-link';
+                      if($total_data_operator == 0)
+                        $css_class_operator = 'inactive-link';
+                      else $css_class_operator = 'active-link';
+                      
+                      if($logged_in_user_role != '2'){
+                        $css_class_admin = 'inactive-link';
+                        $css_class_privileged = 'inactive-link';
+                        $css_class_operator = 'inactive-link';
+                      }
+                    ?>
+                    <a class="status-link <?php echo $css_class_admin; ?>" href="view-users.php?show=2"><h5>Admin : <?php echo $total_admin; ?></h5></a>
+                    <a class="status-link <?php echo $css_class_privileged; ?>" href="view-users.php?show=1"><h5>Privileged User : <?php echo $total_privileged_user; ?></h5></a>
+                    <a class="status-link <?php echo $css_class_operator; ?>" href="view-users.php?show=0"><h5>Data Operator : <?php echo $total_data_operator; ?></h5></a>
                   </div>
                 </div>
               </div>
@@ -135,11 +152,13 @@
                         </a>
                         <div class="e-auction-count set-theme-bg theme-gradient-e-auction">
                           <img src="assets/images/dashboard/circle.svg" class="card-img-absolute e-auction-count-bg-img" alt="circle-image" />
-                          <h4 class="font-weight-normal mb-3 form-inline justify-content-between">Property Sold Open E-Auction<i class="fas fa-gavel fs-25 mr-2"></i>
+                          <h4 class="font-weight-normal mb-3 form-inline justify-content-between ml-2">Property Sold Open E-Auction<i class="fas fa-gavel fs-25 mr-2"></i>
                           </h4>
-                          <h2 class="mb-3"><?php echo sizeof($e_auction); ?></h2>
+                          <h2 class="mb-3 ml-2"><?php echo sizeof($e_auction); ?></h2>
                           <h4 class="form-inline justify-content-end z-ind-10 mt-3">
+                            <?php if(sizeof($e_auction) > 0){ ?>
                             <label onclick="return false" class="status-link mr-2" id="scroll-to-e-auction-details">View Details</label>
+                            <?php } ?>
                           </h4>
                         </div>
                     </div>

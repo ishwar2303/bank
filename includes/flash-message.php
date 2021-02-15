@@ -40,7 +40,7 @@ if(isset($_SESSION['error_msg'])){
 if(isset($_SESSION['note_msg'])){
     ?>
     <div class="note-msg">
-        <i class="mdi mdi-exclamation"></i>
+        <i class="fas fa-exclamation"></i>
         <span>
             <?php echo $_SESSION['note_msg']; ?>
         </span>

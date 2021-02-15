@@ -76,6 +76,7 @@
                     <!-- Flash Message  -->
                     <?php require 'includes/flash-message.php'; ?>
 
+                    <div class="ht-50"></div>
                     <div class="table-container">
                             <div class="table table-hover">
                             <table id="case-activity-table">
@@ -134,6 +135,7 @@
                             </table>
                             </div>
                         </div>
+                    <div class="ht-50"></div>
 
                   </div>
                 </div>

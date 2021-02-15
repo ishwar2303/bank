@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2021 at 06:24 AM
+-- Generation Time: Feb 12, 2021 at 12:34 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -129,7 +129,7 @@ CREATE TABLE `car_loan` (
 --
 
 INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `approved`, `case_status`) VALUES
-(13, '2021-02-11', 'SBI', 'Mukherjee Nagar', '1811003030232', 'Ishwar Baisla', '2021-02-13', '2021-02-13', '7.5', '0000-00-00', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0);
+(13, '2021-02-11', 'SBI', 'Mukherjee Nagar', '1811003030232', 'Ishwar Baisla', '2021-02-13', '2021-02-13', '2021-02-20', '0000-00-00', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -174,9 +174,9 @@ CREATE TABLE `e_auction` (
 --
 
 INSERT INTO `e_auction` (`e_auction_id`, `bank_name`, `branch_address`, `borrower_name`, `property_address`, `sold_price`, `bidder_name`) VALUES
-(1, 'BANK OF BARODA', 'Vijay Nagar\r\nDelhi - 110084', 'Ishwar Baisla', 'Mukherjee Nagar\r\nDelhi - 110084', '50000000', 'Ishwar'),
-(2, 'STATE BANK OF INDIA', 'Wazirabad Village', 'Ishwar Baisla', 'Tamil Nadu', '1500000', 'Samarth Tandon'),
-(3, 'INDUSTRIAL DEVELOPMENT BANK OF INDIA', 'Vijay Nagar,\r<br/>Near Sai Garage,\r<br/>Building - F/434\r<br/>New Delhi - 110084', 'Tapas Baranwal', 'Mukherjee Nagar,\r<br/>Home - SB/45, Ist Floor,\r<br/>Near Baraat Ghar\r<br/>Delhi - 110054', '5000000', 'Ishwar Baisla');
+(1, 'STATE BANK OF INDIA', 'Vijay Nagar\r<br/>Delhi - 110084', 'Jatin Kumar', 'Mukherjee Nagar,\r<br/>Near Aggarwal sweets,\r<br/>Delhi - 110084', '50000000', 'Ishwar Baisla'),
+(3, 'INDUSTRIAL DEVELOPMENT BANK OF INDIA', 'Vijay Nagar,\r<br/>Near Baraat Ghar\r<br/>Delhi - 110084', 'Ishwar Baisla', 'Mukherjee Nagar,\r<br/>Near Aggarwal sweets,\r<br/>Delhi - 110084', '50000000', 'Tapas Baranwal'),
+(4, 'BANK OF BARODA', 'Vijay Nagar\r<br/>Delhi - 110084', 'Ishwar Baisla', 'Mukherjee Nagar,\r<br/>Near Aggarwal sweets,\r<br/>Delhi - 110084', '1000000', 'Samarth Tandon');
 
 -- --------------------------------------------------------
 
@@ -303,8 +303,8 @@ CREATE TABLE `home_loan_remarks` (
 INSERT INTO `home_loan_remarks` (`remark_id`, `case_id`, `remark_date`, `remark`) VALUES
 (66, 13, '2021-02-07', 'This is multiline remark<br/>This is how it works'),
 (70, 9, '2021-02-08', 'HDFC Another remark'),
-(72, 10, '2021-02-08', 'New Remark'),
-(74, 14, '2021-02-09', 'Bank of Baroda');
+(74, 14, '2021-02-09', 'Bank of Baroda'),
+(76, 10, '2021-02-11', 'New multiline remark<br/>Another Line');
 
 -- --------------------------------------------------------
 
@@ -375,6 +375,17 @@ CREATE TABLE `to_do` (
   `to_do_work` varchar(200) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `to_do`
+--
+
+INSERT INTO `to_do` (`to_do_id`, `user_id`, `to_do_work`, `status`) VALUES
+(149, 21, 'Car Loan Update New Details', 0),
+(150, 21, 'Print Feature', 0),
+(151, 21, 'Open E-Auction Add/Update/Delete', 1),
+(156, 21, 'Case Activity Search box glitch', 0),
+(157, 21, 'Custom Dropdown reconfigure', 0);
 
 -- --------------------------------------------------------
 
@@ -503,7 +514,15 @@ INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `opera
 (116, 2, 13, 21, 1, '21-02-11 10:24:35am'),
 (117, 2, 13, 21, 2, '21-02-11 10:28:29am'),
 (118, 2, 13, 21, 6, '21-02-11 10:44:47am'),
-(119, 2, 13, 21, 6, '21-02-11 10:53:36am');
+(119, 2, 13, 21, 6, '21-02-11 10:53:36am'),
+(120, 2, 13, 21, 2, '21-02-11 11:40:22am'),
+(121, 1, 10, 21, 6, '21-02-11 12:38:12pm'),
+(122, 1, 10, 21, 7, '21-02-11 12:38:19pm'),
+(123, 1, 10, 21, 7, '21-02-11 12:40:55pm'),
+(124, 1, 10, 21, 6, '21-02-11 12:41:18pm'),
+(125, 1, 10, 21, 6, '21-02-11 12:43:25pm'),
+(126, 1, 10, 21, 7, '21-02-11 12:43:36pm'),
+(127, 1, 10, 21, 7, '21-02-11 12:43:36pm');
 
 -- --------------------------------------------------------
 
@@ -537,7 +556,9 @@ INSERT INTO `user_registration` (`user_id`, `user_full_name`, `user_email`, `use
 (34, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 0, '21-02-07 01:53:33pm'),
 (35, 'Tushar Parashar', 'dHVzaGFycGFyYXNoYXJAZ21haWwuY29t', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 1, 1, '21-02-07 02:10:28pm'),
 (36, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 0, '21-02-07 02:15:20pm'),
-(37, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 1, '21-02-07 02:43:23pm');
+(37, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 0, '21-02-07 02:43:23pm'),
+(38, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 0, '21-02-12 02:19:04am'),
+(39, 'Shubham Maurya', 'c2h1YmhhbUBnbWFpbC5jb20=', 'OTgyMTY3MTcwNw==', 'SXNod2FyMjMwM0A=', 0, 0, 1, '21-02-12 04:50:41pm');
 
 --
 -- Indexes for dumped tables
@@ -643,7 +664,7 @@ ALTER TABLE `car_loan_remarks`
 -- AUTO_INCREMENT for table `e_auction`
 --
 ALTER TABLE `e_auction`
-  MODIFY `e_auction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `e_auction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `home_loan`
@@ -655,7 +676,7 @@ ALTER TABLE `home_loan`
 -- AUTO_INCREMENT for table `home_loan_remarks`
 --
 ALTER TABLE `home_loan_remarks`
-  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `home_loan_status`
@@ -667,19 +688,19 @@ ALTER TABLE `home_loan_status`
 -- AUTO_INCREMENT for table `to_do`
 --
 ALTER TABLE `to_do`
-  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `to_do_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 
 --
 -- AUTO_INCREMENT for table `user_activity`
 --
 ALTER TABLE `user_activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `user_registration`
 --
 ALTER TABLE `user_registration`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables

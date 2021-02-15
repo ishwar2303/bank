@@ -14,12 +14,16 @@
     $timestamp = date("y-m-d h:i:sa", $epoch_time);
 
     $case_date = '';
+    $type_of_loan = '';
     $bank_name = '';
     $home_branch = '';
     $account_number = '';
     $customer_name = '';
     $npa_date = '';
     $outstanding = '';
+    $last_amount_paid_on = '';
+    $disburse_date = '';
+    $mature_date = '';
     $arr_co_nd = '';
     $notice13_sent_on = '';
     $principal_outstanding = '';
@@ -46,14 +50,28 @@
     $amount_recovered = '';
     $bill_raised = '';
     $payment_received = '';
+    $payment_received_on = '';
+    $auction_date = '';
+    $auction_amount = '';
+    $type_of_security = '';
+    $recovery_date = '';
+    $full_amount = '';
+    $part_amount = '';
+    $regularise_date = '';
+    $full_payment_paid_on = '';
+    $seizure_date = '';
     // errors
     $case_date_error = '';
+    $type_of_loan_error = '';
     $bank_name_error = '';
     $home_branch_error = '';
     $account_number_error = '';
     $customer_name_error = '';
     $npa_date_error = '';
     $outstanding_error = '';
+    $last_amount_paid_on_error = '';
+    $disburse_date_error = '';
+    $mature_date_error = '';
     $arr_co_nd_error = '';
     $notice13_sent_on_error = '';
     $principal_outstanding_error = '';
@@ -80,9 +98,19 @@
     $amount_recovered_error = '';
     $bill_raised_error = '';
     $payment_received_error = '';
+    $payment_received_on_error = '';
+    $auction_date_error = '';
+    $auction_amount_error = '';
+    $type_of_security_error = '';
+    $recovery_date_error = '';
+    $full_amount_error = '';
+    $part_amount_error = '';
+    $regularise_date_error = '';
+    $full_payment_paid_on_error = '';
+    $seizure_date_error = '';
 
 
-    if(isset($_POST['caseDate']) && isset($_POST['bankName']) && isset($_POST['homeBranch']) && isset($_POST['accountNo']) && isset($_POST['customerName']) && isset($_POST['npaDate']) && isset($_POST['outstanding']) && isset($_POST['arrCoNd']) && isset($_POST['notice13SentOn']) && isset($_POST['principalOutstanding']) && isset($_POST['bounceCharges']) && isset($_POST['overdueCharges']) && isset($_POST['otherCharges']) && isset($_POST['loanEmiAmount']) && isset($_POST['noOfEmiOutstanding']) && isset($_POST['regNo']) && isset($_POST['residenceAddress']) && isset($_POST['residenceContactNo']) && isset($_POST['officeAddress']) && isset($_POST['officeContactNo']) && isset($_POST['make']) && isset($_POST['engineNo']) && isset($_POST['chassisNo']) && isset($_POST['tenure']) && isset($_POST['coApplicantName']) && isset($_POST['coApplicantMobile']) && isset($_POST['coApplicantAddress']) && isset($_POST['employerName']) && isset($_POST['employerMobile']) && isset($_POST['employerAddress']) && isset($_POST['amountRecovered']) && isset($_POST['billRaised']) && isset($_POST['paymentReceived'])){
+    if(isset($_POST['caseDate']) && isset($_POST['bankName']) && isset($_POST['homeBranch']) && isset($_POST['accountNo']) && isset($_POST['customerName']) && isset($_POST['npaDate']) && isset($_POST['outstanding']) && isset($_POST['arrCoNd']) && isset($_POST['notice13SentOn']) && isset($_POST['principalOutstanding']) && isset($_POST['bounceCharges']) && isset($_POST['overdueCharges']) && isset($_POST['otherCharges']) && isset($_POST['loanEmiAmount']) && isset($_POST['noOfEmiOutstanding']) && isset($_POST['regNo']) && isset($_POST['residenceAddress']) && isset($_POST['residenceContactNo']) && isset($_POST['officeAddress']) && isset($_POST['officeContactNo']) && isset($_POST['make']) && isset($_POST['engineNo']) && isset($_POST['chassisNo']) && isset($_POST['tenure']) && isset($_POST['coApplicantName']) && isset($_POST['coApplicantMobile']) && isset($_POST['coApplicantAddress']) && isset($_POST['employerName']) && isset($_POST['employerMobile']) && isset($_POST['employerAddress']) && isset($_POST['amountRecovered']) && isset($_POST['billRaised']) && isset($_POST['paymentReceivedOn']) && isset($_POST['paymentReceived'])  && isset($_POST['typeOfLoan']) && isset($_POST['typeOfSecurity']) && isset($_POST['lastAmountPaidOn']) && isset($_POST['disburseDate']) && isset($_POST['matureDate']) && isset($_POST['auctionDate']) && isset($_POST['auctionAmount']) && isset($_POST['recoveryDate']) && isset($_POST['fullAmount']) && isset($_POST['partAmount']) && isset($_POST['regulariseDate']) && isset($_POST['fullPaymentPaidOn']) && isset($_POST['seizureDate'])){
         // initialize variables with loan data
         $control = 1;
         $case_date = cleanInput($_POST['caseDate']);
@@ -117,8 +145,21 @@
         $employer_address = cleanInput($_POST['employerAddress']);
         $amount_recovered = cleanInput($_POST['amountRecovered']);
         $bill_raised = cleanInput($_POST['billRaised']);
+        $payment_received_on = cleanInput($_POST['paymentReceivedOn']);
         $payment_received = cleanInput($_POST['paymentReceived']);
-
+        $type_of_loan = cleanInput($_POST['typeOfLoan']);
+        $type_of_security = cleanInput($_POST['typeOfSecurity']);
+        $last_amount_paid_on = cleanInput($_POST['lastAmountPaidOn']);
+        $disburse_date = cleanInput($_POST['disburseDate']);
+        $mature_date = cleanInput($_POST['matureDate']);
+        $auction_date = cleanInput($_POST['auctionDate']);
+        $auction_amount = cleanInput($_POST['auctionAmount']);
+        $recovery_date = cleanInput($_POST['recoveryDate']);
+        $full_amount = cleanInput($_POST['fullAmount']);
+        $part_amount = cleanInput($_POST['partAmount']);
+        $regularise_date = cleanInput($_POST['regulariseDate']);
+        $full_payment_paid_on = cleanInput($_POST['fullPaymentPaidOn']);
+        $seizure_date = cleanInput($_POST['seizureDate']);
         if(!empty($case_date)){
             if(!dateValidation($case_date)){
                 $case_date_error = 'Invalid Date';
@@ -489,7 +530,7 @@
             $office_address = str_replace("\n", "<br/>", $office_address);
             $employer_address = str_replace("\n", "<br/>", $employer_address);
             $co_applicant_address = str_replace("\n", "<br/>", $co_applicant_address);
-            $sql = "INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `case_status`) VALUES (NULL, '$case_date', '$bank_name', '$home_branch', '$account_number', '$customer_name', '$npa_date', '$outstanding', '$arr_co_nd', '$notice13_sent_on', '$principal_outstanding', '$bounce_charges', '$overdue_charges', '$other_charges', '$loan_emi_amount', '$no_of_emi_outstanding', '$reg_no', '$residence_address', '$residence_contact_no', '$office_address', '$office_contact_no', '$make', '$engine_no', '$chassis_no', '$tenure', '$co_applicant_name', '$co_applicant_mobile', '$co_applicant_address', '$employer_name', '$employer_mobile', '$employer_address', '$amount_recovered', '$bill_raised', '$payment_received', '0')";
+            $sql = "INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `type_of_loan`, `type_of_security`, `last_amount_paid_on`, `disburse_date`, `mature_date`, `seizure_date`, `auction_date`, `auction_amount`, `recovery_date`, `full_amount`, `part_amount`, `regularise_date`, `full_payment_paid_on`, `case_status`) VALUES (NULL, '$case_date', '$bank_name', '$home_branch', '$account_number', '$customer_name', '$npa_date', '$outstanding', '$arr_co_nd', '$notice13_sent_on', '$principal_outstanding', '$bounce_charges', '$overdue_charges', '$other_charges', '$loan_emi_amount', '$no_of_emi_outstanding', '$reg_no', '$residence_address', '$residence_contact_no', '$office_address', '$office_contact_no', '$make', '$engine_no', '$chassis_no', '$tenure', '$co_applicant_name', '$co_applicant_mobile', '$co_applicant_address', '$employer_name', '$employer_mobile', '$employer_address', '$amount_recovered', '$bill_raised', '$payment_received', '$type_of_loan', '$type_of_security', '$last_amount_paid_on', '$disburse_date', '$mature_date', '$seizure_date', '$auction_date', '$auction_amount', '$recovery_date', '$full_amount', '$part_amount', '$regularise_date', '$full_payment_paid_on', '0')";
             if($conn->query($sql) === TRUE){ 
                 $case_id = $conn->insert_id;
                 $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '2', '$case_id', '$_SESSION[user_id]', '1', '$timestamp')";
@@ -545,7 +586,7 @@
                                             <i class="fas fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input id="case-date" type="date" class="form-control form-input" name="caseDate" placeholder="Password" value="<?php  ?>">
+                                    <input id="case-date" type="date" class="form-control form-input" name="caseDate"  value="<?php  ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $case_date_error; ?>
@@ -554,6 +595,29 @@
                                 <script>
                                     document.getElementById('case-date').defaultValue = '<?php echo $case_date; ?>'
                                 </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Type of Loan</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-university"></i>
+                                        </span>
+                                    </div>
+                                    <select class="form-control form-input" name="typeOfLoan" >
+                                        <option selectecd>Choose</option>
+                                        <option value="1" <?php if($type_of_loan == '1') echo 'Selected'; ?>>New NPA Cases upto Rs 20 Lac</option>
+                                        <option value="2" <?php if($type_of_loan == '2') echo 'Selected'; ?>>New NPA Cases From Rs. 20 Lac + to Rs. 10 Crore</option>
+                                        <option value="3" <?php if($type_of_loan == '3') echo 'Selected'; ?>>New NPA Cases Over 10 Crore</option>
+                                    </select>
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $type_of_loan_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Bank Name</label>
                                     <div class="input-group">
@@ -573,14 +637,9 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputCity1">Home Branch</label>
+                                    <label for="exampleInputCity1">Home BRI</label>
                                     <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gradient-primary text-white br">
-                                            <i class="fa fa-code-branch"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control form-input" id="" name="homeBranch" placeholder="Name" value="<?php echo $home_branch; ?>">
+                                    <textarea type="text" class="form-control form-input" name="homeBranch"><?php echo $home_branch; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $home_branch_error; ?>
@@ -594,7 +653,7 @@
                                             <i class="fas fa-credit-card"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control form-input" id="" name="accountNo" placeholder="Number" value="<?php echo $account_number; ?>">
+                                    <input type="number" class="form-control form-input"  name="accountNo" placeholder="Number" value="<?php echo $account_number; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $account_number_error; ?>
@@ -612,7 +671,7 @@
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-input" id="" name="customerName" placeholder="Name" value="<?php echo $customer_name; ?>">
+                                    <input type="text" class="form-control form-input"  name="customerName" placeholder="Name" value="<?php echo $customer_name; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $customer_name_error; ?>
@@ -640,6 +699,19 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <label for="exampleInputCity1">Type of Security</label>
+                                    <div class="input-group">
+                                    <textarea class="form-control form-input" name="typeOfSecurity"  cols="30" rows="5"><?php echo $type_of_security; ?></textarea>
+                                    </div>
+                                    <div id="password-validate-response" class="form-input-response">
+                                        <?php echo $type_of_security_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <label for="exampleInputCity1">Outstanding</label>
                                     <div class="input-group">
                                     <div class="input-group-prepend">
@@ -656,6 +728,65 @@
                                 <script>
                                     document.getElementById('outstanding').defaultValue = '<?php echo $outstanding; ?>'
                                 </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Last Amount Paid</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="last-amount-paid" name="lastAmountPaidOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $last_amount_paid_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('last-amount-paid').defaultValue = '<?php echo $last_amount_paid_on;; ?>'
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Disburse Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" id="disburse-date" class="form-control form-input"  name="disburseDate" >
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $disburse_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('disburse-date').defaultValue = '<?php echo $disburse_date; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Mature Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" id="mature-date" class="form-control form-input"  name="matureDate" >
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $mature_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('mature-date').defaultValue = '<?php echo $mature_date; ?>'
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">ARR-CO ND</label>
                                     <div class="input-group">
@@ -685,7 +816,7 @@
                                             <i class="fas fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input id="notice-13" type="date" class="form-control form-input" id="" name="notice13SentOn" placeholder="Password" value="<?php  ?>">
+                                    <input id="notice-13" type="date" class="form-control form-input"  name="notice13SentOn"  value="<?php  ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $notice13_sent_on_error; ?>
@@ -702,7 +833,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="principalOutstanding" placeholder="Amount" value="<?php echo $principal_outstanding; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="principalOutstanding" placeholder="Amount" value="<?php echo $principal_outstanding; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $principal_outstanding_error; ?>
@@ -720,7 +851,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="bounceCharges" placeholder="Amount" value="<?php echo $bounce_charges; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="bounceCharges" placeholder="Amount" value="<?php echo $bounce_charges; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $bounce_charges_error; ?>
@@ -734,7 +865,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="overdueCharges" placeholder="Amount" value="<?php echo $overdue_charges; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="overdueCharges" placeholder="Amount" value="<?php echo $overdue_charges; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $overdue_charges_error; ?>
@@ -753,7 +884,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="otherCharges" placeholder="Amount" value="<?php echo $other_charges; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="otherCharges" placeholder="Amount" value="<?php echo $other_charges; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $other_charges_error; ?>
@@ -767,7 +898,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="loanEmiAmount" placeholder="Amount" value="<?php echo $loan_emi_amount; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="loanEmiAmount" placeholder="Amount" value="<?php echo $loan_emi_amount; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $loan_emi_amount_error; ?>
@@ -786,7 +917,7 @@
                                             <i class="fas fa-sort-numeric-up"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control form-input" id="" name="noOfEmiOutstanding" placeholder="Number" value="<?php echo $no_of_emi_outstanding; ?>">
+                                    <input type="number" class="form-control form-input"  name="noOfEmiOutstanding" placeholder="Number" value="<?php echo $no_of_emi_outstanding; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $no_of_emi_outstanding_error; ?>
@@ -800,7 +931,7 @@
                                             <i class="far fa-registered"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control form-input" id="" name="regNo" placeholder="Number" value="<?php echo $reg_no; ?>">
+                                    <input type="number" class="form-control form-input"  name="regNo" placeholder="Number" value="<?php echo $reg_no; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $reg_no_error; ?>
@@ -814,7 +945,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Residence Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="residenceAddress" id="" cols="30" rows="5"><?php echo $residence_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="residenceAddress"  cols="30" rows="5"><?php echo $residence_address; ?></textarea>
                                     </div>
                                     <div id="password-validate-response" class="form-input-response">
                                         <?php echo $residence_address_error; ?>
@@ -832,7 +963,7 @@
                                                 <i class="fas fa-phone-alt"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control form-input" id="" name="residenceContactNo" placeholder="Number" value="<?php echo $residence_contact_no; ?>">
+                                        <input type="number" class="form-control form-input"  name="residenceContactNo" placeholder="Number" value="<?php echo $residence_contact_no; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $residence_contact_no_error; ?>
@@ -846,7 +977,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Office Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="officeAddress" id="" cols="30" rows="5"><?php echo $office_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="officeAddress"  cols="30" rows="5"><?php echo $office_address; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $office_address_error; ?>
@@ -864,7 +995,7 @@
                                             <i class="fas fa-phone-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control form-input" id="" name="officeContactNo" placeholder="Number" value="<?php echo $office_contact_no; ?>">
+                                    <input type="number" class="form-control form-input"  name="officeContactNo" placeholder="Number" value="<?php echo $office_contact_no; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $office_contact_no_error; ?>
@@ -877,7 +1008,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Make</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="make" id="" cols="30" rows="5"><?php echo $make; ?></textarea>
+                                    <textarea class="form-control form-input" name="make"  cols="30" rows="5"><?php echo $make; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $make_error; ?>
@@ -895,7 +1026,7 @@
                                             <i class="fas fa-car"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-input" id="" name="engineNo" value="<?php echo $engine_no; ?>">
+                                    <input type="text" class="form-control form-input"  name="engineNo" value="<?php echo $engine_no; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $engine_no_error; ?>
@@ -909,7 +1040,7 @@
                                             <i class="fas fa-car"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-input" id="" name="chassisNo" value="<?php echo $chassis_no; ?>">
+                                    <input type="text" class="form-control form-input"  name="chassisNo" value="<?php echo $chassis_no; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $chassis_no_error; ?>
@@ -927,7 +1058,7 @@
                                             <i class="far fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-input" id="" name="tenure"  value="<?php echo $tenure; ?>">
+                                    <input type="text" class="form-control form-input"  name="tenure"  value="<?php echo $tenure; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $tenure_error; ?>
@@ -946,7 +1077,7 @@
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-input" id="" name="coApplicantName" placeholder="Name" value="<?php echo $co_applicant_name; ?>">
+                                    <input type="text" class="form-control form-input"  name="coApplicantName" placeholder="Name" value="<?php echo $co_applicant_name; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $co_applicant_name_error; ?>
@@ -960,7 +1091,7 @@
                                             <i class="fas fa-phone-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control form-input" id="" name="coApplicantMobile" placeholder="Number" value="<?php echo $co_applicant_mobile; ?>">
+                                    <input type="number" class="form-control form-input"  name="coApplicantMobile" placeholder="Number" value="<?php echo $co_applicant_mobile; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $co_applicant_mobile_error; ?>
@@ -973,7 +1104,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Co Applicant Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="coApplicantAddress" id="" cols="30" rows="5"><?php echo $co_applicant_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="coApplicantAddress"  cols="30" rows="5"><?php echo $co_applicant_address; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $co_applicant_address_error; ?>
@@ -992,7 +1123,7 @@
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control form-input" id="" name="employerName" placeholder="Name" value="<?php echo $employer_name; ?>">
+                                    <input type="text" class="form-control form-input"  name="employerName" placeholder="Name" value="<?php echo $employer_name; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $employer_name_error; ?>
@@ -1006,7 +1137,7 @@
                                             <i class="fas fa-phone-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control form-input" id="" name="employerMobile" placeholder="Number" value="<?php echo $employer_mobile; ?>">
+                                    <input type="number" class="form-control form-input"  name="employerMobile" placeholder="Number" value="<?php echo $employer_mobile; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $employer_mobile_error; ?>
@@ -1019,10 +1150,123 @@
                                 <div class="col-md-6">
                                     <label for="exampleInputCity1">Employer Address</label>
                                     <div class="input-group">
-                                    <textarea class="form-control form-input" name="employerAddress" id="" cols="30" rows="5"><?php echo $employer_address; ?></textarea>
+                                    <textarea class="form-control form-input" name="employerAddress"  cols="30" rows="5"><?php echo $employer_address; ?></textarea>
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $employer_address_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Seizure Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="seizure-date" name="seizureDate" >
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $seizure_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('seizure-date').defaultValue = '<?php echo $seizure_date; ?>'
+                                </script>
+                            </div>
+                        </div>
+
+                        <h4 class="form-part-heading mb-3">Auction </h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="auction-date" name="auctionDate" value="<?php echo $auction_date; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $auction_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('auction-date').defaultValue = '<?php echo $auction_date; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Amount</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="auctionAmount" value="<?php echo $auction_amount; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $auction_amount_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="form-part-heading mb-3">Recovery </h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-input" id="recovery-date" name="recoveryDate" value="<?php echo $recovery_date; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $recovery_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('recovery-date').defaultValue = '<?php echo $recovery_date; ?>'
+                                </script>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Full Amount</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="fullAmount" value="<?php echo $full_amount; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $full_amount_error; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Part Amount</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-rupee-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="partAmount" value="<?php echo $part_amount; ?>">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $part_amount_error; ?>
                                     </div>
                                 </div>
                             </div>
@@ -1037,7 +1281,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="amountRecovered" placeholder="Amount" value="<?php echo $amount_recovered; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="amountRecovered" placeholder="Amount" value="<?php echo $amount_recovered; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $amount_recovered_error; ?>
@@ -1051,7 +1295,7 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="billRaised" placeholder="Amount" value="<?php echo $bill_raised; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="billRaised" placeholder="Amount" value="<?php echo $bill_raised; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $bill_raised_error; ?>
@@ -1069,15 +1313,75 @@
                                             <i class="fas fa-rupee-sign"></i>
                                         </span>
                                     </div>
-                                    <input type="number" step="0.000001" class="form-control form-input" id="" name="paymentReceived" placeholder="Amount" value="<?php echo $payment_received; ?>">
+                                    <input type="number" step="0.000001" class="form-control form-input"  name="paymentReceived" placeholder="Amount" value="<?php echo $payment_received; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $payment_received_error; ?>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Payment Received on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="payment-received-on" type="date" class="form-control form-input" name="paymentReceivedOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $payment_received_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('payment-received-on').defaultValue = '<?php echo $payment_received_on; ?>'
+                                </script>
                             </div>
                         </div>
-
+                        <h4 class="form-part-heading mb-3">Regularise Account </h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="regularise-date" type="date" class="form-control form-input" name="regulariseDate">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $regularise_date_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('regularise-date').defaultValue = '<?php echo $regularise_date; ?>'
+                                </script>
+                            </div>
+                        </div>
+                        <h4 class="form-part-heading mb-3">Full Payment Paid</h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Date</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="full-payment-paid-on" type="date" class="form-control form-input" name="fullPaymentPaidOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $full_payment_paid_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('full-payment-paid-on').defaultValue = '<?php echo $full_payment_paid_on; ?>'
+                                </script>
+                            </div>
+                        </div>
                         <div class="form-inline justify-content-end">
                             <button class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Create</button>
                         </div>

@@ -13632,11 +13632,12 @@ dl {
   color: red;
   align-items: center;
   background: rgba(255,0,0,0.03);
-  border-radius: 5px;
   padding: 13px 10px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   border: 0.5px solid rgba(255,0,0,0.4);
   font-size: 13px;
+  border-left : none;
+  border-right: none;
 }
 .error-msg > span{
   display: flex;
@@ -13660,11 +13661,12 @@ dl {
   color: green;
   align-items: center;
   background: rgba(0,255,0,0.07);
-  border-radius: 5px;
   padding: 13px 10px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   font-size: 13px;
   border : 0.5px solid rgba(0,255,0,0.8); 
+  border-left : none;
+  border-right: none;
 }
 .success-msg > span{
   display: flex;
@@ -13689,10 +13691,11 @@ dl {
   align-items: center;
   background: rgba(0,0,255,0.06);
   padding: 13px 10px;
-  border-radius: 5px;
   font-size: 13px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   border : 0.5px solid rgba(0,0,255,0.4);
+  border-left : none;
+  border-right: none;
 }
 .note-msg > span{
   display: flex;
@@ -13761,6 +13764,7 @@ dl {
   overflow-x: auto;
   /* padding-bottom: 25px; */
   border-radius: 3px;
+  height: 100%;
 }
 .table-edit-op{
   background: linear-gradient(45deg, rgba(0,0,255,0.7), rgba(0,0,255,0.3));
@@ -14030,7 +14034,7 @@ dl {
   display: none;
   font-weight: 350;
   color : white;
-  background : linear-gradient(-180deg,#eb1d1d 0,rgb(196, 17, 17,0.8) 100%);
+  background : linear-gradient(-180deg,#f33b3b 0,rgba(241, 32, 32, 0.8) 100%);
 }
 #delete-yes:focus{
   outline: none;
@@ -14192,30 +14196,45 @@ dl {
 }
 .dataTables_filter{
   
-  position: absolute;
-  right: 45px;
+  right: 27px;
   position: fixed;
+  margin-top: -45px;
 }
 .dataTables_paginate{
-/*   
-  position: absolute;
-  right: 45px;
-  position: fixed; */
-  margin-bottom: 10px;
+  right: 27px;
+  position: fixed;
+  bottom: 27px;
+  padding-top: 0.755em;
+}
+.dataTables_length{
+  position: fixed;
+  margin-top: -45px;
+}
+.dataTables_info{
+  position: fixed; 
+  bottom: 32px;
 }
 @media screen and (max-width : 700px){
   
   .dataTables_filter{
-    
     position: relative;
-    left : 0;
+    margin: 0;
+    right: 0;
   }
   .dataTables_paginate{
-  /*   
-    position: absolute;
-    right: 45px;
-    position: fixed; */
+    position: relative;
+    margin: 0;
+    bottom: 0;
     margin-bottom: 10px;
+  }
+  .dataTables_length{
+    position: relative;
+    margin: 0;
+  }
+  .dataTables_info{
+    position: relative;
+    margin: 0;
+    bottom: 0;
   }
 }
 @media screen and (max-width : 990px){
@@ -14326,7 +14345,7 @@ dl {
 }
 #all-to-do-list > li{
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14965,6 +14984,9 @@ position: relative;
 .link-style:hover{
   text-decoration: none;
 }
+.flex-container{
+  display: flex;
+}
 .direction-col{
   display: flex;
   flex-direction: column;
@@ -15006,7 +15028,7 @@ position: relative;
 
 .e-auction-btn{
   position: absolute;
-  bottom : -10px;
+  bottom: -15px;
   left : 50%;
   transform: translate(-50%);
   border-radius: 5px;
@@ -15148,20 +15170,19 @@ table.dataTable.no-footer, table.dataTable thead th, table.dataTable thead td{
 .icon-btn-container > a:hover{
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.4);
 }
 .icon-btn-container .edit{
-  background: #3498db;
+  background: #6aabd6;
   color: white; 
 }
 .icon-btn-container .delete{
-  background: #e74c3c;
+  background: #f77667;
   color: white; 
 }
 .icon-btn-container .operation-name{
-  padding: 4px 7px;
-  padding-bottom: 6px;
-  background: rgba(0,0,0,0.6);
+  padding: 5px 7px;
+  background: rgba(0,0,0,0.5);
   border-radius: 3px;
   position: absolute;
   right : 0px;
@@ -15201,4 +15222,26 @@ table.dataTable.no-footer, table.dataTable thead th, table.dataTable thead td{
 }
 .make-bold{
   font-weight: bold;
+}
+.inactive-link{
+  pointer-events: none;
+}
+.inactive-link:hover{
+  text-decoration: none;
+}
+.text-deco-none:hover{
+  text-decoration: none;
+}
+#car-loan-table, #home-loan-table{
+}
+table.dataTable thead th, table.dataTable thead td{
+  padding-left: 10px;
+}
+.ht-50{
+  height: 50px;
+}
+@media screen and (max-width : 700px){
+  .ht-50{
+    height: 0px;
+  }
 }

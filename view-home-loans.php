@@ -183,7 +183,7 @@
       $cases_upto_set = false;
       $date_of_hearing_from_set = false;
       $date_of_hearing_upto_set = false;
-      $no_result_found_error = "We looked high and low, but your search result isn't here.. &nbsp;&nbsp;<a href='view-home-loans.php'>View all loans</a>";
+      $no_result_found_error = "We looked high and low, but your search result isn't here...";
 
       //validation
       if(!empty($select_bank)){ // bank selected
@@ -365,7 +365,7 @@
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
 
-          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases From F
             $result = $conn->query($sql_4);
             if($result->num_rows > 0){
               while($row = $result->fetch_assoc()){
@@ -402,7 +402,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -423,7 +423,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -444,7 +444,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -482,7 +482,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -503,7 +503,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -524,7 +524,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -545,7 +545,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -566,7 +566,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -587,7 +587,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -608,7 +608,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From '.$cases_date_from.'<br/>Cases Upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
             
@@ -668,7 +668,7 @@
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
 
-          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases From F
             $result = $conn->query($sql_4);
             if($result->num_rows > 0){
               while($row = $result->fetch_assoc()){
@@ -705,7 +705,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -726,7 +726,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -747,7 +747,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -785,7 +785,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -806,7 +806,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -827,7 +827,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -848,7 +848,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -869,7 +869,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -890,7 +890,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -911,7 +911,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From '.$cases_date_from.'<br/>Cases Upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
             
@@ -971,7 +971,7 @@
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
 
-          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+          else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases From F
             $result = $conn->query($sql_4);
             if($result->num_rows > 0){
               while($row = $result->fetch_assoc()){
@@ -1008,7 +1008,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1029,7 +1029,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1050,7 +1050,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1088,7 +1088,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1109,7 +1109,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1130,7 +1130,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1151,7 +1151,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1172,7 +1172,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1193,7 +1193,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
           }
@@ -1214,7 +1214,7 @@
               }
               if(sizeof($result_array) == 0)
                 $_SESSION['error_msg'] = $no_result_found_error;
-              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
+              else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From '.$cases_date_from.'<br/>Cases Upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name.'<br/> Date of Hearing From : '.$date_of_hearing_from.'<br/> Date of Hearing Upto : '.$date_of_hearing_upto;
             }
             else $_SESSION['error_msg'] = $no_result_found_error;
             
@@ -1247,7 +1247,7 @@
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
 
-        else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases from F
+        else if(!$select_bank_set && !$defaulter_name_set && $cases_from_set && !$cases_upto_set){ // Cases From F
           $result = $conn->query($sql_4);
           if($result->num_rows > 0){
             while($row = $result->fetch_assoc()){
@@ -1276,7 +1276,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto;
+            else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1293,7 +1293,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1310,7 +1310,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1340,7 +1340,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto;
+            else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1357,7 +1357,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name;
+            else $_SESSION['success_msg'] = 'Search results for Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1374,7 +1374,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
+            else $_SESSION['success_msg'] = 'Search results for Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1391,7 +1391,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Cases upto : '.$cases_date_upto;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Cases Upto : '.$cases_date_upto;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1408,7 +1408,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From : '.$cases_date_from.'<br/> Defaulter Name : '.$defaulter_name;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1425,7 +1425,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases Upto : '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
         }
@@ -1442,7 +1442,7 @@
             }
             if(sizeof($result_array) == 0)
               $_SESSION['error_msg'] = $no_result_found_error;
-            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases from '.$cases_date_from.'<br/>Cases upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
+            else $_SESSION['success_msg'] = 'Search results for '.$select_bank.'<br/> Cases From '.$cases_date_from.'<br/>Cases Upto '.$cases_date_upto.'<br/> Defaulter Name : '.$defaulter_name;
           }
           else $_SESSION['error_msg'] = $no_result_found_error;
           
@@ -1552,7 +1552,7 @@
                       document.getElementById('case-from').defaultValue = '<?php echo $cases_date_from; ?>'
                   </script>
                   <div class="col-md-6">
-                      <label for="exampleInputCity1">Cases upto</label>
+                      <label for="exampleInputCity1">Cases Upto</label>
                       <div class="input-group">
                       <div class="input-group-prepend">
                           <span class="input-group-text bg-gradient-primary text-white br">
@@ -1716,7 +1716,7 @@
                 
                     <!-- Flash Message  -->
                     <?php require 'includes/flash-message.php'; ?>
-
+                    <div class="ht-50"></div>
                     <div class="table-container table-container-home-loan">
 
                     <!--
@@ -2158,45 +2158,40 @@
 
                                           <script>
                                           $("#open-custom-dropdown<?php echo $serial_no; ?>").click(() => {
-                                            
+                                              //console.log('Details.....................')
                                               $("#custom-dropdown-operations<?php echo $serial_no; ?>").toggle()
                                               var scrollTop = $('.table-container').scrollTop();
                                               // get the top offset of the dropdown (distance from top of the page)
-                                              var topOffset = $("#custom-dropdown-operations<?php echo $serial_no; ?>").offset().top;
-                                              // calculate the dropdown offset relative to window position
-                                              //console.log('table scroll' + scrollTop)
-                                              topOffset = topOffset - 115
-                                              console.log('toggle button distance from container top : ' + topOffset)
-                                              var relativeOffset = topOffset-scrollTop;
-                                              //console.log('relative height : ' + relativeOffset)
-                                              // get the window height
-                                              var windowHeight = $('.table-container').height();
-                                              console.log('table-container-height : ' + windowHeight)
+                                              var buttonTopOffset = $("#open-custom-dropdown<?php echo $serial_no; ?>").offset().top;
+                                              console.log('button top offset : ' + buttonTopOffset)
+                                              var windowHeight = window.screen.height
+                                              console.log('Window height : ' + windowHeight)
+                                              var tableTopOffset = $('#home-loan-table_wrapper').offset().top - 55
+                                              console.log('Table offset : ' + tableTopOffset)
+
                                               // if the relative offset is greater than half the window height,
                                               // reverse the dropdown.
                                               $('.custom-dropdown-overlay').toggle()
                                               let dropdownBox = document.getElementById('custom-dropdown-operations<?php echo $serial_no; ?>')
                                               console.log('Dropdown menu height : ' + dropdownBox.offsetHeight)
-                                              console.log('available space : '+ (windowHeight - topOffset))
+                                              //console.log('available space : '+ (windowHeight - topOffset))
                                               let containerHeight = windowHeight
-                                              let spaceAbove = topOffset
-                                              let spaceBelow = containerHeight - spaceAbove
-                                              console.log('container-height : ' + containerHeight)
+                                              let spaceAbove = buttonTopOffset - tableTopOffset
+                                              let spaceBelow = windowHeight - buttonTopOffset - 220
+                                              //console.log('container-height : ' + containerHeight)
                                               console.log('space above : ' + spaceAbove)
                                               console.log('space below : ' + spaceBelow)
 
                                               let dropdownMenuHeight = dropdownBox.offsetHeight
+                                              console.log('################################################')
+                                              console.log('################################################')
                                               if(dropdownMenuHeight <= spaceBelow-100){
                                                 dropdownBox.style.top = '0px'
-                                                console.log('space available below')
+                                                //console.log('space available below')
                                               }
-                                              else if(dropdownMenuHeight <= spaceAbove){
+                                              else {
                                                 dropdownBox.style.top = '-' + (dropdownMenuHeight - 35) + 'px'
-                                                console.log('space available above')
-                                              }
-                                              else{
-                                                dropdownBox.style.top = '-' + (spaceAbove-150) + 'px'
-                                                console.log('not available')
+                                                //console.log('space available above')
                                               }
 
                                               
@@ -2217,6 +2212,7 @@
                         <?php } ?>
                     <?php } ?>
                     </div>
+                    <div class="ht-50"></div>
                   </div>
                 </div>
               </div>
@@ -2384,6 +2380,7 @@
   })
 </script>
 
+
 <!-- report popup -->
 <!-- <script>
   document.getElementById('show-report-popup').addEventListener('click', () => {
@@ -2401,8 +2398,8 @@
 <script>
   $(document).ready( function () {
     $('#home-loan-table').DataTable({
-      pageLength : 5,
-      lengthMenu: [[3, 5, 10, 20, -1], [3, 5, 10, 20, 'All']]
+      pageLength : 10,
+      lengthMenu: [[10, 20, -1], [10, 20, 'All']]
     });
   } );
 </script>

@@ -108,10 +108,16 @@
                         <!-- <td><?php echo $row['status_id']; ?></td> -->
                         <?php if($case_status == '0'){ ?> <!-- case in progress -->
                         <td>
-                            <a class="edit-btn mr-1" href="edit-home-loan-status.php?status_id=<?php echo $encoded_status_id; ?>" target="_blank">
-                                <span>Edit</span>
-                                <i class="fas fa-edit"></i>
-                            </a>
+                            <div class="icon-btn-container">
+                                <a class="edit" href="edit-home-loan-status.php?status_id=<?php echo $encoded_status_id; ?>" target="_blank">
+                                <i class="fas fa-pencil-alt"></i>
+                                <span class="operation-name">Edit Details</span>
+                                </a>
+                                <!-- <a onclick="return false" class="delete delete-e-auction">
+                                <i class="fas fa-trash-alt"></i>
+                                <span class="operation-name">Remove</span>
+                                </a> -->
+                            </div>
                             <!-- <label class="delete-btn" onclick="confirmResourceDeletion('<?php echo $encoded_status_id; ?>','home-loan-status')" >
                                 <span>Delete</span>
                                 <i class="fas fa-trash-alt"></i>

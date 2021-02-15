@@ -144,7 +144,7 @@
       $cases_from_set = false;
       $cases_upto_set = false;
 
-      $no_result_found_error = "We looked high and low, but your search result isn't here..";
+      $no_result_found_error = "We looked high and low, but your search result isn't here...";
 
       //validation
       if(!empty($select_bank)){ // bank selected
@@ -460,8 +460,8 @@
         if($print_set){
           if(sizeof($result_array) > 0){
             $_SESSION['print-car-loan-report'] = array();
-            foreach($result_array as $home_loan){
-              array_push($_SESSION['print-car-loan-report'], $home_loan['car_loan_cid']);
+            foreach($result_array as $car_loan){
+              array_push($_SESSION['print-car-loan-report'], $car_loan['car_loan_cid']);
             }
           }
         }
@@ -615,6 +615,18 @@
     <?php } ?>
     <!-- search - box end -->
 
+    <!-- case status popup -->
+    <div class="show-case-status">
+      <div class="show-case-content">
+          <div style="padding: 35px 0px;"></div>
+          <div class="case-status-heading">
+            <span class="set-theme-color" style="font-weight: 600;">Asset Reconservices Car Loan Case Status...</span>
+            <i id="close-case-status-container" class="far fa-times-circle set-theme-color"></i>
+          </div>
+          <div class="comments-section">
+          </div>
+      </div>
+    </div>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       <?php require 'includes/dashboard-header.php'; ?>
@@ -676,7 +688,8 @@
                     <!-- Flash Message  -->
                     <?php require 'includes/flash-message.php'; ?>
 
-                    <div class="table-container">
+                    <div class="ht-50"></div>
+                    <div class="table-container table-container-car-loan">
 
                     <!--
                     <p class="card-description"> Add class <code>.table-hover</code>
@@ -721,7 +734,12 @@
                                   <th>Account Number</th>
                                   <th>Customer Name</th>
                                   <th>NPA Date</th>
+                                  <th>Type of Loan</th>
+                                  <th>Type of Security</th>
                                   <th>Outstanding</th>
+                                  <th>Last Amount Paid on</th>
+                                  <th>Disburse Date</th>
+                                  <th>Mature Date</th>
                                   <th>ARR-CO ND</th>
                                   <th>Notice 13 Sent</th>
                                   <th>Principal Outstanding</th>
@@ -745,9 +763,17 @@
                                   <th>Employer Name</th>
                                   <th>Employer Contact</th>
                                   <th>Employer Address</th>
+                                  <th>Seizure Date</th>
+                                  <th>Auction Date</th>
+                                  <th>Auction Amount ₹</th>
+                                  <th>Recovery Date</th>
+                                  <th>Full Amount ₹</th>
+                                  <th>Part Amount ₹</th>
                                   <th>Amount Recovered ₹</th>
                                   <th>Bill Raised ₹</th>
                                   <th>Payment Received ₹</th>
+                                  <th>Regularise Date</th>
+                                  <th>Full Payment Paid on</th>
                                   <th>Action</th>
                                 </tr>
                               </thead>
@@ -756,6 +782,7 @@
                             <?php 
                                 $serial_no = 1;
                                 $remark_index = 0;
+                                $index = 0;
                                 foreach ($result_array as $car_loan){
                                     $encoded_cid = base64_encode($car_loan['car_loan_cid']);
                                     $date = $car_loan['case_date'];
@@ -773,7 +800,12 @@
                                       <td><?php echo $car_loan['account_number']; ?></td>
                                       <td class="borrower text-capitalize"><?php echo $car_loan['customer_name']; ?></td>
                                       <td><?php echo $car_loan['npa_date']!= '0000-00-00'? $npa_date->format('d-m-Y') : '-'; ?></td>
+                                      <td><?php echo $car_loan['type_of_loan']; ?></td>
+                                      <td><?php echo $car_loan['type_of_security']; ?></td>
                                       <td><?php echo $car_loan['outstanding']!= '0000-00-00'? $car_loan['outstanding'] : '-'; ?></td>
+                                      <td><?php echo $car_loan['last_amount_paid_on']!= '0000-00-00'? $car_loan['last_amount_paid_on'] : '-'; ?></td>
+                                      <td><?php echo $car_loan['disburse_date']!= '0000-00-00'? $car_loan['disburse_date'] : '-'; ?></td>
+                                      <td><?php echo $car_loan['mature_date']!= '0000-00-00'? $car_loan['mature_date'] : '-'; ?></td>
                                       <td><?php echo $car_loan['arr_co_nd']!= '0000-00-00'? $car_loan['arr_co_nd'] : '-'; ?></td>
                                       <td><?php echo $car_loan['notice13_sent_on']!= '0000-00-00'? $notice13_sent_on->format('d-m-Y') : '-'; ?></td>
                                       <td><?php echo $car_loan['principal_outstanding']; ?></td>
@@ -797,11 +829,17 @@
                                       <td class="text-capitalize"><?php echo $car_loan['employer_name']; ?></td>
                                       <td><?php echo $car_loan['employer_mobile']; ?></td>
                                       <td><?php echo $car_loan['employer_address']; ?></td>
+                                      <td><?php echo $car_loan['seizure_date']!= '0000-00-00'? $car_loan['seizure_date'] : '-'; ?></td>
+                                      <td><?php echo $car_loan['auction_date']!= '0000-00-00'? $car_loan['auction_date'] : '-'; ?></td>
+                                      <td><?php echo $car_loan['auction_amount']; ?></td>
+                                      <td><?php echo $car_loan['recovery_date']!= '0000-00-00'? $car_loan['recovery_date'] : '-'; ?></td>
+                                      <td><?php echo $car_loan['full_amount']; ?></td>
+                                      <td><?php echo $car_loan['part_amount']; ?></td>
                                       <td><?php echo $car_loan['amount_recovered']; ?></td>
                                       <td><?php echo $car_loan['bill_raised']; ?></td>
                                       <td><?php echo $car_loan['payment_received']; ?></td>
-                                      
-
+                                      <td><?php echo $car_loan['regularise_date']!= '0000-00-00'? $car_loan['regularise_date'] : '-'; ?></td>
+                                      <td><?php echo $car_loan['full_payment_paid_on']!= '0000-00-00'? $car_loan['full_payment_paid_on'] : '-'; ?></td>
                                       
                                       <?php 
                                           $car_loan_approved = $car_loan['approved'];
@@ -818,7 +856,6 @@
                                              $status_value = 'Complete';
                                           } 
                                           else if($status == '0'){
-                                            
                                              $btn_icon = "<i class='fas fa-spinner fa-spin icon-mr-5'></i>";
                                              $btn_class = '';
                                              $status_value = 'In Progress';
@@ -827,11 +864,11 @@
 
                                       <td>
                                           <div class="custom-action-dropdown">
-                                            <div class="open-custom-dropdown <?php echo $btn_class; ?>">
+                                            <div class="open-custom-dropdown <?php echo $btn_class; ?>" id="open-custom-dropdown<?php echo $serial_no; ?>">
                                               <?php echo $btn_icon; ?>
                                               <?php echo $status_value; ?>
                                             </div>
-                                            <div class="custom-dropdown-operations">
+                                            <div class="custom-dropdown-operations" id="custom-dropdown-operations<?php echo $serial_no; ?>">
                                             <!-- check case status -->
 
                                             <?php if($status != '1' && $status != '2'){ ?> <!-- case completed or set as withdraw hide option -->
@@ -846,9 +883,46 @@
                                                   Edit Case
                                                 </a>
                                                 <?php } ?>
+                                                <!-- Add Status -->
+                                                <a href="car-loan-status.php?cl_cid=<?php echo $encoded_cid; ?>" target="_blank">
+                                                  Add Status
+                                                </a>
 
                                             <?php } ?>
 
+                                                <!-- View Case status -->
+                                                <?php 
+                                                  $sql = "SELECT case_id FROM car_loan_status WHERE case_id = '$car_loan[car_loan_cid]'";
+                                                  $car_loan_status = $conn->query($sql);
+                                                  if($car_loan_status->num_rows > 0){
+                                                ?>
+                                                <label class="view-case-status">
+                                                  View Status
+                                                </label>
+                                                <script>
+                                                    $('.view-case-status').eq(<?php echo $index; ?>).click(() => {
+                                                      let case_id = '<?php echo $encoded_cid; ?>'
+                                                      let reqData = {
+                                                        case_id
+                                                      }
+                                                      let url = 'retrieve-car-loan-status.php'
+                                                      $.ajax({
+                                                          url,
+                                                          type : 'POST',
+                                                          dataType : 'html',
+                                                          success : (msg) => {
+                                                          },
+                                                          complete : (res) => {
+                                                              $('.comments-section').html(res.responseText)
+                                                          },
+                                                          data : reqData
+                                                      })
+                                                    })
+                                                </script>
+                                                <?php 
+                                                    $index += 1;
+                                                  }
+                                                ?>
                                                 
 
                                               <?php if($logged_in_user_role){ ?> <!-- only admin and privileged user --> 
@@ -946,47 +1020,43 @@
                                           <!-- custom action dropdown script -->
 
                                           <script>
-                                          $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).click(() => {
-                                            
-                                              $(".custom-dropdown-operations").eq(<?php echo $serial_no-1; ?>).toggle()
+                                          $("#open-custom-dropdown<?php echo $serial_no; ?>").click(() => {
+                                              //console.log('Details.....................')
+                                              $("#custom-dropdown-operations<?php echo $serial_no; ?>").toggle()
                                               var scrollTop = $('.table-container').scrollTop();
                                               // get the top offset of the dropdown (distance from top of the page)
-                                              var topOffset = $(".open-custom-dropdown").eq(<?php echo $serial_no-1; ?>).offset().top;
-                                              // calculate the dropdown offset relative to window position
-                                              //console.log('table scroll' + scrollTop)
-                                              topOffset = topOffset - 115
-                                              console.log('toggle button distance from container top : ' + topOffset)
-                                              var relativeOffset = topOffset-scrollTop;
-                                              //console.log('relative height : ' + relativeOffset)
-                                              // get the window height
-                                              var windowHeight = $('.table-container').height();
-                                              console.log('table-container-height : ' + windowHeight)
+                                              var buttonTopOffset = $("#open-custom-dropdown<?php echo $serial_no; ?>").offset().top;
+                                              console.log('button top offset : ' + buttonTopOffset)
+                                              var windowHeight = window.screen.height
+                                              console.log('Window height : ' + windowHeight)
+                                              var tableTopOffset = $('#car-loan-table_wrapper').offset().top - 55
+                                              console.log('Table offset : ' + tableTopOffset)
+
                                               // if the relative offset is greater than half the window height,
                                               // reverse the dropdown.
                                               $('.custom-dropdown-overlay').toggle()
-                                              let dropdownBox = document.getElementsByClassName('custom-dropdown-operations')[<?php echo $serial_no-1; ?>]
+                                              let dropdownBox = document.getElementById('custom-dropdown-operations<?php echo $serial_no; ?>')
                                               console.log('Dropdown menu height : ' + dropdownBox.offsetHeight)
-                                              console.log('available space : '+ (windowHeight - topOffset))
+                                              //console.log('available space : '+ (windowHeight - topOffset))
                                               let containerHeight = windowHeight
-                                              let spaceAbove = topOffset
-                                              let spaceBelow = containerHeight - spaceAbove
-                                              console.log('container-height : ' + containerHeight)
+                                              let spaceAbove = buttonTopOffset - tableTopOffset
+                                              let spaceBelow = windowHeight - buttonTopOffset - 220
+                                              //console.log('container-height : ' + containerHeight)
                                               console.log('space above : ' + spaceAbove)
                                               console.log('space below : ' + spaceBelow)
 
                                               let dropdownMenuHeight = dropdownBox.offsetHeight
-                                              if(dropdownMenuHeight <= spaceBelow + 50){
+                                              console.log('################################################')
+                                              console.log('################################################')
+                                              if(dropdownMenuHeight <= spaceBelow-100){
                                                 dropdownBox.style.top = '0px'
-                                                console.log('space available below')
+                                                //console.log('space available below')
                                               }
-                                              else if(dropdownMenuHeight <= spaceAbove){
+                                              else {
                                                 dropdownBox.style.top = '-' + (dropdownMenuHeight - 35) + 'px'
-                                                console.log('space available above')
+                                                //console.log('space available above')
                                               }
-                                              else{
-                                                dropdownBox.style.top = '-' + (spaceAbove-150) + 'px'
-                                                console.log('not available')
-                                              }
+
 
                                               
                                           });
@@ -1007,6 +1077,7 @@
                         <?php } ?>
                     <?php } ?>
                     </div>
+                    <div class="ht-50"></div>
 
                   </div>
                 </div>
@@ -1136,6 +1207,11 @@
   })
 </script>
 
+<script>
+  document.getElementById('close-case-status-container').addEventListener('click', ()=>{
+    document.getElementsByClassName('show-case-status')[0].style.display = 'none';
+  })
+</script>
 <!-- search script  -->
 <script>
   document.getElementById('close-search-popup').addEventListener('click', ()=>{
@@ -1156,15 +1232,16 @@
   })
 </script>
 
+
 <!-- scroll table event -->
 
 <script>
   document.getElementById('scroll-to-left-end-of-div').addEventListener('click', ()=>{
-    let tableContainer = document.getElementsByClassName('table-container')[0]
+    let tableContainer = document.getElementsByClassName('table-container-car-loan')[0]
     tableContainer.scroll(0, tableContainer.scrollTop)
   })
   document.getElementById('scroll-to-right-end-of-div').addEventListener('click', ()=>{
-    let tableContainer = document.getElementsByClassName('table-container')[0]
+    let tableContainer = document.getElementsByClassName('table-container-car-loan')[0]
     let tableContainerWidth = tableContainer.scrollWidth
     tableContainer.scroll(tableContainerWidth, tableContainer.scrollTop)
   })
@@ -1176,8 +1253,9 @@
 <script>
   $(document).ready( function () {
     $('#car-loan-table').DataTable({
-      pageLength : 5,
-      lengthMenu: [[3, 5, 10, 20, -1], [3, 5, 10, 20, 'All']]
+      pageLength : 10,
+      lengthMenu: [[10, 20, -1], [10, 20, 'All']]
     });
-  } );
+  });
+
 </script>

@@ -54,9 +54,34 @@
         $search_user_error = 'Search user by name...';
     }
 
+    $sql = "SELECT user_id FROM user_registration WHERE user_role = '2' AND user_permitted = '1'";
+    $result = $conn->query($sql);
+    $total_admin = $result->num_rows;
+  
+    $sql = "SELECT user_id FROM user_registration WHERE user_role = '1' AND user_permitted = '1'";
+    $result = $conn->query($sql);
+    $total_privileged_user = $result->num_rows;
+  
+    $sql = "SELECT user_id FROM user_registration WHERE user_role = '0' AND user_permitted = '1'";
+    $result = $conn->query($sql);
+    $total_data_operator = $result->num_rows;
+    
     $sql = "SELECT * FROM user_registration WHERE user_permitted = '1' ORDER BY user_role DESC";
+    if(isset($_GET['show'])){
+      $user_role = cleanInput($_GET['show']);
+      if($user_role == '0'){
+        $sql = "SELECT * FROM user_registration WHERE user_role = '0' AND user_permitted = '1' ORDER BY user_role DESC"; // data operator
+      }
+      else if($user_role == '1'){
+        $sql = "SELECT * FROM user_registration WHERE user_role = '1' AND user_permitted = '1' ORDER BY user_role DESC"; // privileged user
+      }
+      else if($user_role == '2'){
+        $sql = "SELECT * FROM user_registration WHERE user_role = '2' AND user_permitted = '1' ORDER BY user_role DESC"; // admin
+      }
+    }
     $result = $conn->query($sql);
     $str_len_search = strlen($search_user);
+
     while($row = $result->fetch_assoc()){
       array_push($temp_array, $row);
       $control = 1;
@@ -75,9 +100,10 @@
         array_push($users_array, $row);
       }
     }
+    
     if(sizeof($users_array) == 0){
       $users_array = $temp_array;
-      $_SESSION['error_msg'] = 'No user found with the given name';
+      $_SESSION['error_msg'] = 'Nothing here matches your search';
     }
     else if($search_user != '' && !isset($_REQUEST['userCreated'])){
       $_SESSION['success_msg'] = 'Search result for `'.$search_user.'` &nbsp;&nbsp; <a href="view-users.php">View all users</a>';
@@ -114,13 +140,27 @@
                   <div class="card-body">
 
 
+                  <?php require 'includes/flash-message.php'; ?>
                       <?php 
                         if($db_error == ''){
                           if(sizeof($users_array) > 0){
                             ?>
-                            <h4 class="card-title"><i class="fas fa-users mr-1"></i> Users</h4>
+                            <h4 class="card-title"><i class="fas fa-users mr-1"></i> users</h4>
+                            <div class="flex-container mb-2">
+                              <?php if($total_admin > 0){ ?>
+                              <a class="text-deco-none mr-2" href="view-users.php?show=2"><button class="btn btn-primary btn-setting ml-0">Admin</button></a>
+                              <?php } ?>
+                              <?php if($total_privileged_user > 0){ ?>
+                              <a class="text-deco-none mr-2" href="view-users.php?show=1"><button class="btn btn-primary btn-setting ml-0">Privileged User</button></a>
+                              <?php } ?>
+                              <?php if($total_data_operator){ ?>
+                              <a class="text-deco-none mr-2" href="view-users.php?show=0"><button class="btn btn-primary btn-setting ml-0">Data Operator</button></a>
+                              <?php } ?>
+                              <?php if($total_privileged_user !=0 || $total_data_operator != '0'){ ?>
+                              <a class="text-deco-none mr-2" href="view-users.php"><button class="btn btn-primary btn-setting ml-0">All</button></a>
+                              <?php } ?>
+                            </div>
                             <!-- Flash Message  -->
-                            <?php require 'includes/flash-message.php'; ?>
                             <form action="" method="POST">
                               <div class="form-group mb-0">
                                 <div class="row">
