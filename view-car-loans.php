@@ -771,6 +771,7 @@
                                   <th>Part Amount ₹</th>
                                   <th>Amount Recovered ₹</th>
                                   <th>Bill Raised ₹</th>
+                                  <th>Payment Received On</th>
                                   <th>Payment Received ₹</th>
                                   <th>Regularise Date</th>
                                   <th>Full Payment Paid on</th>
@@ -837,6 +838,7 @@
                                       <td><?php echo $car_loan['part_amount']; ?></td>
                                       <td><?php echo $car_loan['amount_recovered']; ?></td>
                                       <td><?php echo $car_loan['bill_raised']; ?></td>
+                                      <td><?php echo $car_loan['payment_received_on']!= '0000-00-00'? $car_loan['payment_received_on'] : '-'; ?></td>
                                       <td><?php echo $car_loan['payment_received']; ?></td>
                                       <td><?php echo $car_loan['regularise_date']!= '0000-00-00'? $car_loan['regularise_date'] : '-'; ?></td>
                                       <td><?php echo $car_loan['full_payment_paid_on']!= '0000-00-00'? $car_loan['full_payment_paid_on'] : '-'; ?></td>

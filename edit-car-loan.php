@@ -54,6 +54,7 @@
                 $employer_address = $car_loan['employer_address'];
                 $amount_recovered = $car_loan['amount_recovered'];
                 $bill_raised = $car_loan['bill_raised'];
+                $payment_received_on = $car_loan['payment_received_on'];
                 $payment_received = $car_loan['payment_received'];
                 $type_of_loan = $car_loan['type_of_loan'];
                 $type_of_security = $car_loan['type_of_security'];
@@ -131,6 +132,7 @@
     $amount_recovered_error = '';
     $bill_raised_error = '';
     $payment_received_error = '';
+    $payment_received_on_error = '';
     $auction_date_error = '';
     $auction_amount_error = '';
     $type_of_security_error = '';
@@ -557,6 +559,27 @@
         //     $payment_received_error = 'Required';
         //     $control = 0;
         // }
+
+        if($type_of_loan != '1' && $type_of_loan != '2' && $type_of_loan != '3' && $type_of_loan != '4' && $type_of_loan != '5'){
+            $type_of_loan_error = 'Required';
+            $control = 0;
+        }
+        else{
+            if($type_of_loan == '1')
+                $type_of_loan_value = 'Type 1';
+            
+            if($type_of_loan == '2')
+                $type_of_loan_value = 'Type 2';
+
+            if($type_of_loan == '3')
+                $type_of_loan_value = 'Type 3';
+                
+            if($type_of_loan == '4')
+            $type_of_loan_value = 'Type 4';
+            
+            if($type_of_loan == '3')
+                $type_of_loan_value = 'Type 5';
+        }
         
         
         if($control){ // Insert data into database control = 1
@@ -597,8 +620,9 @@
             employer_address = '$employer_address', 
             amount_recovered = '$amount_recovered', 
             bill_raised = '$bill_raised', 
+            payment_received_on = '$payment_received_on',
             payment_received = '$payment_received', 
-            type_of_loan = '$type_of_loan', 
+            type_of_loan = '$type_of_loan_value', 
             type_of_security = '$type_of_security', 
             last_amount_paid_on = '$last_amount_paid_on', 
             disburse_date = '$disburse_date', 
@@ -629,6 +653,9 @@
             $_SESSION['note_msg'] = 'Fill required fields and make sure they are valid';
         }
         
+    }
+    else {
+        $_SESSION['error_msg'] = 'Fuck';
     }
 ?>
 
@@ -691,9 +718,11 @@
                                     </div>
                                     <select class="form-control form-input" name="typeOfLoan" >
                                         <option selectecd>Choose</option>
-                                        <option value="1" <?php if($type_of_loan == '1') echo 'Selected'; ?>>New NPA Cases upto Rs 20 Lac</option>
-                                        <option value="2" <?php if($type_of_loan == '2') echo 'Selected'; ?>>New NPA Cases From Rs. 20 Lac + to Rs. 10 Crore</option>
-                                        <option value="3" <?php if($type_of_loan == '3') echo 'Selected'; ?>>New NPA Cases Over 10 Crore</option>
+                                        <option value="1" <?php if($type_of_loan == '1') echo 'Selected'; ?>>Type 1</option>
+                                        <option value="2" <?php if($type_of_loan == '2') echo 'Selected'; ?>>Type 2</option>
+                                        <option value="3" <?php if($type_of_loan == '3') echo 'Selected'; ?>>Type 3</option>
+                                        <option value="1" <?php if($type_of_loan == '4') echo 'Selected'; ?>>Type 4</option>
+                                        <option value="2" <?php if($type_of_loan == '5') echo 'Selected'; ?>>Type 5</option>
                                     </select>
                                     </div>
                                     <div class="form-input-response">
@@ -1277,7 +1306,7 @@
                                             <i class="fas fa-clock"></i>
                                         </span>
                                     </div>
-                                    <input type="date" class="form-control form-input" id="auction-date" name="auctionDate">
+                                    <input type="date" class="form-control form-input" id="auction-date" name="auctionDate" value="<?php echo $auction_date; ?>">
                                     </div>
                                     <div class="form-input-response">
                                         <?php echo $auction_date_error; ?>
@@ -1405,6 +1434,23 @@
                                         <?php echo $payment_received_error; ?>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputCity1">Payment Received on</label>
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-gradient-primary text-white br">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="payment-received-on" type="date" class="form-control form-input" name="paymentReceivedOn">
+                                    </div>
+                                    <div class="form-input-response">
+                                        <?php echo $payment_received_on_error; ?>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById('payment-received-on').defaultValue = '<?php echo $payment_received_on; ?>'
+                                </script>
                             </div>
                         </div>
                         <h4 class="form-part-heading mb-3">Regularise Account </h4>

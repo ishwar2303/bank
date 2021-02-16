@@ -524,13 +524,34 @@
         //     $payment_received_error = 'Required';
         //     $control = 0;
         // }
+
+        if($type_of_loan != '1' && $type_of_loan != '2' && $type_of_loan != '3' && $type_of_loan != '4' && $type_of_loan != '5'){
+            $type_of_loan_error = 'Required';
+            $control = 0;
+        }
+        else{
+            if($type_of_loan == '1')
+                $type_of_loan_value = 'Type 1';
+            
+            if($type_of_loan == '2')
+                $type_of_loan_value = 'Type 2';
+
+            if($type_of_loan == '3')
+                $type_of_loan_value = 'Type 3';
+                
+            if($type_of_loan == '4')
+            $type_of_loan_value = 'Type 4';
+            
+            if($type_of_loan == '3')
+                $type_of_loan_value = 'Type 5';
+        }
         
         if($control){ // Insert data into database control = 1
             $residence_address = str_replace("\n", "<br/>", $residence_address);
             $office_address = str_replace("\n", "<br/>", $office_address);
             $employer_address = str_replace("\n", "<br/>", $employer_address);
             $co_applicant_address = str_replace("\n", "<br/>", $co_applicant_address);
-            $sql = "INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `type_of_loan`, `type_of_security`, `last_amount_paid_on`, `disburse_date`, `mature_date`, `seizure_date`, `auction_date`, `auction_amount`, `recovery_date`, `full_amount`, `part_amount`, `regularise_date`, `full_payment_paid_on`, `case_status`) VALUES (NULL, '$case_date', '$bank_name', '$home_branch', '$account_number', '$customer_name', '$npa_date', '$outstanding', '$arr_co_nd', '$notice13_sent_on', '$principal_outstanding', '$bounce_charges', '$overdue_charges', '$other_charges', '$loan_emi_amount', '$no_of_emi_outstanding', '$reg_no', '$residence_address', '$residence_contact_no', '$office_address', '$office_contact_no', '$make', '$engine_no', '$chassis_no', '$tenure', '$co_applicant_name', '$co_applicant_mobile', '$co_applicant_address', '$employer_name', '$employer_mobile', '$employer_address', '$amount_recovered', '$bill_raised', '$payment_received', '$type_of_loan', '$type_of_security', '$last_amount_paid_on', '$disburse_date', '$mature_date', '$seizure_date', '$auction_date', '$auction_amount', '$recovery_date', '$full_amount', '$part_amount', '$regularise_date', '$full_payment_paid_on', '0')";
+            $sql = "INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received`, `type_of_loan`, `type_of_security`, `last_amount_paid_on`, `disburse_date`, `mature_date`, `seizure_date`, `auction_date`, `auction_amount`, `recovery_date`, `full_amount`, `part_amount`, `regularise_date`, `full_payment_paid_on`, `case_status`) VALUES (NULL, '$case_date', '$bank_name', '$home_branch', '$account_number', '$customer_name', '$npa_date', '$outstanding', '$arr_co_nd', '$notice13_sent_on', '$principal_outstanding', '$bounce_charges', '$overdue_charges', '$other_charges', '$loan_emi_amount', '$no_of_emi_outstanding', '$reg_no', '$residence_address', '$residence_contact_no', '$office_address', '$office_contact_no', '$make', '$engine_no', '$chassis_no', '$tenure', '$co_applicant_name', '$co_applicant_mobile', '$co_applicant_address', '$employer_name', '$employer_mobile', '$employer_address', '$amount_recovered', '$bill_raised', '$payment_received', '$type_of_loan_value', '$type_of_security', '$last_amount_paid_on', '$disburse_date', '$mature_date', '$seizure_date', '$auction_date', '$auction_amount', '$recovery_date', '$full_amount', '$part_amount', '$regularise_date', '$full_payment_paid_on', '0')";
             if($conn->query($sql) === TRUE){ 
                 $case_id = $conn->insert_id;
                 $sql = "INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `operation_id`, `timestamp`) VALUES (NULL, '2', '$case_id', '$_SESSION[user_id]', '1', '$timestamp')";
@@ -605,9 +626,11 @@
                                     </div>
                                     <select class="form-control form-input" name="typeOfLoan" >
                                         <option selectecd>Choose</option>
-                                        <option value="1" <?php if($type_of_loan == '1') echo 'Selected'; ?>>New NPA Cases upto Rs 20 Lac</option>
-                                        <option value="2" <?php if($type_of_loan == '2') echo 'Selected'; ?>>New NPA Cases From Rs. 20 Lac + to Rs. 10 Crore</option>
-                                        <option value="3" <?php if($type_of_loan == '3') echo 'Selected'; ?>>New NPA Cases Over 10 Crore</option>
+                                        <option value="1" <?php if($type_of_loan == '1') echo 'Selected'; ?>>Type 1</option>
+                                        <option value="2" <?php if($type_of_loan == '2') echo 'Selected'; ?>>Type 2</option>
+                                        <option value="3" <?php if($type_of_loan == '3') echo 'Selected'; ?>>Type 3</option>
+                                        <option value="1" <?php if($type_of_loan == '4') echo 'Selected'; ?>>Type 4</option>
+                                        <option value="2" <?php if($type_of_loan == '5') echo 'Selected'; ?>>Type 5</option>
                                     </select>
                                     </div>
                                     <div class="form-input-response">
