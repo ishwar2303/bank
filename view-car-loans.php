@@ -114,6 +114,7 @@
     }
 
     $print_set = false;
+    $loan_type = '0';
     // filter variables
     $select_bank = '';
     $cases_date_from = '';
@@ -230,6 +231,15 @@
         $sql_2 = "SELECT * FROM car_loan WHERE customer_name = '$defaulter_name'";
         $sql_3 = "SELECT * FROM car_loan WHERE bank_name = '$select_bank' AND customer_name = '$defaulter_name'";
         $sql_4 = "SELECT * FROM car_loan";
+        if(isset($_GET['loan_type'])){
+          $loan_type = cleanInput($_GET['loan_type']);
+          if($loan_type == '1' || $loan_type == '2' || $loan_type == '3' || $loan_type == '4' || $loan_type == '5'){
+            $sql_1 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND type_of_loan = '$loan_type'";
+            $sql_2 = "SELECT * FROM home_loan WHERE borrower_name = '$defaulter_name' AND type_of_loan = '$loan_type'";
+            $sql_3 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND borrower_name = '$defaulter_name' AND type_of_loan='$loan_type'";
+            $sql_4 = "SELECT * FROM home_loan WHERE type_of_loan = '$loan_type'";
+          }
+        }
         if($select_bank_set && !$defaulter_name_set && !$cases_from_set && !$cases_upto_set){ // only bank B
           $result = $conn->query($sql_1);
           if($result->num_rows > 0){
@@ -470,6 +480,12 @@
     }
     if($error_occured || !$control){
       $sql = "SELECT * FROM car_loan";
+      if(isset($_GET['loan_type'])){
+        $loan_type = cleanInput($_GET['loan_type']);
+        if($loan_type == '1' || $loan_type == '2' || $loan_type == '3' || $loan_type == '4' || $loan_type == '5'){
+          $sql = "SELECT * FROM car_loan WHERE type_of_loan = '$loan_type'";
+        }
+      }
       $result = $conn->query($sql);
       if($conn->error != ''){
           $_SESSION['error_msg'] = 'Something went wrong!';
@@ -666,6 +682,45 @@
                             <i class="mdi mdi-file-find"></i> 
                             Search
                         </button>
+                        <button id="cases-search-dropdown-btn" class="btn btn-primary btn-setting">
+                          <i class="mdi mdi-filter-outline mr-2"></i>
+                          <?php 
+                            if($loan_type == '0')
+                              echo 'Select Case Type';
+                            else if($loan_type == '1')
+                              echo 'Type 1';
+                            else if($loan_type == '2')
+                              echo 'Type 2';
+                            else if($loan_type == '3')
+                              echo 'Type 3';
+                            else if($loan_type == '4')
+                              echo 'Type 4';
+                            else if($loan_type == '5')
+                              echo 'Type 5';
+                          ?>
+                          <div class="theme-dropdown">
+                            <i class="fas fa-caret-up caret-design-dropdown" style="font-size: 25px;"></i>
+                            <div>
+                              <a href="view-car-loans.php?loan_type=1">Type 1</a>
+                              <a href="view-car-loans.php?loan_type=2">Type 2</a>
+                              <a href="view-car-loans.php?loan_type=3">Type 3</a>
+                              <a href="view-car-loans.php?loan_type=4">Type 4</a>
+                              <a href="view-car-loans.php?loan_type=5">Type 5</a>
+                              <a href="view-car-loans.php?loan_type=0">All Cases</a>
+                            </div>
+                          </div>
+                        </button>
+                        <div class="theme-dropdown-overlay"></div>
+                        <script>
+                          $('#cases-search-dropdown-btn').click(() => {
+                            $('.theme-dropdown').toggle()
+                            $('.theme-dropdown-overlay').toggle()
+                          })
+                          $('.theme-dropdown-overlay').click(() => {
+                            $('.theme-dropdown').toggle()
+                            $('.theme-dropdown-overlay').toggle()
+                          })
+                        </script>
                         <a id="refresh-loans" href="view-car-loans.php">
                           <button  class="btn btn-primary btn-setting">
                               <i class="mdi mdi-reload mr-1"></i> 
@@ -801,7 +856,27 @@
                                       <td><?php echo $car_loan['account_number']; ?></td>
                                       <td class="borrower text-capitalize"><?php echo $car_loan['customer_name']; ?></td>
                                       <td><?php echo $car_loan['npa_date']!= '0000-00-00'? $npa_date->format('d-m-Y') : '-'; ?></td>
-                                      <td><?php echo $car_loan['type_of_loan']; ?></td>
+                                      <td>
+                                      <?php
+                                        $type_of_loan = $car_loan['type_of_loan'];
+                                        if($type_of_loan == '1')
+                                            $type_of_loan_value = 'Type 1';
+                                        
+                                        if($type_of_loan == '2')
+                                            $type_of_loan_value = 'Type 2';
+
+                                        if($type_of_loan == '3')
+                                            $type_of_loan_value = 'Type 3';
+                                            
+                                        if($type_of_loan == '4')
+                                            $type_of_loan_value = 'Type 4';
+                                        
+                                        if($type_of_loan == '3')
+                                            $type_of_loan_value = 'Type 5';
+
+                                        echo $type_of_loan_value;
+                                      ?>
+                                      </td>
                                       <td><?php echo $car_loan['type_of_security']; ?></td>
                                       <td><?php echo $car_loan['outstanding']!= '0000-00-00'? $car_loan['outstanding'] : '-'; ?></td>
                                       <td><?php echo $car_loan['last_amount_paid_on']!= '0000-00-00'? $car_loan['last_amount_paid_on'] : '-'; ?></td>

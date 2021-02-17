@@ -143,7 +143,7 @@
 
 
     $print_set = false;
-
+    $npa_case = '0';
     // filter variables
     $select_bank = '';
     $cases_date_from = '';
@@ -307,11 +307,20 @@
           $print_set = true;
 
         $hl_cid = '';
+          
         $sql_1 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank'";
         $sql_2 = "SELECT * FROM home_loan WHERE borrower_name = '$defaulter_name'";
         $sql_3 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND borrower_name = '$defaulter_name'";
         $sql_4 = "SELECT * FROM home_loan";
-
+        if(isset($_GET['npa_case'])){
+          $npa_case = cleanInput($_GET['npa_case']);
+          if($npa_case == '1' || $npa_case == '2' || $npa_case == '3'){
+            $sql_1 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND npa_case='$npa_case'";
+            $sql_2 = "SELECT * FROM home_loan WHERE borrower_name = '$defaulter_name' AND npa_case='$npa_case'";
+            $sql_3 = "SELECT * FROM home_loan WHERE bank_name = '$select_bank' AND borrower_name = '$defaulter_name' AND npa_case='$npa_case'";
+            $sql_4 = "SELECT * FROM home_loan WHERE npa_case='$npa_case'";
+          }
+        }
         // date of hearing from
         if($date_of_hearing_from_set && !$date_of_hearing_upto_set){
           
@@ -1461,6 +1470,12 @@
     }
     if($error_occured || !$control){
       $sql = "SELECT * FROM home_loan";
+      if(isset($_GET['npa_case'])){
+        $npa_case = cleanInput($_GET['npa_case']);
+        if($npa_case == '1' || $npa_case == '2' || $npa_case == '3'){
+          $sql = "SELECT * FROM home_loan WHERE npa_case = '$npa_case'";
+        }
+      }
       $result = $conn->query($sql);
       if($conn->error != ''){
           $_SESSION['error_msg'] = 'Something went wrong!';
@@ -1695,6 +1710,39 @@
                             <i class="mdi mdi-file-find"></i> 
                             Search
                         </button>
+                        <button id="cases-search-dropdown-btn" class="btn btn-primary btn-setting">
+                          <i class="mdi mdi-filter-outline mr-2"></i>
+                          <?php 
+                            if($npa_case == '0')
+                              echo 'Filter by NPA Cases';
+                            else if($npa_case == '1')
+                              echo 'Upto Rs 20 Lac';
+                            else if($npa_case == '2')
+                              echo 'From Rs. 20 Lac + to Rs. 10 Crore';
+                            else if($npa_case == '3')
+                              echo 'Over 10 Crore';
+                          ?>
+                          <div class="theme-dropdown">
+                            <i class="fas fa-caret-up caret-design-dropdown" style="font-size: 25px;"></i>
+                            <div>
+                              <a href="view-home-loans.php?npa_case=1">Upto Rs 20 Lac</a>
+                              <a href="view-home-loans.php?npa_case=2">From Rs. 20 Lac + to Rs. 10 Crore</a>
+                              <a href="view-home-loans.php?npa_case=3">Over 10 Crore</a>
+                              <a href="view-home-loans.php?npa_case=0">All NPA Cases</a>
+                            </div>
+                          </div>
+                        </button>
+                        <div class="theme-dropdown-overlay"></div>
+                        <script>
+                          $('#cases-search-dropdown-btn').click(() => {
+                            $('.theme-dropdown').toggle()
+                            $('.theme-dropdown-overlay').toggle()
+                          })
+                          $('.theme-dropdown-overlay').click(() => {
+                            $('.theme-dropdown').toggle()
+                            $('.theme-dropdown-overlay').toggle()
+                          })
+                        </script>
                         <a id="refresh-loans" href="view-home-loans.php">
                           <button  class="btn btn-primary btn-setting">
                               <i class="mdi mdi-reload mr-1"></i> 

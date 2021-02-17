@@ -14748,7 +14748,7 @@ position: relative;
 .form-part-heading{
   color: #3498db;
 }
-.custom-dropdown-overlay{
+.custom-dropdown-overlay, .theme-dropdown-overlay{
   
   display: flex;
   justify-content: center;
@@ -15244,4 +15244,48 @@ table.dataTable thead th, table.dataTable thead td{
   .ht-50{
     height: 0px;
   }
+}
+#cases-search-dropdown-btn{
+  position: relative;
+}
+.theme-dropdown{
+  position: absolute;
+  right: -1px;
+  top: 42px;
+  display: none;
+  background: white;
+  width: 200px;
+  border-radius: 5px;
+  z-index: 10;
+  border: 0.5px solid #c197ff;
+}
+
+.theme-dropdown i{
+  font-size: 0.5rem;
+}
+.theme-dropdown > div{
+  
+  display: flex;
+  flex-direction: column;
+}
+.theme-dropdown  a{
+  color: #9a55ff;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 0.5px solid #c197ff;
+}
+
+.theme-dropdown  a:last-child{
+  border-bottom: none;
+
+}
+.theme-dropdown  a:hover{
+  text-decoration: none;
+  background: rgb(154, 85, 255, 0.12);
+}
+.caret-design-dropdown{
+  position: absolute;
+  right: 15px;
+  top: -16px;
+  font-size : 25px;
 }

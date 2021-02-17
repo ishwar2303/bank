@@ -529,22 +529,6 @@
             $type_of_loan_error = 'Required';
             $control = 0;
         }
-        else{
-            if($type_of_loan == '1')
-                $type_of_loan_value = 'Type 1';
-            
-            if($type_of_loan == '2')
-                $type_of_loan_value = 'Type 2';
-
-            if($type_of_loan == '3')
-                $type_of_loan_value = 'Type 3';
-                
-            if($type_of_loan == '4')
-            $type_of_loan_value = 'Type 4';
-            
-            if($type_of_loan == '3')
-                $type_of_loan_value = 'Type 5';
-        }
         
         if($control){ // Insert data into database control = 1
             $residence_address = str_replace("\n", "<br/>", $residence_address);

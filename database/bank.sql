@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2021 at 11:22 PM
+-- Generation Time: Feb 17, 2021 at 08:15 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -143,7 +143,7 @@ CREATE TABLE `car_loan` (
 --
 
 INSERT INTO `car_loan` (`car_loan_cid`, `case_date`, `bank_name`, `home_branch`, `account_number`, `customer_name`, `npa_date`, `outstanding`, `arr_co_nd`, `notice13_sent_on`, `principal_outstanding`, `bounce_charges`, `overdue_charges`, `other_charges`, `loan_emi_amount`, `no_of_emi_outstanding`, `reg_no`, `residence_address`, `residence_contact_no`, `office_address`, `office_contact_no`, `make`, `engine_no`, `chassis_no`, `tenure`, `co_applicant_name`, `co_applicant_mobile`, `co_applicant_address`, `employer_name`, `employer_mobile`, `employer_address`, `amount_recovered`, `bill_raised`, `payment_received_on`, `payment_received`, `type_of_loan`, `type_of_security`, `last_amount_paid_on`, `disburse_date`, `mature_date`, `seizure_date`, `auction_date`, `auction_amount`, `recovery_date`, `full_amount`, `part_amount`, `regularise_date`, `full_payment_paid_on`, `approved`, `case_status`) VALUES
-(13, '2021-02-11', 'SBI', 'Mukherjee Nagar', '1811003030232', 'Ishwar Baisla', '2021-02-13', '2021-02-13', '2021-02-20', '0000-00-00', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 0, '0000-00-00', 0, 0, '0000-00-00', '0000-00-00', 0, 0),
+(13, '2021-02-11', 'SBI', 'Mukherjee Nagar', '1811003030232', 'Ishwar Baisla', '2021-02-13', '2021-02-13', '2021-02-20', '0000-00-00', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '2', '', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', '0000-00-00', 0, '0000-00-00', 0, 0, '0000-00-00', '0000-00-00', 0, 0),
 (14, '2021-02-01', 'SBI', 'Mukherjee Nagar', '18110030303232', 'Ishwar Baisla', '2021-02-02', '2021-02-03', '2021-02-07', '2021-02-08', '1000', '2000', '3000', '4000', '5000', 20, '1811003030232', 'wazirabad village', '9015523501', 'mukkherjee nagar', '9821671707', '', 'FAFA1421452', 'DL SP 4907', '56', 'Tapas Baranwal', '9071523566', 'Timarpur', 'Abhishek', '9868949631', 'Gautham city', '20000', '30000', '0000-00-00', '10000', '1', 'security type here...', '2021-02-04', '2021-02-05', '2021-02-06', '2021-02-09', '2021-02-10', 850000, '2021-02-11', 959999.999907, 9000, '2021-02-12', '2021-02-13', 0, 0);
 
 -- --------------------------------------------------------
@@ -166,8 +166,7 @@ CREATE TABLE `car_loan_remarks` (
 INSERT INTO `car_loan_remarks` (`remark_id`, `case_id`, `remark_date`, `remark`) VALUES
 (61, 18, '2021-01-29', 'Perfect'),
 (64, 13, '2021-02-11', 'SBI Car loan remark'),
-(65, 13, '2021-02-11', 'Another remark'),
-(66, 14, '2021-02-15', 'Remark added');
+(65, 13, '2021-02-11', 'Another remark');
 
 -- --------------------------------------------------------
 
@@ -591,7 +590,8 @@ INSERT INTO `user_activity` (`activity_id`, `loan`, `case_id`, `user_id`, `opera
 (143, 1, 13, 21, 12, '21-02-15 10:21:06pm'),
 (144, 1, 13, 21, 10, '21-02-15 10:21:12pm'),
 (145, 1, 13, 21, 12, '21-02-15 10:21:20pm'),
-(146, 1, 13, 21, 10, '21-02-15 10:21:36pm');
+(146, 1, 13, 21, 10, '21-02-15 10:21:36pm'),
+(147, 2, 14, 21, 7, '21-02-18 12:44:19am');
 
 -- --------------------------------------------------------
 
@@ -779,7 +779,7 @@ ALTER TABLE `to_do`
 -- AUTO_INCREMENT for table `user_activity`
 --
 ALTER TABLE `user_activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 
 --
 -- AUTO_INCREMENT for table `user_registration`
