@@ -170,6 +170,9 @@
 
 <script>
   $(document).ready( function () {
-    $('#case-activity-table').DataTable();
+    $('#case-activity-table').DataTable({
+      pageLength : 10,
+      lengthMenu: [[10, 20, 30, -1], [10, 20, 30, 'All']]
+    });
   } );
 </script>

@@ -13636,8 +13636,7 @@ dl {
   margin-bottom: 15px;
   border: 0.5px solid rgba(255,0,0,0.4);
   font-size: 13px;
-  border-left : none;
-  border-right: none;
+  border-radius: 5px;
 }
 .error-msg > span{
   display: flex;
@@ -13665,8 +13664,7 @@ dl {
   margin-bottom: 15px;
   font-size: 13px;
   border : 0.5px solid rgba(0,255,0,0.8); 
-  border-left : none;
-  border-right: none;
+  border-radius: 5px;
 }
 .success-msg > span{
   display: flex;
@@ -13694,8 +13692,7 @@ dl {
   font-size: 13px;
   margin-bottom: 15px;
   border : 0.5px solid rgba(0,0,255,0.4);
-  border-left : none;
-  border-right: none;
+  border-radius: 5px;
 }
 .note-msg > span{
   display: flex;
@@ -15288,4 +15285,24 @@ table.dataTable thead th, table.dataTable thead td{
   right: 15px;
   top: -16px;
   font-size : 25px;
+}
+.login-page-body{
+  background-image: url('login-bg-img.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.login-bg-absoute-img{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  position: fixed;
+  background-size: cover;
+  opacity: 0.5;
+}
+.border-radius-10{
+  border-radius: 10px;
+}
+.login-page-margin{
+  margin-bottom: 150px;
 }

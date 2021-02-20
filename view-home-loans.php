@@ -103,7 +103,7 @@
       $conn->query($sql);
       $sql = "DELETE FROM home_loan_remarks WHERE case_id = '$home_loan_cid'"; // Deleting remarks
       $conn->query($sql);
-      $sql = "DELETE FROM user_activity WHERE case_id = '$home_loan_cid'";
+      $sql = "DELETE FROM user_activity WHERE case_id = '$home_loan_cid' AND loan = '1'";
       $conn->query($sql);
       if($conn->error == ''){
         
@@ -2447,7 +2447,7 @@
   $(document).ready( function () {
     $('#home-loan-table').DataTable({
       pageLength : 10,
-      lengthMenu: [[10, 20, -1], [10, 20, 'All']]
+      lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
     });
   } );
 </script>

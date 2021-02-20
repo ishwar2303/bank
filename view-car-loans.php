@@ -100,7 +100,11 @@
       $car_loan_cid = base64_decode($_GET['cid']);
       $sql = "DELETE FROM car_loan WHERE car_loan_cid = '$car_loan_cid'";
       $conn->query($sql);
+      $sql = "DELETE FROM car_loan_status WHERE case_id = '$car_loan_cid'"; // Deleting status
+      $conn->query($sql);
       $sql = "DELETE FROM car_loan_remarks WHERE case_id = '$car_loan_cid'"; // Deleting remarks
+      $conn->query($sql);
+      $sql = "DELETE FROM user_activity WHERE case_id = '$car_loan_cid' AND loan = '2'";
       $conn->query($sql);
       if($conn->error == ''){
         $_SESSION['success_msg'] = 'Deleted Successfully';
@@ -1331,7 +1335,7 @@
   $(document).ready( function () {
     $('#car-loan-table').DataTable({
       pageLength : 10,
-      lengthMenu: [[10, 20, -1], [10, 20, 'All']]
+      lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
     });
   });
 
