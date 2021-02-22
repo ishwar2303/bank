@@ -18,7 +18,7 @@
     }
 
     function contactValidation($contact_to_validate){
-        $reg_exp = "/^[6789][0-9]{9}$/";
+        $reg_exp = "/^[1-9][0-9]{9}$/";
         return preg_match($reg_exp, $contact_to_validate);
     }
 

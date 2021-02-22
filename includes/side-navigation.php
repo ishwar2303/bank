@@ -1,5 +1,9 @@
 <?php 
 
+  $sql = "SELECT bank_id FROM bank";
+  $banks_res = $conn->query($sql);
+  $total_banks = $banks_res->num_rows;
+  
   $sql = "SELECT home_loan_cid FROM home_loan";
   $home_loans_res = $conn->query($sql);
   $total_home_loan_cases = $home_loans_res->num_rows;
@@ -73,12 +77,14 @@
       </a>
     </li>
     
+    <?php if($total_banks){ ?>
     <li class="nav-item">
       <a class="nav-link" href="view-banks.php  ">
         <span class="menu-title">View Banks</span>
         <i class="fas fa-university menu-icon"></i>
       </a>
     </li>
+    <?php } ?>
     
     <li class="nav-item">
       <a class="nav-link" href="home-loan.php  ">
